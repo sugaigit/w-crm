@@ -19,8 +19,8 @@
                                 <li><a href="/users">社員一覧
                                     </a></li>
                             @endcanany
-                            <li><a href="/customers">顧客一覧</a></li>
-                            <li><a href="/customers/create">顧客新規登録</a></li>
+                            <li><a href="{{ route('customers') }}">顧客一覧</a></li>
+                            <li><a href="{{ route('customers.create') }}">顧客新規登録</a></li>
                         </ul>
                     </div>
                 </div>
