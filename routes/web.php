@@ -18,7 +18,7 @@ Auth::routes();
 Route::get('/', [\App\Http\Controllers\TopPageController::class, 'top_page'])->name('top_page');
 Route::resource('users', \App\Http\Controllers\UserController::class)->middleware('auth');
 Route::get('/roles', \App\Http\Controllers\RoleController::class)->name('ロール一覧')->middleware('auth');
-Route::resource('/customers', \App\Http\Controllers\CustomerController::class);
+Route::resource('customers', \App\Http\Controllers\CustomerController::class);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Auth::routes();
