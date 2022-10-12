@@ -5,7 +5,7 @@
         <div class="card mb-4">
             <div class="card-header">
                     <div class="card-header">顧客新規登録</div>
-                    <form action="/customers" method="POST">
+                    <form action="{{ route('customers.store') }}" method="POST">
                         <ul class="list-group">
                         @csrf
                         <li class="list-group-item list-group-item-action">
