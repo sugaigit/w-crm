@@ -40,7 +40,7 @@
                             <tr>
                                 <td>{{ $customer->id }}</td>
                                 <td>
-                                    <a href="/customers/{{ $customer->id }}">
+                                    <a href="{{ route('customers.edit', $customer->id) }}">
                                         {{ $customer->client_name }}
                                     </a>
                                 </td>
