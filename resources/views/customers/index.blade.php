@@ -36,7 +36,7 @@
                         @foreach($customers as $customer)
                             <tr>
                                 <td>
-                                    <a href="{{ route('customers', $customer->id) }}>
+                                    <a href="{{ route('customers.edit', $customer->id) }}>
                                         {{ $customer->name }}
                                     </a>
                                 </td>
