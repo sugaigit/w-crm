@@ -137,7 +137,10 @@ return [
     'attributes' => [
         'name' => 'ユーザー名',
         'email' => 'メールアドレス',
-        'password' => 'パスワード'
+        'password' => 'パスワード',
+        'client_name' => 'クライアント名',
+        'client_name_kana' => 'クライアント名カナ',
+        'address' => '住所'
     ],
     'required_without_all' => ' :values のどれか一つは入力してください。',
 ];

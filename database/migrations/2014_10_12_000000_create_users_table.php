@@ -20,16 +20,14 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->unsignedInteger('role_id')->default(2);
-            $table->string('company_id');
-            $table->string('memo')->nullable();
+            $table->string('jobs');
             $table->rememberToken();
             $table->timestamps();
         });
-        DB::table('users')->insert(['id' => 1, 'name' => '山田太郎', 'email' => 'sute1@example.com', 'password' => bcrypt('password'), 'role_id' => 1, 'company_id' => 'プラスアド', 'memo' => 'PA部長']);
-        DB::table('users')->insert(['id' => 2, 'name' => '畠山俊二', 'email' => 'sute2@example.com', 'password' => bcrypt('password'), 'role_id' => 2, 'company_id' => 'プラスアド', 'memo' => 'PA一般社員']);
-        DB::table('users')->insert(['id' => 3, 'name' => '伊藤あきら', 'email' => 'sute3@example.com', 'password' => bcrypt('password'), 'role_id' => 2, 'company_id' => 'ヒューマンクリエイト', 'memo' => 'HC一般社員']);
-        DB::table('users')->insert(['id' => 4, 'name' => '財条浩二', 'email' => 'sute4@example.com', 'password' => bcrypt('password'), 'role_id' => 2, 'company_id' => 'ヒューマンクリエイト', 'memo' => 'HC一般社員']);
+        DB::table('users')->insert(['id' => 1, 'name' => '小林珠美', 'email' => 'sute1@example.com', 'password' => bcrypt('password'), 'jobs' => '一般社員']);
+        DB::table('users')->insert(['id' => 2, 'name' => '岸辺露伴', 'email' => 'sute2@example.com', 'password' => bcrypt('password'), 'jobs' => '管理職']);
+        DB::table('users')->insert(['id' => 3, 'name' => '広瀬康一', 'email' => 'sute3@example.com', 'password' => bcrypt('password'), 'jobs' => '管理職']);
+        DB::table('users')->insert(['id' => 4, 'name' => '吉良吉影', 'email' => 'sute4@example.com', 'password' => bcrypt('password'), 'jobs' => '一般社員']);
 
     }
 
