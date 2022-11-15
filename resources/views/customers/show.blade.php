@@ -21,24 +21,15 @@
                     </div>
                     <ul class="list-group">
                         <li class="list-group-item list-group-item-action">クライアントID：{{ $customer->id }}</li>
-                        <li class="list-group-item list-group-item-action">取扱会社種別：{{ $customer->company_id }}</li>
+                        {{-- <li class="list-group-item list-group-item-action">営業担当者：{{ $users->name }}</li> --}}
+                        <li class="list-group-item list-group-item-action">取扱会社種別：{{ $customer->company_type }}</li>
                         <li class="list-group-item list-group-item-action">取扱事業所：{{ $customer->handling_office }}</li>
-                        <li class="list-group-item list-group-item-action">クライアント名：{{ $customer->client_name }}</li>
-                        <li class="list-group-item list-group-item-action">クライアントカナ：{{ $customer->client_name_kana }}</li>
-                        <li class="list-group-item list-group-item-action">郵便番号：{{ $customer->postal }}</li>
-                        <li class="list-group-item list-group-item-action">住所：{{ $customer->prefectures.$customer->municipalities.$customer->streetbunch }}</li>
+                        <li class="list-group-item list-group-item-action">クライアント名：{{ $customer->name }}</li>
+                        <li class="list-group-item list-group-item-action">クライアントカナ：{{ $customer->kana }}</li>
+                        <li class="list-group-item list-group-item-action">住所：{{ $customer->address}}</li>
                         <li class="list-group-item list-group-item-action">電話番号：{{ $customer->phone }}</li>
                         <li class="list-group-item list-group-item-action">FAX：{{ $customer->fax }}</li>
-                        <li class="list-group-item list-group-item-action">WEBサイト：<a href="{{ $customer->website }}"target="_blank">{{ $customer->website }}</a></li>
-                        <li class="list-group-item list-group-item-action">業種：{{ $customer->industry }}</li>
-                        <li class="list-group-item list-group-item-action">備考：{{ $customer->remarks }}</li>
-                        <li class="list-group-item list-group-item-action">流入経路：{{ $customer->inflowroute }}</li>
-                        <li class="list-group-item list-group-item-action">Navi No：{{ $customer->navi_no }}</li>
-                        <li class="list-group-item list-group-item-action">設立：{{ $customer->established }}</li>
-                        <li class="list-group-item list-group-item-action">締日：{{ $customer->deadline }}</li>
-                        <li class="list-group-item list-group-item-action">請求書必着日：{{ $customer->invoicemustarrivedate }}</li>
-                        <li class="list-group-item list-group-item-action">支払い日：{{ $customer->paymentdate }}</li>
-                        <li class="list-group-item list-group-item-action">企業ランク：{{ $customer->company_rank }}</li>
+                        {{-- <li class="list-group-item list-group-item-action">企業ランク：{{ $customer->company_rank }}</li> --}}
                         <li class="list-group-item list-group-item-action">作成日：{{ $customer->created_at }}</li>
                         <li class="list-group-item list-group-item-action">更新日：{{ $customer->updated_at }}</li>
                     </ul>

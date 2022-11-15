@@ -140,12 +140,7 @@ return [
         'password' => 'パスワード',
         'client_name' => 'クライアント名',
         'client_name_kana' => 'クライアント名カナ',
-        'postal' => '郵便番号',
-        'prefectures' => '都道府県',
-        'municipalities' => '市区町村',
-        'streetbunch' => '流入経路',
-        'phone' => '電話番号',
-        'navi_no' => 'Navi No',
+        'address' => '住所'
     ],
     'required_without_all' => ' :values のどれか一つは入力してください。',
 ];
