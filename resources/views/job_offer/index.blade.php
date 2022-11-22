@@ -10,6 +10,7 @@
                         <h2 class="text-center">検索</h2>
 
                         <label for="userInput">営業担当</label>
+                        {{-- todo: プルダウンにする --}}
                         <input class="form-control mt-1" id="userInput" type="search" placeholder="営業担当名を入力" name="userName" value="@if (isset($userName)) {{ $userName }} @endif">
 
                         <label for="clientInput" class="mt-3">就業先名称</label>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Customer;
+use App\Models\User;
 
 class CustomerController extends Controller
 {
@@ -58,7 +59,8 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        return view('customers.create');
+        $users = User::all();
+        return view('customers.create', ['users' => $users]);
     }
 
     /**
@@ -70,30 +72,18 @@ class CustomerController extends Controller
     public function store(Request $request)
     {
         $attribute = request()->validate([
-                'company_id' => ['required'],
-                'handling_office'=> ['required',],
-                'client_name'=> ['required',],
-                'client_name_kana'=> ['required',''],
-                'postal'=> ['required',],
-                'prefectures'=> ['required',],
-                'municipalities'=> ['required',],
-                'streetbunch'=> ['required',],
-                'phone'=> ['required',],
-                //'fax'=> ['required',],
-                //'website'=> ['required',],
-                //'industry'=> ['required',],
-                //'remarks'=> ['required',],
-                //'inflowroute'=> ['required',],
-                'navi_no'=> ['required',],
-                //'established'=> ['required',],
-                //'deadline'=> ['required',],
-                //'invoicemustarrivedate'=> ['required',],
-                //'paymentdate'=> ['required',],
-                //'company_rank'=> ['required',],
+            'user_id' => ['required'],
+            'company_type' => ['required'],
+            'handling_office'=> ['required'],
+            'name'=> ['required'],
+            'kana'=> ['required'],
+            'address'=> ['required'],
+            'phone'=> ['required'],
+        ]);
 
-            ]);
-            $customer = Customer::create($attribute);
-            return redirect('/customers');
+        $customer = Customer::create($attribute);
+
+        return redirect('/customers');
     }
 
     /**
