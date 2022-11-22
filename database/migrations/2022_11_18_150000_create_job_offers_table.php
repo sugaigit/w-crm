@@ -14,15 +14,19 @@ class CreateJobOffersTable extends Migration
     public function up()
     {
         Schema::create('job_offers', function (Blueprint $table) {
-            $table->id();// 固有ID
-            $table->foreign('user_id')->references('id')->on('users')->comment('営業担当');
+            $table->id();
+            $table->bigInteger('user_id')->unsigned()->comment('営業担当');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->string('job_number', 100)->nullable()->comment('仕事番号');
-            // $table->foreign('company_type')->references('company_type')->on('customers')->comment('取扱会社種別');
-            $table->foreign('handling_office')->references('handling_office')->on('customers')->comment('取扱事業所名');
-            $table->string('client_type')->comment('クライアント種別');
+            $table->string('company_type')->comment('取扱会社種別');
+            $table->foreign('company_type')->references('company_type')->on('customers');
+            $table->string('handling_office')->comment('取扱事業所名');
+            $table->foreign('handling_office')->references('handling_office')->on('customers');
+            $table->string('customer_type')->comment('クライアント種別');
             $table->string('business_type')->comment('事業種別');
             $table->string('corporate_type')->comment('法人形態');
-            $table->foreign('client_name')->references('name')->on('customers')->comment('営業担当');
+            $table->string('customer_name')->comment('営業担当');
+            $table->foreign('customer_name')->references('name')->on('customers');
             $table->string('type_contract')->comment('契約形態');
             $table->string('new_reorder')->comment('新規/再発注');
             $table->integer('recruitment_number')->comment('募集人数');
