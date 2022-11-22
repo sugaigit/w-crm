@@ -162,7 +162,7 @@ class CustomerController extends Controller
     public function __invoke(Request $request)
     {
         $customer = auth()->user();
-        $this->authorize('viewAny', $customers);  // Policy をチェック
+        $this->authorize('viewAny', $customer);  // Policy をチェック
         $customers = \App\Models\Customers::get(); // 社員一覧を取得
         return view('customers.index', compact('customers')); // users.index.bldae を呼出し、 usersを渡す
 
