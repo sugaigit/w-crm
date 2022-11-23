@@ -8,15 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Company extends Model
 {
-    protected $guarded = [];
+    // protected $guarded = [];
 
-    public function users()
-    {
-        return $this->hasMany(User::class);
-    }
+    // public function users()
+    // {
+    //     return $this->hasMany(User::class);
+    // }
 
-    public function customers()
-    {
-        return $this->hasMany(Customer::class);
-    }
+    // public function customers()
+    // {
+    //     return $this->hasMany(Customer::class);
+    // }
 }

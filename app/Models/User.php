@@ -40,19 +40,19 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    public function role()
-    {
-        return $this->belongsTo(Role::class);
-    }
+    // public function role()
+    // {
+    //     return $this->belongsTo(Role::class);
+    // }
 
-    public function company()
-    {
-        return $this->belongsTo(Company::class);
-    }
+    // public function company()
+    // {
+    //     return $this->belongsTo(Company::class);
+    // }
 
     public function customers()
     {
-        return $this->hasMany(CustomerLog::class);
+        return $this->hasMany(Customer::class);
     }
 
     /**
@@ -64,8 +64,8 @@ class User extends Authenticatable
         return $this['role_id'] === Role::SUPER_VISOR_ID;
     }
 
-    public static function enumSupserVisor()
-    {
-        return User::where('role_id', '=', Role::SUPER_VISOR_ID)->get();
-    }
+    // public static function enumSupserVisor()
+    // {
+    //     return User::where('role_id', '=', Role::SUPER_VISOR_ID)->get();
+    // }
 }

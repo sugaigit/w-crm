@@ -13,14 +13,19 @@ class Customer extends Model
     protected $guarded = [];
 
 
-    public function company()
+    public function user()
     {
         return $this->belongsTo(Company::class);
     }
 
-    public function customerLogs()
+    // public function customerLogs()
+    // {
+    //     return $this->hasMany(CustomerLog::class);
+    // }
+
+    public function jobOffer()
     {
-        return $this->hasMany(CustomerLog::class);
+        return $this->hasMany(JobOffer::class);
     }
 
     // public function updateCustomer($request,$cutomer)

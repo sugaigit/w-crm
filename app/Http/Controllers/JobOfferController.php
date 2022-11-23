@@ -5,63 +5,70 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\JobOffer;
+use App\Models\User;
+use App\Models\Customer;
 
 class JobOfferController extends Controller
 {
     public function index(Request $request)
     {
 
-        $results = JobOffer::when($request->userName, function ($query, $userName) {
-            return $query->where('staff_id' , $userName);
-        })
-        ->when($request->user_name, function ($query, $userName){
-            return $query->where('kana' , 'like', "%{$userName}%");
-        })
-        ->when($request->team, function ($query, $team){
-            return $query->where('team' , $team);
-        })
-        ->when($request->general == '0' || $request->athlete == '1', function ($query) use ($request){
-            $in = $request->only('general', 'athlete');
-            $in = array_filter($in, 'strlen');
+        // $results = JobOffer::when($request->userName, function ($query, $userName) {
+        //     return $query->where('staff_id' , $userName);
+        // })
+        // ->when($request->user_name, function ($query, $userName){
+        //     return $query->where('kana' , 'like', "%{$userName}%");
+        // })
+        // ->when($request->team, function ($query, $team){
+        //     return $query->where('team' , $team);
+        // })
+        // ->when($request->general == '0' || $request->athlete == '1', function ($query) use ($request){
+        //     $in = $request->only('general', 'athlete');
+        //     $in = array_filter($in, 'strlen');
 
-            return $query->whereIn('activity_type' , $in);
-        })
-        ->when($request->update, function ($query){
-            return $query->where( function( $query ) {
-                $query->whereHas('chatRoom.chats' , function ($query){
-                    $query->where('show_of_admin', false);
-                })
-                ->orWhereHas('nutritions.comments' , function ($query){
-                    $query->where('show_of_admin', false);
-                });
-            });
+        //     return $query->whereIn('activity_type' , $in);
+        // })
+        // ->when($request->update, function ($query){
+        //     return $query->where( function( $query ) {
+        //         $query->whereHas('chatRoom.chats' , function ($query){
+        //             $query->where('show_of_admin', false);
+        //         })
+        //         ->orWhereHas('nutritions.comments' , function ($query){
+        //             $query->where('show_of_admin', false);
+        //         });
+        //     });
 
-        })
-        ->when($request->new, function ($query){
-            return $query->whereNull('start_day');
-        })
-        ->when($request->source_id, function ($query, $sourceId){
-            return $query->where('source_id' , $sourceId);
-        })
-        ->get();
+        // })
+        // ->when($request->new, function ($query){
+        //     return $query->whereNull('start_day');
+        // })
+        // ->when($request->source_id, function ($query, $sourceId){
+        //     return $query->where('source_id' , $sourceId);
+        // })
+        // ->get();
 
-        return view('job_offer.index')
+        return view('job_offers.index')
         ->with([
             // 'jobOffers' => $jobOffers,
             // 'clientsearch' => $clientsearch,
             // 'phonesearch' =>$phonesearch,
         ]);
     }
-//   //------------------新規登録--------------------
-//     /**
-//      * Show the form for creating a new resource.
-//      *
-//      * @return \Illuminate\Http\Response
-//      */
-//     public function create()
-//     {
-//         return view('customers.create');
-//     }
+  //------------------新規登録--------------------
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        $users = User::all();
+        $customers = Customer::all();
+        return view('job_offers.create', [
+            'users' => $users,
+            'customers' => $customers
+        ]);
+    }
 
     /**
      * Store a newly created resource in storage.

@@ -43,8 +43,8 @@
                 {{ $customer->name }}
             </a>
         </td>
-        <td>{{ $customer->company_type }}</td>
-        <td>{{ $customer->handling_office }}</td>
+        <td>{{ config('company_type')[$customer->company_type] }}</td>
+        <td>{{ config('handling_office')[$customer->handling_office] }}</td>
         <td>{{ $customer->address }}</td>
         <td>{{ $customer->phone }}</td>
     </tr>
