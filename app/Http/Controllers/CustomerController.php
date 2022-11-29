@@ -11,7 +11,8 @@ class CustomerController extends Controller
 {
     public function index(Request $request)
     {
-        // if (auth()->user()->isSuperVisor()) {
+                $users = User::paginate();
+
                 $customers = Customer::paginate();
             /**以下検索ワード */
                 $clientsearch = $request->input('clientsearch');
@@ -31,6 +32,7 @@ class CustomerController extends Controller
             'customers' => $customers,
             'clientsearch' => $clientsearch,
             'phonesearch' =>$phonesearch,
+            'users'=>$users,
         ]);
     }
   //------------------新規登録--------------------
@@ -76,6 +78,8 @@ class CustomerController extends Controller
     {
         $this->authorize('view', $customer);
         return view('customers.show', compact('customer'));
+        $users_id->authorize('view', $user);
+        return view('customers.show', compact('user'));
     }
 
     /**

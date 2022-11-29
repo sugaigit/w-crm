@@ -15,9 +15,7 @@
                         @endif
 
                         <ul>
-                            @canany('viewAny', auth()->user())
-                                <li><a href="{{ route('users.index') }}">社員一覧</a></li>
-                            @endcanany
+                            <li><a href="{{ route('users.index') }}">社員一覧</a></li>
                             <li><a href="{{ route('customers.index') }}">顧客一覧</a></li>
                             <li><a href="{{ route('customers.create') }}">顧客新規登録</a></li>
                         </ul>

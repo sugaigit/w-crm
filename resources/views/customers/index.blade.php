@@ -36,11 +36,14 @@
                         @foreach($customers as $customer)
                             <tr>
                                 <td>
-                                    <a href="{{ route('customers.edit', $customer->id) }}>
+                                    <a href="{{ route('customers.edit', $customer->id) }}">
                                         {{ $customer->name }}
                                     </a>
                                 </td>
-                                <td>{{ $customer->id }}</td>
+                                {{-- @foreach($users as $user)
+                                <td>{{ $user->name }}</td>
+                                @endforeach --}}
+                                <td></td>
                                 <td>{{ $customer->handling_office }}</td>
                                 <td>{{ $customer->phone }}</td>
                             </tr>

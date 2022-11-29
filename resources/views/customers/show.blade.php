@@ -21,7 +21,7 @@
                     </div>
                     <ul class="list-group">
                         <li class="list-group-item list-group-item-action">クライアントID：{{ $customer->id }}</li>
-                        {{-- <li class="list-group-item list-group-item-action">営業担当者：{{ $users->name }}</li> --}}
+                        <li class="list-group-item list-group-item-action">営業担当者：{{ $users->name }}</li>
                         <li class="list-group-item list-group-item-action">取扱会社種別：{{ $customer->company_type }}</li>
                         <li class="list-group-item list-group-item-action">取扱事業所：{{ $customer->handling_office }}</li>
                         <li class="list-group-item list-group-item-action">クライアント名：{{ $customer->name }}</li>

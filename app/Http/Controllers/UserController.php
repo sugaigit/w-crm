@@ -16,26 +16,25 @@ class UserController extends Controller
 
         $query = User::query();
 
-        if ($search !== null) {
+        // if ($search !== null) {
 
-            $spaceConversion = mb_convert_kana($search, 's');
+        //     $spaceConversion = mb_convert_kana($search, 's');
 
-            $wordArraySearched = preg_split('/[\s,]+/', $spaceConversion, -1, PREG_SPLIT_NO_EMPTY);
+        //     $wordArraySearched = preg_split('/[\s,]+/', $spaceConversion, -1, PREG_SPLIT_NO_EMPTY);
 
 
-            foreach($wordArraySearched as $value) {
-                $query->where('name', 'like', '%'.$value.'%');
-            }
+        //     foreach($wordArraySearched as $value) {
+        //         $query->where('name', 'like', '%'.$value.'%');
+        //     }
 
-            $users = $query->paginate();
+        //     $users = $query->paginate();
 
-        }
+        // }
 
         // ビューにusersとsearchを変数として渡す
         return view('users.index')
             ->with([
                 'users' => $users,
-                'search' => $search,
             ]);
     }
     /**
