@@ -40,10 +40,7 @@
                                         {{ $customer->name }}
                                     </a>
                                 </td>
-                                {{-- @foreach($users as $user)
-                                <td>{{ $user->name }}</td>
-                                @endforeach --}}
-                                <td></td>
+                                <td><?php $user = AUTH::user(); ?>{{ $user->name }}</td>
                                 <td>{{ $customer->handling_office }}</td>
                                 <td>{{ $customer->phone }}</td>
                             </tr>

@@ -25,6 +25,7 @@
                         </p>
                         <p>クライアント名：<input type="text" name="name" value="{{ $customer->name }}"></p>
                         <p>クライアント名カナ：<input type="text" name="kana" value="{{ $customer->kana}}"></p>
+                        <p>営業担当者名：<?php $user = AUTH::user(); ?>{{ $user->name }}</p>
                         <p>住所：<input type="text" name="address" value="{{$customer->address }}"></p>
                         <p>電話番号：<input type="text" name="phone" value="{{ $customer->phone }}"></p>
                         <p>FAX：<input type="text" name="fax" value="{{ $customer->fax }}"></p>
