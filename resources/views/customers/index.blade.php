@@ -23,52 +23,53 @@
         </div>
     </div>
 </div>
-                    <div class="card-header w-75 m-auto">顧客一覧</div>
-                    <table class="table table-bordered table-hover w-75 m-auto">
-                        <thead>
-                        <tr class=m-auto style="background-color: lightgray">
-                            <td>クライアント名</td>
-                            <td>営業担当者名</td>
-                            <td>取扱事業所</td>
-                            <td>電話番号</td>
-                        </tr>
-                        </thead>
-                        @foreach($customers as $customer)
-                            <tr>
-                                <td>
-                                    <a href="{{ route('customers.edit', $customer->id) }}">
-                                        {{ $customer->name }}
-                                    </a>
-                                </td>
-                                <td><?php $user = AUTH::user(); ?>{{ $user->name }}</td>
-                                <td>{{ $customer->handling_office }}</td>
-                                <td>{{ $customer->phone }}</td>
-                            </tr>
-                        @endforeach
-                    </table>
-                    {{--  pagenation link -------------------------------------------------------------------------------       --}}
-                    <table width="100%">
-                        <tr>
-                            @if($customers->lastPage() > 1)
-                                <td width="120px"><a href="{{ $customers->url(0) }}">最初のページへ</a></td>
-                                <td width="120px">
-                                    @if($customers->previousPageUrl())
-                                        <a href="{{ $customers->previousPageUrl() }}">前のページへ</a>
-                                    @endif
-                                </td>
-                                <td width="120px" style="text-align: center">{{ $customers->currentPage() }}
-                                    / {{ $customers->lastPage() }}</td>
-                                <td width="120px">
-                                    @if($customers->nextPageUrl())
-                                        <a href="{{ $customers->nextPageUrl() }}">次のページへ</a>
-                                    @endif
-                                </td>
-                                <td width="120px"><a href="{{ $customers->url($customers->lastPage()) }}">最後のページへ</a>
-                                </td>
 
-                            @endif
-                        </tr>
-                    </table>
-                    {{--  End of pagenation link -------------------------------------------------------------------------       --}}
+    <div class="card-header w-75 m-auto">顧客一覧</div>
+        <table class="table table-bordered table-hover w-75 m-auto">
+            <thead>
+            <tr class=m-auto style="background-color: lightgray">
+                <td>クライアント名</td>
+                <td>営業担当者名</td>
+                <td>取扱事業所</td>
+                <td>電話番号</td>
+            </tr>
+            </thead>
+            @foreach($customers as $customer)
+                <tr>
+                    <td>
+                        <a href="{{ route('customers.edit', $customer->id) }}">
+                            {{ $customer->name }}
+                        </a>
+                    </td>
+                    <td><?php $user = AUTH::user(); ?>{{ $user->name }}</td>
+                    <td>{{ $customer->handling_office }}</td>
+                    <td>{{ $customer->phone }}</td>
+                </tr>
+            @endforeach
+        </table>
+        {{--  pagenation link -------------------------------------------------------------------------------       --}}
+        <table width="100%">
+            <tr>
+                @if($customers->lastPage() > 1)
+                    <td width="120px"><a href="{{ $customers->url(0) }}">最初のページへ</a></td>
+                    <td width="120px">
+                        @if($customers->previousPageUrl())
+                            <a href="{{ $customers->previousPageUrl() }}">前のページへ</a>
+                        @endif
+                    </td>
+                    <td width="120px" style="text-align: center">{{ $customers->currentPage() }}
+                        / {{ $customers->lastPage() }}</td>
+                    <td width="120px">
+                        @if($customers->nextPageUrl())
+                            <a href="{{ $customers->nextPageUrl() }}">次のページへ</a>
+                        @endif
+                    </td>
+                    <td width="120px"><a href="{{ $customers->url($customers->lastPage()) }}">最後のページへ</a>
+                    </td>
+
+                @endif
+            </tr>
+        </table>
+        {{--  End of pagenation link -------------------------------------------------------------------------       --}}
 @endsection
 
