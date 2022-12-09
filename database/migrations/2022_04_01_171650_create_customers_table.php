@@ -17,8 +17,9 @@ class CreateCustomersTable extends Migration
             $table->id();
             // $table->bigInteger('user_id')->unsigned()->nullable()->comment('営業担当');
             // $table->foreign('user_id')->references('id')->on('users');
+            $table->string('type')->default('1')->comment('クライアント種別（1:新規, 2:既存）');
             $table->string('company_type')->comment('取扱会社種別（1:HA, 2:HC）');
-            $table->string('handling_office')->comment('取扱事業所名（1:北九州本社）, 2:福岡支店');
+            $table->string('handling_office')->comment('取扱事業所名（1:北九州本社, 2:福岡支店）');
             $table->string('name')->comment('クライアント名');
             $table->string('kana')->nullable()->comment('クライアントカナ');
             $table->string('address')->comment('住所');

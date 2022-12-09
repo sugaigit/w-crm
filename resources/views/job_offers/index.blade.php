@@ -42,26 +42,18 @@
         <td>ステータス</td>
         <td>仕事番号</td>
         <td>就業先名称</td>
-        <td>仕事番号</td>
         <td>営業担当</td>
     </tr>
     </thead>
 
-    {{-- @foreach($customers as $customer)
+    @foreach($jobOffers as $jobOffer)
         <tr>
-            <td>{{ $customer->id }}</td>
-            <td>
-                <a href="{{ route('customers.edit', $customer->id) }}">
-                    {{ $customer->client_name }}
-                </a>
-            </td>
-            <td>{{ $customer->company_id }}</td>
-            <td>{{ $customer->handling_office }}</td>
-            <td>{{ $customer->postal }}</td>
-            <td>{{ $customer->prefectures.$customer->municipalities.$customer->streetbunch}}</td>
-            <td>{{ $customer->phone }}</td>
+            <td>{{ $jobOffer->status != null ? config('status')[$jobOffer->status] : '' }}</td>
+            <td>{{ $jobOffer->job_number }}</td>
+            <td>{{ $jobOffer->customer->name }}</td>
+            <td>{{ $jobOffer->user->name}}</td>
         </tr>
-    @endforeach --}}
+    @endforeach
 </table>
 {{--  pagenation link -------------------------------------------------------------------------------       --}}
 {{-- <table width="100%">

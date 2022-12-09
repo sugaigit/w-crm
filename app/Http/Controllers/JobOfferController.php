@@ -12,48 +12,13 @@ class JobOfferController extends Controller
 {
     public function index(Request $request)
     {
-
-        // $results = JobOffer::when($request->userName, function ($query, $userName) {
-        //     return $query->where('staff_id' , $userName);
-        // })
-        // ->when($request->user_name, function ($query, $userName){
-        //     return $query->where('kana' , 'like', "%{$userName}%");
-        // })
-        // ->when($request->team, function ($query, $team){
-        //     return $query->where('team' , $team);
-        // })
-        // ->when($request->general == '0' || $request->athlete == '1', function ($query) use ($request){
-        //     $in = $request->only('general', 'athlete');
-        //     $in = array_filter($in, 'strlen');
-
-        //     return $query->whereIn('activity_type' , $in);
-        // })
-        // ->when($request->update, function ($query){
-        //     return $query->where( function( $query ) {
-        //         $query->whereHas('chatRoom.chats' , function ($query){
-        //             $query->where('show_of_admin', false);
-        //         })
-        //         ->orWhereHas('nutritions.comments' , function ($query){
-        //             $query->where('show_of_admin', false);
-        //         });
-        //     });
-
-        // })
-        // ->when($request->new, function ($query){
-        //     return $query->whereNull('start_day');
-        // })
-        // ->when($request->source_id, function ($query, $sourceId){
-        //     return $query->where('source_id' , $sourceId);
-        // })
-        // ->get();
+        $jobOffers = JobOffer::all();
 
         return view('job_offers.index')
-        ->with([
-            // 'jobOffers' => $jobOffers,
-            // 'clientsearch' => $clientsearch,
-            // 'phonesearch' =>$phonesearch,
-        ]);
-    }
+            ->with([
+                'jobOffers' => $jobOffers,
+            ]);
+        }
   //------------------新規登録--------------------
     /**
      * Show the form for creating a new resource.
@@ -78,31 +43,8 @@ class JobOfferController extends Controller
      */
     public function store(Request $request)
     {
-        $attribute = request()->validate([
-                'company_id' => ['required'],
-                'handling_office'=> ['required',],
-                'client_name'=> ['required',],
-                'client_name_kana'=> ['required',''],
-                'postal'=> ['required',],
-                'prefectures'=> ['required',],
-                'municipalities'=> ['required',],
-                'streetbunch'=> ['required',],
-                'phone'=> ['required',],
-                //'fax'=> ['required',],
-                //'website'=> ['required',],
-                //'industry'=> ['required',],
-                //'remarks'=> ['required',],
-                //'inflowroute'=> ['required',],
-                'navi_no'=> ['required',],
-                //'established'=> ['required',],
-                //'deadline'=> ['required',],
-                //'invoicemustarrivedate'=> ['required',],
-                //'paymentdate'=> ['required',],
-                //'company_rank'=> ['required',],
-
-            ]);
-            $customer = Customer::create($attribute);
-            return redirect('/customers');
+            JobOffer::create($request->all());
+            return redirect(route('job_offers.index'));
     }
 
     /**

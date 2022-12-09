@@ -55,6 +55,11 @@ class User extends Authenticatable
         return $this->hasMany(Customer::class);
     }
 
+    public function jobOffers()
+    {
+        return $this->hasMany(jobOffer::class);
+    }
+
     /**
      * スーパーバイザーであればtrueを返す
      * @return bool
