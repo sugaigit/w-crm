@@ -47,12 +47,12 @@
     </thead>
 
     @foreach($jobOffers as $jobOffer)
-        <tr>
+        <a href="{{ route(job_offers.edit, ['job_offer' => $jobOffer->id]) }}"><tr>
             <td>{{ $jobOffer->status != null ? config('status')[$jobOffer->status] : '' }}</td>
             <td>{{ $jobOffer->job_number }}</td>
             <td>{{ $jobOffer->customer->name }}</td>
             <td>{{ $jobOffer->user->name}}</td>
-        </tr>
+        </tr></a>
     @endforeach
 </table>
 {{--  pagenation link -------------------------------------------------------------------------------       --}}

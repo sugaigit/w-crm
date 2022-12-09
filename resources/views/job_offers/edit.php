@@ -4,8 +4,8 @@
     <div class="col-md-12">
         <div class="card mb-4">
             <div class="card-header">
-                    <div class="card-header">求人情報新規登録</div>
-                    <form action="{{ route('job_offers.store') }}" method="POST">
+                    <div class="card-header">求人情報編集</div>
+                    <form action="{{ route('job_offers.update', ['job_offer' => $jobOffer->id]) }}" method="PUT">
                         @csrf
                         <table class="table">
                             <tbody>
@@ -31,12 +31,12 @@
                                         </select>
                                     </td>
                                 </tr>
-                                <!-- <tr>
+                                <tr>
                                     <th>仕事番号</th>
                                     <td>
                                         <input type="text" class="form-control" name="job_number" value="{{ old('job_number') }}">
                                     </td>
-                                </tr> -->
+                                </tr>
                                 <tr>
                                     <th>取扱事業所名<span class="text-danger">*</span></th>
                                     <td>

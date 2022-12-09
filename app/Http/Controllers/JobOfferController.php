@@ -67,8 +67,9 @@ class JobOfferController extends Controller
      */
     public function edit($id)
     {
-        $customer = Customer::find($id);
-        return view('customers.edit',compact('customer'));
+        dd($id);
+        $jobOffer = JobOffer::find($id);
+        return view('job_offers.edit',['jobOffer' => $jobOffer]);
     }
 
     /**
