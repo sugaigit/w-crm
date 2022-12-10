@@ -554,6 +554,61 @@
                                         <input  type="date" class="form-control" name="order_date" value="{{ old('order_date') }}">
                                     </td>
                                 </tr>
+                                <tr class="afterRecruit">
+                                    <th>紹介後</th>
+                                    <td>
+                                        <input  type="text" class="form-control" name="after_introduction" value="{{ old('after_introduction') }}">
+                                    </td>
+                                </tr>
+                                <tr class="afterRecruit">
+                                    <th>直接雇用切替時期</th>
+                                    <td>
+                                        <input  type="text" class="form-control" name="timing_of_switching" value="{{ old('timing_of_switching') }}">
+                                    </td>
+                                </tr>
+                                <tr class="afterRecruit">
+                                    <th>月収例（下限）</th>
+                                    <td>
+                                        <input  type="text" class="form-control" name="monthly_lower_limit" value="{{ old('monthly_lower_limit') }}">
+                                    </td>
+                                </tr>
+                                <tr class="afterRecruit">
+                                    <th>月収例（上限）</th>
+                                    <td>
+                                        <input  type="text" class="form-control" name="monthly_upper_limit" value="{{ old('monthly_upper_limit') }}">
+                                    </td>
+                                </tr>
+                                <tr class="afterRecruit">
+                                    <th>年収例（下限）</th>
+                                    <td>
+                                        <input  type="text" class="form-control" name="annual_lower_limit" value="{{ old('annual_lower_limit') }}">
+                                    </td>
+                                </tr>
+                                <tr class="afterRecruit">
+                                    <th>年齢（上限）</th>
+                                    <td>
+                                        <input  type="text" class="form-control" name="age_upper_limit" value="{{ old('age_upper_limit') }}">
+                                    </td>
+                                </tr>
+                                <tr class="afterRecruit">
+                                    <th>賞与等・待遇</th>
+                                    <td>
+                                        <input  type="text" class="form-control" name="bonuses_treatment" value="{{ old('bonuses_treatment') }}">
+                                    </td>
+                                </tr>
+                                <tr class="afterRecruit">
+                                    <th>休日・休暇</th>
+                                    <td>
+                                        <input  type="text" class="form-control" name="holidays_vacations" value="{{ old('holidays_vacations') }}">
+                                    </td>
+                                </tr>
+                                <tr class="afterRecruit">
+                                    <th>その他</th>
+                                    <td>
+                                        <input  type="text" class="form-control" name="introduction_others" value="{{ old('introduction_others') }}">
+                                    </td>
+                                </tr>
+
                             </tbody>
                         </table>
 
@@ -582,4 +637,8 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('js')
+    <script type="text/javascript" src="/js/job_offer/create.js"></script>
 @endsection
