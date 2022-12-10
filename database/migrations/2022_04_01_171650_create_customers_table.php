@@ -20,6 +20,7 @@ class CreateCustomersTable extends Migration
             $table->string('type')->default('1')->comment('クライアント種別（1:新規, 2:既存）');
             $table->string('company_type')->comment('取扱会社種別（1:HA, 2:HC）');
             $table->string('handling_office')->comment('取扱事業所名（1:北九州本社, 2:福岡支店）');
+            $table->string('corporate_type')->comment('法人形態（1:前株, 2:後株, 3:合同会社, 4:有限責任事業組合（LLP）, 5:有限会社）');
             $table->string('name')->comment('クライアント名');
             $table->string('kana')->nullable()->comment('クライアントカナ');
             $table->string('address')->comment('住所');

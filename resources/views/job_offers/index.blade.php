@@ -43,41 +43,20 @@
         <td>仕事番号</td>
         <td>就業先名称</td>
         <td>営業担当</td>
+        <td>操作</td>
     </tr>
     </thead>
 
     @foreach($jobOffers as $jobOffer)
-        <a href="{{ route(job_offers.edit, ['job_offer' => $jobOffer->id]) }}"><tr>
-            <td>{{ $jobOffer->status != null ? config('status')[$jobOffer->status] : '' }}</td>
+        <tr>
+            <td>{{ $jobOffer->status != null ? config('options.status_edit')[$jobOffer->status] : '' }}</td>
             <td>{{ $jobOffer->job_number }}</td>
             <td>{{ $jobOffer->customer->name }}</td>
             <td>{{ $jobOffer->user->name}}</td>
-        </tr></a>
+            <td><a href="{{ route('job_offers.edit', ['job_offer' => $jobOffer->id]) }}">編集</a></td>
+        </tr>
     @endforeach
 </table>
-{{--  pagenation link -------------------------------------------------------------------------------       --}}
-{{-- <table width="100%">
-    <tr>
-        @if($customers->lastPage() > 1)
-            <td width="120px"><a href="{{ $customers->url(0) }}">最初のページへ</a></td>
-            <td width="120px">
-                @if($customers->previousPageUrl())
-                    <a href="{{ $customers->previousPageUrl() }}">前のページへ</a>
-                @endif
-            </td>
-            <td width="120px" style="text-align: center">{{ $customers->currentPage() }}
-                / {{ $customers->lastPage() }}</td>
-            <td width="120px">
-                @if($customers->nextPageUrl())
-                    <a href="{{ $customers->nextPageUrl() }}">次のページへ</a>
-                @endif
-            </td>
-            <td width="120px"><a href="{{ $customers->url($customers->lastPage()) }}">最後のページへ</a>
-            </td>
 
-        @endif
-    </tr>
-</table> --}}
-{{--  End of pagenation link -------------------------------------------------------------------------       --}}
 @endsection
 

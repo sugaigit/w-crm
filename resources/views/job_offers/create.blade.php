@@ -25,7 +25,7 @@
                                     <td>
                                         <select type="text" class="form-control" name="company_type">
                                             <option value="">取扱会社種別を選んで下さい</option>
-                                            @foreach( config('company_type') as $key => $company_type )
+                                            @foreach( config('options.company_type') as $key => $company_type )
                                             <option value="{{ $key }}">{{ $company_type }}</option>
                                             @endforeach
                                         </select>
@@ -42,7 +42,7 @@
                                     <td>
                                         <select type="text" class="form-control" name="handling_office">
                                             <option value="">取扱事業所名を選んで下さい</option>
-                                            @foreach( config('handling_office') as $key => $handling_office )
+                                            @foreach( config('options.handling_office') as $key => $handling_office )
                                             <option value="{{ $key }}">{{ $handling_office }}</option>
                                             @endforeach
                                         </select>
@@ -53,19 +53,8 @@
                                     <td>
                                         <select type="text" class="form-control" name="business_type">
                                             <option value="">事業種別を選んで下さい</option>
-                                            @foreach( config('business_type') as $key => $business_type )
+                                            @foreach( config('options.business_type') as $key => $business_type )
                                             <option value="{{ $key }}">{{ $business_type }}</option>
-                                            @endforeach
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>法人形態<span class="text-danger">*</span></th>
-                                    <td>
-                                        <select type="text" class="form-control" name="corporate_type">
-                                            <option value="">法人形態を選んで下さい</option>
-                                            @foreach( config('corporate_type') as $key => $corporate_type )
-                                            <option value="{{ $key }}">{{ $corporate_type }}</option>
                                             @endforeach
                                         </select>
                                     </td>
@@ -85,20 +74,9 @@
                                     <th>契約形態<span class="text-danger">*</span></th>
                                     <td>
                                         <select type="text" class="form-control" name="type_contract">
-                                            <option value="">法人形態を選んで下さい</option>
-                                            @foreach( config('type_contract') as $key => $type_contract )
+                                            <option value="">契約形態を選んで下さい</option>
+                                            @foreach( config('options.type_contract') as $key => $type_contract )
                                             <option value="{{ $key }}">{{ $type_contract }}</option>
-                                            @endforeach
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>新規/再発注<span class="text-danger">*</span></th>
-                                    <td>
-                                        <select type="text" class="form-control" name="new_reorder">
-                                            <option value="">新規/再発注を選んで下さい</option>
-                                            @foreach( config('new_reorder') as $key => $new_reorder )
-                                            <option value="{{ $key }}">{{ $new_reorder }}</option>
                                             @endforeach
                                         </select>
                                     </td>
@@ -106,7 +84,7 @@
                                 <tr>
                                     <th>募集人数<span class="text-danger">*</span></th>
                                     <td>
-                                        <input type="number" class="form-control" name="recruitment_number" value="{{ old('recruitment_number') }}">
+                                        <input type="text" class="form-control" name="recruitment_number" value="{{ old('recruitment_number') }}">
                                     </td>
                                 </tr>
                                 <tr>
@@ -144,7 +122,7 @@
                                     <td>
                                         <select type="text" class="form-control" name="measures_existence">
                                             <option value="">対策の有無を選んで下さい</option>
-                                            @foreach( config('measures_existence') as $key => $measures_existence )
+                                            @foreach( config('options.existence') as $key => $measures_existence )
                                             <option value="{{ $key }}">{{ $measures_existence }}</option>
                                             @endforeach
                                         </select>
@@ -159,13 +137,18 @@
                                 <tr>
                                     <th>請求単価①<span class="text-danger">*</span></th>
                                     <td>
-                                        <input type="number" class="form-control" name="Invoice_unit_price_1" value="{{ old('Invoice_unit_price_1') }}">
+                                        <input type="text" class="form-control" name="Invoice_unit_price_1" value="{{ old('Invoice_unit_price_1') }}">
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>請求単位①<span class="text-danger">*</span></th>
                                     <td>
-                                        <input type="text"class="form-control" name="billing_unit_1" value="{{ old('billing_unit_1') }}">
+                                        <select type="text" class="form-control" name="billing_unit_1">
+                                            <option value="">請求単位を選んで下さい</option>
+                                            @foreach( config('options.salary_term') as $key => $billing_unit_1 )
+                                                <option value="{{ $key }}">{{ $billing_unit_1 }}</option>
+                                            @endforeach
+                                        <select>
                                     </td>
                                 </tr>
                                 <tr>
@@ -175,7 +158,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>請求情報①備考<span class="text-danger">*</span></th>
+                                    <th>請求情報①備考</th>
                                     <td>
                                         <input type="text"class="form-control" maxlength="100" name="billing_information_1" value="{{ old('billing_information_1') }}">
                                     </td>
@@ -189,7 +172,12 @@
                                 <tr>
                                     <th>請求単位②</th>
                                     <td>
-                                        <input type="text"class="form-control" name="billing_unit_2" value="{{ old('billing_unit_2') }}">
+                                        <select type="text" class="form-control" name="billing_unit_2">
+                                            <option value="">請求単位を選んで下さい</option>
+                                            @foreach( config('options.salary_term') as $key => $billing_unit_2 )
+                                                <option value="{{ $key }}">{{ $billing_unit_2 }}</option>
+                                            @endforeach
+                                        <select>
                                     </td>
                                 </tr>
                                 <tr>
@@ -213,7 +201,12 @@
                                 <tr>
                                     <th>請求単位③</th>
                                     <td>
-                                        <input type="text"class="form-control" name="billing_unit_3" value="{{ old('billing_unit_3') }}">
+                                        <select type="text" class="form-control" name="billing_unit_3">
+                                            <option value="">請求単位を選んで下さい</option>
+                                            @foreach( config('options.salary_term') as $key => $billing_unit_3 )
+                                                <option value="{{ $key }}">{{ $billing_unit_3 }}</option>
+                                            @endforeach
+                                        <select>
                                     </td>
                                 </tr>
                                 <tr>
@@ -230,13 +223,23 @@
                                 </tr>
                                     <th>雇用保険加入<span class="text-danger">*</span></th>
                                     <td>
-                                        <input type="text"class="form-control" maxlength="100" name="employment_insurance" value="{{ old('employment_insurance') }}">
+                                        <select type="text" class="form-control" name="employment_insurance">
+                                            <option value="">雇用保険の有無を選んで下さい</option>
+                                            @foreach( config('options.existence') as $key => $employment_insurance )
+                                            <option value="{{ $key }}">{{ $employment_insurance }}</option>
+                                            @endforeach
+                                        </select>
                                     </td>
                                 </tr>
                                 </tr>
                                     <th>社会保険加入<span class="text-danger">*</span></th>
                                     <td>
-                                        <input type="text"class="form-control" maxlength="100" name="social_insurance" value="{{ old('social_insurance') }}">
+                                        <select type="text" class="form-control" name="social_insurance">
+                                            <option value="">社会保険の有無を選んで下さい</option>
+                                            @foreach( config('options.existence') as $key => $social_insurance )
+                                            <option value="{{ $key }}">{{ $social_insurance }}</option>
+                                            @endforeach
+                                        </select>
                                     </td>
                                 </tr>
                                 <tr>
@@ -248,7 +251,12 @@
                                 <tr>
                                     <th>支払単位①<span class="text-danger">*</span></th>
                                     <td>
-                                        <input type="text"class="form-control" name="payment_unit_1" value="{{ old('payment_unit_1') }}">
+                                        <select type="text" class="form-control" name="payment_unit_1">
+                                            <option value="">支払単位を選んで下さい</option>
+                                            @foreach( config('options.salary_term') as $key => $payment_unit_1 )
+                                                <option value="{{ $key }}">{{ $payment_unit_1 }}</option>
+                                            @endforeach
+                                        <select>
                                     </td>
                                 </tr>
                                 <tr>
@@ -260,11 +268,16 @@
                                 <tr>
                                     <th>交通費支払単位①<span class="text-danger">*</span></th>
                                     <td>
-                                        <input  type="text" class="form-control" name="carfare_payment_1" value="{{ old('carfare_payment_1') }}">
+                                        <select type="text" class="form-control" name="carfare_payment_1">
+                                            <option value="">交通費支払単位を選んで下さい</option>
+                                            @foreach( config('options.payment_term') as $key => $carfare_payment_1 )
+                                                <option value="{{ $key }}">{{ $carfare_payment_1 }}</option>
+                                            @endforeach
+                                        <select>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>支払情報①備考<span class="text-danger">*</span></th>
+                                    <th>支払情報①備考</th>
                                     <td>
                                         <input  type="text" class="form-control" name="carfare_payment_remarks_1" value="{{ old('carfare_payment_remarks_1') }}">
                                     </td>
@@ -278,7 +291,12 @@
                                 <tr>
                                     <th>支払単位②</th>
                                     <td>
-                                        <input type="text"class="form-control" name="payment_unit_2" value="{{ old('payment_unit_2') }}">
+                                        <select type="text" class="form-control" name="payment_unit_2">
+                                            <option value="">支払単位を選んで下さい</option>
+                                            @foreach( config('options.salary_term') as $key => $payment_unit_2 )
+                                                <option value="{{ $key }}">{{ $payment_unit_2 }}</option>
+                                            @endforeach
+                                        <select>
                                     </td>
                                 </tr>
                                 <tr>
@@ -290,7 +308,12 @@
                                 <tr>
                                     <th>交通費支払単位②</th>
                                     <td>
-                                        <input  type="text" class="form-control" name="carfare_payment_2" value="{{ old('carfare_payment_2') }}">
+                                        <select type="text" class="form-control" name="carfare_payment_2">
+                                            <option value="">交通費支払単位を選んで下さい</option>
+                                            @foreach( config('options.payment_term') as $key => $carfare_payment_2 )
+                                                <option value="{{ $key }}">{{ $carfare_payment_2 }}</option>
+                                            @endforeach
+                                        <select>
                                     </td>
                                 </tr>
                                 <tr>
@@ -308,7 +331,12 @@
                                 <tr>
                                     <th>支払単位③</th>
                                     <td>
-                                        <input type="text"class="form-control" name="payment_unit_3" value="{{ old('payment_unit_3') }}">
+                                        <select type="text" class="form-control" name="payment_unit_3">
+                                            <option value="">支払単位を選んで下さい</option>
+                                            @foreach( config('options.salary_term') as $key => $payment_unit_3 )
+                                                <option value="{{ $key }}">{{ $payment_unit_3 }}</option>
+                                            @endforeach
+                                        <select>
                                     </td>
                                 </tr>
                                 <tr>
@@ -320,7 +348,12 @@
                                 <tr>
                                     <th>交通費支払単位③</th>
                                     <td>
-                                        <input  type="text" class="form-control" name="carfare_payment_3" value="{{ old('carfare_payment_3') }}">
+                                        <select type="text" class="form-control" name="carfare_payment_3">
+                                            <option value="">交通費支払単位を選んで下さい</option>
+                                            @foreach( config('options.payment_term') as $key => $carfare_payment_3 )
+                                                <option value="{{ $key }}">{{ $carfare_payment_3 }}</option>
+                                            @endforeach
+                                        <select>
                                     </td>
                                 </tr>
                                 <tr>
@@ -351,8 +384,8 @@
                                     <th>休日<span class="text-danger">*</span></th>
                                     <td>
                                         <select type="text" class="form-control" name="holiday">
-                                            <option value="">作成ステータスを選んで下さい</option>
-                                            @foreach( config('holiday') as $key => $holiday )
+                                            <option value="">休日を選んで下さい</option>
+                                            @foreach( config('options.holiday') as $key => $holiday )
                                             <option value="{{ $key }}">{{ $holiday }}</option>
                                             @endforeach
                                         </select>
@@ -361,7 +394,12 @@
                                 <tr>
                                     <th>長期休暇<span class="text-danger">*</span></th>
                                     <td>
-                                        <input  type="text" class="form-control" name="long_vacation" value="{{ old('long_vacation') }}">
+                                        <select type="text" class="form-control" name="long_vacation">
+                                            <option value="">長期休暇の有無を選んで下さい</option>
+                                            @foreach( config('options.existence') as $key => $long_vacation )
+                                            <option value="{{ $key }}">{{ $long_vacation }}</option>
+                                            @endforeach
+                                        </select>
                                     </td>
                                 </tr>
                                 <tr>
@@ -395,7 +433,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>勤務時間備考<span class="text-danger">*</span></th>
+                                    <th>勤務時間備考</th>
                                     <td>
                                         <input  type="text" class="form-control" name="working_hours_remarks" value="{{ old('working_hours_remarks') }}">
                                     </td>
@@ -463,7 +501,12 @@
                                 <tr>
                                     <th>車通勤（可能）<span class="text-danger">*</span></th>
                                     <td>
-                                        <input  type="text" class="form-control" name="commuting_by_car" value="{{ old('commuting_by_car') }}">
+                                        <select type="text" class="form-control" name="commuting_by_car">
+                                            <option value="">車通勤の可否を選んで下さい</option>
+                                            @foreach( config('options.permission') as $key => $commuting_by_car )
+                                            <option value="{{ $key }}">{{ $commuting_by_car }}</option>
+                                            @endforeach
+                                        </select>
                                     </td>
                                 </tr>
                                 <tr>
@@ -475,15 +518,20 @@
                                 <tr>
                                     <th>駐車場<span class="text-danger">*</span></th>
                                     <td>
-                                        <input  type="text" class="form-control" name="parking" value="{{ old('parking') }}">
+                                        <select type="text" class="form-control" name="parking">
+                                            <option value="">駐車場の有無を選んで下さい</option>
+                                            @foreach( config('options.parking') as $key => $parking )
+                                            <option value="{{ $key }}">{{ $parking }}</option>
+                                            @endforeach
+                                        </select>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>求人掲載サイト</th>
                                     <td>
                                         <select type="text" class="form-control" name="posting_site">
-                                            <option value="">作成ステータスを選んで下さい</option>
-                                            @foreach( config('posting_site') as $key => $posting_site )
+                                            <option value="">求人掲載サイトを選んで下さい</option>
+                                            @foreach( config('options.posting_site') as $key => $posting_site )
                                             <option value="{{ $key }}">{{ $posting_site }}</option>
                                             @endforeach
                                         </select>
@@ -494,7 +542,7 @@
                                     <td>
                                         <select type="text" class="form-control" name="status">
                                             <option value="">作成ステータスを選んで下さい</option>
-                                            @foreach( config('status') as $key => $status )
+                                            @foreach( config('options.status_create') as $key => $status )
                                             <option value="{{ $key }}">{{ $status }}</option>
                                             @endforeach
                                         </select>
