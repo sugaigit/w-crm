@@ -385,8 +385,8 @@
                                     <td>
                                         <select type="text" class="form-control" name="holiday">
                                             <option value="">休日を選んで下さい</option>
-                                            @foreach( config('options.holiday') as $key => $holiday )
-                                            <option value="{{ $key }}">{{ $holiday }}</option>
+                                            @foreach( config('options.holiday') as $holiday )
+                                            <option value="{{ $holiday }}">{{ $holiday }}</option>
                                             @endforeach
                                         </select>
                                     </td>
@@ -631,7 +631,7 @@
             </div>
 
             <button class="btn btn-outline-secondary btn-lg" data-bs-toggle="button" autocomplete="off" type="submit" onClick="history.back()">
-                前に戻る
+                求人情報一覧に戻る
             </button>
 
         </div>

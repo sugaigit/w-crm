@@ -379,8 +379,8 @@
                                 <td>
                                     <select type="text" class="form-control" name="holiday">
                                         <option value="">休日を選んで下さい</option>
-                                        @foreach( config('options.holiday') as $key => $holiday )
-                                        <option value="{{ $key }}" {{ $key == $jobOffer->holiday ? 'selected' : '' }}>{{ $holiday }}</option>
+                                        @foreach( config('options.holiday') as $holiday )
+                                        <option value="{{ $holiday }}" {{ $holiday == $jobOffer->holiday ? 'selected' : '' }}>{{ $holiday }}</option>
                                         @endforeach
                                     </select>
                                 </td>

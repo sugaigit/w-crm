@@ -14,9 +14,40 @@ class JobOfferController extends Controller
     public function index(Request $request)
     {
         $jobOffers = JobOffer::all();
+        $users = User::all();
+
+        $jobOffers = JobOffer::when($request->userId, function ($query, $userId) {
+            return $query->where('user_id', $userId);
+        })
+        ->when($request->companyName, function ($query, $companyName) {
+            return $query->where('company_name', 'like' , "%{$companyName}%");
+        })
+        ->when($request->jobNumber, function ($query, $jobNumber) {
+            return $query->where('job_number', $jobNumber);
+        })
+        ->when($request->keywords, function ($query, $keywords) {
+            $smallSpaceKeywords = mb_convert_kana($keywords, 's');
+            $keywords = explode(' ', $smallSpaceKeywords);
+
+            // キーワードはAND、カラムはOR
+            foreach($keywords as $keyword) {
+                $query->where(function($query) use ($keyword){
+                    $query->where('company_name', 'LIKE', "%{$keyword}%")
+                    ->orWhere('company_address', 'LIKE', "%{$keyword}%")
+                    ->orWhere('ordering_business', 'LIKE', "%{$keyword}%")
+                    ->orWhere('order_details', 'LIKE', "%{$keyword}%")
+                    ->orWhere('scheduled_period', 'LIKE', "%{$keyword}%")
+                    ->orWhere('holiday', 'LIKE', "%{$keyword}%");
+                });
+            }
+
+            return $query;
+        })
+        ->get();
 
         return view('job_offers.index', [
             'jobOffers' => $jobOffers,
+            'users' => $users,
         ]);
     }
 
@@ -25,7 +56,6 @@ class JobOfferController extends Controller
         $jobOffers = JobOffer::all();
         $users = User::all();
         $customers = Customer::all();
-        $activityRecords = ActivityRecord::all();
 
         return view('job_offers.create', [
             'jobOffers' => $jobOffers,
@@ -48,7 +78,7 @@ class JobOfferController extends Controller
         }else { // 編集
             // 求人情報の更新処理
             $jobOffer = JobOffer::find($request->jobOfferId);
-            
+
             $jobOffer->user_id= $request->input('user_id');
             $jobOffer->company_type= $request->input('company_type');
             $jobOffer->job_number= $request->input('job_number');
@@ -133,12 +163,14 @@ class JobOfferController extends Controller
             $jobOffer->save();
 
             // 活動記録の登録処理
-            ActivityRecord::create([
-                'date' => $request->input('date'),
-                'item' => $request->input('item'),
-                'detail' => $request->input('detail'),
-                'job_offer_id' => $request->input('job_offer_id'),
-            ]);
+            if( $request->filled(['date', 'item']) ) { // 活動記録が空の場合はレコードを作成しない
+                ActivityRecord::create([
+                    'date' => $request->input('date'),
+                    'item' => $request->input('item'),
+                    'detail' => $request->input('detail'),
+                    'job_offer_id' => $request->input('job_offer_id'),
+                ]);
+            }
 
             return redirect(route('job_offers.index'))->with('success', '更新しました');
         }
@@ -167,7 +199,7 @@ class JobOfferController extends Controller
 
     /**
      * Update the specified resource in storage.
-     * 
+     *
      */
     public function update(Request $request, $id)
     {
