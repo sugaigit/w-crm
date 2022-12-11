@@ -161,18 +161,18 @@
                             </td>
                         </tr>
                         <tr>
-                            <th>請求情報①備考</th>
+                            <th>請求情報①備考<br><i class="bi bi-plus-circle" id="open_billing_2"></i></th>
                             <td>
                                 <input type="text"class="form-control" maxlength="100" name="billing_information_1" value="{{ isset($jobOffer->billing_information_1) ? $jobOffer->billing_information_1 : '' }}">
                             </td>
                         </tr>
-                        <tr>
+                        <tr class="billing-2">
                             <th>請求単価②</th>
                             <td>
                                 <input type="text" class="form-control" name="Invoice_unit_price_2" value="{{ isset($jobOffer->Invoice_unit_price_2) ? $jobOffer->Invoice_unit_price_2 : '' }}">
                             </td>
                         </tr>
-                        <tr>
+                        <tr class="billing-2">
                             <th>請求単位②</th>
                             <td>
                                 <select type="text" class="form-control" name="billing_unit_2">
@@ -183,25 +183,25 @@
                                 <select>
                             </td>
                         </tr>
-                        <tr>
+                        <tr class="billing-2">
                             <th>利益率②</th>
                             <td>
                                 <input type="text" class="form-control" name="profit_rate_2" value="{{ isset($jobOffer->profit_rate_2) ? $jobOffer->profit_rate_2 : '' }}">
                             </td>
                         </tr>
-                        <tr>
-                            <th>請求情報②備考</th>
+                        <tr class="billing-2">
+                            <th>請求情報②備考<br><i class="bi bi-plus-circle" id="open_billing_3"></i></th>
                             <td>
                                 <input type="text"class="form-control" maxlength="100" name="billing_information_2" value="{{ isset($jobOffer->billing_information_2) ? $jobOffer->billing_information_2 : '' }}">
                             </td>
                         </tr>
-                        <tr>
+                        <tr class="billing-3">
                             <th>請求単価③</th>
                             <td>
                                 <input type="text" class="form-control" name="Invoice_unit_price_3" value="{{ isset($jobOffer->Invoice_unit_price_3) ? $jobOffer->Invoice_unit_price_3 : '' }}">
                             </td>
                         </tr>
-                        <tr>
+                        <tr class="billing-3">
                             <th>請求単位③</th>
                             <td>
                                 <select type="text" class="form-control" name="billing_unit_3">
@@ -212,13 +212,13 @@
                                 <select>
                             </td>
                         </tr>
-                        <tr>
+                        <tr class="billing-3">
                             <th>利益率③</th>
                             <td>
                                 <input type="text" class="form-control" name="profit_rate_3" value="{{ isset($jobOffer->profit_rate_3) ? $jobOffer->profit_rate_3 : '' }}">
                             </td>
                         </tr>
-                        <tr>
+                        <tr class="billing-3">
                             <th>請求情報③備考</th>
                             <td>
                                 <input type="text"class="form-control" maxlength="100" name="billing_information_3" value="{{ isset($jobOffer->billing_information_3) ? $jobOffer->billing_information_3 : '' }}">
@@ -280,30 +280,30 @@
                             </td>
                         </tr>
                         <tr>
-                            <th>支払情報①備考</th>
+                            <th>支払情報①備考<br><i class="bi bi-plus-circle" id="open_payment_2"></i></th>
                             <td>
                                 <input  type="text" class="form-control" name="carfare_payment_remarks_1" value="{{ isset($jobOffer->carfare_payment_remarks_1) ? $jobOffer->carfare_payment_remarks_1 : '' }}">
                             </td>
                         </tr>
-                        <tr>
+                        <tr class="payment-2">
                             <th>支払単価②</th>
                             <td>
                                 <input  type="text" class="form-control" name="payment_unit_price_2" value="{{ isset($jobOffer->payment_unit_price_2) ? $jobOffer->payment_unit_price_2 : '' }}">
                             </td>
                         </tr>
-                        <tr>
+                        <tr class="payment-2">
                             <th>支払単位②</th>
                             <td>
                                 <input type="text"class="form-control" name="payment_unit_2" value="{{ isset($jobOffer->payment_unit_2) ? $jobOffer->payment_unit_2 : '' }}">
                             </td>
                         </tr>
-                        <tr>
+                        <tr class="payment-2">
                             <th>交通費②</th>
                             <td>
                                 <input  type="text" class="form-control" name="carfare_2" value="{{ isset($jobOffer->carfare_2) ? $jobOffer->carfare_2 : '' }}">
                             </td>
                         </tr>
-                        <tr>
+                        <tr class="payment-2">
                             <th>交通費支払単位②</th>
                             <td>
                                 <select type="text" class="form-control" name="carfare_payment_2">
@@ -314,19 +314,19 @@
                                 <select>
                             </td>
                         </tr>
-                        <tr>
-                            <th>支払情報②備考</th>
+                        <tr class="payment-2">
+                            <th>支払情報②備考<br><i class="bi bi-plus-circle" id="open_payment_3"></i></th>
                             <td>
                                 <input  type="text" class="form-control" name="carfare_payment_remarks_2" value="{{ isset($jobOffer->carfare_payment_remarks_2) ? $jobOffer->carfare_payment_remarks_2 : '' }}">
                             </td>
                         </tr>
-                        <tr>
+                        <tr class="payment-3">
                             <th>支払単価③</th>
                             <td>
                                 <input  type="text" class="form-control" name="payment_unit_price_3" value="{{ isset($jobOffer->payment_unit_price_3) ? $jobOffer->payment_unit_price_3 : '' }}">
                             </td>
                         </tr>
-                        <tr>
+                        <tr class="payment-3">
                             <th>支払単位③</th>
                             <td>
                                 <select type="text" class="form-control" name="carfare_payment_3">
@@ -337,19 +337,19 @@
                                 <select>
                             </td>
                         </tr>
-                        <tr>
+                        <tr class="payment-3">
                             <th>交通費③</th>
                             <td>
                                 <input  type="text" class="form-control" name="carfare_3" value="{{ isset($jobOffer->carfare_3) ? $jobOffer->carfare_3 : '' }}">
                             </td>
                         </tr>
-                        <tr>
+                        <tr class="payment-3">
                             <th>交通費支払単位③</th>
                             <td>
                                 <input  type="text" class="form-control" name="carfare_payment_3" value="{{ isset($jobOffer->carfare_payment_3) ? $jobOffer->carfare_payment_3 : '' }}">
                             </td>
                         </tr>
-                        <tr>
+                        <tr class="payment-3">
                             <th>支払情報③備考</th>
                             <td>
                                 <input  type="text" class="form-control" name="carfare_payment_remarks_3" value="{{ isset($jobOffer->carfare_payment_remarks_3) ? $jobOffer->carfare_payment_remarks_3 : '' }}">
@@ -414,9 +414,48 @@
                             </td>
                         </tr>
                         <tr>
-                            <th>休憩時間①<span class="text-danger">*</span></th>
+                            <th>
+                                休憩時間①<span class="text-danger">*</span>
+                                <br><i class="bi bi-plus-circle" id="open_working_2"></i>
+                            </th>
                             <td>
                                 <input  type="text" class="form-control" name="break_time_1" value="{{ isset($jobOffer->break_time_1) ? $jobOffer->break_time_1 : '' }}">
+                            </td>
+                        </tr>
+                        <tr class="working-2">
+                            <th>勤務時間②</th>
+                            <td>
+                                <input  type="text" class="form-control" name="working_hours_2" value="{{ isset($jobOffer->working_hours_2) ? $jobOffer->working_hours_2 : '' }}">
+                            </td>
+                        </tr>
+                        <tr class="working-2">
+                            <th>実働時間②</th>
+                            <td>
+                                <input  type="text" class="form-control" name="actual_working_hours_2" value="{{ isset($jobOffer->actual_working_hours_2) ? $jobOffer->actual_working_hours_2 : '' }}">
+                            </td>
+                        </tr>
+                        <tr class="working-2">
+                            <th>休憩時間②<br><i class="bi bi-plus-circle" id="open_working_3"></i></th>
+                            <td>
+                                <input  type="text" class="form-control" name="break_time_2" value="{{ isset($jobOffer->break_time_2) ? $jobOffer->break_time_2 : '' }}">
+                            </td>
+                        </tr>
+                        <tr class="working-3">
+                            <th>勤務時間③</th>
+                            <td>
+                                <input  type="text" class="form-control" name="working_hours_3" value="{{ isset($jobOffer->working_hours_3) ? $jobOffer->working_hours_3 : '' }}">
+                            </td>
+                        </tr>
+                        <tr class="working-3">
+                            <th>実働時間③</th>
+                            <td>
+                                <input  type="text" class="form-control" name="actual_working_hours_3" value="{{ isset($jobOffer->actual_working_hours_3) ? $jobOffer->actual_working_hours_3 : '' }}">
+                            </td>
+                        </tr>
+                        <tr class="working-3">
+                            <th>休憩時間③</th>
+                            <td>
+                                <input  type="text" class="form-control" name="break_time_3" value="{{ isset($jobOffer->break_time_3) ? $jobOffer->break_time_3 : '' }}">
                             </td>
                         </tr>
                         <tr>
@@ -429,42 +468,6 @@
                             <th>勤務時間備考</th>
                             <td>
                                 <input  type="text" class="form-control" name="working_hours_remarks" value="{{ isset($jobOffer->working_hours_remarks) ? $jobOffer->working_hours_remarks : '' }}">
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>勤務時間②</th>
-                            <td>
-                                <input  type="text" class="form-control" name="working_hours_2" value="{{ isset($jobOffer->working_hours_2) ? $jobOffer->working_hours_2 : '' }}">
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>実働時間②</th>
-                            <td>
-                                <input  type="text" class="form-control" name="actual_working_hours_2" value="{{ isset($jobOffer->actual_working_hours_2) ? $jobOffer->actual_working_hours_2 : '' }}">
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>休憩時間②</th>
-                            <td>
-                                <input  type="text" class="form-control" name="break_time_2" value="{{ isset($jobOffer->break_time_2) ? $jobOffer->break_time_2 : '' }}">
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>勤務時間③</th>
-                            <td>
-                                <input  type="text" class="form-control" name="working_hours_3" value="{{ isset($jobOffer->working_hours_3) ? $jobOffer->working_hours_3 : '' }}">
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>実働時間③</th>
-                            <td>
-                                <input  type="text" class="form-control" name="actual_working_hours_3" value="{{ isset($jobOffer->actual_working_hours_3) ? $jobOffer->actual_working_hours_3 : '' }}">
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>休憩時間③</th>
-                            <td>
-                                <input  type="text" class="form-control" name="break_time_3" value="{{ isset($jobOffer->break_time_3) ? $jobOffer->break_time_3 : '' }}">
                             </td>
                         </tr>
                         <tr>
