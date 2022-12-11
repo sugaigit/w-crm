@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\JobOffer;
 use App\Models\User;
 use App\Models\Customer;
+use App\Models\ActivityRecord;
 
 class JobOfferController extends Controller
 {
@@ -24,6 +25,7 @@ class JobOfferController extends Controller
         $jobOffers = JobOffer::all();
         $users = User::all();
         $customers = Customer::all();
+        $activityRecords = ActivityRecord::all();
 
         return view('job_offers.create', [
             'jobOffers' => $jobOffers,
@@ -44,8 +46,9 @@ class JobOfferController extends Controller
             JobOffer::create($request->all());
             return redirect(route('job_offers.index'));
         }else { // 編集
+            // 求人情報の更新処理
             $jobOffer = JobOffer::find($request->jobOfferId);
-
+            
             $jobOffer->user_id= $request->input('user_id');
             $jobOffer->company_type= $request->input('company_type');
             $jobOffer->job_number= $request->input('job_number');
@@ -117,7 +120,25 @@ class JobOfferController extends Controller
             $jobOffer->status= $request->input('status');
             $jobOffer->order_date= $request->input('order_date');
 
+            $jobOffer->after_introduction= $request->input('after_introduction');
+            $jobOffer->timing_of_switching= $request->input('timing_of_switching');
+            $jobOffer->monthly_lower_limit= $request->input('monthly_lower_limit');
+            $jobOffer->monthly_upper_limit= $request->input('monthly_upper_limit');
+            $jobOffer->annual_lower_limit= $request->input('annual_lower_limit');
+            $jobOffer->age_upper_limit= $request->input('age_upper_limit');
+            $jobOffer->bonuses_treatment= $request->input('bonuses_treatment');
+            $jobOffer->holidays_vacations= $request->input('holidays_vacations');
+            $jobOffer->introduction_others= $request->input('introduction_others');
+
             $jobOffer->save();
+
+            // 活動記録の登録処理
+            ActivityRecord::create([
+                'date' => $request->input('date'),
+                'item' => $request->input('item'),
+                'detail' => $request->input('detail'),
+                'job_offer_id' => $request->input('job_offer_id'),
+            ]);
 
             return redirect(route('job_offers.index'))->with('success', '更新しました');
         }
@@ -134,11 +155,13 @@ class JobOfferController extends Controller
         $jobOffer = JobOffer::find($id);
         $users = User::all();
         $customers = Customer::all();
+        $activityRecords = ActivityRecord::all();
 
         return view('job_offers.edit', [
             'jobOffer' => $jobOffer,
             'users' => $users,
             'customers' => $customers,
+            'activityRecords' => $activityRecords,
         ]);
     }
 

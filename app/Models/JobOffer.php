@@ -97,6 +97,11 @@ class JobOffer extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function activityRecords()
+    {
+        return $this->hasMany(ActivityRecord::class);
+    }
+
     // public function customerLogs()
     // {
     //     return $this->hasMany(CustomerLog::class);
