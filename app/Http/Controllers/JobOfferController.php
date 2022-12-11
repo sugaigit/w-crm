@@ -25,6 +25,9 @@ class JobOfferController extends Controller
         ->when($request->jobNumber, function ($query, $jobNumber) {
             return $query->where('job_number', $jobNumber);
         })
+        ->when($request->status, function ($query, $status) {
+            return $query->where('status', $status);
+        })
         ->when($request->keywords, function ($query, $keywords) {
             $smallSpaceKeywords = mb_convert_kana($keywords, 's');
             $keywords = explode(' ', $smallSpaceKeywords);

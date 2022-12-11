@@ -23,7 +23,15 @@
                         <label for="jobNumberInput" class="mt-3">仕事番号</label>
                         <input class="form-control mt-1" type="search" id="jobNumberInput" placeholder="仕事番号を入力" name="jobNumber" value="{{ Request::input('jobNumber') }}">
 
-                        <label for="keywordsInput" class="mt-3">キーワード(未実装)</label>
+                        <label for="statusInput" class="mt-3">ステータス</label>
+                        <select type="text" class="form-control" name="status">
+                            <option value="">作成ステータスを選んで下さい</option>
+                            @foreach( config('options.status_edit') as $key => $status )
+                            <option value="{{ $key }}" @if( $key == Request::input('status') ) selected @endif>{{ $status }}</option>
+                            @endforeach
+                        </select>
+
+                        <label for="keywordsInput" class="mt-3">キーワード</label>
                         <input class="form-control mt-1" type="search" id="keywordsInput" placeholder="キーワードを入力" name="keywords" value="{{ Request::input('keywords') }}">
 
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
