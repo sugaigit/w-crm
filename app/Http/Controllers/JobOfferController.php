@@ -186,7 +186,6 @@ class JobOfferController extends Controller
      */
     public function edit($id)
     {
-
         $jobOffer = JobOffer::find($id);
         $users = User::all();
         $customers = Customer::all();
