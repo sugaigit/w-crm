@@ -6,10 +6,10 @@
             <div class="card-header">
                 求人情報編集
             </div>
-            <form action="{{ route('job_offers.store') }}" method="POST">
-                <input type="hidden" name="isUpdate" value="1">
-                <input type="hidden" name="jobOfferId" value="{{ $jobOffer->id }}">
+            <form action="{{ route('job_offers.update', ['job_offer' => $jobOffer->id]) }}" method="POST">
+                @method('PUT')
                 @csrf
+                <input type="hidden" name="jobOfferId" value="{{ $jobOffer->id }}">
                 <table class="table">
                     <tbody>
                         <tr>

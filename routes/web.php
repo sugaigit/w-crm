@@ -21,6 +21,5 @@ Route::get('/roles', \App\Http\Controllers\RoleController::class)->name('ロー�
 Route::resource('customers', \App\Http\Controllers\CustomerController::class);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('job_offers', \App\Http\Controllers\JobOfferController::class);
-Route::resource('job_offers', \App\Http\Controllers\JobOfferController::class);
 
 Auth::routes();
