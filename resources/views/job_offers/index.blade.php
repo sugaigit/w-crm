@@ -51,11 +51,11 @@
 <table class="table table-bordered table-hover w-75 m-auto">
     <thead>
     <tr class=m-auto style="background-color: lightgray">
-        <td>ステータス</td>
-        <td>仕事番号</td>
-        <td>就業先名称</td>
-        <td>営業担当</td>
-        <td>操作</td>
+        <th>ステータス</th>
+        <th>仕事番号</th>
+        <th>就業先名称</th>
+        <th>営業担当</th>
+        <th>操作</th>
     </tr>
     </thead>
 
@@ -65,7 +65,9 @@
             <td>{{ $jobOffer->job_number }}</td>
             <td>{{ $jobOffer->company_name }}</td>
             <td>{{ $jobOffer->user->name}}</td>
-            <td><a href="{{ route('job_offers.edit', ['job_offer' => $jobOffer->id]) }}">編集</a></td>
+            <td><a href="{{ route('job_offers.edit', ['job_offer' => $jobOffer->id]) }}">
+                <button class="btn btn-primary" type="button">編集</button>
+            </a></td>
         </tr>
     @endforeach
 </table>

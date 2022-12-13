@@ -1,9 +1,9 @@
-$(document).ready(function() { 
+$(document).ready(function() {
   /******************************************
    * 契約形態による人材紹介/紹介予定　採用後条件の表示・非表示の切り替え
    ******************************************/
   $('.afterRecruit').css("display", "none"); // ページ読み込み時の初期化
-  $('select[name="type_contract"]').change(function() { 
+  $('select[name="type_contract"]').change(function() {
     const targetItems = ['2', '3']; // 2:紹介予定派遣、3:人材紹介
 
     if( targetItems.includes($(this).val()) ) {
@@ -34,12 +34,12 @@ $(document).ready(function() {
   ******************************************/
   $('.payment-2').css("display", "none");
   $('.payment-3').css("display", "none");
-  
+
     $('#open_payment_2').on('click', function () {
     $('.payment-2').css("display", "");
     $(this).css("display", "none");
   });
-  
+
    $('#open_payment_3').on('click', function () {
     $('.payment-3').css("display", "");
     $(this).css("display", "none");
@@ -50,15 +50,36 @@ $(document).ready(function() {
   ******************************************/
   $('.working-2').css("display", "none");
   $('.working-3').css("display", "none");
-  
+
     $('#open_working_2').on('click', function () {
     $('.working-2').css("display", "");
     $(this).css("display", "none");
   });
-  
+
   $('#open_working_3').on('click', function () {
     $('.working-3').css("display", "");
     $(this).css("display", "none");
   });
-  
+
+/******************************************
+ * 勤務時間②等の表示・非表示切り替え
+ ******************************************/
+ var csvFile = $('input[type=file]');
+ csvFile.change(function (e) {
+    var result = e.target.files[0];
+
+    //FileReaderのインスタンスを作成する
+    var reader = new FileReader();
+
+    //読み込んだファイルの中身を取得する
+    reader.readAsText( result );
+
+    //ファイルの中身を取得後に処理を行う
+    reader.addEventListener('load', function() {
+
+        //ファイルの中身をtextarea内に表示する
+        console.log(reader.result.split(/\r\n|\n/));
+    })
+ });
+
 });
