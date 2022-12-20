@@ -2,15 +2,17 @@
 @section('content')
 <div class="container">
   <div class="col-md-12">
-    <input class="btn btn-secondary mb-2" type="button" value="印刷する" onclick="window.print();" />
+  <form action="{{ route('job_offers.update', ['job_offer' => $jobOffer->id]) }}" method="POST">
+    @method('PUT')
+    @csrf
+    <input type="hidden" name="jobOfferId" value="{{ $jobOffer->id }}">
+    <input class="btn btn-secondary mb-2" type="button" value="印刷" onclick="window.print();" />
+    <input class="btn btn-success mb-2" type="submit" value="複製" onclick="duplicate()" />
     <div class="card mb-4">
       <div class="card-header">
           求人情報編集
       </div>
-      <form action="{{ route('job_offers.update', ['job_offer' => $jobOffer->id]) }}" method="POST">
-        @method('PUT')
-        @csrf
-        <input type="hidden" name="jobOfferId" value="{{ $jobOffer->id }}">
+
         <table class="table">
             <tbody>
               <tr>

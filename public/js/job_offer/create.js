@@ -82,4 +82,15 @@ $(document).ready(function() {
     })
  });
 
+ /******************************************
+ * 顧客名のdatalistで顧客名ではなく顧客IDを送信する
+ ******************************************/
+  let customer_id = null;
+  // datalistのdata-id属性の値の取得
+  $('#customer_input').on('change', function () {
+    customer_id = $("#customer_list option[value='" + $(this).val() + "']").data('customer_id');
+    $('#customer_id').val(customer_id)
+  });
+  
+
 });
