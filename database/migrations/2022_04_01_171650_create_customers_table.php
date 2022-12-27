@@ -17,6 +17,7 @@ class CreateCustomersTable extends Migration
             $table->id();//固有ID
             $table->string('company_type');//取扱会社種別
             $table->string('handling_office');//取扱事業所
+            $tables->set('customer_type');
             $table->string('name');//クライアント名
             $table->string('kana');//クライアント名　カナ
             $table->string('address');//住所
