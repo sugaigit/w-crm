@@ -57,6 +57,7 @@ class CustomerController extends Controller
         $attribute = request()->validate([
                 'company_type' => ['required'],
                 'handling_office'=> ['required',],
+                'customer_type'=> ['required',],
                 'name'=> ['required',],
                 'kana'=> ['required',''],
                 'address'=> ['required',],
@@ -107,6 +108,7 @@ class CustomerController extends Controller
         $customer = Customer::find($id);
         $customer->company_type =$request->input('company_type');
         $customer->handling_office = $request->input('handling_office');
+        $customer->customer_type = $request->input('customer_type');
         $customer->name = $request->input('name');
         $customer->kana = $request->input('kana');
         $customer->address = $request->input('address');

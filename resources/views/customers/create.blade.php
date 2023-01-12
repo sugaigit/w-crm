@@ -24,6 +24,15 @@
                             @endforeach
                         </select>
                         </li>
+                    </li>
+                    <li class="list-group-item list-group-item-action">
+                    法人形態：
+                    <select type="text" class="form-control w-25" name="handling_office">
+                        @foreach(config('customer_type') as $key => $score)
+                        <option value="{{ $score }}">{{ $score }}</option>
+                        @endforeach
+                    </select>
+                    </li>
                        　<li class="list-group-item list-group-item-action">クライアント名：<input type="text" name="name" value="{{ old('name') }}"></li>
                         <li class="list-group-item list-group-item-action">クライアント名カナ：<input type="text" name="kana" value="{{ old('kana') }}"></li>
                         <li class="list-group-item list-group-item-action">住所：<input type="text" name="address" value="{{ old('address') }}"></li>
