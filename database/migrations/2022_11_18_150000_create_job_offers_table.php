@@ -16,13 +16,13 @@ class CreateJobOffersTable extends Migration
         Schema::create('job_offers', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id')->unsigned()->comment('営業担当');
-            $table->foreign('user_id')->references('id')->on('users');
+            // $table->foreign('user_id')->references('id')->on('users');
             $table->string('company_type')->comment('取扱会社種別（1:HA, 2:HC）');
             $table->string('job_number', 100)->nullable()->comment('仕事番号');
             $table->string('handling_office')->comment('取扱事業所名（1:北九州本社, 2:福岡支店）');
             $table->string('business_type')->comment('事業種別（1:民間事業, 2:行政事業）');
             $table->bigInteger('customer_id')->unsigned()->nullable()->comment('顧客');
-            $table->foreign('customer_id')->nullable()->references('id')->on('customers');
+            // $table->foreign('customer_id')->nullable()->references('id')->on('customers');
             $table->string('type_contract')->comment('契約形態（1:一般派遣, 2:紹介予定派遣, 3:人材紹介, 4:請負, 5:採用代行）');
             $table->integer('recruitment_number')->comment('募集人数');//
             $table->string('company_name', 100)->comment('就業先名称');//
