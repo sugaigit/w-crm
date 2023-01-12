@@ -7,7 +7,7 @@
                     <div class="card-header">求人情報新規登録</div>
                     <form action="{{ route('job_offers.store') }}" method="POST">
                         @csrf
-                        <input type="file">
+                        {{-- <input type="file"> --}}
                         <table class="table">
                             <tbody>
                                 <tr>
