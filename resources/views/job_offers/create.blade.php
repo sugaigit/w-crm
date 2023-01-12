@@ -4,7 +4,7 @@
     <div class="col-md-12">
         <div class="card mb-4">
             <div class="card-header">
-                    <div class="card-header">求人情報新規登録</div>
+                    <div class="card-header">求人情報新規登録A</div>
                     <form action="{{ route('job_offers.store') }}" method="POST">
                         @csrf
                         <table class="table">
