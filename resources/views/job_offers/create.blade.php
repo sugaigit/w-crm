@@ -7,7 +7,6 @@
                     <div class="card-header">求人情報新規登録</div>
                     <form action="{{ route('job_offers.store') }}" method="POST">
                         @csrf
-                        {{-- <input type="file"> --}}
                         <table class="table">
                             <tbody>
                                 <tr>
@@ -32,12 +31,12 @@
                                         </select>
                                     </td>
                                 </tr>
-                                <!-- <tr>
+                                <tr>
                                     <th>仕事番号</th>
                                     <td>
                                         <input type="text" class="form-control" name="job_number" value="{{ old('job_number') }}">
                                     </td>
-                                </tr> -->
+                                </tr>
                                 <tr>
                                     <th>取扱事業所名<span class="text-danger">*</span></th>
                                     <td>
@@ -63,12 +62,13 @@
                                 <tr>
                                     <th>顧客<span class="text-danger">*</span></th>
                                     <td>
-                                        <select type="text" class="form-control" name="customer_id">
-                                            <option value="">顧客を選んで下さい</option>
-                                            @foreach( $customers as $customer )
-                                            <option value="{{ $customer->id }}">{{ $customer->name }}</option>
-                                            @endforeach
-                                        </select>
+                                        <input id="customer_input" class="form-control" list="customer_list" tyle="text" name="customer_name" value=""/>
+                                        <datalist id="customer_list">
+                                        @foreach( $customers as $customer )
+                                            <option value="{{ $customer->name }}" data-customer_id="{{ $customer->id }}"></option>
+                                        @endforeach
+                                        </datalist>
+                                        <input id="customer_id" type="hidden" name="customer_id" value="">
                                     </td>
                                 </tr>
                                 <tr>

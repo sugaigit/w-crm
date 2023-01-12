@@ -67,5 +67,12 @@ $(document).ready(function() {
     $('.working-3').css("display", "");
     $(this).css("display", "none");
   });
-
 });
+
+function duplicate(){
+  $('form').submit(function() {
+    $('form').attr('action', '/job_offers');
+    $('input[name="_method"]').attr('value', 'POST');
+});
+
+}
