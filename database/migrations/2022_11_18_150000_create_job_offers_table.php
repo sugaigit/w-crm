@@ -16,13 +16,13 @@ class CreateJobOffersTable extends Migration
         Schema::create('job_offers', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id')->unsigned()->comment('営業担当');
-            // $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->string('company_type')->comment('取扱会社種別（1:HA, 2:HC）');
             $table->string('job_number', 100)->nullable()->comment('仕事番号');
             $table->string('handling_office')->comment('取扱事業所名（1:北九州本社, 2:福岡支店）');
             $table->string('business_type')->comment('事業種別（1:民間事業, 2:行政事業）');
             $table->bigInteger('customer_id')->unsigned()->nullable()->comment('顧客');
-            // $table->foreign('customer_id')->nullable()->references('id')->on('customers');
+            $table->foreign('customer_id')->nullable()->references('id')->on('customers');
             $table->string('type_contract')->comment('契約形態（1:一般派遣, 2:紹介予定派遣, 3:人材紹介, 4:請負, 5:採用代行）');
             $table->integer('recruitment_number')->comment('募集人数');//
             $table->string('company_name', 100)->comment('就業先名称');//
@@ -51,11 +51,15 @@ class CreateJobOffersTable extends Migration
             $table->string('carfare_1', 100)->comment('交通費①');//
             $table->string('carfare_payment_1', 100)->comment('交通費支払単位①');//
             $table->string('carfare_payment_remarks_1', 100)->comment('支払情報①備考')->nullable();//
+            $table->string('employment_insurance_2', 100)->comment('雇用保険加入②');//
+            $table->string('social_insurance_2', 100)->comment('社会保険加入②');//
             $table->string('payment_unit_price_2', 100)->comment('支払単価②')->nullable();//
             $table->string('payment_unit_2', 100)->comment('支払単位②')->nullable();//
             $table->string('carfare_2', 100)->comment('交通費②')->nullable();//
             $table->string('carfare_payment_2', 100)->comment('交通費支払単位②')->nullable();//
             $table->string('carfare_payment_remarks_2', 100)->comment('支払情報②備考')->nullable();//
+            $table->string('employment_insurance_3', 100)->comment('雇用保険加入③');//
+            $table->string('social_insurance_3', 100)->comment('社会保険加入③');//
             $table->string('payment_unit_price_3', 100)->comment('支払単価③')->nullable();//
             $table->string('payment_unit_3', 100)->comment('支払単位③')->nullable();//
             $table->string('carfare_3', 100)->comment('交通費③')->nullable();//
@@ -87,7 +91,7 @@ class CreateJobOffersTable extends Migration
             $table->string('parking')->comment('駐車場');
             $table->string('posting_site')->comment('求人掲載サイト')->nullable();
             $table->string('status')->comment('作成ステータス');
-            $table->date('order_date')->comment('発注日');
+            $table->date('order_date')->comment('起算日');
             $table->string('after_introduction')->comment('紹介後')->nullable();
             $table->string('timing_of_switching')->comment('直接雇用切替時期')->nullable();
             $table->string('monthly_lower_limit')->comment('月収例（下限）')->nullable();
@@ -97,6 +101,19 @@ class CreateJobOffersTable extends Migration
             $table->string('bonuses_treatment')->comment('賞与等・待遇')->nullable();
             $table->string('holidays_vacations')->comment('休日・休暇')->nullable();
             $table->text('introduction_others')->comment('その他')->nullable();
+            $table->string('qualification', 10)->comment('資格要件（0:不問、1:歓迎、2:必須）')->nullable();
+            $table->string('qualification_content', 100)->comment('資格名')->nullable();
+            $table->string('experience_content', 10)->comment('経験要件（0:不問、1:歓迎、2:必須）')->nullable();
+            $table->string('sex', 10)->comment('性別要件（0:不問、1:歓迎、2:必須）')->nullable();
+            $table->string('age', 100)->comment('年齢要件')->nullable();
+            $table->string('uniform_supply', 10)->comment('制服支給の有無（0:なし, 1:あり（有料), あり（無料））')->nullable();
+            $table->string('supply', 100)->comment('支給物')->nullable();
+            $table->string('clothes', 100)->comment('服装')->nullable();
+            $table->string('other_hair_colors', 100)->comment('その他・髪色')->nullable();
+            $table->string('self_prepared', 100)->comment('自身で準備するもの')->nullable();
+            $table->text('remarks_workplace')->comment('職場の雰囲気・備考')->nullable();
+            $table->string('gender_ratio')->comment('男女比')->nullable();
+            $table->string('age_ratio')->comment('年齢比率')->nullable();
             $table->timestamps();
         });
     }
