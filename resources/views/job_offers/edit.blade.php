@@ -548,7 +548,7 @@
                 </td>
               </tr>
               <tr>
-                <th>発注日<span class="text-danger">*</span></th>
+                <th>起算日<span class="text-danger">*</span></th>
                 <td>
                   <input  type="date" class="form-control" name="order_date" value="{{ isset($jobOffer->order_date) ? $jobOffer->order_date : '' }}">
                 </td>
