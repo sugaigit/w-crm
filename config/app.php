@@ -133,7 +133,7 @@ return [
     | this array to grant expanded functionality to your applications.
     |
     */
-
+    
     'providers' => [
 
         /*
@@ -175,7 +175,6 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Search\Providers\SearchServiceProvider::class,
-
 
     ],
 

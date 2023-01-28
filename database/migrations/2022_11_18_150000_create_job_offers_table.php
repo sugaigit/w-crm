@@ -17,7 +17,7 @@ class CreateJobOffersTable extends Migration
             $table->id();
             $table->bigInteger('user_id')->unsigned()->comment('営業担当');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->string('company_type')->comment('取扱会社種別（1:HA, 2:HC）');
+            $table->string('handling_type')->comment('取扱会社種別（1:HA, 2:HC）');
             $table->string('job_number', 100)->nullable()->comment('仕事番号');
             $table->string('handling_office')->comment('取扱事業所名（1:北九州本社, 2:福岡支店）');
             $table->string('business_type')->comment('事業種別（1:民間事業, 2:行政事業）');
@@ -30,17 +30,16 @@ class CreateJobOffersTable extends Migration
             $table->string('company_others', 100)->nullable()->comment('就業先備考');//
             $table->string('ordering_business', 100)->comment('発注業務');//
             $table->string('order_details', 100)->comment('発注業務詳細');//
-            $table->boolean('measures_existence', 100)->comment('対策の有無');//
-            $table->string('counter_measures')->comment('対策内容');//
-            $table->string('Invoice_unit_price_1', 100)->comment('請求単価①');//
+            $table->string('counter_measures')->comment('喫煙対策内容');//
+            $table->string('invoice_unit_price_1', 100)->comment('請求単価①');//
             $table->string('billing_unit_1', 100)->comment('請求単位①');//
             $table->string('profit_rate_1', 100)->comment('利益率①');//
             $table->string('billing_information_1', 100)->comment('請求情報①備考')->nullable();//
-            $table->string('Invoice_unit_price_2', 100)->comment('請求単価②')->nullable();//
+            $table->string('invoice_unit_price_2', 100)->comment('請求単価②')->nullable();//
             $table->string('billing_unit_2', 100)->comment('請求単位②')->nullable();//
             $table->string('profit_rate_2', 100)->comment('利益率②')->nullable();//
             $table->string('billing_information_2', 100)->comment('請求情報②備考')->nullable();//
-            $table->string('Invoice_unit_price_3', 100)->comment('請求単価③')->nullable();//
+            $table->string('invoice_unit_price_3', 100)->comment('請求単価③')->nullable();//
             $table->string('billing_unit_3', 100)->comment('請求単位③')->nullable();//
             $table->string('profit_rate_3', 100)->comment('利益率③')->nullable();//
             $table->string('billing_information_3', 100)->comment('請求情報③備考')->nullable();//
@@ -75,7 +74,7 @@ class CreateJobOffersTable extends Migration
             $table->string('actual_working_hours_1')->comment('実働時間①');//
             $table->string('break_time_1')->comment('休憩時間①');//
             $table->string('overtime')->comment('残業(時間/月)');//
-            $table->string('working_hours_remarks')->comment('勤務時間備考')->nullable();//
+            $table->text('working_hours_remarks')->comment('勤務時間備考')->nullable();//
             $table->string('working_hours_2')->comment('勤務時間②')->nullable();//
             $table->string('actual_working_hours_2')->comment('実働時間②')->nullable();//
             $table->string('break_time_2')->comment('休憩時間②')->nullable();//
@@ -87,7 +86,7 @@ class CreateJobOffersTable extends Migration
             $table->string('nearest_bus_stop')->comment('最寄りバス停')->nullable();
             $table->string('travel_time_bus_stop')->comment('バス停からの所要時間')->nullable();
             $table->string('commuting_by_car')->comment('車通勤（可能）');
-            $table->string('traffic_commuting_remarks')->comment('交通通勤備考')->nullable();
+            $table->text('traffic_commuting_remarks')->comment('交通通勤備考')->nullable();
             $table->string('parking')->comment('駐車場');
             $table->string('posting_site')->comment('求人掲載サイト')->nullable();
             $table->string('status')->comment('作成ステータス');
@@ -103,7 +102,8 @@ class CreateJobOffersTable extends Migration
             $table->text('introduction_others')->comment('その他')->nullable();
             $table->string('qualification', 10)->comment('資格要件（0:不問、1:歓迎、2:必須）')->nullable();
             $table->string('qualification_content', 100)->comment('資格名')->nullable();
-            $table->string('experience_content', 10)->comment('経験要件（0:不問、1:歓迎、2:必須）')->nullable();
+            $table->string('experience', 10)->comment('経験要件（0:不問、1:歓迎、2:必須）')->nullable();
+            $table->string('experience_content', 10)->comment('経験内容')->nullable();
             $table->string('sex', 10)->comment('性別要件（0:不問、1:歓迎、2:必須）')->nullable();
             $table->string('age', 100)->comment('年齢要件')->nullable();
             $table->string('uniform_supply', 10)->comment('制服支給の有無（0:なし, 1:あり（有料), あり（無料））')->nullable();

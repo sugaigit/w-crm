@@ -11,39 +11,21 @@ class CustomerController extends Controller
 {
     public function index(Request $request)
     {
-        // if (auth()->user()->isSuperVisor()) {
-                $customers = Customer::paginate();
-            /**以下検索ワード */
-                $clientsearch = $request->input('clientsearch');
-                $phonesearch = $request->input('phonesearch');
+        $customers = Customer::paginate();
+        /**検索ワード */
+        $clientsearch = $request->input('clientsearch');
+        $phonesearch = $request->input('phonesearch');
 
-                $query = Customer::query();
-            if(!empty($clientsearch)){
-                $query->where('client_name', 'like',"%{$clientsearch}%");
-            }
-            if(!empty($phonesearch)){
-                $query->where('phone', 'like', "%{$phonesearch}%");
-            }
+        $query = Customer::query();
+        if(!empty($clientsearch)){
+            $query->where('name', 'like',"%{$clientsearch}%");
+        }
+        if(!empty($phonesearch)){
+            $query->where('phone', 'like', "%{$phonesearch}%");
+        }
 
-                    $customers = $query->paginate();
+        $customers = $query->paginate();
 
-        // } else {
-        //     //スーパーじゃない
-        //     $customers = Customer::paginate();
-        //     /**以下クライアント名検索ワード */
-        //         $clientsearch = $request->input('clientsearch');
-        //         $phonesearch = $request->input('phonesearch');
-
-        //         $query = Customer::query();
-        //     if(!empty($clientsearch)){
-        //         $query->where('client_name', 'like', "%{$clientsearch}%");
-        //     }
-        //     if(!empty($phonesearch)){
-        //         $query->where('phone', 'like', "%{$phonesearch}%");
-        //     }
-
-        //             $customers = $query->paginate();
-        // }
         return view('customers.index')
         ->with([
             'customers' => $customers,
@@ -60,6 +42,7 @@ class CustomerController extends Controller
     public function create()
     {
         $users = User::all();
+
         return view('customers.create', ['users' => $users]);
     }
 
@@ -72,16 +55,17 @@ class CustomerController extends Controller
     public function store(Request $request)
     {
         $attribute = request()->validate([
-            'user_id' => ['required'],
-            'company_type' => ['required'],
+            'handling_type' => ['required'],
             'handling_office'=> ['required'],
-            'name'=> ['required'],
-            'kana'=> ['required'],
+            'corporate_type'=> ['required'],
+            'customer_name'=> ['required'],
             'address'=> ['required'],
             'phone'=> ['required'],
         ]);
 
-        $customer = Customer::create($attribute);
+        Customer::create($attribute);
+
+        $request->session()->flash('SucccessMsg', '登録しました');
 
         return redirect('/customers');
     }
@@ -114,36 +98,35 @@ class CustomerController extends Controller
      * Update the specified resource in storage.
      *yy
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Customer  $customer
+     * @param  \App\Models\Customer  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $customerId)
     {
+        $request->validate([
+            'handling_type' => ['required'],
+            'handling_office'=> ['required'],
+            'corporate_type'=> ['required'],
+            'customer_name'=> ['required'],
+            'address'=> ['required'],
+            'phone'=> ['required'],
+        ]);
 
-        $customer = Customer::find($id);
-        $customer->company_id =$request->input('company_id');
+        $customer = Customer::find($customerId);
+        $customer->handling_type =$request->input('handling_type');
         $customer->handling_office = $request->input('handling_office');
-        $customer->client_name = $request->input('client_name');
-        $customer->client_name_kana = $request->input('client_name_kana');
-        $customer->postal = $request->input('postal');
-        $customer->prefectures = $request->input('prefectures');
-        $customer->municipalities = $request->input('municipalities');
-        $customer->streetbunch = $request->input('streetbunch');
+        $customer->corporate_type = $request->input('corporate_type');
+        $customer->customer_name = $request->input('customer_name');
+        $customer->customer_kana = $request->input('customer_kana');
+        $customer->address = $request->input('address');
         $customer->phone = $request->input('phone');
         $customer->fax = $request->input('fax');
-        $customer->website = $request->input('website');
-        $customer->industry = $request->input('industry');
-        $customer->remarks = $request->input('remarks');
-        $customer->inflowroute = $request->input('inflowroute');
-        $customer->navi_no = $request->input('navi_no');
-        $customer->established = $request->input('established');
-        $customer->deadline = $request->input('deadline');
-        $customer->invoicemustarrivedate = $request->input('invoicemustarrivedate');
-        $customer->paymentdate = $request->input('paymentdate');
-        $customer->company_rank = $request->input('company_rank');
 
         $customer->save();
-      return redirect('/customers')->with('success', '更新しました');
+
+        $request->session()->flash('SucccessMsg', '保存しました');
+
+        return redirect('/customers');
     }
 
     /**
@@ -156,6 +139,8 @@ class CustomerController extends Controller
     {
         $customer =Customer::findOrFail($id);
         $customer->delete();
+
+        \Session::flash('SucccessMsg', '削除しました');
 
         return redirect('/customers');
     }

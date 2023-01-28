@@ -18,7 +18,7 @@
                         </select>
 
                         <label for="clientInput" class="mt-3">就業先名称</label>
-                        <input class="form-control mt-1" type="search" id="clientInput" placeholder="クライアント名を入力" name="companyName" value="{{ Request::input('companyName') }}">
+                        <input class="form-control mt-1" type="search" id="clientInput" placeholder="就業先名称を入力" name="companyName" value="{{ Request::input('companyName') }}">
 
                         <label for="jobNumberInput" class="mt-3">仕事番号</label>
                         <input class="form-control mt-1" type="search" id="jobNumberInput" placeholder="仕事番号を入力" name="jobNumber" value="{{ Request::input('jobNumber') }}">
@@ -51,6 +51,7 @@
 <table class="table table-bordered table-hover w-75 m-auto">
     <thead>
     <tr class=m-auto style="background-color: lightgray">
+        <th>求人ID</th>
         <th>ステータス</th>
         <th>仕事番号</th>
         <th>就業先名称</th>
@@ -61,16 +62,35 @@
 
     @foreach($jobOffers as $jobOffer)
         <tr>
+            <td>{{ $jobOffer->id }}</td>
             <td>{{ $jobOffer->status != null ? config('options.status_edit')[$jobOffer->status] : '' }}</td>
             <td>{{ $jobOffer->job_number }}</td>
             <td>{{ $jobOffer->company_name }}</td>
             <td>{{ $jobOffer->user->name}}</td>
-            <td><a href="{{ route('job_offers.edit', ['job_offer' => $jobOffer->id]) }}">
-                <button class="btn btn-primary" type="button">編集</button>
-            </a></td>
+            <td>
+                <div class="d-flex justify-content-around">
+                    <a href="{{ route('job_offers.edit', ['job_offer' => $jobOffer->id]) }}">
+                        <button class="btn btn-primary" type="button">編集</button>
+                    </a>
+                    <form method="POST" action="{{ route('job_offers.destroy', $jobOffer->id) }}">
+                        @method('DELETE')
+                        @csrf
+                        <button class="delete-btn btn btn-danger" type="submit">削除</button>
+                    </form>
+                </div>
+            </td>
         </tr>
     @endforeach
 </table>
 
 @endsection
 
+@if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+
+@section('js')
+  <script type="text/javascript" src="/js/common.js"></script>
+@endsection

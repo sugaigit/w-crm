@@ -1,7 +1,7 @@
 #inputは編集画面からPOSTした$requestをdd()でブラウザに表示したものをコピペ
 
 input = '''user_id=>2
-company_type=>1
+handling_type=>1
 job_number=>pa-1134
 handling_office=>1
 business_type=>1
@@ -15,15 +15,15 @@ ordering_business=>i
 order_details=>i
 measures_existence=>1
 counter_measures=>i
-Invoice_unit_price_1=>i
+invoice_unit_price_1=>i
 billing_unit_1=>1
 profit_rate_1=>u
 billing_information_1=>u
-Invoice_unit_price_2=>u
+invoice_unit_price_2=>u
 billing_unit_2=>2
 profit_rate_2=>u
 billing_information_2=>u
-Invoice_unit_price_3=>u
+invoice_unit_price_3=>u
 billing_unit_3=>1
 profit_rate_3=>k
 billing_information_3=>k
@@ -76,7 +76,7 @@ input_n_arrow = []
 for i in input_n:
   input_n_arrow.append(i.split('=>'))
 
-#$jobOffer->company_type = $request->input('company_type');
+#$jobOffer->handling_type = $request->input('handling_type');
 
 data = ''
 for j in input_n_arrow:

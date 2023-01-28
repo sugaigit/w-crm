@@ -9,6 +9,8 @@ use App\Models\User;
 use App\Models\Customer;
 use App\Models\ActivityRecord;
 
+use function Ramsey\Uuid\v1;
+
 class JobOfferController extends Controller
 {
     public function index(Request $request)
@@ -16,6 +18,7 @@ class JobOfferController extends Controller
         $jobOffers = JobOffer::all();
         $users = User::all();
 
+        // 検索対象を確認（https://docs.google.com/spreadsheets/d/1djbehIkxdXHqNEgKCuzpPa0zG6LZBd-gFHK-vW_o3S0/edit#gid=119074845）
         $jobOffers = JobOffer::when($request->userId, function ($query, $userId) {
             return $query->where('user_id', $userId);
         })
@@ -34,13 +37,20 @@ class JobOfferController extends Controller
 
             // キーワードはAND、カラムはOR
             foreach($keywords as $keyword) {
+                if (in_array($keyword, config('options.holiday'))) {
+                    $keyword = array_search($keyword, config('options.holiday'));
+                }
+                if (in_array($keyword, config('options.long_vacation'))) {
+                    $keyword = array_search($keyword, config('options.long_vacation'));
+                }
                 $query->where(function($query) use ($keyword){
                     $query->where('company_name', 'LIKE', "%{$keyword}%")
                     ->orWhere('company_address', 'LIKE', "%{$keyword}%")
                     ->orWhere('ordering_business', 'LIKE', "%{$keyword}%")
                     ->orWhere('order_details', 'LIKE', "%{$keyword}%")
                     ->orWhere('scheduled_period', 'LIKE', "%{$keyword}%")
-                    ->orWhere('holiday', 'LIKE', "%{$keyword}%");
+                    ->orWhere('holiday', 'LIKE', "%{$keyword}%")
+                    ->orWhere('long_vacation', 'LIKE', "%{$keyword}%");
                 });
             }
 
@@ -75,7 +85,44 @@ class JobOfferController extends Controller
      */
     public function store(Request $request)
     {
-        JobOffer::create($request->all());
+        $request->validate([
+            'user_id' => ['required'],
+            'handling_type' => ['required'],
+            'handling_office'=> ['required'],
+            'customer_id'=> ['required'],
+            'type_contract'=> ['required'],
+            'recruitment_number'=> ['required'],
+            'company_name'=> ['required'],
+            'company_address'=> ['required'],
+            'ordering_business'=> ['required'],
+            'order_details'=> ['required'],
+            'invoice_unit_price_1'=> ['required'],
+            'billing_unit_1'=> ['required'],
+            'profit_rate_1'=> ['required'],
+            'employment_insurance'=> ['required'],
+            'social_insurance'=> ['required'],
+            'payment_unit_price_1'=> ['required'],
+            'payment_unit_1'=> ['required'],
+            'carfare_1'=> ['required'],
+            'carfare_payment_1'=> ['required'],
+            'holiday'=> ['required'],
+            'long_vacation'=> ['required'],
+            'working_hours_1'=> ['required'],
+            'actual_working_hours_1'=> ['required'],
+            'break_time_1'=> ['required'],
+            'overtime'=> ['required'],
+            'commuting_by_car'=> ['required'],
+            'order_date'=> ['required'],
+            'status'=> ['required'],
+        ]);
+
+        $saveData = $request->all();
+        $saveData['holiday'] = json_encode($saveData['holiday']);
+        $saveData['long_vacation'] = json_encode($saveData['long_vacation']);
+
+        JobOffer::create($saveData);
+        $request->session()->flash('SucccessMsg', '登録しました');
+
         return redirect(route('job_offers.index'));
     }
 
@@ -87,9 +134,12 @@ class JobOfferController extends Controller
     public function edit($id)
     {
         $jobOffer = JobOffer::find($id);
+        $jobOffer['holiday'] = json_decode($jobOffer['holiday']);
+        $jobOffer['long_vacation'] = json_decode($jobOffer['long_vacation']);
+
         $users = User::all();
         $customers = Customer::all();
-        $activityRecords = ActivityRecord::all();
+        $activityRecords = $jobOffer->activityRecords;
 
         return view('job_offers.edit', [
             'jobOffer' => $jobOffer,
@@ -105,11 +155,42 @@ class JobOfferController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'user_id' => ['required'],
+            'handling_type' => ['required'],
+            'handling_office'=> ['required'],
+            'customer_id'=> ['required'],
+            'type_contract'=> ['required'],
+            'recruitment_number'=> ['required'],
+            'company_name'=> ['required'],
+            'company_address'=> ['required'],
+            'ordering_business'=> ['required'],
+            'order_details'=> ['required'],
+            'invoice_unit_price_1'=> ['required'],
+            'billing_unit_1'=> ['required'],
+            'profit_rate_1'=> ['required'],
+            'employment_insurance'=> ['required'],
+            'social_insurance'=> ['required'],
+            'payment_unit_price_1'=> ['required'],
+            'payment_unit_1'=> ['required'],
+            'carfare_1'=> ['required'],
+            'carfare_payment_1'=> ['required'],
+            'holiday'=> ['required'],
+            'long_vacation'=> ['required'],
+            'working_hours_1'=> ['required'],
+            'actual_working_hours_1'=> ['required'],
+            'break_time_1'=> ['required'],
+            'overtime'=> ['required'],
+            'commuting_by_car'=> ['required'],
+            'order_date'=> ['required'],
+            'status'=> ['required'],
+        ]);
+
         // 求人情報の更新処理
         $jobOffer = JobOffer::find($request->jobOfferId);
 
         $jobOffer->user_id= $request->input('user_id');
-        $jobOffer->company_type= $request->input('company_type');
+        $jobOffer->handling_type= $request->input('handling_type');
         $jobOffer->job_number= $request->input('job_number');
         $jobOffer->handling_office= $request->input('handling_office');
         $jobOffer->business_type= $request->input('business_type');
@@ -121,17 +202,16 @@ class JobOfferController extends Controller
         $jobOffer->company_others= $request->input('company_others');
         $jobOffer->ordering_business= $request->input('ordering_business');
         $jobOffer->order_details= $request->input('order_details');
-        $jobOffer->measures_existence= $request->input('measures_existence');
         $jobOffer->counter_measures= $request->input('counter_measures');
-        $jobOffer->Invoice_unit_price_1= $request->input('Invoice_unit_price_1');
+        $jobOffer->invoice_unit_price_1= $request->input('invoice_unit_price_1');
         $jobOffer->billing_unit_1= $request->input('billing_unit_1');
         $jobOffer->profit_rate_1= $request->input('profit_rate_1');
         $jobOffer->billing_information_1= $request->input('billing_information_1');
-        $jobOffer->Invoice_unit_price_2= $request->input('Invoice_unit_price_2');
+        $jobOffer->invoice_unit_price_2= $request->input('invoice_unit_price_2');
         $jobOffer->billing_unit_2= $request->input('billing_unit_2');
         $jobOffer->profit_rate_2= $request->input('profit_rate_2');
         $jobOffer->billing_information_2= $request->input('billing_information_2');
-        $jobOffer->Invoice_unit_price_3= $request->input('Invoice_unit_price_3');
+        $jobOffer->invoice_unit_price_3= $request->input('invoice_unit_price_3');
         $jobOffer->billing_unit_3= $request->input('billing_unit_3');
         $jobOffer->profit_rate_3= $request->input('profit_rate_3');
         $jobOffer->billing_information_3= $request->input('billing_information_3');
@@ -142,11 +222,15 @@ class JobOfferController extends Controller
         $jobOffer->carfare_1= $request->input('carfare_1');
         $jobOffer->carfare_payment_1= $request->input('carfare_payment_1');
         $jobOffer->carfare_payment_remarks_1= $request->input('carfare_payment_remarks_1');
+        $jobOffer->employment_insurance_2= $request->input('employment_insurance_2');
+        $jobOffer->social_insurance_2= $request->input('social_insurance_2');
         $jobOffer->payment_unit_price_2= $request->input('payment_unit_price_2');
         $jobOffer->payment_unit_2= $request->input('payment_unit_2');
         $jobOffer->carfare_2= $request->input('carfare_2');
         $jobOffer->carfare_payment_2= $request->input('carfare_payment_2');
         $jobOffer->carfare_payment_remarks_2= $request->input('carfare_payment_remarks_2');
+        $jobOffer->employment_insurance_3= $request->input('employment_insurance_3');
+        $jobOffer->social_insurance_3= $request->input('social_insurance_3');
         $jobOffer->payment_unit_price_3= $request->input('payment_unit_price_3');
         $jobOffer->carfare_payment_3= $request->input('carfare_payment_3');
         $jobOffer->carfare_3= $request->input('carfare_3');
@@ -176,9 +260,20 @@ class JobOfferController extends Controller
         $jobOffer->traffic_commuting_remarks= $request->input('traffic_commuting_remarks');
         $jobOffer->parking= $request->input('parking');
         $jobOffer->posting_site= $request->input('posting_site');
-        $jobOffer->status= $request->input('status');
-        $jobOffer->order_date= $request->input('order_date');
-
+        $jobOffer->qualification= $request->input('qualification');
+        $jobOffer->qualification_content= $request->input('qualification_content');
+        $jobOffer->experience= $request->input('experience');
+        $jobOffer->experience_content= $request->input('experience_content');
+        $jobOffer->sex= $request->input('sex');
+        $jobOffer->age= $request->input('age');
+        $jobOffer->uniform_supply= $request->input('uniform_supply');
+        $jobOffer->supply= $request->input('supply');
+        $jobOffer->clothes= $request->input('clothes');
+        $jobOffer->other_hair_colors= $request->input('other_hair_colors');
+        $jobOffer->self_prepared= $request->input('self_prepared');
+        $jobOffer->remarks_workplace= $request->input('remarks_workplace');
+        $jobOffer->gender_ratio= $request->input('gender_ratio');
+        $jobOffer->age_ratio= $request->input('age_ratio');
         $jobOffer->after_introduction= $request->input('after_introduction');
         $jobOffer->timing_of_switching= $request->input('timing_of_switching');
         $jobOffer->monthly_lower_limit= $request->input('monthly_lower_limit');
@@ -188,8 +283,11 @@ class JobOfferController extends Controller
         $jobOffer->bonuses_treatment= $request->input('bonuses_treatment');
         $jobOffer->holidays_vacations= $request->input('holidays_vacations');
         $jobOffer->introduction_others= $request->input('introduction_others');
+        $jobOffer->status= $request->input('status');
+        $jobOffer->order_date= $request->input('order_date');
 
         $jobOffer->save();
+        $request->session()->flash('SucccessMsg', '保存しました');
 
         // 活動記録の登録処理
         if( $request->filled(['date', 'item']) ) { // 活動記録が空の場合はレコードを作成しない
@@ -201,32 +299,18 @@ class JobOfferController extends Controller
             ]);
         }
 
-        return redirect(route('job_offers.index'))->with('success', '更新しました');
+
+        return redirect(route('job_offers.index'));
     }
 
-    public function show(Request $request, $id)
+    public function destroy($id)
     {
-        dd('showです');
+        $jobOffer =jobOffer::findOrFail($id);
+        $jobOffer->delete();
+
+        \Session::flash('SucccessMsg', '削除しました');
+
+        return redirect(route('job_offers.index'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    // public function destroy($id)
-    // {
-    //     $customer =Customer::findOrFail($id);
-    //     $customer->delete();
-
-    //     return redirect('/customers');
-    // }
-    // public function __invoke(Request $request)
-    // {
-    //     $customer = auth()->user();
-    //     $this->authorize('viewAny', $customers);  // Policy をチェック
-    //     $customers = \App\Models\Customers::get(); // 社員一覧を取得
-    //     return view('customers.index', compact('customers')); // users.index.bldae を呼出し、 usersを渡す
-
-    // }
 }

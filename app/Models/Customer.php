@@ -11,6 +11,18 @@ class Customer extends Model
 
     use HasFactory;
     protected $guarded = [];
+    protected $fillable = [
+        'type',
+        'handling_type',
+        'handling_office',
+        'corporate_type',
+        'customer_name',
+        'customer_kana',
+        'address',
+        'phone',
+        'fax',
+        'company_rank',
+    ];
 
 
     public function user()
