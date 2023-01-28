@@ -8,17 +8,17 @@ use App\Models\JobOffer;
 use App\Models\User;
 use App\Models\Customer;
 use App\Models\ActivityRecord;
-
-use function Ramsey\Uuid\v1;
+use GuzzleHttp\Client;
+// use Slack;
 
 class JobOfferController extends Controller
 {
+
     public function index(Request $request)
     {
         $jobOffers = JobOffer::all();
         $users = User::all();
 
-        // 検索対象を確認（https://docs.google.com/spreadsheets/d/1djbehIkxdXHqNEgKCuzpPa0zG6LZBd-gFHK-vW_o3S0/edit#gid=119074845）
         $jobOffers = JobOffer::when($request->userId, function ($query, $userId) {
             return $query->where('user_id', $userId);
         })
@@ -37,10 +37,10 @@ class JobOfferController extends Controller
 
             // キーワードはAND、カラムはOR
             foreach($keywords as $keyword) {
-                if (in_array($keyword, config('options.holiday'))) {
+                if (array_search($keyword, config('options.holiday'))) {
                     $keyword = array_search($keyword, config('options.holiday'));
                 }
-                if (in_array($keyword, config('options.long_vacation'))) {
+                if (array_search($keyword, config('options.long_vacation'))) {
                     $keyword = array_search($keyword, config('options.long_vacation'));
                 }
                 $query->where(function($query) use ($keyword){
@@ -121,7 +121,22 @@ class JobOfferController extends Controller
         $saveData['long_vacation'] = json_encode($saveData['long_vacation']);
 
         JobOffer::create($saveData);
+
         $request->session()->flash('SucccessMsg', '登録しました');
+
+        //Slack通知
+        $client = new Client();
+        $response = $client->post(
+            'https://hooks.slack.com/services/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',
+            [
+                'headers' => [
+                    'Content-Type'	=>	'application/json',
+                ],
+                'json' => [
+                    'text' => '求人情報が新規登録されました。'
+                ]
+            ]);
+        // Slack::send('test!');
 
         return redirect(route('job_offers.index'));
     }
@@ -185,9 +200,14 @@ class JobOfferController extends Controller
             'order_date'=> ['required'],
             'status'=> ['required'],
         ]);
-
+        $updatedStatus = config('options.status_edit')[$request->input('status')];
         // 求人情報の更新処理
         $jobOffer = JobOffer::find($request->jobOfferId);
+
+        $statusIsUpdated = false;
+        if ($jobOffer->status != $request->input('status')) {
+            $statusIsUpdated = true;
+        }
 
         $jobOffer->user_id= $request->input('user_id');
         $jobOffer->handling_type= $request->input('handling_type');
@@ -298,6 +318,23 @@ class JobOfferController extends Controller
                 'job_offer_id' => $request->input('job_offer_id'),
             ]);
         }
+
+        //Slack通知
+        if ($statusIsUpdated) {
+            $client = new Client();
+            $response = $client->post(
+                'https://hooks.slack.com/services/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',
+                [
+                    'headers' => [
+                        'Content-Type'	=>	'application/json',
+                    ],
+                    'json' => [
+                        'text' => "求人情報ID{$id}のステータスが{$updatedStatus}に更新されました。"
+                    ]
+                ]);
+            // Slack::send('test!');
+        }
+
 
 
         return redirect(route('job_offers.index'));
