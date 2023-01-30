@@ -153,7 +153,8 @@
                                 </tr>
                                 <tr>
                                     <th>
-                                        請求情報①備考<br><i class="bi bi-plus-circle" id="open_billing_2"></i>
+                                        請求情報①備考<br>
+                                        <i class="bi bi-plus-circle" id="open_billing_2"></i>
                                     </th>
                                     <td>
                                         <input type="text"class="form-control" maxlength="100" name="billing_information_1" value="{{ old('billing_information_1') }}">
@@ -184,7 +185,9 @@
                                     </td>
                                 </tr>
                                 <tr class="billing-2">
-                                    <th>請求情報②備考<br><i class="bi bi-plus-circle" id="open_billing_3"></i></th>
+                                    <th>請求情報②備考<br>
+                                    <i class="bi bi-dash-circle" id="close_billing_2"></i>
+                                    <i class="bi bi-plus-circle" id="open_billing_3"></i></th>
                                     <td>
                                         <input type="text"class="form-control" maxlength="100" name="billing_information_2" value="{{ old('billing_information_2') }}">
                                     </td>
@@ -213,7 +216,10 @@
                                     </td>
                                 </tr>
                                 <tr class="billing-3">
-                                    <th>請求情報③備考</th>
+                                    <th>
+                                        請求情報③備考<br>
+                                        <i class="bi bi-dash-circle" id="close_billing_3"></i>
+                                    </th>
                                     <td>
                                         <input type="text"class="form-control" maxlength="100" name="billing_information_3" value="{{ old('billing_information_3') }}">
                                     </td>
@@ -275,7 +281,10 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>支払情報①備考<br><i class="bi bi-plus-circle" id="open_payment_2"></th>
+                                    <th>
+                                        支払情報①備考<br>
+                                        <i class="bi bi-plus-circle" id="open_payment_2">
+                                    </th>
                                     <td>
                                         <input  type="text" class="form-control" name="carfare_payment_remarks_1" value="{{ old('carfare_payment_remarks_1') }}">
                                     </td>
@@ -337,7 +346,11 @@
                                     </td>
                                 </tr>
                                 <tr class="payment-2">
-                                    <th>支払情報②備考<br><i class="bi bi-plus-circle" id="open_payment_3"></th>
+                                    <th>
+                                        支払情報②備考<br>
+                                        <i class="bi bi-dash-circle" id="close_payment_2">
+                                        <i class="bi bi-plus-circle" id="open_payment_3">
+                                    </th>
                                     <td>
                                         <input  type="text" class="form-control" name="carfare_payment_remarks_2" value="{{ old('carfare_payment_remarks_2') }}">
                                     </td>
@@ -399,7 +412,10 @@
                                     </td>
                                 </tr>
                                 <tr class="payment-3">
-                                    <th>支払情報③備考</th>
+                                    <th>
+                                        支払情報③備考<br>
+                                        <i class="bi bi-dash-circle" id="close_payment_3">
+                                    </th>
                                     <td>
                                         <input  type="text" class="form-control" name="carfare_payment_remarks_3" value="{{ old('carfare_payment_remarks_3') }}">
                                     </td>
@@ -485,7 +501,9 @@
                                 </tr>
                                 <tr class="working-2">
                                     <th>
-                                        休憩時間②<br><i class="bi bi-plus-circle" id="open_working_3">
+                                        休憩時間②<br>
+                                        <i class="bi bi-dash-circle" id="close_working_2"></i>
+                                        <i class="bi bi-plus-circle" id="open_working_3">
                                     </th>
                                     <td>
                                         <input  type="text" class="form-control" name="break_time_2" value="{{ old('break_time_2') }}">
@@ -504,7 +522,10 @@
                                     </td>
                                 </tr>
                                 <tr class="working-3">
-                                    <th>休憩時間③</th>
+                                    <th>
+                                        休憩時間③<br>
+                                        <i class="bi bi-dash-circle" id="close_working_3"></i>
+                                    </th>
                                     <td>
                                         <input  type="text" class="form-control" name="break_time_3" value="{{ old('break_time_3') }}">
                                     </td>

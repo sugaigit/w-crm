@@ -23,57 +23,94 @@ $(document).ready(function() {
   /******************************************
   * 請求単価②等の表示・非表示切り替え
   ******************************************/
-  $('.billing-2').css("display", "none");
-  $('.billing-3').css("display", "none");
-
-  $('#open_billing_2').on('click', function () {
-    $('.billing-2').css("display", "");
-    $(this).css("display", "none");
-  });
-
-  $('#open_billing_3').on('click', function () {
-    $('.billing-3').css("display", "");
-    $(this).css("display", "none");
-  });
+   $('.billing-2').css("display", "none");
+   $('.billing-3').css("display", "none");
+ 
+   $('#open_billing_2').on('click', function () {
+     $('.billing-2').css("display", "");
+     $(this).css("display", "none");
+   });
+ 
+   $('#close_billing_2').on('click', function () {
+     $('.billing-2').css("display", "none");
+     $('#open_billing_2').css("display", "");
+     // $(this).css("display", "none");
+   });
+ 
+   $('#open_billing_3').on('click', function () {
+     $('.billing-3').css("display", "");
+     $(this).css("display", "none");
+     $('#close_billing_2').css("display", "none");
+   });
+ 
+   $('#close_billing_3').on('click', function () {
+     $('.billing-3').css("display", "none");
+     $('#open_billing_3').css("display", "");
+     // $(this).css("display", "none");
+     $('#close_billing_2').css("display", "");
+   });
+ 
 
   /******************************************
   * 支払単価②等の表示・非表示切り替え
   ******************************************/
-  $('.payment-2').css("display", "none");
-  $('.payment-3').css("display", "none");
-  
-    $('#open_payment_2').on('click', function () {
-    $('.payment-2').css("display", "");
-    $(this).css("display", "none");
-  });
-  
-   $('#open_payment_3').on('click', function () {
-   $('.payment-3').css("display", "");
-  $(this).css("display", "none");
-
-  /******************************************
-  * 営業担当が違う場合のアラート
-  ******************************************/
+   $('.payment-2').css("display", "none");
+   $('.payment-3').css("display", "none");
+ 
+   $('#open_payment_2').on('click', function () {
+     $('.payment-2').css("display", "");
+     $(this).css("display", "none");
+   });
+ 
+   $('#close_payment_2').on('click', function () {
      $('.payment-2').css("display", "none");
+     $('#open_payment_2').css("display", "");
+     // $(this).css("display", "none");
+   });
+ 
+   $('#open_payment_3').on('click', function () {
+     $('.payment-3').css("display", "");
+     $(this).css("display", "none");
+     $('#close_payment_2').css("display", "none");
+   });
+ 
+   $('#close_payment_3').on('click', function () {
      $('.payment-3').css("display", "none");
-
-  });
+     $('#open_payment_3').css("display", "");
+     // $(this).css("display", "none");
+     $('#close_payment_2').css("display", "");
+   });
 
   /******************************************
   * 勤務時間②等の表示・非表示切り替え
   ******************************************/
-  $('.working-2').css("display", "none");
-  $('.working-3').css("display", "none");
-  
-    $('#open_working_2').on('click', function () {
-    $('.working-2').css("display", "");
-    $(this).css("display", "none");
-  });
-  
-  $('#open_working_3').on('click', function () {
-    $('.working-3').css("display", "");
-    $(this).css("display", "none");
-  });
+   $('.working-2').css("display", "none");
+   $('.working-3').css("display", "none");
+ 
+   $('#open_working_2').on('click', function () {
+     $('.working-2').css("display", "");
+     $(this).css("display", "none");
+   });
+ 
+   $('#close_working_2').on('click', function () {
+     $('.working-2').css("display", "none");
+     $('#open_working_2').css("display", "");
+     // $(this).css("display", "none");
+   });
+ 
+   $('#open_working_3').on('click', function () {
+     $('.working-3').css("display", "");
+     $(this).css("display", "none");
+     $('#close_working_2').css("display", "none");
+   });
+ 
+   $('#close_working_3').on('click', function () {
+     $('.working-3').css("display", "none");
+     $('#open_working_3').css("display", "");
+     // $(this).css("display", "none");
+     $('#close_working_2').css("display", "");
+   });
+
 });
 
 function duplicate(){
