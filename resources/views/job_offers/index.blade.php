@@ -59,6 +59,27 @@
         <th>操作</th>
     </tr>
     </thead>
+    @foreach($draftJobOffers as $draftJobOffer)
+    <tr class="bg-light text-secondary">
+        <td>下書き</td>
+        <td>{{ $draftJobOffer->status != null ? config('options.status_edit')[$draftJobOffer->status] : '' }}</td>
+        <td>{{ $draftJobOffer->job_number }}</td>
+        <td>{{ $draftJobOffer->company_name }}</td>
+        <td>{{ $draftJobOffer->user_id }}</td>
+        <td>
+            <div class="d-flex justify-content-around">
+                <a href="{{ route('draft.edit', $draftJobOffer->id) }}">
+                    <button class="btn btn-primary" type="button">編集</button>
+                </a>
+                {{-- <form method="POST" action="{{ route('draft.destroy', $draftJobOffer->id) }}">
+                    @method('DELETE')
+                    @csrf
+                    <button class="delete-btn btn btn-danger" type="submit">削除</button>
+                </form> --}}
+            </div>
+        </td>
+    </tr>
+    @endforeach
 
     @foreach($jobOffers as $jobOffer)
         <tr>
@@ -92,5 +113,5 @@
 @endif
 
 @section('js')
-  <script type="text/javascript" src="/js/common.js"></script>
+<script type="text/javascript" src="/js/common.js"></script>
 @endsection

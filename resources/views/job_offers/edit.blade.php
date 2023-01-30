@@ -420,7 +420,7 @@
                         <td>
                             @foreach(config('options.holiday') as $index => $holiday)
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="{{ 'holidayInput' . $index }}" name="holiday[]" value="{{ $index }}" {{ in_array($index, $jobOffer->holiday) ? 'checked' : '' }}>
+                                    <input class="form-check-input" type="checkbox" id="{{ 'holidayInput' . $index }}" name="holiday[]" value="{{ $index }}" @if(is_array($jobOffer->holiday)) {{ in_array($index, $jobOffer->holiday) ? 'checked' : '' }} @endif>
                                     <label class="form-check-label" for="{{ 'holidayInput' . $index }}">{{ $holiday }}</label>
                                 </div>
                             @endforeach
@@ -431,7 +431,7 @@
                         <td>
                             @foreach(config('options.long_vacation') as $index => $longVacation)
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="{{ 'longVacationInput' . $index }}" name="long_vacation[]" value="{{ $index }}" {{ in_array($index, $jobOffer->long_vacation) ? 'checked' : '' }}>
+                                    <input class="form-check-input" type="checkbox" id="{{ 'longVacationInput' . $index }}" name="long_vacation[]" value="{{ $index }}" @if(is_array($jobOffer->long_vacation)) {{ in_array($index, $jobOffer->long_vacation) ? 'checked' : '' }} @endif>
                                     <label class="form-check-label" for="{{ 'longVacationInput' . $index }}">{{ $longVacation }}</label>
                                 </div>
                             @endforeach
@@ -803,6 +803,7 @@
             <th>項目</th>
             <th>詳細</th>
           </tr>
+          @if(isset($activityRecords))
           @foreach($activityRecords as $activityRecord)
           <tr>
               <td>{{ $activityRecord->date }}</td>
@@ -810,6 +811,7 @@
               <td>{{ $activityRecord->detail }}</td>
           </tr>
           @endforeach
+          @endif
         </tbody>
       </table>
     </div>

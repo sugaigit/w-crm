@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\JobOffer;
+use App\Models\DraftJobOffer;
 use App\Models\User;
 use App\Models\Customer;
 use App\Models\ActivityRecord;
@@ -17,7 +18,19 @@ class JobOfferController extends Controller
     public function index(Request $request)
     {
         $jobOffers = JobOffer::all();
+        $draftJobOffers = DraftJobOffer::all();
         $users = User::all();
+
+        foreach ($draftJobOffers as $index => $draftJobOffer){
+            if (isset($draftJobOffer->user_id)) {
+                foreach ($users as $user) {
+                    if ($user->id == $draftJobOffer->user_id ){
+                        $draftJobOffers[$index]['user_id'] = $user->name;
+                    }
+                }
+            }
+        }
+
 
         $jobOffers = JobOffer::when($request->userId, function ($query, $userId) {
             return $query->where('user_id', $userId);
@@ -60,6 +73,7 @@ class JobOfferController extends Controller
 
         return view('job_offers.index', [
             'jobOffers' => $jobOffers,
+            'draftJobOffers' => $draftJobOffers,
             'users' => $users,
         ]);
     }
@@ -200,10 +214,13 @@ class JobOfferController extends Controller
             'order_date'=> ['required'],
             'status'=> ['required'],
         ]);
+        // $updatedStatus Slack通知の本文で使用する変数
         $updatedStatus = config('options.status_edit')[$request->input('status')];
+
         // 求人情報の更新処理
         $jobOffer = JobOffer::find($request->jobOfferId);
 
+        // Slack通知をするかしないか判定するためのフラグ
         $statusIsUpdated = false;
         if ($jobOffer->status != $request->input('status')) {
             $statusIsUpdated = true;

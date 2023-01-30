@@ -766,6 +766,10 @@
                             <button class="btn btn-primary" type="submit">登録</button>
                         </div>
 
+                        <div class="d-flex justify-content-center mt-4 mb-3">
+                            <button class="btn btn-secondary" type="submit" formaction="{{ route('draft.create') }}">下書き保存</button>
+                        </div>
+
                     </form>
 
                     {{-- エラーを表示--}}

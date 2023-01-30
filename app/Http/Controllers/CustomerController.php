@@ -70,6 +70,15 @@ class CustomerController extends Controller
         return redirect('/customers');
     }
 
+    public function draftStore(Request $request)
+    {
+        DraftJobOffer::create($request->all());
+
+        $request->session()->flash('SucccessMsg', '下書き保存しました');
+
+        return redirect('/customers');
+    }
+
     /**
      * Display the specified resource.
      *
