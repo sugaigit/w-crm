@@ -139,18 +139,18 @@ class JobOfferController extends Controller
         $request->session()->flash('SucccessMsg', '登録しました');
 
         //Slack通知
-        $client = new Client();
-        $response = $client->post(
-            'https://hooks.slack.com/services/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',
-            [
-                'headers' => [
-                    'Content-Type'	=>	'application/json',
-                ],
-                'json' => [
-                    'text' => '求人情報が新規登録されました。'
-                ]
-            ]);
-        // Slack::send('test!');
+        // $client = new Client();
+        // $response = $client->post(
+        //     'https://hooks.slack.com/services/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',
+        //     [
+        //         'headers' => [
+        //             'Content-Type'	=>	'application/json',
+        //         ],
+        //         'json' => [
+        //             'text' => '求人情報が新規登録されました。'
+        //         ]
+        //     ]
+        // );
 
         return redirect(route('job_offers.index'));
     }
@@ -338,18 +338,18 @@ class JobOfferController extends Controller
 
         //Slack通知
         if ($statusIsUpdated) {
-            $client = new Client();
-            $response = $client->post(
-                'https://hooks.slack.com/services/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',
-                [
-                    'headers' => [
-                        'Content-Type'	=>	'application/json',
-                    ],
-                    'json' => [
-                        'text' => "求人情報ID{$id}のステータスが{$updatedStatus}に更新されました。"
-                    ]
-                ]);
-            // Slack::send('test!');
+            // $client = new Client();
+            // $response = $client->post(
+            //     'https://hooks.slack.com/services/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',
+            //     [
+            //         'headers' => [
+            //             'Content-Type'	=>	'application/json',
+            //         ],
+            //         'json' => [
+            //             'text' => "求人情報ID{$id}のステータスが{$updatedStatus}に更新されました。"
+            //         ]
+            //     ]
+            // );
         }
 
 
