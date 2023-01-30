@@ -71,11 +71,11 @@
                 <a href="{{ route('draft.edit', $draftJobOffer->id) }}">
                     <button class="btn btn-primary" type="button">編集</button>
                 </a>
-                {{-- <form method="POST" action="{{ route('draft.destroy', $draftJobOffer->id) }}">
+                <form method="POST" action="{{ route('draft.destroy', $draftJobOffer->id) }}">
                     @method('DELETE')
                     @csrf
                     <button class="delete-btn btn btn-danger" type="submit">削除</button>
-                </form> --}}
+                </form>
             </div>
         </td>
     </tr>

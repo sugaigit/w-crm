@@ -49,7 +49,14 @@ $(document).ready(function() {
   
    $('#open_payment_3').on('click', function () {
    $('.payment-3').css("display", "");
-    $(this).css("display", "none");
+  $(this).css("display", "none");
+
+  /******************************************
+  * 営業担当が違う場合のアラート
+  ******************************************/
+     $('.payment-2').css("display", "none");
+     $('.payment-3').css("display", "none");
+
   });
 
   /******************************************

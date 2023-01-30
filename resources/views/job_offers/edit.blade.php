@@ -1,5 +1,10 @@
 @extends('layouts.app')
 @section('content')
+@if ($differentUserAlert)
+    <div class="alert alert-danger d-flex justify-content-center">
+        {{ session('AlertMsg') }}
+    </div>
+@endif
 <div class="container">
   <div class="col-md-12">
     <form action="{{ route('job_offers.update', ['job_offer' => $jobOffer->id]) }}" method="POST">
@@ -780,8 +785,15 @@
             </table>
 
             <div class="d-flex justify-content-center mt-4 mb-3">
-                <button class="btn btn-primary" type="submit">保存</button>
+                <button class="btn btn-primary" type="submit">登録</button>
             </div>
+
+            @if($isDraftJobOffer)
+                <div class="d-flex justify-content-center mt-4 mb-3">
+                    <button class="btn btn-secondary" type="submit" formaction="{{ route('draft.update', $jobOffer->id) }}">下書き保存</button>
+                </div>
+            @endif
+
         </form>
     </div>
 

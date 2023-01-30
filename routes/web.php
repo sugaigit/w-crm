@@ -23,5 +23,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::resource('job_offers', \App\Http\Controllers\JobOfferController::class);
 Route::post('/draft/create', [App\Http\Controllers\DraftJobOfferController::class, 'store'])->name('draft.create');
 Route::get('/draft/edit/{id}', [App\Http\Controllers\DraftJobOfferController::class, 'edit'])->name('draft.edit');
+Route::put('/draft/update/{id}', [App\Http\Controllers\DraftJobOfferController::class, 'update'])->name('draft.update');
+Route::delete('/draft/delete/{id}', [App\Http\Controllers\DraftJobOfferController::class, 'destroy'])->name('draft.destroy');
 
 Auth::routes();

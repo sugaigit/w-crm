@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\Customer;
 use App\Models\ActivityRecord;
 use GuzzleHttp\Client;
+use Auth;
 // use Slack;
 
 class JobOfferController extends Controller
@@ -170,11 +171,20 @@ class JobOfferController extends Controller
         $customers = Customer::all();
         $activityRecords = $jobOffer->activityRecords;
 
+        $differentUserAlert = false;
+        if (Auth::id() != $jobOffer->user->id) {
+            $differentUserAlert = true;
+            \Session::flash('AlertMsg', '警告：データーベースに登録されている営業担当とログインユーザーが一致しません');
+        }
+        
+
         return view('job_offers.edit', [
             'jobOffer' => $jobOffer,
             'users' => $users,
             'customers' => $customers,
             'activityRecords' => $activityRecords,
+            'isDraftJobOffer' => false,
+            'differentUserAlert' => $differentUserAlert,
         ]);
     }
 

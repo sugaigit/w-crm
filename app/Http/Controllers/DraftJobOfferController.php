@@ -61,7 +61,7 @@ class DraftJobOfferController extends Controller
             'jobOffer' => $draftJobOffer,
             'users' => $users,
             'customers' => $customers,
-            'activityRecords' => $activityRecords,
+            'isDraftJobOffer' => true,
         ]);
     }
 
@@ -179,8 +179,8 @@ class DraftJobOfferController extends Controller
 
     public function destroy($id)
     {
-        $jobOffer =jobOffer::findOrFail($id);
-        $jobOffer->delete();
+        $draftJobOffer = DraftJobOffer::findOrFail($id);
+        $draftJobOffer->delete();
 
         \Session::flash('SucccessMsg', '削除しました');
 
