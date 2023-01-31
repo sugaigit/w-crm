@@ -43,7 +43,7 @@
         <td>
             {{ $customer->customer_name }}
         </td>
-        <td>{{ dd(config('options')['handling_type']['1'])/* config('options')['handling_type'][$customer->handling_type]*/ }}</td>
+        <td>{{ dd($customer->handling_type)/* config('options')['handling_type'][$customer->handling_type]*/ }}</td>
         <td>{{ config('options')['handling_office'][$customer->handling_office] }}</td>
         <td>{{ $customer->address }}</td>
         <td>{{ $customer->phone }}</td>
