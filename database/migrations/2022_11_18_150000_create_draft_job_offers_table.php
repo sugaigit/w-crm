@@ -65,7 +65,7 @@ class CreateDraftJobOffersTable extends Migration
             $table->string('scheduled_period')->comment('予定期間')->nullable();//
             $table->date('expected_end_date')->comment('終了予定日')->nullable();//
             $table->text('period_remarks')->comment('期間備考')->nullable();//
-            $table->string('holiday')->comment('休日')->nullable();//
+            $table->string('holiday')->comment('休日');//
             $table->string('long_vacation')->comment('長期休暇')->nullable();//
             $table->text('holiday_remarks')->comment('休日備考')->nullable();//
             $table->string('working_hours_1')->comment('勤務時間①')->nullable();//
