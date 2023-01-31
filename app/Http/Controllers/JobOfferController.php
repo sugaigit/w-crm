@@ -131,7 +131,9 @@ class JobOfferController extends Controller
 
         $saveData = $request->all();
         $saveData['holiday'] = json_encode($saveData['holiday']);
-        $saveData['long_vacation'] = json_encode($saveData['long_vacation']);
+        if (isset($saveData['long_vacation'])) {
+            $saveData['long_vacation'] = json_encode($saveData['long_vacation']);
+        }
 
         JobOffer::create($saveData);
 
@@ -163,7 +165,9 @@ class JobOfferController extends Controller
     {
         $jobOffer = JobOffer::find($id);
         $jobOffer['holiday'] = json_decode($jobOffer['holiday']);
-        $jobOffer['long_vacation'] = json_decode($jobOffer['long_vacation']);
+        if ($jobOffer['long_vacation']) {
+            $jobOffer['long_vacation'] = json_decode($jobOffer['long_vacation']);
+        }
 
         $users = User::all();
         $customers = Customer::all();
