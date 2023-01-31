@@ -446,7 +446,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>長期休暇<span class="text-danger">*</span></th>
+                        <th>長期休暇</th>
                         <td>
                             @foreach(config('options.long_vacation') as $index => $longVacation)
                                 <div class="form-check form-check-inline">
