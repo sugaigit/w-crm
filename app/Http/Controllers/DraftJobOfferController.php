@@ -57,11 +57,18 @@ class DraftJobOfferController extends Controller
         $customers = Customer::all();
         $activityRecords = null;
 
+        // $differentUserAlert = false;
+        // if (Auth::id() != $jobOffer->user->id) {
+        //     $differentUserAlert = true;
+        //     \Session::flash('AlertMsg', '警告：データーベースに登録されている営業担当とログインユーザーが一致しません');
+        // }
+
         return view('job_offers.edit', [
             'jobOffer' => $draftJobOffer,
             'users' => $users,
             'customers' => $customers,
             'isDraftJobOffer' => true,
+            'differentUserAlert' => false,
         ]);
     }
 
