@@ -25,7 +25,7 @@ class CustomerController extends Controller
         }
 
         $customers = $query->paginate();
-
+        dd($customers);
         return view('customers.index')
         ->with([
             'customers' => $customers,
