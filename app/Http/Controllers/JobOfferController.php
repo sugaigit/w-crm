@@ -15,7 +15,6 @@ use Auth;
 
 class JobOfferController extends Controller
 {
-
     public function index(Request $request)
     {
         $jobOffers = JobOffer::all();
@@ -141,7 +140,7 @@ class JobOfferController extends Controller
         //Slack通知
         $client = new Client();
         $response = $client->post(
-            'https://hooks.slack.com/services/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',
+            'https://hooks.slack.com/services/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',
             [
                 'headers' => [
                     'Content-Type'	=>	'application/json',
@@ -348,7 +347,7 @@ class JobOfferController extends Controller
         if ($statusIsUpdated) {
             $client = new Client();
             $response = $client->post(
-                'https://hooks.slack.com/services/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',
+                'https://hooks.slack.com/services/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',
                 [
                     'headers' => [
                         'Content-Type'	=>	'application/json',
