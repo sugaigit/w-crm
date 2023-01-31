@@ -140,7 +140,7 @@ class JobOfferController extends Controller
         //Slack通知
         $client = new Client();
         $response = $client->post(
-            'https://hooks.slack.com/services/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',
+            'https://hooks.slack.com/services/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',
             [
                 'headers' => [
                     'Content-Type'	=>	'application/json',
@@ -347,7 +347,7 @@ class JobOfferController extends Controller
         if ($statusIsUpdated) {
             $client = new Client();
             $response = $client->post(
-                'https://hooks.slack.com/services/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',
+                'https://hooks.slack.com/services/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',
                 [
                     'headers' => [
                         'Content-Type'	=>	'application/json',
