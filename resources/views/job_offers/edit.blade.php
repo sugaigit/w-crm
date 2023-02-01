@@ -32,7 +32,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>取扱会社種別@if($isDraftOffer)@if($isDraftOffer)<span class="text-danger">*</span>@endif@endif</th>
+                        <th>取扱会社種別@if($isDraftOffer)<span class="text-danger">*</span>@endif</th>
                         <td>
                         <select type="text" class="form-control" name="handling_type">
                             <option value="">取扱会社種別を選んで下さい</option>
@@ -49,7 +49,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>取扱事業所名@if($isDraftOffer)@if($isDraftOffer)<span class="text-danger">*</span>@endif@endif</th>
+                        <th>取扱事業所名@if($isDraftOffer)<span class="text-danger">*</span>@endif</th>
                         <td>
                             <select type="text" class="form-control" name="handling_office">
                             <option value="">取扱事業所名を選んで下さい</option>
@@ -60,7 +60,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>事業種別@if($isDraftOffer)@if($isDraftOffer)<span class="text-danger">*</span>@endif@endif</th>
+                        <th>事業種別@if($isDraftOffer)<span class="text-danger">*</span>@endif</th>
                         <td>
                             <select type="text" class="form-control" name="business_type">
                             <option value="">事業種別を選んで下さい</option>
@@ -71,7 +71,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>顧客@if($isDraftOffer)@if($isDraftOffer)<span class="text-danger">*</span>@endif@endif</th>
+                        <th>顧客@if($isDraftOffer)<span class="text-danger">*</span>@endif</th>
                         <td>
                             <select type="text" class="form-control" name="customer_id">
                             <option value="">顧客を選んで下さい</option>
