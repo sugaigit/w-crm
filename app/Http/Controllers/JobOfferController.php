@@ -142,7 +142,7 @@ class JobOfferController extends Controller
         //Slack通知
         $client = new Client();
         $response = $client->post(
-            'https://hooks.slack.com/services/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',
+            'https://hooks.slack.com/services/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',
             [
                 'headers' => [
                     'Content-Type'	=>	'application/json',
@@ -174,6 +174,7 @@ class JobOfferController extends Controller
         $activityRecords = $jobOffer->activityRecords;
 
         $differentUserAlert = false;
+        dd(Auth::id());
         if (Auth::id() != $jobOffer->user->id) {
             $differentUserAlert = true;
             \Session::flash('AlertMsg', '警告：データーベースに登録されている営業担当とログインユーザーが一致しません');
@@ -351,7 +352,7 @@ class JobOfferController extends Controller
         if ($statusIsUpdated) {
             $client = new Client();
             $response = $client->post(
-                'https://hooks.slack.com/services/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',
+                'https://hooks.slack.com/services/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',
                 [
                     'headers' => [
                         'Content-Type'	=>	'application/json',
