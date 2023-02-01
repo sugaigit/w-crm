@@ -22,6 +22,9 @@ class DraftJobOfferController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'user_id' => ['required'],
+        ]);
         $saveData = $request->all();
         if (isset($saveData['holiday'])) {
             $saveData['holiday'] = json_encode($saveData['holiday']);
