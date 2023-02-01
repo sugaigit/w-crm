@@ -174,7 +174,6 @@ class JobOfferController extends Controller
         $activityRecords = $jobOffer->activityRecords;
 
         $differentUserAlert = false;
-        dd(Auth::id());
         if (Auth::id() != $jobOffer->user->id) {
             $differentUserAlert = true;
             \Session::flash('AlertMsg', '警告：データーベースに登録されている営業担当とログインユーザーが一致しません');
