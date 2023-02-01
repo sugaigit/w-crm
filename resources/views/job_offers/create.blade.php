@@ -817,5 +817,5 @@
 @endsection
 
 @section('js')
-    <script type="text/javascript" src="/js/job_offer/create.js"></script>
+    <script type="text/javascript" src="{{ asset('/js/job_offer/create.js') }}"></script>
 @endsection

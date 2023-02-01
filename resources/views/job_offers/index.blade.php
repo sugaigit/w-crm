@@ -113,5 +113,5 @@
 @endif
 
 @section('js')
-<script type="text/javascript" src="/js/common.js"></script>
+<script type="text/javascript" src="{{ asset('/js/common.js') }}"></script>
 @endsection
