@@ -24,6 +24,7 @@ class DraftJobOfferController extends Controller
     {
         $request->validate([
             'user_id' => ['required'],
+            'company_name'=> ['required'],
         ]);
         $saveData = $request->all();
         if (isset($saveData['holiday'])) {
