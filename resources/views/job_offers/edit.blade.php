@@ -12,7 +12,9 @@
         @csrf
         <input type="hidden" name="jobOfferId" value="{{ $jobOffer->id }}">
         <input class="btn btn-secondary mb-2" type="button" value="印刷" onclick="window.print();" />
+        @if(!$isDraftJobOffer)
         <input class="btn btn-success mb-2" type="submit" value="複製" onclick="duplicate()" />
+        @endif
         <div class="card mb-4">
             <div class="card-header">
                 求人情報編集
@@ -32,7 +34,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>取扱会社種別@if(!$isDraftJobOffer)<span class="text-danger">*</span>@endif</th>
+                        <th>取扱会社種別<span class="text-danger">*</span></th>
                         <td>
                         <select type="text" class="form-control" name="handling_type">
                             <option value="">取扱会社種別を選んで下さい</option>
@@ -49,7 +51,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>取扱事業所名@if(!$isDraftJobOffer)<span class="text-danger">*</span>@endif</th>
+                        <th>取扱事業所名<span class="text-danger">*</span></th>
                         <td>
                             <select type="text" class="form-control" name="handling_office">
                             <option value="">取扱事業所名を選んで下さい</option>
@@ -60,7 +62,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>事業種別@if(!$isDraftJobOffer)<span class="text-danger">*</span>@endif</th>
+                        <th>事業種別<span class="text-danger">*</span></th>
                         <td>
                             <select type="text" class="form-control" name="business_type">
                             <option value="">事業種別を選んで下さい</option>
@@ -71,7 +73,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>顧客@if(!$isDraftJobOffer)<span class="text-danger">*</span>@endif</th>
+                        <th>顧客<span class="text-danger">*</span></th>
                         <td>
                             <select type="text" class="form-control" name="customer_id">
                             <option value="">顧客を選んで下さい</option>
@@ -82,7 +84,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>契約形態@if(!$isDraftJobOffer)<span class="text-danger">*</span>@endif</th>
+                        <th>契約形態<span class="text-danger">*</span></th>
                         <td>
                             <select type="text" class="form-control" name="type_contract">
                             <option value="">法人形態を選んで下さい</option>
@@ -93,7 +95,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>募集人数@if(!$isDraftJobOffer)<span class="text-danger">*</span>@endif</th>
+                        <th>募集人数<span class="text-danger">*</span></th>
                         <td>
                             <input type="text" class="form-control" name="recruitment_number" value="{{ isset($jobOffer->recruitment_number) ? $jobOffer->recruitment_number : '' }}">
                         </td>
@@ -105,7 +107,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>就業先住所@if(!$isDraftJobOffer)<span class="text-danger">*</span>@endif</th>
+                        <th>就業先住所<span class="text-danger">*</span></th>
                         <td>
                             <input type="text" class="form-control" name="company_address" value="{{ isset($jobOffer->company_address) ? $jobOffer->company_address : '' }}">
                         </td>
@@ -117,19 +119,19 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>発注業務@if(!$isDraftJobOffer)<span class="text-danger">*</span>@endif</th>
+                        <th>発注業務<span class="text-danger">*</span></th>
                         <td>
                             <input type="text" maxlength="100" class="form-control" name="ordering_business" value="{{ isset($jobOffer->ordering_business) ? $jobOffer->ordering_business : '' }}">
                         </td>
                     </tr>
                     <tr>
-                        <th>発注業務詳細@if(!$isDraftJobOffer)<span class="text-danger">*</span>@endif</th>
+                        <th>発注業務詳細<span class="text-danger">*</span></th>
                         <td>
                             <input type="text" maxlength="100" class="form-control" name="order_details" value="{{ isset($jobOffer->order_details) ? $jobOffer->order_details : '' }}">
                         </td>
                     </tr>
                     <tr>
-                        <th>屋内の受動喫煙対策の内容@if(!$isDraftJobOffer)<span class="text-danger">*</span>@endif</th>
+                        <th>屋内の受動喫煙対策の内容<span class="text-danger">*</span></th>
                         <td>
                             <select type="text" class="form-control" name="counter_measures">
                                 <option value="">屋内の受動喫煙対策を選んで下さい</option>
@@ -140,13 +142,13 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>請求単価①@if(!$isDraftJobOffer)<span class="text-danger">*</span>@endif</th>
+                        <th>請求単価①<span class="text-danger">*</span></th>
                         <td>
                             <input type="text" class="form-control" name="invoice_unit_price_1" value="{{ isset($jobOffer->invoice_unit_price_1) ? $jobOffer->invoice_unit_price_1 : '' }}">
                         </td>
                     </tr>
                     <tr>
-                        <th>請求単位①@if(!$isDraftJobOffer)<span class="text-danger">*</span>@endif</th>
+                        <th>請求単位①<span class="text-danger">*</span></th>
                         <td>
                             <select type="text" class="form-control" name="billing_unit_1">
                             <option value="">請求単位を選んで下さい</option>
@@ -157,7 +159,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>利益率①@if(!$isDraftJobOffer)<span class="text-danger">*</span>@endif</th>
+                        <th>利益率①<span class="text-danger">*</span></th>
                         <td>
                             <input type="text" class="form-control" name="profit_rate_1" value="{{ isset($jobOffer->profit_rate_1) ? $jobOffer->profit_rate_1 : '' }}">
                         </td>
@@ -234,7 +236,7 @@
                         </td>
                     </tr>
                     <tr>
-                    <th>雇用保険加入@if(!$isDraftJobOffer)<span class="text-danger">*</span>@endif</th>
+                    <th>雇用保険加入<span class="text-danger">*</span></th>
                         <td>
                             <select type="text" class="form-control" name="employment_insurance">
                             <option value="">雇用保険の有無を選んで下さい</option>
@@ -245,7 +247,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>社会保険加入@if(!$isDraftJobOffer)<span class="text-danger">*</span>@endif</th>
+                        <th>社会保険加入<span class="text-danger">*</span></th>
                         <td>
                             <select type="text" class="form-control" name="social_insurance">
                             <option value="">雇用保険の有無を選んで下さい</option>
@@ -256,13 +258,13 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>支払単価①@if(!$isDraftJobOffer)<span class="text-danger">*</span>@endif</th>
+                        <th>支払単価①<span class="text-danger">*</span></th>
                         <td>
                             <input  type="text" class="form-control" name="payment_unit_price_1" value="{{ isset($jobOffer->payment_unit_price_1) ? $jobOffer->payment_unit_price_1 : '' }}">
                         </td>
                     </tr>
                     <tr>
-                        <th>支払単位①@if(!$isDraftJobOffer)<span class="text-danger">*</span>@endif</th>
+                        <th>支払単位①<span class="text-danger">*</span></th>
                         <td>
                             <select type="text" class="form-control" name="payment_unit_1">
                             <option value="">支払単位を選んで下さい</option>
@@ -273,13 +275,13 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>交通費①@if(!$isDraftJobOffer)<span class="text-danger">*</span>@endif</th>
+                        <th>交通費①<span class="text-danger">*</span></th>
                         <td>
                             <input  type="text" class="form-control" name="carfare_1" value="{{ isset($jobOffer->carfare_1) ? $jobOffer->carfare_1 : '' }}">
                         </td>
                     </tr>
                     <tr>
-                        <th>交通費支払単位①@if(!$isDraftJobOffer)<span class="text-danger">*</span>@endif</th>
+                        <th>交通費支払単位①<span class="text-danger">*</span></th>
                         <td>
                             <select type="text" class="form-control" name="carfare_payment_1">
                             <option value="">交通費支払単位を選んで下さい</option>
@@ -296,7 +298,7 @@
                         </td>
                     </tr>
                     <tr class="payment-2">
-                        <th>雇用保険加入②@if(!$isDraftJobOffer)<span class="text-danger">*</span>@endif</th>
+                        <th>雇用保険加入②<span class="text-danger">*</span></th>
                         <td>
                             <select type="text" class="form-control" name="employment_insurance_2">
                             <option value="">雇用保険の有無を選んで下さい</option>
@@ -307,7 +309,7 @@
                         </td>
                     </tr>
                     <tr class="payment-2">
-                        <th>社会保険加入②@if(!$isDraftJobOffer)<span class="text-danger">*</span>@endif</th>
+                        <th>社会保険加入②<span class="text-danger">*</span></th>
                         <td>
                             <select type="text" class="form-control" name="social_insurance_2">
                             <option value="">雇用保険の有無を選んで下さい</option>
@@ -357,7 +359,7 @@
                         </td>
                     </tr>
                     <tr class="payment-3">
-                        <th>雇用保険加入③@if(!$isDraftJobOffer)<span class="text-danger">*</span>@endif</th>
+                        <th>雇用保険加入③<span class="text-danger">*</span></th>
                         <td>
                             <select type="text" class="form-control" name="employment_insurance_3">
                             <option value="">雇用保険の有無を選んで下さい</option>
@@ -368,7 +370,7 @@
                         </td>
                     </tr>
                     <tr class="payment-3">
-                        <th>社会保険加入③@if(!$isDraftJobOffer)<span class="text-danger">*</span>@endif</th>
+                        <th>社会保険加入③<span class="text-danger">*</span></th>
                         <td>
                             <select type="text" class="form-control" name="social_insurance_3">
                             <option value="">雇用保険の有無を選んで下さい</option>
@@ -435,7 +437,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>休日@if(!$isDraftJobOffer)<span class="text-danger">*</span>@endif</th>
+                        <th>休日<span class="text-danger">*</span></th>
                         <td>
                             @foreach(config('options.holiday') as $index => $holiday)
                                 <div class="form-check form-check-inline">
@@ -463,20 +465,20 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>勤務時間①@if(!$isDraftJobOffer)<span class="text-danger">*</span>@endif</th>
+                        <th>勤務時間①<span class="text-danger">*</span></th>
                         <td>
                             <input type="text" class="form-control" name="working_hours_1" value="{{ isset($jobOffer->working_hours_1) ? $jobOffer->working_hours_1 : '' }}">
                         </td>
                     </tr>
                     <tr>
-                        <th>実働時間①@if(!$isDraftJobOffer)<span class="text-danger">*</span>@endif</th>
+                        <th>実働時間①<span class="text-danger">*</span></th>
                         <td>
                             <input type="text" class="form-control" name="actual_working_hours_1" value="{{ isset($jobOffer->actual_working_hours_1) ? $jobOffer->actual_working_hours_1 : '' }}">
                         </td>
                         </tr>
                     <tr>
                         <th>
-                            休憩時間①@if(!$isDraftJobOffer)<span class="text-danger">*</span>@endif
+                            休憩時間①<span class="text-danger">*</span>
                             <br><i class="bi bi-plus-circle" id="open_working_2"></i>
                         </th>
                         <td>
@@ -527,7 +529,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>残業(時間/月)@if(!$isDraftJobOffer)<span class="text-danger">*</span>@endif</th>
+                        <th>残業(時間/月)<span class="text-danger">*</span></th>
                         <td>
                             <input  type="text" class="form-control" name="overtime" value="{{ isset($jobOffer->overtime) ? $jobOffer->overtime : '' }}">
                         </td>
@@ -563,7 +565,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>車通勤（可能）@if(!$isDraftJobOffer)<span class="text-danger">*</span>@endif</th>
+                        <th>車通勤（可能）<span class="text-danger">*</span></th>
                         <td>
                             <select type="text" class="form-control" name="commuting_by_car">
                             <option value="">車通勤の可否を選んで下さい</option>
@@ -580,7 +582,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>駐車場@if(!$isDraftJobOffer)<span class="text-danger">*</span>@endif</th>
+                        <th>駐車場<span class="text-danger">*</span></th>
                         <td>
                             <select type="text" class="form-control" name="parking">
                             <option value="">駐車場の有無を選んで下さい</option>
@@ -760,7 +762,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>作成ステータス@if(!$isDraftJobOffer)<span class="text-danger">*</span>@endif</th>
+                        <th>作成ステータス<span class="text-danger">*</span></th>
                         <td>
                             <select type="text" class="form-control" name="status">
                             <option value="">作成ステータスを選んで下さい</option>
@@ -771,7 +773,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>起算日@if(!$isDraftJobOffer)<span class="text-danger">*</span>@endif</th>
+                        <th>起算日<span class="text-danger">*</span></th>
                         <td>
                             <input  type="date" class="form-control" name="order_date" value="{{ isset($jobOffer->order_date) ? $jobOffer->order_date : '' }}">
                         </td>
@@ -779,6 +781,7 @@
                 </tbody>
             </table>
 
+            @if(!$isDraftJobOffer)
             <div class="card-header">活動記録 登録</div>
             <table class="table">
                 <tbody>
@@ -804,6 +807,7 @@
                 <input  type="hidden" name="job_offer_id" value="{{ $jobOffer->id }}">
                 </tbody>
             </table>
+            @endif
 
             <div class="d-flex justify-content-center mt-4 mb-3">
                 <button class="btn btn-primary" type="submit">登録</button>
@@ -827,6 +831,7 @@
     @endif
 
 
+    @if(!$isDraftJobOffer)
     <div class="card mb-4">
       <div class="card-header">活動記録 一覧</div>
       <table class="table">
@@ -848,6 +853,7 @@
         </tbody>
       </table>
     </div>
+    @endif
 
     <a href="{{ route('job_offers.index') }}">
         <button class="btn btn-outline-secondary btn-lg"type="button">
