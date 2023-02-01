@@ -809,7 +809,7 @@
                 <button class="btn btn-primary" type="submit">登録</button>
             </div>
 
-            @if(!$isDraftJobOffer)
+            @if($isDraftJobOffer)
                 <div class="d-flex justify-content-center mt-4 mb-3">
                     <button class="btn btn-secondary" type="submit" formaction="{{ route('draft.update', $jobOffer->id) }}">下書き保存</button>
                 </div>
@@ -859,5 +859,5 @@
 @endsection
 
 @section('js')
-  <script type="text/javascript" src="/js/job_offer/edit.js"></script>
+  <script type="text/javascript" src="{{ asset('/js/job_offer/edit.js') }}"></script>
 @endsection
