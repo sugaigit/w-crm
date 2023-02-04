@@ -1,4 +1,4 @@
-$(document).ready(function() { 
+$(document).ready(function() {
   /******************************************
    * 契約形態による人材紹介/紹介予定　採用後条件の表示・非表示の切り替え
    ******************************************/
@@ -12,7 +12,7 @@ $(document).ready(function() {
     $('.afterRecruit').css("display", "none");
   }
 
-  type_contract.change(function() { 
+  type_contract.change(function() {
     if( targetItems.includes($(this).val()) ) {
       $('.afterRecruit').css("display", "");
     } else {
@@ -25,55 +25,55 @@ $(document).ready(function() {
   ******************************************/
    $('.billing-2').css("display", "none");
    $('.billing-3').css("display", "none");
- 
+
    $('#open_billing_2').on('click', function () {
      $('.billing-2').css("display", "");
      $(this).css("display", "none");
    });
- 
+
    $('#close_billing_2').on('click', function () {
      $('.billing-2').css("display", "none");
      $('#open_billing_2').css("display", "");
      // $(this).css("display", "none");
    });
- 
+
    $('#open_billing_3').on('click', function () {
      $('.billing-3').css("display", "");
      $(this).css("display", "none");
      $('#close_billing_2').css("display", "none");
    });
- 
+
    $('#close_billing_3').on('click', function () {
      $('.billing-3').css("display", "none");
      $('#open_billing_3').css("display", "");
      // $(this).css("display", "none");
      $('#close_billing_2').css("display", "");
    });
- 
+
 
   /******************************************
   * 支払単価②等の表示・非表示切り替え
   ******************************************/
    $('.payment-2').css("display", "none");
    $('.payment-3').css("display", "none");
- 
+
    $('#open_payment_2').on('click', function () {
      $('.payment-2').css("display", "");
      $(this).css("display", "none");
    });
- 
+
    $('#close_payment_2').on('click', function () {
      $('.payment-2').css("display", "none");
      $('#open_payment_2').css("display", "");
      // $(this).css("display", "none");
    });
- 
+
    $('#open_payment_3').on('click', function () {
      $('.payment-3').css("display", "");
      $(this).css("display", "none");
      $('#close_payment_2').css("display", "none");
    });
- 
+
    $('#close_payment_3').on('click', function () {
      $('.payment-3').css("display", "none");
      $('#open_payment_3').css("display", "");
@@ -86,24 +86,24 @@ $(document).ready(function() {
   ******************************************/
    $('.working-2').css("display", "none");
    $('.working-3').css("display", "none");
- 
+
    $('#open_working_2').on('click', function () {
      $('.working-2').css("display", "");
      $(this).css("display", "none");
    });
- 
+
    $('#close_working_2').on('click', function () {
      $('.working-2').css("display", "none");
      $('#open_working_2').css("display", "");
      // $(this).css("display", "none");
    });
- 
+
    $('#open_working_3').on('click', function () {
      $('.working-3').css("display", "");
      $(this).css("display", "none");
      $('#close_working_2').css("display", "none");
    });
- 
+
    $('#close_working_3').on('click', function () {
      $('.working-3').css("display", "none");
      $('#open_working_3').css("display", "");
@@ -117,6 +117,8 @@ function duplicate(){
   $('form').submit(function() {
     $('form').attr('action', '/job_offers');
     $('input[name="_method"]').attr('value', 'POST');
+    let companyNameInput = $('input[name="company_name"]');
+    companyNameInput.val(companyNameInput.val() + 'のコピー');
 });
 
 }

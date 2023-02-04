@@ -28,30 +28,30 @@ class CreateCustomersTable extends Migration
             $table->string('company_rank')->nullable()->comment('企業ランク'); // 現状は未使用。いずれ利用する可能性あり。
             $table->timestamps();
         });
-        DB::table('customers')->insert([
-            'id' => 1,
-            'user_id' => 1,
-            'handling_type' => '1',
-            'handling_office' => '1',
-            'customer_name' => '田中商店 ',
-            'customer_kana' => 'タナカショウテン',
-            'address' => '福岡県某所',
-            'phone' => '000-1111-2222',
-            'fax' => '001-1111-2222',
-            'company_rank' => 'A',
-        ]);
-        DB::table('customers')->insert([
-            'id' => 2,
-            'user_id' => 2,
-            'handling_type' => '2',
-            'handling_office' => '2',
-            'customer_name' => '井上貿易 ',
-            'customer_kana' => 'イノウエボウエキ',
-            'address' => '熊本県某所',
-            'phone' => '999-1111-2222',
-            'fax' => '998-1111-2222',
-            'company_rank' => 'B',
-        ]);
+        // DB::table('customers')->insert([
+        //     'id' => 1,
+        //     'user_id' => 1,
+        //     'handling_type' => '1',
+        //     'handling_office' => '1',
+        //     'customer_name' => '田中商店 ',
+        //     'customer_kana' => 'タナカショウテン',
+        //     'address' => '福岡県某所',
+        //     'phone' => '000-1111-2222',
+        //     'fax' => '001-1111-2222',
+        //     'company_rank' => 'A',
+        // ]);
+        // DB::table('customers')->insert([
+        //     'id' => 2,
+        //     'user_id' => 2,
+        //     'handling_type' => '2',
+        //     'handling_office' => '2',
+        //     'customer_name' => '井上貿易 ',
+        //     'customer_kana' => 'イノウエボウエキ',
+        //     'address' => '熊本県某所',
+        //     'phone' => '999-1111-2222',
+        //     'fax' => '998-1111-2222',
+        //     'company_rank' => 'B',
+        // ]);
 
     }
 

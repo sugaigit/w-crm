@@ -23,8 +23,9 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
-        DB::table('users')->insert(['id' => 1, 'name' => '山田太郎', 'email' => 'test1@example.com', 'password' => bcrypt('secret'), 'role' => '一般']);
-        DB::table('users')->insert(['id' => 2, 'name' => '畠山俊二', 'email' => 'test2@example.com', 'password' => bcrypt('secret'), 'role' => '部長']);
+        // DB::table('users')->insert(['id' => 1, 'name' => '山田太郎', 'email' => 'test1@example.com', 'password' => bcrypt('secret'), 'role' => '一般']);
+        // DB::table('users')->insert(['id' => 2, 'name' => '畠山俊二', 'email' => 'test2@example.com', 'password' => bcrypt('secret'), 'role' => '部長']);
+        DB::table('users')->insert(['id' => 1, 'name' => 'テストユーザー', 'email' => 'test@example.com', 'password' => bcrypt('secret'), 'role' => '部長']);
     }
 
     /**
