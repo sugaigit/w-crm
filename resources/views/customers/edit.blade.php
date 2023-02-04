@@ -14,6 +14,17 @@
                             <td>{{ $customer->id}}</td>
                         </tr>
                         <tr>
+                            <th>作成者<span class="text-danger">*</span></th>
+                            <td>
+                                <select type="text" class="form-control" name="user_id">
+                                    <option value="">営業担当を選んで下さい</option>
+                                    @foreach( $users as $user )
+                                        <option value="{{ $user->id }}" {{ $user->id == $customer->user->id ? 'selected' : '' }}> {{ $user->name }}</option>
+                                    @endforeach
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
                             <th>取扱会社種別<span class="text-danger">*</span></th>
                             <td>
                                 <select type="text" class="form-control" name="handling_type">
@@ -92,7 +103,7 @@
                     @endforeach
                 </ul>
             @endif
-            
+
         </div>
     </div>
 </div>

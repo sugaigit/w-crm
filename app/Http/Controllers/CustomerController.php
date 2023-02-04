@@ -12,16 +12,22 @@ class CustomerController extends Controller
     public function index(Request $request)
     {
         $customers = Customer::paginate();
+        $users = User::all();
         /**検索ワード */
         $clientsearch = $request->input('clientsearch');
         $phonesearch = $request->input('phonesearch');
+        $usersearch = $request->input('usersearch');
 
         $query = Customer::query();
         if(!empty($clientsearch)){
-            $query->where('name', 'like',"%{$clientsearch}%");
+            $query->where('customer_name', 'like',"%{$clientsearch}%");
         }
         if(!empty($phonesearch)){
             $query->where('phone', 'like', "%{$phonesearch}%");
+        }
+
+        if(!empty($usersearch)){
+            $query->where('user_id', 'like', "%{$usersearch}%");
         }
 
         $customers = $query->paginate();
@@ -31,6 +37,7 @@ class CustomerController extends Controller
             'customers' => $customers,
             'clientsearch' => $clientsearch,
             'phonesearch' =>$phonesearch,
+            'users' => $users
         ]);
     }
   //------------------新規登録--------------------
@@ -55,6 +62,7 @@ class CustomerController extends Controller
     public function store(Request $request)
     {
         $attribute = request()->validate([
+            'user_id' => ['required'],
             'handling_type' => ['required'],
             'handling_office'=> ['required'],
             'corporate_type'=> ['required'],
@@ -100,7 +108,11 @@ class CustomerController extends Controller
     public function edit($id)
     {
         $customer = Customer::find($id);
-        return view('customers.edit',compact('customer'));
+        $users = User::all();
+        return view('customers.edit',[
+            'customer' => $customer,
+            'users' => $users
+        ]);
     }
 
     /**
@@ -113,6 +125,7 @@ class CustomerController extends Controller
     public function update(Request $request, $customerId)
     {
         $request->validate([
+            'user_id' => ['required'],
             'handling_type' => ['required'],
             'handling_office'=> ['required'],
             'corporate_type'=> ['required'],
@@ -122,6 +135,7 @@ class CustomerController extends Controller
         ]);
 
         $customer = Customer::find($customerId);
+        $customer->user_id =$request->input('user_id');
         $customer->handling_type =$request->input('handling_type');
         $customer->handling_office = $request->input('handling_office');
         $customer->corporate_type = $request->input('corporate_type');

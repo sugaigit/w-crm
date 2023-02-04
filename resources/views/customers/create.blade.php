@@ -9,15 +9,15 @@
             <form action="{{ route('customers.store') }}" method="POST">
                 @csrf
                 <ul class="list-group">
-                    {{-- <li class="list-group-item list-group-item-action">
-                        営業担当<span class="text-danger">*</span>
+                    <li class="list-group-item list-group-item-action">
+                        作成者<span class="text-danger">*</span>
                         <select type="text" class="form-control" name="user_id">
-                            <option value="">営業担当を選んで下さい</option>
+                            <option value="">作成者を選んで下さい</option>
                             @foreach( $users as $user )
-                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                            <option value="{{ $user->id }}" {{ old('user_id') == $user->id ? 'selected' : '' }}>{{ $user->name }}</option>
                             @endforeach
                         </select>
-                    </li> --}}
+                    </li>
                     <li class="list-group-item list-group-item-action">
                         取扱会社種別<span class="text-danger">*</span>
                         <select type="text" class="form-control" name="handling_type">

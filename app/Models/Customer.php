@@ -13,6 +13,7 @@ class Customer extends Model
     protected $guarded = [];
     protected $fillable = [
         'type',
+        'user_id',
         'handling_type',
         'handling_office',
         'corporate_type',
@@ -25,10 +26,16 @@ class Customer extends Model
     ];
 
 
+    // public function company()
+    // {
+    //     return $this->belongsTo(Company::class);
+    // }
+
     public function user()
     {
-        return $this->belongsTo(Company::class);
+        return $this->belongsTo(User::class);
     }
+
 
     // public function customerLogs()
     // {

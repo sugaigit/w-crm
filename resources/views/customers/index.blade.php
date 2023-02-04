@@ -7,8 +7,16 @@
                 <div class="d-flex justify-content">
                     <form class="form-control" method="GET" action="{{ route('customers.index') }}">
                         <h2 class="text-center">検索</h2>
-                        <input class="form-control mt-3" id="floatingInput" type="search" placeholder="クライアント名を入力" name="clientsearch" value="@if (isset($clientsearch)) {{ $clientsearch }} @endif">
-                        <input class="form-control mt-3" id="floatingInput" type="search" placeholder="電話番号を入力" name="phonesearch" value="@if (isset($phonesearch)) {{ $phonesearch }} @endif">
+                        <input class="form-control mt-3" type="search" placeholder="顧客名を入力" name="clientsearch" value="@if (isset($clientsearch)) {{ $clientsearch }} @endif">
+                        <input class="form-control mt-3" type="search" placeholder="電話番号を入力" name="phonesearch" value="@if (isset($phonesearch)) {{ $phonesearch }} @endif">
+
+                        <select type="text" class="form-control mt-3" name="usersearch">
+                            <option value="">作成者を選択</option>
+                            @foreach( $users as $key => $user )
+                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                            @endforeach
+                        </select>
+
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                             <button class="btn btn-info m-2" type="submit">検索</button>
                             <button class="btn btn-success m-2">
@@ -34,6 +42,7 @@
             <th class="text-center">取扱事業所</th>
             <th class="text-center">住所</th>
             <th class="text-center">電話番号</th>
+            <th class="text-center">作成者</th>
             <th class="text-center">操作</th>
         </tr>
     </thead>
@@ -47,6 +56,7 @@
         <td>{{ isset($customer->handling_office) ? config('options')['handling_office'][$customer->handling_office] :'' }}</td>
         <td>{{ $customer->address }}</td>
         <td>{{ $customer->phone }}</td>
+        <td>{{ $customer->user->name }}</td>
         <td>
             <div class="d-flex justify-content-around">
                 <a href="{{ route('customers.edit', $customer->id) }}">

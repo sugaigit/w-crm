@@ -15,6 +15,8 @@ class CreateCustomersTable extends Migration
     {
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('user_id')->unsigned()->comment('作成者');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->string('handling_type')->comment('取扱会社種別（1:HA, 2:HC）');
             $table->string('handling_office')->comment('取扱事業所名（1:北九州本社, 2:福岡支店）');
             $table->string('corporate_type')->comment('法人形態（1:前株, 2:後株, 3:合同会社, 4:有限責任事業組合（LLP）, 5:有限会社）');
@@ -28,6 +30,7 @@ class CreateCustomersTable extends Migration
         });
         DB::table('customers')->insert([
             'id' => 1,
+            'user_id' => 1,
             'handling_type' => '1',
             'handling_office' => '1',
             'customer_name' => '田中商店 ',
@@ -39,6 +42,7 @@ class CreateCustomersTable extends Migration
         ]);
         DB::table('customers')->insert([
             'id' => 2,
+            'user_id' => 2,
             'handling_type' => '2',
             'handling_office' => '2',
             'customer_name' => '井上貿易 ',
