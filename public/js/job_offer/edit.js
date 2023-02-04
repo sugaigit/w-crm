@@ -113,12 +113,11 @@ $(document).ready(function() {
 
 });
 
-function duplicate(){
-  $('form').submit(function() {
-    $('form').attr('action', '/job_offers');
-    $('input[name="_method"]').attr('value', 'POST');
-    let companyNameInput = $('input[name="company_name"]');
-    companyNameInput.val(companyNameInput.val() + 'のコピー');
-});
-
-}
+// function duplicate(){
+//   $('form').submit(function() {
+//     $('form').attr('action', location.href + '/job_offers');
+//     $('input[name="_method"]').attr('value', 'POST');
+//     let companyNameInput = $('input[name="company_name"]');
+//     companyNameInput.val(companyNameInput.val() + 'のコピー');
+//   });
+// }

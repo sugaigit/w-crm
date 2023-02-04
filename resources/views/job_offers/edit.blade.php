@@ -13,7 +13,8 @@
         <input type="hidden" name="jobOfferId" value="{{ $jobOffer->id }}">
         <input class="btn btn-secondary mb-2" type="button" value="印刷" onclick="window.print();" />
         @if(!$isDraftJobOffer)
-        <input class="btn btn-success mb-2" type="submit" value="複製" onclick="duplicate()" />
+        {{-- <input class="btn btn-success mb-2" type="submit" value="複製" onclick="duplicate()" /> --}}
+        <input class="btn btn-success mb-2" type="submit" name="duplicate" value="複製">
         @endif
         <div class="card mb-4">
             <div class="card-header">
