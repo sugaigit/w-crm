@@ -18,11 +18,41 @@
                             @canany('viewAny', auth()->user())
                             <li><a href="{{ route('users.index') }}" style="text-decoration: none;">社員一覧</a></li>
                             @endcanany
-                            <li><a href="{{ route('customers.index') }}" style="text-decoration: none;">顧客一覧</a></li>
-                            <li><a href="{{ route('customers.create') }}" style="text-decoration: none;">顧客新規登録</a></li>
-                            {{-- 認可の要件がわからないので一旦制限を書けずに作成 (2022/10/20)平岡 --}}
-                            <li><a href="{{ route('job_offers.index') }}" style="text-decoration: none;">求人一覧</a></li>
-                            <li><a href="{{ route('job_offers.create') }}" style="text-decoration: none;">求人新規登録</a></li>
+                            <div class="d-flex justify-content-evenly">
+                                <div>
+                                    <li>
+                                        <a href="{{ route('customers.create') }}" style="text-decoration: none;">
+                                            <button class="btn btn-outline-secondary btn-lg mb-2" type="button">
+                                                顧客新規登録
+                                            </button>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('customers.index') }}" style="text-decoration: none;">
+                                            <button class="btn btn-secondary btn-lg mb-2" type="button">
+                                                顧客一覧
+                                            </button>
+                                        </a>
+                                    </li>
+                                </div>
+
+                                <div>
+                                    <li>
+                                        <a href="{{ route('job_offers.create') }}" style="text-decoration: none;">
+                                            <button class="btn btn-outline-secondary btn-lg mb-2" type="button">
+                                                求人新規登録
+                                            </button>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('job_offers.index') }}" style="text-decoration: none;">
+                                            <button class="btn btn-secondary btn-lg mb-2" type="button">
+                                                求人一覧
+                                            </button>
+                                        </a>
+                                    </li>
+                                </div>
+                            </div>
                         </ul>
                     </div>
                 </div>
@@ -30,3 +60,13 @@
         </div>
     </div>
 @endsection
+
+<style>
+ul {
+    padding-left:0;
+}
+
+li {
+    list-style:none;
+}
+</style>
