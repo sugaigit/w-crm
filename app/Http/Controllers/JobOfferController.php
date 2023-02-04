@@ -135,11 +135,14 @@ class JobOfferController extends Controller
             $saveData['long_vacation'] = json_encode($saveData['long_vacation']);
         }
 
-        JobOffer::create($saveData);
+        $newJobOffer = JobOffer::create($saveData);
 
         $request->session()->flash('SucccessMsg', '登録しました');
 
         //Slack通知
+        $path = route('job_offers.index');
+        $name = $newJobOffer->company_name;
+        $id = $newJobOffer->id;
         $client = new Client();
         $response = $client->post(
             config('slack.webhook_url'),
@@ -148,7 +151,7 @@ class JobOfferController extends Controller
                     'Content-Type'	=>	'application/json',
                 ],
                 'json' => [
-                    'text' => '求人情報が新規登録されました。'
+                    'text' =>  "<{$path} | 求人情報ID{$id}>が新規登録されました。"
                 ]
             ]
         );
@@ -348,6 +351,7 @@ class JobOfferController extends Controller
         }
 
         //Slack通知
+        $path = route('job_offers.edit', $id);
         if ($statusIsUpdated) {
             $client = new Client();
             $response = $client->post(
@@ -357,7 +361,7 @@ class JobOfferController extends Controller
                         'Content-Type'	=>	'application/json',
                     ],
                     'json' => [
-                        'text' => "求人情報ID{$id}のステータスが{$updatedStatus}に更新されました。"
+                        'text' => "<{$path} | 求人情報ID{$id}>のステータスが{$updatedStatus}に更新されました。"
                     ]
                 ]
             );
