@@ -15,10 +15,20 @@
                         @endif
 
                         <ul>
-                            @canany('viewAny', auth()->user())
-                            <li><a href="{{ route('users.index') }}" style="text-decoration: none;">社員一覧</a></li>
-                            @endcanany
+
                             <div class="d-flex justify-content-evenly">
+                                @canany('viewAny', auth()->user())
+                                <div>
+                                    <li>
+                                        <a href="{{ route('users.index') }}" style="text-decoration: none;">
+                                            <button class="btn btn-secondary btn-lg mb-2" type="button">
+                                                社員一覧
+                                            </button>
+                                        </a>
+                                    </li>
+                                </div>
+                                @endcanany
+
                                 <div>
                                     <li>
                                         <a href="{{ route('customers.create') }}" style="text-decoration: none;">
