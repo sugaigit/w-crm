@@ -144,10 +144,22 @@ class JobOfferController extends Controller
         $request->session()->flash('SucccessMsg', '登録しました');
 
         //Slack通知
-        $path = route('job_offers.index');
-        $name = $newJobOffer->company_name;
-        $id = $newJobOffer->id;
+        $path = route('job_offers.edit', ['job_offer' => $newJobOffer->id]);
+        $status = config('options.status_edit')[$newJobOffer->status];
+        $handlingType = config('options.handling_type')[$newJobOffer->handling_type];
+        $handlingOffice = config('options.handling_office')[$newJobOffer->handling_office];
+
         $client = new Client();
+        $content ="
+```■{$status}
+取扱会社種別：{$handlingType}
+取扱事業所：{$handlingOffice}
+営業担当：{$newJobOffer->user->name}
+就業先名称と発注業務：{$newJobOffer->company_name}/{$newJobOffer->ordering_business}
+募集人数：{$newJobOffer->recruitment_number}人
+予定期間：{$newJobOffer->scheduled_period}
+詳細：{$path}```
+";
         $response = $client->post(
             config('slack.webhook_url'),
             [
@@ -155,7 +167,7 @@ class JobOfferController extends Controller
                     'Content-Type'	=>	'application/json',
                 ],
                 'json' => [
-                    'text' =>  "<{$path} | 求人情報ID{$id}>が新規登録されました。"
+                    'text' => $content
                 ]
             ]
         );
@@ -359,21 +371,33 @@ class JobOfferController extends Controller
             }
 
             //Slack通知
-            $path = route('job_offers.edit', $id);
-            if ($statusIsUpdated) {
-                $client = new Client();
-                $response = $client->post(
-                    config('slack.webhook_url'),
-                    [
-                        'headers' => [
-                            'Content-Type'	=>	'application/json',
-                        ],
-                        'json' => [
-                            'text' => "<{$path} | 求人情報ID{$id}>のステータスが{$updatedStatus}に更新されました。"
-                        ]
+            $path = route('job_offers.edit', ['job_offer' => $request->jobOfferId]);
+            $status = config('options.status_edit')[$request->input('status')];
+            $handlingType = config('options.handling_type')[$request->input('handling_type')];
+            $handlingOffice = config('options.handling_office')[$request->input('handling_office')];
+
+            $client = new Client();
+            $content ="
+    ```■{$status}
+    取扱会社種別：{$handlingType}
+    取扱事業所：{$handlingOffice}
+    営業担当：{$jobOffer->user->name}
+    就業先名称と発注業務：{$request->input('company_name')}/{$request->input('ordering_business')}
+    募集人数：{$request->input('recruitment_number')}人
+    予定期間：{$request->input('scheduled_period')}
+    詳細：{$path}```
+    ";
+            $response = $client->post(
+                config('slack.webhook_url'),
+                [
+                    'headers' => [
+                        'Content-Type'	=>	'application/json',
+                    ],
+                    'json' => [
+                        'text' => $content
                     ]
-                );
-            }
+                ]
+            );
 
             return redirect(route('job_offers.index'));
         }
