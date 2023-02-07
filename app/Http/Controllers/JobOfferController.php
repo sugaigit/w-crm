@@ -11,6 +11,7 @@ use App\Models\Customer;
 use App\Models\ActivityRecord;
 use GuzzleHttp\Client;
 use Auth;
+
 // use Slack;
 
 class JobOfferController extends Controller
@@ -219,6 +220,10 @@ class JobOfferController extends Controller
         if ($request->has('duplicate')) { // 複製ボタンが押されたときはstoreアクションが走る
             $this->store($request);
             return redirect(route('job_offers.index'));
+        } elseif ($request->has('draftJobOfferId')) { // 下書きが登録された場合
+            $this->store($request);
+            DraftJobOffer::destroy($request->draftJobOfferId);
+            return redirect(route('job_offers.index'));
         } else {
             $request->validate([
                 'user_id' => ['required'],
@@ -255,7 +260,7 @@ class JobOfferController extends Controller
 
             // Slack通知をするかしないか判定するためのフラグ
             $statusIsUpdated = false;
-            dd($jobOffer);
+
             if ($jobOffer->status != $request->input('status')) {
                 $statusIsUpdated = true;
             }
@@ -400,10 +405,6 @@ class JobOfferController extends Controller
                         ]
                     ]
                 );
-            }
-
-            if ($request->has('draftJobOfferId')) {
-                DraftJobOffer::destroy($request->draftJobOfferId);
             }
 
             return redirect(route('job_offers.index'));
