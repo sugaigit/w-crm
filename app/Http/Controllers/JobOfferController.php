@@ -132,6 +132,7 @@ class JobOfferController extends Controller
             'commuting_by_car'=> ['required'],
             'order_date'=> ['required'],
             'status'=> ['required'],
+            'parking'=> ['required'],
         ]);
 
         $saveData = $request->all();
@@ -253,6 +254,7 @@ class JobOfferController extends Controller
                 'commuting_by_car'=> ['required'],
                 'order_date'=> ['required'],
                 'status'=> ['required'],
+                'parking'=> ['required'],
             ]);
 
             // 求人情報の更新処理
