@@ -255,7 +255,7 @@ class JobOfferController extends Controller
 
             // Slack通知をするかしないか判定するためのフラグ
             $statusIsUpdated = false;
-            dd($request->input('status'));
+            dd($jobOffer->status);
             if ($jobOffer->status != $request->input('status')) {
                 $statusIsUpdated = true;
             }
