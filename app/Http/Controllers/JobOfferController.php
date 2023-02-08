@@ -100,9 +100,11 @@ class JobOfferController extends Controller
      */
     public function store(Request $request)
     {
+        // Slack通知を制御するフラグ false: 通知する true: 通知しない
+        $isDuplicated = false;
         if ($request->has('duplicate')) { // 複製ボタンが押されたときはstoreアクションが走る
             $request['company_name'] = $request['company_name'] . 'のコピー';
-
+            $isDuplicated = true;
         }
         $request->validate([
             'user_id' => ['required'],
@@ -146,13 +148,14 @@ class JobOfferController extends Controller
         $request->session()->flash('SucccessMsg', '登録しました');
 
         //Slack通知
-        $path = route('job_offers.edit', ['job_offer' => $newJobOffer->id]);
-        $status = config('options.status_edit')[$newJobOffer->status];
-        $handlingType = config('options.handling_type')[$newJobOffer->handling_type];
-        $handlingOffice = config('options.handling_office')[$newJobOffer->handling_office];
+        if (!$isDuplicated) {
+            $path = route('job_offers.edit', ['job_offer' => $newJobOffer->id]);
+            $status = config('options.status_edit')[$newJobOffer->status];
+            $handlingType = config('options.handling_type')[$newJobOffer->handling_type];
+            $handlingOffice = config('options.handling_office')[$newJobOffer->handling_office];
 
-        $client = new Client();
-        $content ="
+            $client = new Client();
+            $content ="
 ```■{$status}
 取扱会社種別：{$handlingType}
 取扱事業所：{$handlingOffice}
@@ -163,17 +166,18 @@ class JobOfferController extends Controller
 予定期間：{$newJobOffer->scheduled_period}
 詳細：{$path}```
 ";
-        $response = $client->post(
-            config('slack.webhook_url'),
-            [
-                'headers' => [
-                    'Content-Type'	=>	'application/json',
-                ],
-                'json' => [
-                    'text' => $content
+            $response = $client->post(
+                config('slack.webhook_url'),
+                [
+                    'headers' => [
+                        'Content-Type'	=>	'application/json',
+                    ],
+                    'json' => [
+                        'text' => $content
+                    ]
                 ]
-            ]
-        );
+            );
+        }
 
         return redirect(route('job_offers.index'));
     }
