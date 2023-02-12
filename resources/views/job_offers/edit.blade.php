@@ -31,7 +31,11 @@
                             <select type="text" class="form-control" name="user_id">
                             <option value="">営業担当を選んで下さい</option>
                             @foreach( $users as $user )
+                                @if (is_null(old('user_id')))
                                 <option value="{{ $user->id }}" {{ $user->id == $jobOffer->user->id ? 'selected' : '' }}> {{ $user->name }}</option>
+                                @else
+                                <option value="{{ $user->id }}" {{ $user->id == old('user_id') ? 'selected' : '' }}> {{ $user->name }}</option>
+                                @endif
                             @endforeach
                             </select>
                         </td>
@@ -42,7 +46,11 @@
                         <select type="text" class="form-control" name="handling_type">
                             <option value="">取扱会社種別を選んで下さい</option>
                             @foreach( config('options.handling_type') as $key => $handling_type )
+                            @if (is_null(old('handling_type')))
                             <option value="{{ $key }}" {{ $key == $jobOffer->handling_type ? 'selected' : '' }}>{{ $handling_type }}</option>
+                            @else
+                            <option value="{{ $key }}" {{ $key == old('handling_type') ? 'selected' : '' }}>{{ $handling_type }}</option>
+                            @endif
                             @endforeach
                         </select>
                         </td>
@@ -50,7 +58,11 @@
                     <tr>
                         <th>仕事番号</th>
                         <td>
+                            @if (is_null(old('job_number')))
                             <input type="text" class="form-control" name="job_number" value="{{ isset($jobOffer->job_number) ? $jobOffer->job_number : '' }}">
+                            @else
+                            <input type="text" class="form-control" name="job_number" value="{{ old('job_number') }}">
+                            @endif
                         </td>
                     </tr>
                     <tr>
