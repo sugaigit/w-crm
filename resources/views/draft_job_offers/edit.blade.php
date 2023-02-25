@@ -887,21 +887,6 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>求人掲載サイト</th>
-                        <td>
-                            <select type="text" class="form-control" name="posting_site">
-                            <option value="">求人掲載サイトを選んで下さい</option>
-                            @foreach( config('options.posting_site') as $key => $posting_site )
-                                @if (is_null(old('posting_site')))
-                                <option value="{{ $key }}" {{ $key == $jobOffer->posting_site ? 'selected' : '' }}>{{ $posting_site }}</option>
-                                @else
-                                <option value="{{ $key }}" {{ $key == old('posting_site') ? 'selected' : '' }}>{{ $posting_site }}</option>
-                                @endif
-                            @endforeach
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
                         <th>資格要件</th>
                         <td>
                             <select type="text" class="form-control" name="qualification">
@@ -1088,6 +1073,21 @@
                                         <option value="{{ $key }}" {{ $key == old('job_withdrawal') ? 'selected' : '' }}>{{ $job_withdrawal }}</option>
                                     @endif
                                 @endforeach
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>求人掲載サイト</th>
+                        <td>
+                            <select type="text" class="form-control" name="posting_site">
+                            <option value="">求人掲載サイトを選んで下さい</option>
+                            @foreach( config('options.posting_site') as $key => $posting_site )
+                                @if (is_null(old('posting_site')))
+                                <option value="{{ $key }}" {{ $key == $jobOffer->posting_site ? 'selected' : '' }}>{{ $posting_site }}</option>
+                                @else
+                                <option value="{{ $key }}" {{ $key == old('posting_site') ? 'selected' : '' }}>{{ $posting_site }}</option>
+                                @endif
+                            @endforeach
                             </select>
                         </td>
                     </tr>

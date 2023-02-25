@@ -600,17 +600,6 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>求人掲載サイト</th>
-                                    <td>
-                                        <select type="text" class="form-control" name="posting_site">
-                                            <option value="">求人掲載サイトを選んで下さい</option>
-                                            @foreach( config('options.posting_site') as $key => $posting_site )
-                                            <option value="{{ $key }}" {{ old('posting_site') == $key ? 'selected' : '' }}>{{ $posting_site }}</option>
-                                            @endforeach
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
                                     <th>資格要件</th>
                                     <td>
                                         <select type="text" class="form-control" name="qualification">
@@ -732,6 +721,17 @@
                                             <option value="">求人取り下げの理由を選んで下さい</option>
                                             @foreach( config('options.job_withdrawal') as $key => $job_withdrawal )
                                                 <option value="{{ $key }}" {{ old('job_withdrawal') == $key ? 'selected' : '' }}>{{ $job_withdrawal }}</option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>求人掲載サイト</th>
+                                    <td>
+                                        <select type="text" class="form-control" name="posting_site">
+                                            <option value="">求人掲載サイトを選んで下さい</option>
+                                            @foreach( config('options.posting_site') as $key => $posting_site )
+                                            <option value="{{ $key }}" {{ old('posting_site') == $key ? 'selected' : '' }}>{{ $posting_site }}</option>
                                             @endforeach
                                         </select>
                                     </td>

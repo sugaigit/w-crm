@@ -53,7 +53,8 @@ class JobOfferController extends Controller
                         ->orWhere('order_details', 'LIKE', "%{$keyword}%")
                         ->orWhere('scheduled_period', 'LIKE', "%{$keyword}%")
                         ->orWhere('holiday', 'LIKE', "%{$keyword}%")
-                        ->orWhere('long_vacation', 'LIKE', "%{$keyword}%");
+                        ->orWhere('long_vacation', 'LIKE', "%{$keyword}%")
+                        ->orWhere('scheduled_period', 'LIKE', "%{$keyword}%");
                 });
             }
 
