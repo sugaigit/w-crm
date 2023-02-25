@@ -352,7 +352,7 @@ class JobOfferController extends Controller
             $jobOffer->monthly_lower_limit= $request->input('monthly_lower_limit');
             $jobOffer->monthly_upper_limit= $request->input('monthly_upper_limit');
             $jobOffer->annual_lower_limit= $request->input('annual_lower_limit');
-            $jobOffer->age_upper_limit= $request->input('age_upper_limit');
+            $jobOffer->annual_upper_limit= $request->input('annual_upper_limit');
             $jobOffer->bonuses_treatment= $request->input('bonuses_treatment');
             $jobOffer->holidays_vacations= $request->input('holidays_vacations');
             $jobOffer->introduction_others= $request->input('introduction_others');

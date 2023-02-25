@@ -196,7 +196,7 @@ class DraftJobOfferController extends Controller
         $draftJobOffer->monthly_lower_limit= $request->input('monthly_lower_limit');
         $draftJobOffer->monthly_upper_limit= $request->input('monthly_upper_limit');
         $draftJobOffer->annual_lower_limit= $request->input('annual_lower_limit');
-        $draftJobOffer->age_upper_limit= $request->input('age_upper_limit');
+        $draftJobOffer->annual_upper_limit= $request->input('annual_upper_limit');
         $draftJobOffer->bonuses_treatment= $request->input('bonuses_treatment');
         $draftJobOffer->holidays_vacations= $request->input('holidays_vacations');
         $draftJobOffer->introduction_others= $request->input('introduction_others');

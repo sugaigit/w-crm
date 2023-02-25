@@ -48,54 +48,54 @@ $(document).ready(function() {
   ******************************************/
    $('.payment-2').css("display", "none");
    $('.payment-3').css("display", "none");
- 
+
    $('#open_payment_2').on('click', function () {
      $('.payment-2').css("display", "");
      $(this).css("display", "none");
    });
- 
+
    $('#close_payment_2').on('click', function () {
      $('.payment-2').css("display", "none");
      $('#open_payment_2').css("display", "");
      // $(this).css("display", "none");
    });
- 
+
    $('#open_payment_3').on('click', function () {
      $('.payment-3').css("display", "");
      $(this).css("display", "none");
      $('#close_payment_2').css("display", "none");
    });
- 
+
    $('#close_payment_3').on('click', function () {
      $('.payment-3').css("display", "none");
      $('#open_payment_3').css("display", "");
      // $(this).css("display", "none");
      $('#close_payment_2').css("display", "");
    });
-   
+
   /******************************************
   * 勤務時間②等の表示・非表示切り替え
   ******************************************/
    $('.working-2').css("display", "none");
    $('.working-3').css("display", "none");
- 
+
    $('#open_working_2').on('click', function () {
      $('.working-2').css("display", "");
      $(this).css("display", "none");
    });
- 
+
    $('#close_working_2').on('click', function () {
      $('.working-2').css("display", "none");
      $('#open_working_2').css("display", "");
      // $(this).css("display", "none");
    });
- 
+
    $('#open_working_3').on('click', function () {
      $('.working-3').css("display", "");
      $(this).css("display", "none");
      $('#close_working_2').css("display", "none");
    });
- 
+
    $('#close_working_3').on('click', function () {
      $('.working-3').css("display", "none");
      $('#open_working_3').css("display", "");
@@ -133,6 +133,17 @@ $(document).ready(function() {
     customer_id = $("#customer_list option[value='" + $(this).val() + "']").data('customer_id');
     $('#customer_id').val(customer_id)
   });
-  
+
+/******************************************
+ * 下書き必須項目の表示切替
+ ******************************************/
+$('.draft-require').on('change', function () {
+    if ($(this).val().length) {
+        $(this).removeClass('bg-danger text-white');
+    } else {
+        $(this).addClass('bg-danger text-white');
+    }
+  });
+
 
 });

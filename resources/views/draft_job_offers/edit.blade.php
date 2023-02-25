@@ -222,7 +222,7 @@
                                 <option value="{{ $key }}"  {{ $key == old('billing_unit_1') ? 'selected' : '' }}>{{ $billing_unit_1 }}</option>
                                 @endif
                             @endforeach
-                            <select>
+                            </select>
                         </td>
                     </tr>
                     <tr>
@@ -267,7 +267,7 @@
                                 <option value="{{ $key }}"  {{ $key == old('billing_unit_2') ? 'selected' : '' }}>{{ $billing_unit_2 }}</option>
                                 @endif
                             @endforeach
-                            <select>
+                            </select>
                         </td>
                     </tr>
                     <tr class="billing-2">
@@ -316,7 +316,7 @@
                                 <option value="{{ $key }}"  {{ $key == old('billing_unit_3') ? 'selected' : '' }}>{{ $billing_unit_3 }}</option>
                                 @endif
                             @endforeach
-                            <select>
+                            </select>
                         </td>
                     </tr>
                     <tr class="billing-3">
@@ -394,7 +394,7 @@
                                 <option value="{{ $key }}" {{ $key == old('payment_unit_1') ? 'selected' : '' }}>{{ $payment_unit_1 }}</option>
                                 @endif
                             @endforeach
-                            <select>
+                            </select>
                         </td>
                     </tr>
                     <tr>
@@ -419,7 +419,7 @@
                                 <option value="{{ $key }}" {{ $key == old('carfare_payment_1') ? 'selected' : '' }}>{{ $carfare_payment_1 }}</option>
                                 @endif
                             @endforeach
-                            <select>
+                            </select>
                         </td>
                     </tr>
                     <tr>
@@ -504,7 +504,7 @@
                                 <option value="{{ $key }}" {{ $key == old('carfare_payment_2') ? 'selected' : '' }}>{{ $carfare_payment_2 }}</option>
                                 @endif
                             @endforeach
-                            <select>
+                            </select>
                         </td>
                     </tr>
                     <tr class="payment-2">
@@ -573,7 +573,7 @@
                                 <option value="{{ $key }}" {{ $key == old('carfare_payment_3') ? 'selected' : '' }}>{{ $carfare_payment_3 }}</option>
                                 @endif
                             @endforeach
-                            <select>
+                            </select>
                         </td>
                     </tr>
                     <tr class="payment-3">
@@ -612,11 +612,18 @@
                     <tr>
                         <th>予定期間</th>
                         <td>
-                            @if (is_null(old('scheduled_period')))
-                            <input  type="text" class="form-control" name="scheduled_period" value="{{ isset($jobOffer->scheduled_period) ? $jobOffer->scheduled_period : '' }}">
-                            @else
-                            <input  type="text" class="form-control" name="scheduled_period" value="{{ old('scheduled_period') }}">
-                            @endif
+                            <select type="text" class="form-control" name="scheduled_period">
+                                <option value="">予定期間を選んで下さい</option>
+                                @if (is_null(old('scheduled_period')))
+                                    @foreach( config('options.scheduled_period') as $key => $scheduled_period )
+                                        <option value="{{ $key }}" {{ $key == $jobOffer->scheduled_period ? 'selected' : '' }}>{{ $scheduled_period }}</option>
+                                    @endforeach
+                                @else
+                                    @foreach( config('options.scheduled_period') as $key => $scheduled_period )
+                                        <option value="{{ $key }}" {{ old('scheduled_period') == $key ? 'selected' : '' }}>{{ $scheduled_period }}</option>
+                                    @endforeach
+                                @endif
+                            </select>
                         </td>
                     </tr>
                     <tr>
@@ -1135,10 +1142,10 @@
                     <tr class="afterRecruit">
                         <th>年収例（上限）</th>
                         <td>
-                            @if (is_null(old('age_upper_limit')))
-                            <input  type="text" class="form-control" name="age_upper_limit" value="{{ isset($jobOffer->age_upper_limit) ? $jobOffer->age_upper_limit : '' }}">
+                            @if (is_null(old('annual_upper_limit')))
+                            <input  type="text" class="form-control" name="annual_upper_limit" value="{{ isset($jobOffer->annual_upper_limit) ? $jobOffer->annual_upper_limit : '' }}">
                             @else
-                            <input  type="text" class="form-control" name="age_upper_limit" value="{{ old('age_upper_limit') }}">
+                            <input  type="text" class="form-control" name="annual_upper_limit" value="{{ old('annual_upper_limit') }}">
                             @endif
                         </td>
                     </tr>
