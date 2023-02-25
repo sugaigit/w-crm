@@ -85,6 +85,7 @@ class DraftJobOffer extends Model
         'parking',
         'posting_site',
         'status',
+        'job_withdrawal',
         'order_date',
         'qualification',
         'qualification_content',

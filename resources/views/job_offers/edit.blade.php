@@ -1064,7 +1064,7 @@
                     <tr>
                         <th>作成ステータス<span class="text-danger">*</span></th>
                         <td>
-                            <select type="text" class="form-control" name="status">
+                            <select id="statusInput" class="form-control" name="status">
                             <option value="">作成ステータスを選んで下さい</option>
                             @foreach( config('options.status_edit') as $key => $status )
                                 @if (is_null(old('status')))
@@ -1073,6 +1073,21 @@
                                 <option value="{{ $key }}" {{ $key == old('status') ? 'selected' : '' }}>{{ $status }}</option>
                                 @endif
                             @endforeach
+                            </select>
+                        </td>
+                    </tr>
+                    <tr class="after-closed">
+                        <th>求人取り下げの理由</th>
+                        <td>
+                            <select type="text" class="form-control" name="job_withdrawal">
+                                <option value="">求人取り下げの理由を選んで下さい</option>
+                                @foreach( config('options.job_withdrawal') as $key => $job_withdrawal )
+                                    @if (is_null(old('status')))
+                                        <option value="{{ $key }}" {{ $key == $jobOffer->job_withdrawal ? 'selected' : '' }}>{{ $job_withdrawal }}</option>
+                                    @else
+                                        <option value="{{ $key }}" {{ $key == old('job_withdrawal') ? 'selected' : '' }}>{{ $job_withdrawal }}</option>
+                                    @endif
+                                @endforeach
                             </select>
                         </td>
                     </tr>

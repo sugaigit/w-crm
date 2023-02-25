@@ -20,6 +20,14 @@ $(document).ready(function() {
     }
   });
 
+
+  if ($('#statusInput').val() == 4) {
+    $('.after-closed').css("display", "");
+  } else {
+    $('.after-closed').css("display", "none");
+  }
+
+
   /******************************************
   * 請求単価②等の表示・非表示切り替え
   ******************************************/
@@ -111,13 +119,13 @@ $(document).ready(function() {
      $('#close_working_2').css("display", "");
    });
 
-});
+   $('#statusInput').on('change', function () {
+    if ($(this).val() == 4) {
+      $('.after-closed').css("display", "");
+    } else {
+      $('.after-closed').css("display", "none");
+    }
+   });
 
-// function duplicate(){
-//   $('form').submit(function() {
-//     $('form').attr('action', location.href + '/job_offers');
-//     $('input[name="_method"]').attr('value', 'POST');
-//     let companyNameInput = $('input[name="company_name"]');
-//     companyNameInput.val(companyNameInput.val() + 'のコピー');
-//   });
-// }
+
+});

@@ -726,6 +726,17 @@
                                     </td>
                                 </tr>
                                 <tr>
+                                    <th>求人取り下げの理由</th>
+                                    <td>
+                                        <select type="text" class="form-control" name="job_withdrawal">
+                                            <option value="">求人取り下げの理由を選んで下さい</option>
+                                            @foreach( config('options.job_withdrawal') as $key => $job_withdrawal )
+                                                <option value="{{ $key }}" {{ old('job_withdrawal') == $key ? 'selected' : '' }}>{{ $job_withdrawal }}</option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
                                     <th>起算日<span class="text-danger">*</span></th>
                                     <td>
                                         <input  type="date" class="form-control" name="order_date" value="{{ old('order_date') }}">
