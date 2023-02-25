@@ -94,7 +94,7 @@ class CreateDraftJobOffersTable extends Migration
             $table->string('monthly_lower_limit')->comment('月収例（下限）')->nullable();
             $table->string('monthly_upper_limit')->comment('月収例（上限）')->nullable();
             $table->string('annual_lower_limit')->comment('年収例（下限）')->nullable();
-            $table->string('age_upper_limit')->comment('年齢（上限）')->nullable();
+            $table->string('annual_upper_limit')->comment('年収例（上限）')->nullable();
             $table->string('bonuses_treatment')->comment('賞与等・待遇')->nullable();
             $table->string('holidays_vacations')->comment('休日・休暇')->nullable();
             $table->text('introduction_others')->comment('その他')->nullable();

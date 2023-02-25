@@ -12,7 +12,7 @@
                                 <tr>
                                     <th>営業担当<span class="text-danger">*</span></th>
                                     <td>
-                                        <select type="text" class="form-control" name="user_id">
+                                        <select type="text" class="form-control bg-danger text-white" name="user_id">
                                             <option value="">営業担当を選んで下さい</option>
                                             @foreach( $users as $user )
                                             <option value="{{ $user->id }}" {{ old('user_id') == $user->id ? 'selected' : '' }}>{{ $user->name }}</option>
@@ -90,7 +90,7 @@
                                 <tr>
                                     <th>就業先名称<span class="text-danger">*</span></th>
                                     <td>
-                                        <input type="text" class="form-control" name="company_name" value="{{ old('company_name') }}">
+                                        <input type="text" class="form-control bg-danger text-white" name="company_name" value="{{ old('company_name') }}">
                                     </td>
                                 </tr>
                                 <tr>
@@ -674,6 +674,12 @@
                                     </td>
                                 </tr>
                                 <tr>
+                                    <th>自身で準備するもの</th>
+                                    <td>
+                                        <input  type="text" class="form-control" name="self_prepared" value="{{ old('self_prepared') }}">
+                                    </td>
+                                </tr>
+                                <tr>
                                     <th>服装</th>
                                     <td>
                                         <input  type="text" class="form-control" name="clothes" value="{{ old('clothes') }}">
@@ -683,12 +689,6 @@
                                     <th>その他髪色</th>
                                     <td>
                                         <input  type="text" class="form-control" name="other_hair_colors" value="{{ old('other_hair_colors') }}">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>自身で準備するもの</th>
-                                    <td>
-                                        <input  type="text" class="form-control" name="self_prepared" value="{{ old('self_prepared') }}">
                                     </td>
                                 </tr>
                                 <tr>
@@ -708,6 +708,26 @@
                                     <td>
                                         <input  type="text" class="form-control" name="age_ratio" value="{{ old('age_ratio') }}" placeholder="20代 20%, 30代 50%, その他 30%">
                                     </td>
+                                </tr>
+                                <tr>
+                                    <th>作成ステータス<span class="text-danger">*</span></th>
+                                    <td>
+                                        <select type="text" class="form-control" name="status">
+                                            <option value="">作成ステータスを選んで下さい</option>
+                                            @foreach( config('options.status_create') as $key => $status )
+                                                <option value="{{ $key }}" {{ old('status') == $key ? 'selected' : '' }}>{{ $status }}</option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>起算日<span class="text-danger">*</span></th>
+                                    <td>
+                                        <input  type="date" class="form-control" name="order_date" value="{{ old('order_date') }}">
+                                    </td>
+                                </tr>
+                                <tr class="afterRecruit">
+                                    <th colspan="2"><div class="text-center">人材紹介/紹介予定　採用後条件</div></th>
                                 </tr>
                                 <tr class="afterRecruit">
                                     <th>紹介後</th>
@@ -740,7 +760,7 @@
                                     </td>
                                 </tr>
                                 <tr class="afterRecruit">
-                                    <th>年齢（上限）</th>
+                                    <th>年収例（上限）</th>
                                     <td>
                                         <input  type="text" class="form-control" name="age_upper_limit" value="{{ old('age_upper_limit') }}">
                                     </td>
@@ -761,23 +781,6 @@
                                     <th>その他</th>
                                     <td>
                                         <textarea rows="3" type="text" class="form-control" name="introduction_others">{{ old('introduction_others') }}</textarea>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>作成ステータス<span class="text-danger">*</span></th>
-                                    <td>
-                                        <select type="text" class="form-control" name="status">
-                                            <option value="">作成ステータスを選んで下さい</option>
-                                            @foreach( config('options.status_create') as $key => $status )
-                                                <option value="{{ $key }}" {{ old('status') == $key ? 'selected' : '' }}>{{ $status }}</option>
-                                            @endforeach
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>起算日<span class="text-danger">*</span></th>
-                                    <td>
-                                        <input  type="date" class="form-control" name="order_date" value="{{ old('order_date') }}">
                                     </td>
                                 </tr>
                             </tbody>

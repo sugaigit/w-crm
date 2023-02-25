@@ -61,6 +61,13 @@
                                             </button>
                                         </a>
                                     </li>
+                                    <li>
+                                        <a href="{{ route('draft.index') }}" style="text-decoration: none;">
+                                            <button class="btn btn-secondary btn-lg mb-2" type="button">
+                                                求人下書き一覧
+                                            </button>
+                                        </a>
+                                    </li>
                                 </div>
                             </div>
                         </ul>

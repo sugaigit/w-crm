@@ -18,20 +18,9 @@ class JobOfferController extends Controller
 {
     public function index(Request $request)
     {
-        $jobOffers = JobOffer::all();
         $draftJobOffers = DraftJobOffer::all();
         $users = User::all();
-
-        foreach ($draftJobOffers as $index => $draftJobOffer){
-            if (isset($draftJobOffer->user_id)) {
-                foreach ($users as $user) {
-                    if ($user->id == $draftJobOffer->user_id ){
-                        $draftJobOffers[$index]['user_id'] = $user->name;
-                    }
-                }
-            }
-        }
-
+        $perPage = $request->per_page ?? 30;
 
         $jobOffers = JobOffer::when($request->userId, function ($query, $userId) {
             return $query->where('user_id', $userId);
@@ -43,7 +32,7 @@ class JobOfferController extends Controller
             return $query->where('job_number', $jobNumber);
         })
         ->when($request->status, function ($query, $status) {
-            return $query->where('status', $status);
+            return $query->whereIn('status', $status);
         })
         ->when($request->keywords, function ($query, $keywords) {
             $smallSpaceKeywords = mb_convert_kana($keywords, 's');
@@ -59,18 +48,20 @@ class JobOfferController extends Controller
                 }
                 $query->where(function($query) use ($keyword){
                     $query->where('company_name', 'LIKE', "%{$keyword}%")
-                    ->orWhere('company_address', 'LIKE', "%{$keyword}%")
-                    ->orWhere('ordering_business', 'LIKE', "%{$keyword}%")
-                    ->orWhere('order_details', 'LIKE', "%{$keyword}%")
-                    ->orWhere('scheduled_period', 'LIKE', "%{$keyword}%")
-                    ->orWhere('holiday', 'LIKE', "%{$keyword}%")
-                    ->orWhere('long_vacation', 'LIKE', "%{$keyword}%");
+                        ->orWhere('company_address', 'LIKE', "%{$keyword}%")
+                        ->orWhere('ordering_business', 'LIKE', "%{$keyword}%")
+                        ->orWhere('order_details', 'LIKE', "%{$keyword}%")
+                        ->orWhere('scheduled_period', 'LIKE', "%{$keyword}%")
+                        ->orWhere('holiday', 'LIKE', "%{$keyword}%")
+                        ->orWhere('long_vacation', 'LIKE', "%{$keyword}%");
                 });
             }
 
             return $query;
         })
-        ->get();
+        ->orderBy('created_at', 'desc')
+        ->paginate($perPage)
+        ->withQueryString();
 
         return view('job_offers.index', [
             'jobOffers' => $jobOffers,

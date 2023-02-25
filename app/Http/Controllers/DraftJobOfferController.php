@@ -14,6 +14,27 @@ use GuzzleHttp\Client;
 
 class DraftJobOfferController extends Controller
 {
+    public function index(Request $request)
+    {
+        $users = User::all();
+        $perPage = $request->per_page ?? 30;
+
+        $draftJobOffers = DraftJobOffer::when($request->userId, function ($query, $userId) {
+            return $query->where('user_id', $userId);
+        })
+        ->when($request->companyName, function ($query, $companyName) {
+            return $query->where('company_name', 'like' , "%{$companyName}%");
+        })
+        ->orderBy('created_at', 'desc')
+        ->paginate($perPage)
+        ->withQueryString();
+
+        return view('draft_job_offers.index', [
+            'draftJobOffers' => $draftJobOffers,
+            'users' => $users,
+        ]);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -67,7 +88,7 @@ class DraftJobOfferController extends Controller
         //     \Session::flash('AlertMsg', '警告：データーベースに登録されている営業担当とログインユーザーが一致しません');
         // }
 
-        return view('job_offers.edit', [
+        return view('draft_job_offers.edit', [
             'jobOffer' => $draftJobOffer,
             'users' => $users,
             'customers' => $customers,

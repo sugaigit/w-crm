@@ -21,6 +21,7 @@ Route::get('/roles', \App\Http\Controllers\RoleController::class)->name('ロー�
 Route::resource('customers', \App\Http\Controllers\CustomerController::class)->middleware('auth');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('job_offers', \App\Http\Controllers\JobOfferController::class)->middleware('auth');
+Route::get('/drafts', [App\Http\Controllers\DraftJobOfferController::class, 'index'])->middleware('auth')->name('draft.index');
 Route::post('/draft/create', [App\Http\Controllers\DraftJobOfferController::class, 'store'])->middleware('auth')->name('draft.create');
 Route::get('/draft/edit/{id}', [App\Http\Controllers\DraftJobOfferController::class, 'edit'])->middleware('auth')->name('draft.edit');
 Route::put('/draft/update/{id}', [App\Http\Controllers\DraftJobOfferController::class, 'update'])->name('draft.update');
