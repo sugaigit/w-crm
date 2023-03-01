@@ -37,7 +37,7 @@
                         </select>
                     </li>
                     <li class="list-group-item list-group-item-action">
-                        法人形態<span class="text-danger">*</span>
+                        法人形態<span class="text-danger"></span>
                         <select type="text" class="form-control" name="corporate_type">
                             <option value="">法人形態を選んで下さい</option>
                             @foreach( config('options.corporate_type') as $key => $val )
@@ -54,12 +54,24 @@
                         <input class="form-control" type="text" name="customer_kana" value="{{ old('customer_kana') }}">
                     </li>
                     <li class="list-group-item list-group-item-action">
-                        住所<span class="text-danger">*</span>
+                        所属部署
+                        <input class="form-control" type="text" name="department" value="{{ old('department') }}">
+                    </li>
+                    <li class="list-group-item list-group-item-action">
+                        顧客担当者名
+                        <input class="form-control" type="text" name="manager_name" value="{{ old('manager_name') }}">
+                    </li>
+                    <li class="list-group-item list-group-item-action">
+                        住所<span class="text-danger"></span>
                         <input class="form-control" type="text" name="address" value="{{ old('address') }}">
                     </li>
                     <li class="list-group-item list-group-item-action">
-                        電話番号<span class="text-danger">*</span>
+                        電話番号<span class="text-danger"></span>
                         <input class="form-control" type="text" name="phone" value="{{ old('phone') }}">
+                    </li>
+                    <li class="list-group-item list-group-item-action">
+                        メールアドレス
+                        <input class="form-control" type="text" name="email" value="{{ old('email') }}">
                     </li>
                     <li class="list-group-item list-group-item-action">
                         FAX
