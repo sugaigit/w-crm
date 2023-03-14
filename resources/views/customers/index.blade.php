@@ -1,5 +1,7 @@
 @extends('layouts.app')
 @section('content')
+<link rel="stylesheet" href="{{ asset('/css/style.css')  }}" >
+<script type="text/javascript" src="{{ asset('/js/button.js') }}"></script>
 <div class="container">
     <div class="main container-fluid">
         <div class="row bg-light text-dark py-5">
@@ -31,7 +33,6 @@
         </div>
     </div>
 </div>
-
 <div class="card-header w-75 m-auto">顧客一覧</div>
 <table class="table table-bordered table-hover w-75 m-auto">
     <thead>
@@ -50,7 +51,7 @@
     <tr>
         <td>{{ $customer->id }}</td>
         <td>
-            {{ $customer->customer_name }}
+            {{ $customer->customer_name}} {{ isset($customer->corporate_type) ? config('options')['corporate_type'][$customer->corporate_type] :'' }}
         </td>
         <td>{{ isset($customer->handling_type) ? config('options')['handling_type'][$customer->handling_type] :'' }}</td>
         <td>{{ isset($customer->handling_office) ? config('options')['handling_office'][$customer->handling_office] :'' }}</td>
@@ -62,11 +63,8 @@
                 <a href="{{ route('customers.edit', $customer->id) }}">
                     <button class="btn btn-primary" type="button">編集</button>
                 </a>
-                <form method="POST" action="{{ route('customers.destroy', $customer->id) }}">
-                    @method('DELETE')
-                    @csrf
-                    <button class="delete-btn btn btn-danger" type="submit">削除</button>
-                </form>
+                <p id="hidden">テスト</p>
+                    <button class="btn btn-danger" type="button" onclick="clickBtn1()" />非表示</button>
             </div>
         </td>
     </tr>
@@ -100,6 +98,3 @@
 
 @endsection
 
-@section('js')
-  <script type="text/javascript" src="{{ asset('/js/common.js') }}"></script>
-@endsection

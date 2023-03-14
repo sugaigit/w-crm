@@ -30,6 +30,7 @@ class CreateCustomersTable extends Migration
             $table->string('fax')->nullable()->comment('FAX');
             $table->string('company_rank')->nullable()->comment('企業ランク'); // 現状は未使用。いずれ利用する可能性あり。
             $table->timestamps();
+            $table->boolean('hidden')->comment('0表示・1非表示');
         });
         // DB::table('customers')->insert([
         //     'id' => 1,
