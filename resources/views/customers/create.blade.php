@@ -10,7 +10,7 @@
                 @csrf
                 <ul class="list-group">
                     <li class="list-group-item list-group-item-action">
-                        営業担当<span class="text-danger">*</span>
+                        作成者<span class="text-danger">*</span>
                         <select type="text" class="form-control" name="user_id">
                             <option value="">作成者を選んで下さい</option>
                             @foreach( $users as $user )
