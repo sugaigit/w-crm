@@ -70,15 +70,33 @@
                             </td>
                         </tr>
                         <tr>
-                            <th>住所<span class="text-danger">*</span></th>
+                            <th>所属部署</th>
+                            <td>
+                                <input type="text" class="form-control" name="department" value="{{ isset($customer->department) ? $customer->department : '' }}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>顧客担当者名</th>
+                            <td>
+                                <input type="text" class="form-control" name="manager_name" value="{{ isset($customer->manager_name) ? $customer->manager_name : '' }}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>顧客住所</th>
                             <td>
                                 <input type="text" class="form-control" name="address" value="{{ isset($customer->address) ? $customer->address : '' }}">
                             </td>
                         </tr>
                         <tr>
-                            <th>電話番号<span class="text-danger">*</span></th>
+                            <th>電話番号</th>
                             <td>
                                 <input type="text" class="form-control" name="phone" value="{{ isset($customer->phone) ? $customer->phone : '' }}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>メールアドレス</th>
+                            <td>
+                                <input type="text" class="form-control" name="email" value="{{ isset($customer->email) ? $customer->email : '' }}">
                             </td>
                         </tr>
                         <tr>

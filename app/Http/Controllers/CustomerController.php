@@ -65,10 +65,10 @@ class CustomerController extends Controller
             'user_id' => ['required'],
             'handling_type' => ['required'],
             'handling_office'=> ['required'],
-            'corporate_type'=> ['required'],
-            'customer_name'=> ['required'],
-            'address'=> ['required'],
-            'phone'=> ['required'],
+            // 'corporate_type'=> ['required'],
+            'customer_name'=> ['required','unique:customers,customer_name'],
+            // 'address'=> ['required'],
+            // 'phone'=> ['required'],
         ]);
 
         Customer::create($attribute);
@@ -128,10 +128,11 @@ class CustomerController extends Controller
             'user_id' => ['required'],
             'handling_type' => ['required'],
             'handling_office'=> ['required'],
-            'corporate_type'=> ['required'],
+            // 'corporate_type'=> ['required'],
             'customer_name'=> ['required'],
-            'address'=> ['required'],
-            'phone'=> ['required'],
+            // 'address'=> ['required'],
+            // 'phone'=> ['required'],
+
         ]);
 
         $customer = Customer::find($customerId);
@@ -141,8 +142,11 @@ class CustomerController extends Controller
         $customer->corporate_type = $request->input('corporate_type');
         $customer->customer_name = $request->input('customer_name');
         $customer->customer_kana = $request->input('customer_kana');
+        $customer->department = $request->input('department');
+        $customer->manager_name = $request->input('manager_name');
         $customer->address = $request->input('address');
         $customer->phone = $request->input('phone');
+        $customer->email = $request->input('email');
         $customer->fax = $request->input('fax');
 
         $customer->save();

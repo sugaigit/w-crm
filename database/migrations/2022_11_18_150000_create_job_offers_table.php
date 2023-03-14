@@ -106,7 +106,7 @@ class CreateJobOffersTable extends Migration
             $table->string('experience_content', 10)->comment('経験内容')->nullable();
             $table->string('sex', 10)->comment('性別要件（0:不問、1:歓迎、2:必須）')->nullable();
             $table->string('age', 100)->comment('年齢要件')->nullable();
-            $table->string('uniform_supply', 10)->comment('制服支給の有無（0:なし, 1:あり（有料), あり（無料））')->nullable();
+            $table->string('uniform_supply', 10)->comment('制服支給の有無（0:なし, 1:あり（自己負担あり), あり（自己負担なし））')->nullable();
             $table->string('supply', 100)->comment('支給物')->nullable();
             $table->string('clothes', 100)->comment('服装')->nullable();
             $table->string('other_hair_colors', 100)->comment('その他・髪色')->nullable();

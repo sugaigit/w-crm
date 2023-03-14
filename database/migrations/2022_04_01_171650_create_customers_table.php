@@ -19,14 +19,18 @@ class CreateCustomersTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('handling_type')->comment('取扱会社種別（1:HA, 2:HC）');
             $table->string('handling_office')->comment('取扱事業所名（1:北九州本社, 2:福岡支店）');
-            $table->string('corporate_type')->comment('法人形態（1:前株, 2:後株, 3:合同会社, 4:有限責任事業組合（LLP）, 5:有限会社）');
+            $table->string('corporate_type')->comment('法人形態（1:前株, 2:後株, 3:合同会社, 4:有限会社, 5:なし, 6:その他）');
             $table->string('customer_name')->comment('顧客名');
             $table->string('customer_kana')->nullable()->comment('顧客名（カナ）');
-            $table->string('address')->comment('住所');
+            $table->string('department')->nullable()->comment('所属部署');
+            $table->string('manager_name')->nullable()->comment('顧客担当者名');
+            $table->string('address')->comment('顧客住所');
             $table->string('phone')->comment('電話番号');
+            $table->string('email')->comment('メールアドレス');
             $table->string('fax')->nullable()->comment('FAX');
             $table->string('company_rank')->nullable()->comment('企業ランク'); // 現状は未使用。いずれ利用する可能性あり。
             $table->timestamps();
+            $table->boolean('hidden')->comment('0表示・1非表示');
         });
         // DB::table('customers')->insert([
         //     'id' => 1,
