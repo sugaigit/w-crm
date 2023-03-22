@@ -124,26 +124,31 @@ $(document).ready(function() {
     })
  });
 
- /******************************************
- * 顧客名のdatalistで顧客名ではなく顧客IDを送信する
- ******************************************/
-  let customer_id = null;
-  // datalistのdata-id属性の値の取得
-  $('#customer_input').on('change', function () {
-    customer_id = $("#customer_list option[value='" + $(this).val() + "']").data('customer_id');
-    $('#customer_id').val(customer_id)
-  });
+    /******************************************
+     * 顧客名のdatalistで顧客名ではなく顧客IDを送信する
+     ******************************************/
+    let customer_id = null;
+    // datalistのdata-id属性の値の取得
+    $('#customer_input').on('change', function () {
+        customer_id = $("#customer_list option[value='" + $(this).val() + "']").data('customer_id');
+        $('#customer_id').val(customer_id)
+    });
 
-/******************************************
- * 下書き必須項目の表示切替
- ******************************************/
-$('.draft-require').on('change', function () {
-    if ($(this).val().length) {
-        $(this).removeClass('bg-danger text-white');
+    /******************************************
+     * 下書き必須項目の表示切替
+     ******************************************/
+     if ($('.draft-require').val().length) {
+        $('.draft-require').removeClass('bg-danger text-white');
     } else {
-        $(this).addClass('bg-danger text-white');
+        $('.draft-require').addClass('bg-danger text-white');
     }
-  });
+    $('.draft-require').on('change', function () {
+        if ($(this).val().length) {
+            $(this).removeClass('bg-danger text-white');
+        } else {
+            $(this).addClass('bg-danger text-white');
+        }
+    });
 
 
 });
