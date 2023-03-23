@@ -61,7 +61,7 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        $attribute = request()->validate([
+        $request->validate([
             'user_id' => ['required'],
             'handling_type' => ['required'],
             'handling_office'=> ['required'],
@@ -71,7 +71,7 @@ class CustomerController extends Controller
             // 'phone'=> ['required'],
         ]);
 
-        Customer::create($attribute);
+        Customer::create($request->all());
 
         $request->session()->flash('SucccessMsg', '登録しました');
 

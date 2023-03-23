@@ -37,6 +37,7 @@
     <thead>
         <tr class=m-auto style="background-color: lightgray">
             <th class="text-center">顧客ID</th>
+            <th class="text-center">法人形態</th>
             <th class="text-center">顧客名</th>
             <th class="text-center">取扱会社種別</th>
             <th class="text-center">取扱事業所</th>
@@ -49,11 +50,12 @@
     @foreach($customers as $customer)
     <tr>
         <td>{{ $customer->id }}</td>
+        <td>{{ !empty($customer->corporate_type) ? config('options')['corporate_type'][$customer->corporate_type] :'' }}</td>
         <td>
             {{ $customer->customer_name }}
         </td>
-        <td>{{ isset($customer->handling_type) ? config('options')['handling_type'][$customer->handling_type] :'' }}</td>
-        <td>{{ isset($customer->handling_office) ? config('options')['handling_office'][$customer->handling_office] :'' }}</td>
+        <td>{{ !empty($customer->handling_type) ? config('options')['handling_type'][$customer->handling_type] :'' }}</td>
+        <td>{{ !empty($customer->handling_office) ? config('options')['handling_office'][$customer->handling_office] :'' }}</td>
         <td>{{ $customer->address }}</td>
         <td>{{ $customer->phone }}</td>
         <td>{{ $customer->user->name }}</td>
