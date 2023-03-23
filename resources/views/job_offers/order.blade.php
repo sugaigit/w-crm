@@ -41,9 +41,6 @@
                           @endforeach
                         </div>
 
-						{{-- <label for="keywordsInput" class="mt-3">キーワード</label>
-						<input class="form-control mt-1" type="search" id="keywordsInput" placeholder="キーワードを入力" name="keywords" value="{{ Request::input('keywords') }}"> --}}
-
 						<div class="d-grid gap-2 d-md-flex justify-content-md-end">
 							<button class="btn btn-info m-2" type="submit">検索</button>
 							<button class="btn btn-success m-2">
@@ -82,7 +79,10 @@
             <td>{{ $jobOffer->posting_site != null ? config('options.posting_site')[$jobOffer->posting_site] : '' }}</td>
             <td>
                 <div class="d-flex justify-content-around">
-                    <a href="{{ route('job_offers.edit', ['job_offer' => $jobOffer->id]) }}">
+                    <a href="{{ route('job_offers.edit', [
+                        'job_offer' => $jobOffer->id,
+                        'from_order_date' => true,
+                    ]) }}">
                         <button class="btn btn-primary" type="button">編集</button>
                     </a>
                 </div>

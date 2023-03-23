@@ -179,8 +179,9 @@ class JobOfferController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
+        $fromOrderDate = $request->query('from_order_date') ?? '';
         $jobOffer = JobOffer::find($id);
         $jobOffer['holiday'] = json_decode($jobOffer['holiday']);
         if ($jobOffer['long_vacation']) {
@@ -205,6 +206,7 @@ class JobOfferController extends Controller
             'activityRecords' => $activityRecords,
             'isDraftJobOffer' => false,
             'differentUserAlert' => $differentUserAlert,
+            'fromOrderDate' => $fromOrderDate,
         ]);
     }
 
@@ -404,8 +406,7 @@ class JobOfferController extends Controller
                     ]
                 );
             }
-
-            return redirect(route('job_offers.index'));
+            return redirect(empty($request->fromOrderDate) ? route('job_offers.index') : route('jobffer.order_date.index'));
         }
 
     }
@@ -442,32 +443,6 @@ class JobOfferController extends Controller
         ->when($request->postingSite, function ($query, $postingSite) {
             return $query->whereIn('posting_site', $postingSite);
         })
-        // ->when($request->keywords, function ($query, $keywords) {
-        //     $smallSpaceKeywords = mb_convert_kana($keywords, 's');
-        //     $keywords = explode(' ', $smallSpaceKeywords);
-
-        //     // キーワードはAND、カラムはOR
-        //     foreach($keywords as $keyword) {
-        //         if (array_search($keyword, config('options.holiday'))) {
-        //             $keyword = array_search($keyword, config('options.holiday'));
-        //         }
-        //         if (array_search($keyword, config('options.long_vacation'))) {
-        //             $keyword = array_search($keyword, config('options.long_vacation'));
-        //         }
-        //         $query->where(function($query) use ($keyword){
-        //             $query->where('company_name', 'LIKE', "%{$keyword}%")
-        //                 ->orWhere('company_address', 'LIKE', "%{$keyword}%")
-        //                 ->orWhere('ordering_business', 'LIKE', "%{$keyword}%")
-        //                 ->orWhere('order_details', 'LIKE', "%{$keyword}%")
-        //                 ->orWhere('scheduled_period', 'LIKE', "%{$keyword}%")
-        //                 ->orWhere('holiday', 'LIKE', "%{$keyword}%")
-        //                 ->orWhere('long_vacation', 'LIKE', "%{$keyword}%")
-        //                 ->orWhere('scheduled_period', 'LIKE', "%{$keyword}%");
-        //         });
-        //     }
-
-        //     return $query;
-        // })
         ->orderBy('created_at', 'desc')
         ->get();
 
