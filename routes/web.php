@@ -26,5 +26,4 @@ Route::post('/draft/create', [App\Http\Controllers\DraftJobOfferController::clas
 Route::get('/draft/edit/{id}', [App\Http\Controllers\DraftJobOfferController::class, 'edit'])->middleware('auth')->name('draft.edit');
 Route::put('/draft/update/{id}', [App\Http\Controllers\DraftJobOfferController::class, 'update'])->name('draft.update');
 Route::delete('/draft/delete/{id}', [App\Http\Controllers\DraftJobOfferController::class, 'destroy'])->name('draft.destroy');
-
-Auth::routes();
+Route::get('/order-date', [App\Http\Controllers\JobOfferController::class, 'showOrderDate'])->name('jobffer.order_date.index');
