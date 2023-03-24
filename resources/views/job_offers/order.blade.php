@@ -26,8 +26,14 @@
                         <label for="orderingBusinessInput" class="mt-3">発注業務</label>
 						<input class="form-control mt-1" type="search" id="orderingBusinessInput" placeholder="就業先名称を入力" name="orderingBusiness" value="{{ Request::input('orderingBusiness') }}">
 
-                        <label for="orderDateInput" class="mt-3">起算日</label>
-						<input class="form-control mt-1" type="date" id="orderDateInput" placeholder="就業先名称を入力" name="orderDate" value="{{ Request::input('orderDate') }}">
+                        <label class="mt-3">起算日</label>
+                        <div class="d-flex justify-content-evenly">
+                            <label class="mt-3"></label>
+                            <input class="form-control mt-1 w-25" type="date" id="orderDateStartInput" name="orderDateStart" value="{{ Request::input('orderDateStart') }}">
+                            ～
+                            <input class="form-control mt-1 w-25" type="date" id="orderDateEndInput" name="orderDateEnd" value="{{ Request::input('orderDateEnd') }}">
+                        </div>
+
 
 						<label class="mt-3">求人掲載サイト</label>
                         <div class="d-flex justify-content-evenly">
