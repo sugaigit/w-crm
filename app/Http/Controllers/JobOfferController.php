@@ -437,8 +437,11 @@ class JobOfferController extends Controller
         ->when($request->orderingBusiness, function ($query, $orderingBusiness) {
             return $query->where('ordering_business', $orderingBusiness);
         })
-        ->when($request->orderDate, function ($query, $orderDate) {
-            return $query->whereDate('order_date', $orderDate);
+        ->when($request->orderDateStart, function ($query, $orderDateStart) {
+            return $query->whereDate('order_date', '>=', $orderDateStart);
+        })
+        ->when($request->orderDateEnd, function ($query, $orderDateEnd) {
+            return $query->whereDate('order_date', '<=', $orderDateEnd);
         })
         ->when($request->postingSite, function ($query, $postingSite) {
             return $query->whereIn('posting_site', $postingSite);
@@ -454,3 +457,4 @@ class JobOfferController extends Controller
     }
 
 }
+
