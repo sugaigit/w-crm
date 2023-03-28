@@ -32,11 +32,26 @@
     </div>
 </div>
 
-<div class="card-header w-75 m-auto">顧客一覧</div>
+<div class="card-header w-75 m-auto">
+    <div class="p-2">顧客一覧（{{ request()->has('show_all') ? 'すべて' : '表示のみ' }}）</div>
+    <div>
+        @if (request()->has('show_all'))
+            <a href="{{ route('customers.index') }}">
+                <button class="btn btn-primary" type="button">表示のみ</button>
+            <a>
+        @else
+            <a href="{{ route('customers.index', ['show_all' => 1]) }}">
+                <button class="btn btn-primary" type="button">すべて</button>
+            <a>
+        @endif
+    </div>
+</div>
+
 <table class="table table-bordered table-hover w-75 m-auto">
     <thead>
         <tr class=m-auto style="background-color: lightgray">
             <th class="text-center">顧客ID</th>
+            <th class="text-center">法人形態</th>
             <th class="text-center">顧客名</th>
             <th class="text-center">取扱会社種別</th>
             <th class="text-center">取扱事業所</th>
@@ -49,11 +64,12 @@
     @foreach($customers as $customer)
     <tr>
         <td>{{ $customer->id }}</td>
+        <td>{{ !empty($customer->corporate_type) ? config('options')['corporate_type'][$customer->corporate_type] :'' }}</td>
         <td>
             {{ $customer->customer_name }}
         </td>
-        <td>{{ isset($customer->handling_type) ? config('options')['handling_type'][$customer->handling_type] :'' }}</td>
-        <td>{{ isset($customer->handling_office) ? config('options')['handling_office'][$customer->handling_office] :'' }}</td>
+        <td>{{ !empty($customer->handling_type) ? config('options')['handling_type'][$customer->handling_type] :'' }}</td>
+        <td>{{ !empty($customer->handling_office) ? config('options')['handling_office'][$customer->handling_office] :'' }}</td>
         <td>{{ $customer->address }}</td>
         <td>{{ $customer->phone }}</td>
         <td>{{ $customer->user->name }}</td>
@@ -62,10 +78,12 @@
                 <a href="{{ route('customers.edit', $customer->id) }}">
                     <button class="btn btn-primary" type="button">編集</button>
                 </a>
-                <form method="POST" action="{{ route('customers.destroy', $customer->id) }}">
-                    @method('DELETE')
+                <form method="POST" action="{{ route('customers.hidden', $customer->id) }}">
                     @csrf
-                    <button class="delete-btn btn btn-danger" type="submit">削除</button>
+                    <button class="btn {{ $customer->is_show == true ? 'btn-danger' : 'btn-success'}}" type="submit">
+                        {{ $customer->is_show == true ? '非表示' : '表示'}}
+                    </button>
+                    <input type="hidden" name="hidden_flag" value={{ $customer->is_show == true ? '1' : '0'}}>
                 </form>
             </div>
         </td>

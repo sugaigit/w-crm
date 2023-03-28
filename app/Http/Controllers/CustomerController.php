@@ -17,8 +17,12 @@ class CustomerController extends Controller
         $clientsearch = $request->input('clientsearch');
         $phonesearch = $request->input('phonesearch');
         $usersearch = $request->input('usersearch');
+        $hasShowAll = $request->has('show_all');
 
         $query = Customer::query();
+        if(!$hasShowAll){
+            $query->where('is_show', true);
+        }
         if(!empty($clientsearch)){
             $query->where('customer_name', 'like',"%{$clientsearch}%");
         }
@@ -61,7 +65,7 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        $attribute = request()->validate([
+        $request->validate([
             'user_id' => ['required'],
             'handling_type' => ['required'],
             'handling_office'=> ['required'],
@@ -71,18 +75,9 @@ class CustomerController extends Controller
             // 'phone'=> ['required'],
         ]);
 
-        Customer::create($attribute);
+        Customer::create($request->all());
 
         $request->session()->flash('SucccessMsg', '登録しました');
-
-        return redirect('/customers');
-    }
-
-    public function draftStore(Request $request)
-    {
-        DraftJobOffer::create($request->all());
-
-        $request->session()->flash('SucccessMsg', '下書き保存しました');
 
         return redirect('/customers');
     }
@@ -157,20 +152,46 @@ class CustomerController extends Controller
     }
 
     /**
+     * 顧客一覧への表示/非表示を切り替える
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Customer  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function hide(Request $request, $customerId)
+    {
+        $customer = Customer::find($customerId);
+
+        if ($request->hidden_flag === '1') {
+            $customer->is_show = false;
+            $text = '非表示';
+        } else {
+            $customer->is_show = true;
+            $text = '表示';
+        }
+        
+        $customer->save();
+
+        $request->session()->flash('SucccessMsg', "{$customer->customer_name}を{$text}にしました");
+
+        return redirect('/customers');
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Customer  $customer
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        $customer =Customer::findOrFail($id);
-        $customer->delete();
+    // public function destroy($id)
+    // {
+    //     $customer =Customer::findOrFail($id);
+    //     $customer->delete();
 
-        \Session::flash('SucccessMsg', '削除しました');
+    //     \Session::flash('SucccessMsg', '削除しました');
 
-        return redirect('/customers');
-    }
+    //     return redirect('/customers');
+    // }
     public function __invoke(Request $request)
     {
         $customer = auth()->user();
