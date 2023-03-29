@@ -361,7 +361,7 @@
                         <th>社会保険加入<span class="text-danger">*</span></th>
                         <td>
                             <select type="text" class="form-control" name="social_insurance">
-                            <option value="">雇用保険の有無を選んで下さい</option>
+                            <option value="">社会保険の有無を選んで下さい</option>
                             @foreach( config('options.existence') as $key => $social_insurance )
                                 @if (is_null(old('social_insurance')))
                                 <option value="{{ $key }}" {{ $key == $jobOffer->social_insurance ? 'selected' : '' }}>{{ $social_insurance }}</option>
@@ -451,7 +451,7 @@
                         <th>社会保険加入②<span class="text-danger">*</span></th>
                         <td>
                             <select type="text" class="form-control" name="social_insurance_2">
-                            <option value="">雇用保険の有無を選んで下さい</option>
+                            <option value="">社会保険の有無を選んで下さい</option>
                             @foreach( config('options.existence') as $key => $social_insurance_2 )
                                 @if (is_null(old('social_insurance_2')))
                                 <option value="{{ $key }}" {{ $key == $jobOffer->social_insurance_2 ? 'selected' : '' }}>{{ $social_insurance_2 }}</option>
@@ -540,7 +540,7 @@
                         <th>社会保険加入③<span class="text-danger">*</span></th>
                         <td>
                             <select type="text" class="form-control" name="social_insurance_3">
-                            <option value="">雇用保険の有無を選んで下さい</option>
+                            <option value="">社会保険の有無を選んで下さい</option>
                             @foreach( config('options.existence') as $key => $social_insurance_3 )
                                 @if (is_null(old('social_insurance_3')))
                                 <option value="{{ $key }}" {{ $key == $jobOffer->social_insurance_3 ? 'selected' : '' }}>{{ $social_insurance_3 }}</option>
