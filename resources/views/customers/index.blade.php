@@ -35,15 +35,21 @@
 <div class="card-header w-75 m-auto">
     <div class="p-2">顧客一覧（{{ request()->has('show_all') ? 'すべて' : '表示のみ' }}）</div>
     <div>
-        @if (request()->has('show_all'))
+        {{-- @if (request()->has('show_all'))
             <a href="{{ route('customers.index') }}">
-                <button class="btn btn-primary" type="button">表示のみ</button>
+                <button class="btn btn-primary" type="button">表示を見る</button>
             <a>
         @else
             <a href="{{ route('customers.index', ['show_all' => 1]) }}">
-                <button class="btn btn-primary" type="button">すべて</button>
+                <button class="btn btn-primary" type="button">すべてを見る</button>
             <a>
-        @endif
+        @endif --}}
+
+        <select type="text" class="form-control mt-3" name="show_filter">
+            <option value="show" {{ request()->query('show_filter') == 'show' ? 'selected' : '' }}>表示を見る</option>
+            <option value="hidden" {{ request()->query('show_filter') == 'hidden' ? 'selected' : '' }}>非表示を見る</option>
+            <option value="all" {{ request()->query('show_filter') == 'all' ? 'selected' : '' }}>すべてを見る</option>
+        </select>
     </div>
 </div>
 
@@ -81,7 +87,7 @@
                 <form method="POST" action="{{ route('customers.hidden', $customer->id) }}">
                     @csrf
                     <button class="btn {{ $customer->is_show == true ? 'btn-danger' : 'btn-success'}}" type="submit">
-                        {{ $customer->is_show == true ? '非表示' : '表示'}}
+                        {{ $customer->is_show == true ? '非表示にする' : '表示にする'}}
                     </button>
                     <input type="hidden" name="hidden_flag" value={{ $customer->is_show == true ? '1' : '0'}}>
                 </form>
@@ -120,4 +126,5 @@
 
 @section('js')
   <script type="text/javascript" src="{{ asset('/js/common.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('/js/customer/index.js') }}"></script>
 @endsection
