@@ -17,11 +17,14 @@ class CustomerController extends Controller
         $clientsearch = $request->input('clientsearch');
         $phonesearch = $request->input('phonesearch');
         $usersearch = $request->input('usersearch');
-        $hasShowAll = $request->has('show_all');
+        $showFilter = $request->input('show_filter');
 
         $query = Customer::query();
-        if(!$hasShowAll){
+        if($showFilter == 'show' || $showFilter == null){
             $query->where('is_show', true);
+        }
+        if($showFilter == 'hidden'){
+            $query->where('is_show', false);
         }
         if(!empty($clientsearch)){
             $query->where('customer_name', 'like',"%{$clientsearch}%");
@@ -169,7 +172,7 @@ class CustomerController extends Controller
             $customer->is_show = true;
             $text = '表示';
         }
-        
+
         $customer->save();
 
         $request->session()->flash('SucccessMsg', "{$customer->customer_name}を{$text}にしました");
