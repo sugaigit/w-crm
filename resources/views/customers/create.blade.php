@@ -11,7 +11,7 @@
                 <ul class="list-group">
                     <li class="list-group-item list-group-item-action">
                         作成者<span class="text-danger">*</span>
-                        <select type="text" class="form-control" name="user_id">
+                        <select type="text" class="form-control" name="user_id" required>
                             <option value="">作成者を選んで下さい</option>
                             @foreach( $users as $user )
                             <option value="{{ $user->id }}" {{ old('user_id') == $user->id ? 'selected' : '' }}>{{ $user->name }}</option>
@@ -20,7 +20,7 @@
                     </li>
                     <li class="list-group-item list-group-item-action">
                         取扱会社種別<span class="text-danger">*</span>
-                        <select type="text" class="form-control" name="handling_type">
+                        <select type="text" class="form-control" name="handling_type" required>
                             <option value="">取扱会社種別を選んで下さい</option>
                             @foreach( config('options.handling_type') as $key => $val )
                                 <option value="{{ $key }}" {{ old('handling_type') == $key ? 'selected' : '' }}>{{ $val }}</option>
@@ -29,7 +29,7 @@
                     </li>
                     <li class="list-group-item list-group-item-action">
                         取扱事業所<span class="text-danger">*</span>
-                        <select type="text" class="form-control" name="handling_office">
+                        <select type="text" class="form-control" name="handling_office" required>
                             <option value="">取扱事業所を選んで下さい</option>
                             @foreach( config('options.handling_office') as $key => $val )
                                 <option value="{{ $key }}" {{ old('handling_office') == $key ? 'selected' : '' }}>{{ $val }}</option>
@@ -37,8 +37,8 @@
                         </select>
                     </li>
                     <li class="list-group-item list-group-item-action">
-                        法人形態<span class="text-danger"></span>
-                        <select type="text" class="form-control" name="corporate_type">
+                        法人形態<span class="text-danger">*</span>
+                        <select type="text" class="form-control" name="corporate_type" required>
                             <option value="">法人形態を選んで下さい</option>
                             @foreach( config('options.corporate_type') as $key => $val )
                                 <option value="{{ $key }}" {{ old('corporate_type') == $key ? 'selected' : '' }}>{{ $val }}</option>
@@ -47,7 +47,7 @@
                     </li>
                     <li class="list-group-item list-group-item-action">
                         顧客名<span class="text-danger">*</span>
-                        <input class="form-control" type="text" name="customer_name" value="{{ old('customer_name') }}">
+                        <input class="form-control" type="text" name="customer_name" value="{{ old('customer_name') }}" required>
                     </li>
                     <li class="list-group-item list-group-item-action">
                         顧客名（カナ）
