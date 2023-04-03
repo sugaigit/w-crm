@@ -12,7 +12,7 @@
                                 <tr>
                                     <th>営業担当<span class="text-danger">*</span></th>
                                     <td>
-                                        <select type="text" class="form-control draft-require bg-danger text-white" name="user_id">
+                                        <select type="text" class="form-control draft-require bg-danger text-white" name="user_id" required>
                                             <option value="">営業担当を選んで下さい</option>
                                             @foreach( $users as $user )
                                             <option value="{{ $user->id }}" {{ old('user_id') == $user->id ? 'selected' : '' }}>{{ $user->name }}</option>
@@ -23,7 +23,7 @@
                                 <tr>
                                     <th>取扱会社種別<span class="text-danger">*</span></th>
                                     <td>
-                                        <select type="text" class="form-control" name="handling_type">
+                                        <select type="text" class="form-control" name="handling_type" required>
                                             <option value="">取扱会社種別を選んで下さい</option>
                                             @foreach( config('options.handling_type') as $key => $handling_type )
                                             <option value="{{ $key }}" {{ old('handling_type') == $key ? 'selected' : '' }}>{{ $handling_type }}</option>
@@ -40,7 +40,7 @@
                                 <tr>
                                     <th>取扱事業所名<span class="text-danger">*</span></th>
                                     <td>
-                                        <select type="text" class="form-control" name="handling_office">
+                                        <select type="text" class="form-control" name="handling_office" required>
                                             <option value="">取扱事業所名を選んで下さい</option>
                                             @foreach( config('options.handling_office') as $key => $handling_office )
                                             <option value="{{ $key }}" {{ old('handling_office') == $key ? 'selected' : '' }}>{{ $handling_office }}</option>
@@ -51,7 +51,7 @@
                                 <tr>
                                     <th>事業種別<span class="text-danger">*</span></th>
                                     <td>
-                                        <select type="text" class="form-control" name="business_type">
+                                        <select type="text" class="form-control" name="business_type" required>
                                             <option value="">事業種別を選んで下さい</option>
                                             @foreach( config('options.business_type') as $key => $business_type )
                                             <option value="{{ $key }}" {{ old('business_type') == $key ? 'selected' : '' }}>{{ $business_type }}</option>
@@ -62,7 +62,7 @@
                                 <tr>
                                     <th>顧客<span class="text-danger">*</span></th>
                                     <td>
-                                        <select type="text" class="form-control" name="customer_id">
+                                        <select type="text" class="form-control" name="customer_id" required>
                                         <option value="">顧客を選んで下さい</option>
                                         @foreach( $customers as $customer )
                                             <option value="{{ $customer->id }}" {{ old('customer_id') == $key ? 'selected' : '' }}>{{ $customer->customer_name }}</option>
@@ -73,7 +73,7 @@
                                 <tr>
                                     <th>契約形態<span class="text-danger">*</span></th>
                                     <td>
-                                        <select type="text" class="form-control" name="type_contract">
+                                        <select type="text" class="form-control" name="type_contract" required>
                                             <option value="">契約形態を選んで下さい</option>
                                             @foreach( config('options.type_contract') as $key => $type_contract )
                                             <option value="{{ $key }}" {{ old('type_contract') == $key ? 'selected' : '' }}>{{ $type_contract }}</option>
@@ -84,19 +84,19 @@
                                 <tr>
                                     <th>募集人数<span class="text-danger">*</span></th>
                                     <td>
-                                        <input type="text" class="form-control" name="recruitment_number" value="{{ old('recruitment_number') }}">
+                                        <input type="text" class="form-control" name="recruitment_number" value="{{ old('recruitment_number') }}" required>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>就業先名称<span class="text-danger">*</span></th>
                                     <td>
-                                        <input type="text" class="form-control draft-require bg-danger text-white" name="company_name" value="{{ old('company_name') }}">
+                                        <input type="text" class="form-control draft-require bg-danger text-white" name="company_name" value="{{ old('company_name') }}" required>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>就業先住所<span class="text-danger">*</span></th>
                                     <td>
-                                        <input type="text" class="form-control" name="company_address" value="{{ old('company_address') }}">
+                                        <input type="text" class="form-control" name="company_address" value="{{ old('company_address') }}" required>
                                     </td>
                                 </tr>
                                 <tr>
@@ -108,19 +108,19 @@
                                 <tr>
                                     <th>発注業務<span class="text-danger">*</span></th>
                                     <td>
-                                        <input type="text" maxlength="100" class="form-control" name="ordering_business" value="{{ old('ordering_business') }}">
+                                        <input type="text" maxlength="100" class="form-control" name="ordering_business" value="{{ old('ordering_business') }}" required>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>発注業務詳細<span class="text-danger">*</span></th>
                                     <td>
-                                        <input type="text" maxlength="100" class="form-control" name="order_details" value="{{ old('order_details') }}">
+                                        <input type="text" maxlength="100" class="form-control" name="order_details" value="{{ old('order_details') }}" required>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>屋内の受動喫煙対策<span class="text-danger">*</span></th>
                                     <td>
-                                        <select type="text" class="form-control" name="counter_measures">
+                                        <select type="text" class="form-control" name="counter_measures" required>
                                             <option value="">屋内の受動喫煙対策を選んで下さい</option>
                                             @foreach( config('options.counter_measures') as $key => $counter_measures )
                                                 <option value="{{ $key }}" {{ old('counter_measures') == $key ? 'selected' : '' }}>{{ $counter_measures }}</option>
@@ -131,13 +131,13 @@
                                 <tr>
                                     <th>請求単価①<span class="text-danger">*</span></th>
                                     <td>
-                                        <input type="text" class="form-control" name="invoice_unit_price_1" value="{{ old('invoice_unit_price_1') }}">
+                                        <input type="text" class="form-control" name="invoice_unit_price_1" value="{{ old('invoice_unit_price_1') }}" required>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>請求単位①<span class="text-danger">*</span></th>
                                     <td>
-                                        <select type="text" class="form-control" name="billing_unit_1">
+                                        <select type="text" class="form-control" name="billing_unit_1" required>
                                             <option value="">請求単位を選んで下さい</option>
                                             @foreach( config('options.salary_term') as $key => $billing_unit_1 )
                                                 <option value="{{ $key }}" {{ old('billing_unit_1') == $key ? 'selected' : '' }}>{{ $billing_unit_1 }}</option>
@@ -148,7 +148,7 @@
                                 <tr>
                                     <th>利益率①<span class="text-danger">*</span></th>
                                     <td>
-                                        <input type="text" class="form-control" name="profit_rate_1" value="{{ old('profit_rate_1') }}">
+                                        <input type="text" class="form-control" name="profit_rate_1" value="{{ old('profit_rate_1') }}" required>
                                     </td>
                                 </tr>
                                 <tr>
@@ -227,7 +227,7 @@
                                 <tr>
                                     <th>雇用保険加入<span class="text-danger">*</span></th>
                                     <td>
-                                        <select type="text" class="form-control" name="employment_insurance">
+                                        <select type="text" class="form-control" name="employment_insurance" required>
                                             <option value="">雇用保険の有無を選んで下さい</option>
                                             @foreach( config('options.existence') as $key => $employment_insurance )
                                                 <option value="{{ $key }}" {{ old('employment_insurance') == $key ? 'selected' : '' }}>{{ $employment_insurance }}</option>
@@ -238,7 +238,7 @@
                                 <tr>
                                     <th>社会保険加入<span class="text-danger">*</span></th>
                                     <td>
-                                        <select type="text" class="form-control" name="social_insurance">
+                                        <select type="text" class="form-control" name="social_insurance" required>
                                             <option value="">社会保険の有無を選んで下さい</option>
                                             @foreach( config('options.existence') as $key => $social_insurance )
                                                 <option value="{{ $key }}" {{ old('social_insurance') == $key ? 'selected' : '' }}>{{ $social_insurance }}</option>
@@ -249,13 +249,13 @@
                                 <tr>
                                     <th>支払単価①<span class="text-danger">*</span></th>
                                     <td>
-                                        <input  type="text" class="form-control" name="payment_unit_price_1" value="{{ old('payment_unit_price_1') }}">
+                                        <input  type="text" class="form-control" name="payment_unit_price_1" value="{{ old('payment_unit_price_1') }}" required>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>支払単位①<span class="text-danger">*</span></th>
                                     <td>
-                                        <select type="text" class="form-control" name="payment_unit_1">
+                                        <select type="text" class="form-control" name="payment_unit_1" required>
                                             <option value="">支払単位を選んで下さい</option>
                                             @foreach( config('options.salary_term') as $key => $payment_unit_1 )
                                                 <option value="{{ $key }}" {{ old('payment_unit_1') == $key ? 'selected' : '' }}>{{ $payment_unit_1 }}</option>
@@ -266,13 +266,13 @@
                                 <tr>
                                     <th>交通費①<span class="text-danger">*</span></th>
                                     <td>
-                                        <input  type="text" class="form-control" name="carfare_1" value="{{ old('carfare_1') }}">
+                                        <input  type="text" class="form-control" name="carfare_1" value="{{ old('carfare_1') }}" required>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>交通費支払単位①<span class="text-danger">*</span></th>
                                     <td>
-                                        <select type="text" class="form-control" name="carfare_payment_1">
+                                        <select type="text" class="form-control" name="carfare_payment_1" required>
                                             <option value="">交通費支払単位を選んで下さい</option>
                                             @foreach( config('options.payment_term') as $key => $carfare_payment_1 )
                                                 <option value="{{ $key }}" {{ old('carfare_payment_1') == $key ? 'selected' : '' }}>{{ $carfare_payment_1 }}</option>
@@ -474,13 +474,13 @@
                                 <tr>
                                     <th>勤務時間①<span class="text-danger">*</span></th>
                                     <td>
-                                        <input  type="text" class="form-control" name="working_hours_1" value="{{ old('working_hours_1') }}" placeholder="8:00～17:00">
+                                        <input  type="text" class="form-control" name="working_hours_1" value="{{ old('working_hours_1') }}" placeholder="8:00～17:00" required>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>実働時間①<span class="text-danger">*</span></th>
                                     <td>
-                                        <input  type="text" class="form-control" name="actual_working_hours_1" value="{{ old('actual_working_hours_1') }}">
+                                        <input  type="text" class="form-control" name="actual_working_hours_1" value="{{ old('actual_working_hours_1') }}" required>
                                     </td>
                                 </tr>
                                 <tr>
@@ -489,7 +489,7 @@
                                         <br><i class="bi bi-plus-circle" id="open_working_2">
                                     </th>
                                     <td>
-                                        <input  type="text" class="form-control" name="break_time_1" value="{{ old('break_time_1') }}">
+                                        <input  type="text" class="form-control" name="break_time_1" value="{{ old('break_time_1') }}" required>
                                     </td>
                                 </tr>
                                 <tr class="working-2">
@@ -538,7 +538,7 @@
                                 <tr>
                                     <th>残業(時間/月)<span class="text-danger">*</span></th>
                                     <td>
-                                        <input  type="text" class="form-control" name="overtime" value="{{ old('overtime') }}">
+                                        <input  type="text" class="form-control" name="overtime" value="{{ old('overtime') }}" required>
                                     </td>
                                 </tr>
                                 <tr>
@@ -574,7 +574,7 @@
                                 <tr>
                                     <th>車通勤<span class="text-danger">*</span></th>
                                     <td>
-                                        <select type="text" class="form-control" name="commuting_by_car">
+                                        <select type="text" class="form-control" name="commuting_by_car" required>
                                             <option value="">車通勤の可否を選んで下さい</option>
                                             @foreach( config('options.permission') as $key => $commuting_by_car )
                                                 <option value="{{ $key }}" {{ old('commuting_by_car') == $key ? 'selected' : '' }}>{{ $commuting_by_car }}</option>
@@ -591,7 +591,7 @@
                                 <tr>
                                     <th>駐車場<span class="text-danger">*</span></th>
                                     <td>
-                                        <select type="text" class="form-control" name="parking">
+                                        <select type="text" class="form-control" name="parking" required>
                                             <option value="">駐車場の有無を選んで下さい</option>
                                             @foreach( config('options.parking') as $key => $parking )
                                                 <option value="{{ $key }}" {{ old('parking') == $key ? 'selected' : '' }}>{{ $parking }}</option>
@@ -706,7 +706,7 @@
                                 <tr>
                                     <th>作成ステータス<span class="text-danger">*</span></th>
                                     <td>
-                                        <select type="text" class="form-control" name="status">
+                                        <select type="text" class="form-control" name="status" required>
                                             <option value="">作成ステータスを選んで下さい</option>
                                             @foreach( config('options.status_create') as $key => $status )
                                                 <option value="{{ $key }}" {{ old('status') == $key ? 'selected' : '' }}>{{ $status }}</option>
@@ -739,7 +739,7 @@
                                 <tr>
                                     <th>起算日<span class="text-danger">*</span></th>
                                     <td>
-                                        <input  type="date" class="form-control" name="order_date" value="{{ old('order_date') }}">
+                                        <input  type="date" class="form-control" name="order_date" value="{{ old('order_date') }}" required>
                                     </td>
                                 </tr>
                                 <tr class="afterRecruit">
