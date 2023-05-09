@@ -22,6 +22,7 @@ Route::resource('customers', \App\Http\Controllers\CustomerController::class)->m
 Route::post('/customers/{customer_id}/hidden', [\App\Http\Controllers\CustomerController::class, 'hide'])->name('customers.hidden')->middleware('auth');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('job_offers', \App\Http\Controllers\JobOfferController::class)->middleware('auth');
+Route::post('job_offers/import_csv', [\App\Http\Controllers\JobOfferController::class, 'importCsv'])->name('job_offers.import_csv')->middleware('auth');
 Route::get('/drafts', [App\Http\Controllers\DraftJobOfferController::class, 'index'])->middleware('auth')->name('draft.index');
 Route::post('/draft/create', [App\Http\Controllers\DraftJobOfferController::class, 'store'])->middleware('auth')->name('draft.create');
 Route::get('/draft/edit/{id}', [App\Http\Controllers\DraftJobOfferController::class, 'edit'])->middleware('auth')->name('draft.edit');

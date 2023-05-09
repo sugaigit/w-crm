@@ -456,5 +456,160 @@ class JobOfferController extends Controller
         ]);
     }
 
+    public function importCsv(Request $request)
+    {// 1ファイルで複数レコードを保存できる仕様
+        // CSV一時保存
+        $tmp = mt_rand() . "." . $request->file('csv_import')->guessExtension();
+        $request->file('csv_import')->move(public_path() . "/tmp", $tmp);
+        $filepath = public_path() . "/tmp/" . $tmp;
+
+        // CSVデータ取得
+        $file = new \SplFileObject($filepath);
+        $file->setFlags(
+            \SplFileObject::READ_CSV |
+            \SplFileObject::READ_AHEAD |
+            \SplFileObject::SKIP_EMPTY |
+            \SplFileObject::DROP_NEW_LINE
+        );
+        // バリデーション（後々実装）
+        //Slack通知←どうする？todo: 要確認
+        $users = User::all();
+        $customers = Customer::all();
+        // dd(config('options.handling_office'));
+        $saveDataList = [];
+        foreach ($file as $key => $line) {
+            if ($key !== 0) {
+                $saveDataList[] = [
+                    'user_id' => $users->where('name', $line[0])->first()->id,
+                    'handling_type' => strval(array_search($line[1], config('options.handling_type'))),
+                    'job_number' => $line[2],
+                    'handling_office' => strval(array_search($line[3], config('options.handling_office'))),
+                    'business_type' => strval(array_search($line[4], config('options.business_type'))),
+                    'customer_id' => $customers->where('customer_name', $line[5])->first()->id,
+                    'type_contract' => strval(array_search($line[6], config('options.type_contract'))),
+                    'recruitment_number' => intval($line[7]),
+                    'company_name' => $line[8],
+                    'company_address' => $line[9],
+                    'company_others' => $line[10],
+                    'ordering_business' => $line[11], // 発注業務
+                    'order_details' => $line[12], // 発注業務詳細
+                    'counter_measures' => $line[13], // 喫煙対策内容
+                    'invoice_unit_price_1' => $line[14], // 請求単価①
+                ];
+dd($saveDataList);
+                //
+                //
+                //
+                //
+                //     'new_reorder' =>
+                //
+                //
+                //
+                //
+                //
+                //
+                //
+                //     'invoice_unit_price_1' =>
+                //     'billing_unit_1' =>
+                //     'profit_rate_1' =>
+                //     'billing_information_1' =>
+                //     'invoice_unit_price_2' =>
+                //     'billing_unit_2' =>
+                //     'profit_rate_2' =>
+                //     'billing_information_2' =>
+                //     'invoice_unit_price_3' =>
+                //     'billing_unit_3' =>
+                //     'profit_rate_3' =>
+                //     'billing_information_3' =>
+                //     'employment_insurance' =>
+                //     'social_insurance' =>
+                //     'payment_unit_price_1' =>
+                //     'payment_unit_1' =>
+                //     'carfare_1' =>
+                //     'carfare_payment_1' =>
+                //     'carfare_payment_remarks_1' =>
+                //     'employment_insurance_2' =>
+                //     'social_insurance_2' =>
+                //     'payment_unit_price_2' =>
+                //     'payment_unit_2' =>
+                //     'carfare_2' =>
+                //     'carfare_payment_2' =>
+                //     'carfare_payment_remarks_2' =>
+                //     'employment_insurance_3' =>
+                //     'social_insurance_3' =>
+                //     'payment_unit_price_3' =>
+                //     'payment_unit_3' =>
+                //     'carfare_3' =>
+                //     'carfare_payment_3' =>
+                //     'carfare_payment_remarks_3' =>
+                //     'scheduled_period' =>
+                //     'expected_end_date' =>
+                //     'period_remarks' =>
+                //     'holiday' =>
+                //     'long_vacation' =>
+                //     'holiday_remarks' =>
+                //     'working_hours_1' =>
+                //     'actual_working_hours_1' =>
+                //     'break_time_1' =>
+                //     'overtime' =>
+                //     'working_hours_remarks' =>
+                //     'working_hours_2' =>
+                //     'actual_working_hours_2' =>
+                //     'break_time_2' =>
+                //     'working_hours_3' =>
+                //     'actual_working_hours_3' =>
+                //     'break_time_3' =>
+                //     'nearest_station' =>
+                //     'travel_time_station' =>
+                //     'nearest_bus_stop' =>
+                //     'travel_time_bus_stop' =>
+                //     'commuting_by_car' =>
+                //     'traffic_commuting_remarks' =>
+                //     'parking' =>
+                //     'posting_site' =>
+                //     'status' =>
+                //     'job_withdrawal' =>
+                //     'order_date' =>
+                //     'qualification' =>
+                //     'qualification_content' =>
+                //     'experience' =>
+                //     'experience_content' =>
+                //     'sex' =>
+                //     'age' =>
+                //     'uniform_supply' =>
+                //     'supply' =>
+                //     'clothes' =>
+                //     'other_hair_colors' =>
+                //     'self_prepared' =>
+                //     'remarks_workplace' =>
+                //     'gender_ratio' =>
+                //     'age_ratio' =>
+                //     'after_introduction' =>
+                //     'timing_of_switching' =>
+                //     'monthly_lower_limit' =>
+                //     'monthly_upper_limit' =>
+                //     'annual_lower_limit' =>
+                //     'annual_upper_limit' =>
+                //     'bonuses_treatment' =>
+                //     'holidays_vacations' =>
+                //     'introduction_others' =>
+                // ];
+            }
+        }
+        // 一時ファイル削除
+        unlink($filepath);
+        // DB保存
+        $saveData['holiday'] = json_encode($saveData['holiday']);
+        if (isset($saveData['long_vacation'])) {
+            $saveData['long_vacation'] = json_encode($saveData['long_vacation']);
+        }
+
+        $newJobOffer = JobOffer::insert($saveDataList);
+
+        $request->session()->flash('SucccessMsg', '登録しました');
+
+        return redirect(route('job_offers.index'));
+    }
+
 }
 
