@@ -2,6 +2,14 @@
 @section('content')
 <div class="container">
     <div class="col-md-12">
+        <form action="{{ route('customers.import_csv') }}" method="POST" enctype='multipart/form-data'>
+            @csrf
+            <div class="mb-2">
+                <label for="csv_import">CSVインポート</label><br>
+                <input type="file" id="csv_import" name="csv_import">
+                <button type="submit" class="btn btn-primary">選択したCSVを反映する</button>
+            </div>
+        </form>
         <div class="card mb-4">
             <div class="card-header">顧客新規登録</div>
             {{-- todo: スタイルを整える --}}

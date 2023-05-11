@@ -28,7 +28,7 @@ class CreateCustomersTable extends Migration
             $table->string('business_development_area')->nullable()->comment('事業展開地域');
             $table->string('business_expansion_potential')->nullable()->comment('取引拡大の可能性');
             $table->string('company_history')->nullable()->comment('社歴');
-            $table->string('realiabillty')->nullable()->comment('信頼性');
+            $table->string('reliability')->nullable()->comment('信頼性');
             $table->string('department')->nullable()->comment('所属部署');
             $table->string('manager_name')->nullable()->comment('顧客担当者名');
             $table->string('address')->comment('顧客住所');
