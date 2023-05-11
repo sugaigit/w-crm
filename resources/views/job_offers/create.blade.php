@@ -2,6 +2,14 @@
 @section('content')
 <div class="container">
     <div class="col-md-12">
+        <form action="{{ route('job_offers.import_csv') }}" method="POST" enctype='multipart/form-data'>
+            @csrf
+            <div class="mb-2">
+                <label for="csv_import">CSVインポート</label><br>
+                <input type="file" id="csv_import" name="csv_import">
+                <button type="submit" class="btn btn-primary">選択したCSVを反映する</button>
+            </div>
+        </form>
         <div class="card mb-4">
             <div class="card-header">
                     <div class="card-header">求人情報新規登録</div>
@@ -114,7 +122,7 @@
                                 <tr>
                                     <th>発注業務詳細<span class="text-danger">*</span></th>
                                     <td>
-                                        <input type="text" maxlength="100" class="form-control" name="order_details" value="{{ old('order_details') }}" required>
+                                        <textarea rows="3" type="text" class="form-control" name="order_details">{{ old('order_details')}}</textarea required>
                                     </td>
                                 </tr>
                                 <tr>

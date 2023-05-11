@@ -203,4 +203,56 @@ class CustomerController extends Controller
         return view('customers.index', compact('customers')); // users.index.bldae を呼出し、 usersを渡す
 
     }
+
+    public function importCsv(Request $request)
+    {// 1ファイルで複数レコードを保存できる仕様
+        // CSV一時保存
+        $tmp = mt_rand() . "." . $request->file('csv_import')->guessExtension();
+        $request->file('csv_import')->move(public_path() . "/tmp", $tmp);
+        $filepath = public_path() . "/tmp/" . $tmp;
+
+        // CSVデータ取得
+        $file = new \SplFileObject($filepath);
+        $file->setFlags(
+            \SplFileObject::READ_CSV |
+            \SplFileObject::READ_AHEAD |
+            \SplFileObject::SKIP_EMPTY |
+            \SplFileObject::DROP_NEW_LINE
+        );
+        // バリデーション（後々実装）
+        //Slack通知←どうする？todo: 要確認
+        $users = User::all();
+
+        $saveDataList = [];
+        foreach ($file as $key => $line) {
+            if ($key !== 0) {
+                $saveDataList[] = [
+                    'user_id' => $users->where('name', $line[0])->first()->id, // 営業担当
+                    'handling_type' => strval(array_search($line[1], config('options.handling_type'))), // 取扱会社種別
+                    'handling_office' => strval(array_search($line[2], config('options.handling_office'))), // 取扱事業所名
+                    'corporate_type' => strval(array_search($line[3], config('options.corporate_type'))), // 法人形態
+                    'customer_name' => $line[4],
+                    'customer_kana' => $line[5],
+                    'industry' => strval(array_search($line[6], config('options.industry'))), // 業種
+                    'company_size' => strval(array_search($line[7], config('options.company_size'))),
+                    'business_development_area' => strval(array_search($line[8], config('options.business_development_area'))),
+                    'business_expansion_potential' => strval(array_search($line[9], config('options.business_expansion_potential'))),
+                    'company_history' => strval(array_search($line[10], config('options.company_history'))),
+                    'reliability' => strval(array_search($line[11], config('options.reliability'))),
+                    'department' => $line[12],
+                    'manager_name' => $line[13],
+                    'address' => $line[14],
+                    'phone' => $line[15],
+                    'email' => $line[16],
+                    'fax' => $line[17],
+                ];
+            }
+        }
+        // 一時ファイル削除
+        unlink($filepath);
+
+        Customer::insert($saveDataList);
+        $request->session()->flash('SucccessMsg', '登録しました');
+        return redirect(route('customers.index'));
+    }
 }
