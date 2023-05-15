@@ -7,7 +7,7 @@
             <div class="mb-2">
                 <label for="csv_import">CSVインポート</label><br>
                 <input type="file" id="csv_import" name="csv_import">
-                <button type="submit" class="btn btn-primary">選択したCSVを反映する</button>
+                <button id="csv_submit" type="submit" class="btn btn-primary">選択したCSVを反映する</button>
             </div>
         </form>
         <div class="card mb-4">
@@ -106,4 +106,8 @@
     </div>
 </div>
 
+@endsection
+
+@section('js')
+    <script type="text/javascript" src="{{ asset('/js/customer/create.js') }}"></script>
 @endsection
