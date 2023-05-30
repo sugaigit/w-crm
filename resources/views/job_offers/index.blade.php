@@ -34,12 +34,14 @@
                             </div>
                           @endforeach
                         </div>
-						{{-- <select type="text" class="form-control" name="status">
-							<option value="">作成ステータスを選んで下さい</option>
-							@foreach( config('options.status_edit') as $key => $status )
-							<option value="{{ $key }}" @if( $key == Request::input('status') ) selected @endif>{{ $status }}</option>
-							@endforeach
-						</select> --}}
+                        
+                        <label class="mt-3">起算日</label>
+                        <div class="d-flex justify-content-evenly">
+                            <label class="mt-3"></label>
+                            <input class="form-control mt-1 w-25" type="date" id="orderDateStartInput" name="orderDateStart" value="{{ Request::input('orderDateStart') }}">
+                            ～
+                            <input class="form-control mt-1 w-25" type="date" id="orderDateEndInput" name="orderDateEnd" value="{{ Request::input('orderDateEnd') }}">
+                        </div>
 
 						<label for="keywordsInput" class="mt-3">キーワード</label>
 						<input class="form-control mt-1" type="search" id="keywordsInput" placeholder="キーワードを入力" name="keywords" value="{{ Request::input('keywords') }}">
@@ -65,6 +67,7 @@
         <th>仕事番号</th>
         <th>就業先名称</th>
         <th>営業担当</th>
+        <th>起算日</th>
         <th>操作</th>
     </tr>
     </thead>
@@ -75,7 +78,8 @@
             <td>{{ $jobOffer->status != null ? config('options.status_edit')[$jobOffer->status] : '' }}</td>
             <td>{{ $jobOffer->job_number }}</td>
             <td>{{ $jobOffer->company_name }}</td>
-            <td>{{ $jobOffer->user->name}}</td>
+            <td>{{ $jobOffer->user->name }}</td>
+            <td>{{ $jobOffer->order_date }}</td>
             <td>
                 <div class="d-flex justify-content-around">
                     <a href="{{ route('job_offers.edit', ['job_offer' => $jobOffer->id]) }}">

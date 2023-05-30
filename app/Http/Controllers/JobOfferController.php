@@ -37,6 +37,12 @@ class JobOfferController extends Controller
         ->when($request->status, function ($query, $status) {
             return $query->whereIn('status', $status);
         })
+        ->when($request->orderDateStart, function ($query, $orderDateStart) {
+            return $query->whereDate('order_date', '>=', $orderDateStart);
+        })
+        ->when($request->orderDateEnd, function ($query, $orderDateEnd) {
+            return $query->whereDate('order_date', '<=', $orderDateEnd);
+        })
         ->when($request->keywords, function ($query, $keywords) {
             $smallSpaceKeywords = mb_convert_kana($keywords, 's');
             $keywords = explode(' ', $smallSpaceKeywords);
@@ -184,7 +190,6 @@ class JobOfferController extends Controller
      */
     public function edit(Request $request, $id)
     {
-        $fromOrderDate = $request->query('from_order_date') ?? '';
         $jobOffer = JobOffer::find($id);
         $jobOffer['holiday'] = json_decode($jobOffer['holiday']);
         if ($jobOffer['long_vacation']) {
@@ -209,7 +214,6 @@ class JobOfferController extends Controller
             'activityRecords' => $activityRecords,
             'isDraftJobOffer' => false,
             'differentUserAlert' => $differentUserAlert,
-            'fromOrderDate' => $fromOrderDate,
         ]);
     }
 
@@ -409,7 +413,7 @@ class JobOfferController extends Controller
                     ]
                 );
             }
-            return redirect(empty($request->fromOrderDate) ? route('job_offers.index') : route('jobffer.order_date.index'));
+            return redirect(route('job_offers.index'));
         }
 
     }
@@ -422,41 +426,6 @@ class JobOfferController extends Controller
         \Session::flash('SucccessMsg', '削除しました');
 
         return redirect(route('job_offers.index'));
-    }
-
-    public function showOrderDate(Request $request)
-    {
-        $draftJobOffers = DraftJobOffer::all();
-        $users = User::all();
-        $jobOffers = JobOffer::when($request->userId, function ($query, $userId) {
-            return $query->where('user_id', $userId);
-        })
-        ->when($request->companyName, function ($query, $companyName) {
-            return $query->where('company_name', 'like' , "%{$companyName}%");
-        })
-        ->when($request->jobNumber, function ($query, $jobNumber) {
-            return $query->where('job_number', $jobNumber);
-        })
-        ->when($request->orderingBusiness, function ($query, $orderingBusiness) {
-            return $query->where('ordering_business', $orderingBusiness);
-        })
-        ->when($request->orderDateStart, function ($query, $orderDateStart) {
-            return $query->whereDate('order_date', '>=', $orderDateStart);
-        })
-        ->when($request->orderDateEnd, function ($query, $orderDateEnd) {
-            return $query->whereDate('order_date', '<=', $orderDateEnd);
-        })
-        ->when($request->postingSite, function ($query, $postingSite) {
-            return $query->whereIn('posting_site', $postingSite);
-        })
-        ->orderBy('created_at', 'desc')
-        ->get();
-
-        return view('job_offers.order', [
-            'jobOffers' => $jobOffers,
-            'draftJobOffers' => $draftJobOffers,
-            'users' => $users,
-        ]);
     }
 
     public function importCsv(Request $request)

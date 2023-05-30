@@ -69,15 +69,6 @@
                                         </a>
                                     </li>
                                 </div>
-                                <div>
-                                    <li>
-                                        <a href="{{ route('jobffer.order_date.index') }}" style="text-decoration: none;">
-                                            <button class="btn btn-outline-secondary btn-lg mb-2" type="button">
-                                                起算日リスト
-                                            </button>
-                                        </a>
-                                    </li>
-                                </div>
                             </div>
                         </ul>
                     </div>
