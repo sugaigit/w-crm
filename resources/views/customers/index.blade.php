@@ -61,6 +61,10 @@
             <th class="text-center">顧客名</th>
             <th class="text-center">取扱会社種別</th>
             <th class="text-center">取扱事業所</th>
+            <th class="text-center">企業ランク</th>
+            <th class="text-center">法人形態</th>
+            <th class="text-center">顧客名</th>
+            <th class="text-center">業種</th>
             <th class="text-center">住所</th>
             <th class="text-center">電話番号</th>
             <th class="text-center">作成者</th>

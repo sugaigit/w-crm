@@ -114,7 +114,11 @@
                                 <tr>
                                     <th>発注業務詳細<span class="text-danger">*</span></th>
                                     <td>
+<<<<<<< Updated upstream
                                         <input type="text" maxlength="100" class="form-control" name="order_details" value="{{ old('order_details') }}" required>
+=======
+                                        <textarea rows="3" type="text" class="form-control" name="introduction_others" required>{{ old('order_details') }}</textarea>
+>>>>>>> Stashed changes
                                     </td>
                                 </tr>
                                 <tr>
