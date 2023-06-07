@@ -11,6 +11,9 @@ use App\Models\Customer;
 use App\Models\ActivityRecord;
 use GuzzleHttp\Client;
 use Auth;
+use Carbon\Carbon;
+
+use function Ramsey\Uuid\v1;
 
 // use Slack;
 
@@ -33,6 +36,12 @@ class JobOfferController extends Controller
         })
         ->when($request->status, function ($query, $status) {
             return $query->whereIn('status', $status);
+        })
+        ->when($request->orderDateStart, function ($query, $orderDateStart) {
+            return $query->whereDate('order_date', '>=', $orderDateStart);
+        })
+        ->when($request->orderDateEnd, function ($query, $orderDateEnd) {
+            return $query->whereDate('order_date', '<=', $orderDateEnd);
         })
         ->when($request->keywords, function ($query, $keywords) {
             $smallSpaceKeywords = mb_convert_kana($keywords, 's');
@@ -181,7 +190,6 @@ class JobOfferController extends Controller
      */
     public function edit(Request $request, $id)
     {
-        $fromOrderDate = $request->query('from_order_date') ?? '';
         $jobOffer = JobOffer::find($id);
         $jobOffer['holiday'] = json_decode($jobOffer['holiday']);
         if ($jobOffer['long_vacation']) {
@@ -206,7 +214,6 @@ class JobOfferController extends Controller
             'activityRecords' => $activityRecords,
             'isDraftJobOffer' => false,
             'differentUserAlert' => $differentUserAlert,
-            'fromOrderDate' => $fromOrderDate,
         ]);
     }
 
@@ -406,7 +413,7 @@ class JobOfferController extends Controller
                     ]
                 );
             }
-            return redirect(empty($request->fromOrderDate) ? route('job_offers.index') : route('jobffer.order_date.index'));
+            return redirect(route('job_offers.index'));
         }
 
     }
@@ -421,39 +428,172 @@ class JobOfferController extends Controller
         return redirect(route('job_offers.index'));
     }
 
-    public function showOrderDate(Request $request)
-    {
-        $draftJobOffers = DraftJobOffer::all();
-        $users = User::all();
-        $jobOffers = JobOffer::when($request->userId, function ($query, $userId) {
-            return $query->where('user_id', $userId);
-        })
-        ->when($request->companyName, function ($query, $companyName) {
-            return $query->where('company_name', 'like' , "%{$companyName}%");
-        })
-        ->when($request->jobNumber, function ($query, $jobNumber) {
-            return $query->where('job_number', $jobNumber);
-        })
-        ->when($request->orderingBusiness, function ($query, $orderingBusiness) {
-            return $query->where('ordering_business', $orderingBusiness);
-        })
-        ->when($request->orderDateStart, function ($query, $orderDateStart) {
-            return $query->whereDate('order_date', '>=', $orderDateStart);
-        })
-        ->when($request->orderDateEnd, function ($query, $orderDateEnd) {
-            return $query->whereDate('order_date', '<=', $orderDateEnd);
-        })
-        ->when($request->postingSite, function ($query, $postingSite) {
-            return $query->whereIn('posting_site', $postingSite);
-        })
-        ->orderBy('created_at', 'desc')
-        ->get();
+    public function importCsv(Request $request)
+    {// 1ファイルで複数レコードを保存できる仕様
+        // CSV一時保存
+        $tmp = mt_rand() . "." . $request->file('csv_import')->guessExtension();
+        $request->file('csv_import')->move(public_path() . "/tmp", $tmp);
+        $filepath = public_path() . "/tmp/" . $tmp;
 
-        return view('job_offers.order', [
-            'jobOffers' => $jobOffers,
-            'draftJobOffers' => $draftJobOffers,
-            'users' => $users,
-        ]);
+        // CSVデータ取得
+        $file = new \SplFileObject($filepath);
+        $file->setFlags(
+            \SplFileObject::READ_CSV |
+            \SplFileObject::READ_AHEAD |
+            \SplFileObject::SKIP_EMPTY |
+            \SplFileObject::DROP_NEW_LINE
+        );
+        // バリデーション（後々実装）
+        //Slack通知←どうする？todo: 要確認
+        $users = User::all();
+        $customers = Customer::all();
+
+        $saveDataList = [];
+        foreach ($file as $key => $line) {
+            if ($key !== 0) {
+                // DB保存のためにデータ整形
+                $_holidays = [
+                    $line[56] == "TRUE" ? 'mon' : '',
+                    $line[57] == "TRUE" ? 'tue' : '',
+                    $line[58] == "TRUE" ? 'wed' : '',
+                    $line[59] == "TRUE" ? 'thu' : '',
+                    $line[60] == "TRUE" ? 'fri' : '',
+                    $line[61] == "TRUE" ? 'sat' : '',
+                    $line[62] == "TRUE" ? 'sun' : '',
+                    $line[63] == "TRUE" ? 'holiday' : '',
+                    $line[64] == "TRUE" ? 'shift' : '',
+                ];
+                $_holidays = array_filter($_holidays);
+                $holidays = [];
+                foreach ($_holidays as $holiday) {
+                    $holidays[] = $holiday;
+                }
+
+                $_longVacations = [
+                    $line[65] == "TRUE" ? 'goldenweek' : '',
+                    $line[66] == "TRUE" ? 'newyears_holiday' : '',
+                    $line[67] == "TRUE" ? 'obon' : '',
+                ];
+                $_longVacations = array_filter($_longVacations);
+                $longVacations = [];
+                foreach ($_longVacations as $longVacation) {
+                    $longVacations[] = $longVacation;
+                }
+
+                $saveDataList[] = [
+                    'user_id' => $users->where('name', $line[0])->first()->id, // 営業担当
+                    'handling_type' => strval(array_search($line[1], config('options.handling_type'))), // 取扱会社種別
+                    'job_number' => $line[2], // 仕事番号
+                    'handling_office' => strval(array_search($line[3], config('options.handling_office'))),
+                    'business_type' => strval(array_search($line[4], config('options.business_type'))),
+                    'customer_id' => $customers->where('customer_name', $line[5])->first()->id,
+                    'type_contract' => strval(array_search($line[6], config('options.type_contract'))),
+                    'recruitment_number' => intval($line[7]),
+                    'company_name' => $line[8],
+                    'company_address' => $line[9],
+                    'company_others' => $line[10], // 就業先備考
+                    'number_of_ordering_bases' => strval(array_search($line[11], config('options.number_of_ordering_bases'))), // 発注拠点数
+                    'order_number' => strval(array_search($line[12], config('options.order_number'))), // 発注人数
+                    'transaction_duration' => strval(array_search($line[13], config('options.transaction_duration'))), // 取引継続期間
+                    'expected_sales' => strval(array_search($line[14], config('options.expected_sales'))), // 売上見込額
+                    'profit_rate' => strval(array_search($line[15], config('options.profit_rate'))), // 利益率
+                    'special_matters' => strval(array_search($line[16], config('options.special_matters'))), // 特別事項
+                    'ordering_business' => $line[17], // 発注業務
+                    'order_details' => $line[18], // 発注業務詳細
+                    'counter_measures' => strval(array_search($line[19], config('options.counter_measures'))), // 対策内容
+                    'invoice_unit_price_1' => $line[20], // 請求単価①
+                    'billing_unit_1' => strval(array_search($line[21], config('options.salary_term'))), // 請求単位①
+                    'profit_rate_1' => $line[22], // 利益率①
+                    'billing_information_1' => $line[23], // 請求情報①備考
+                    'invoice_unit_price_2' => $line[24],
+                    'billing_unit_2' => strval(array_search($line[25], config('options.salary_term'))),
+                    'profit_rate_2' => $line[26],
+                    'billing_information_2' => $line[27],
+                    'invoice_unit_price_3' => $line[28],
+                    'billing_unit_3' => strval(array_search($line[29], config('options.salary_term'))),
+                    'profit_rate_3' => $line[30],
+                    'billing_information_3' => $line[31],
+                    'employment_insurance' => strval(array_search($line[32], config('options.existence'))),
+                    'social_insurance' => strval(array_search($line[33], config('options.existence'))),
+                    'payment_unit_price_1' => $line[34],
+                    'payment_unit_1' => strval(array_search($line[35], config('options.salary_term'))),
+                    'carfare_1' => $line[36],
+                    'carfare_payment_1' => strval(array_search($line[37], config('options.payment_term'))),
+                    'carfare_payment_remarks_1' => $line[38],
+                    'employment_insurance_2' => strval(array_search($line[39], config('options.existence'))),
+                    'social_insurance_2' => strval(array_search($line[40], config('options.existence'))),
+                    'payment_unit_price_2' => $line[41],
+                    'payment_unit_2' => strval(array_search($line[42], config('options.salary_term'))),
+                    'carfare_2' => $line[43],
+                    'carfare_payment_2' => strval(array_search($line[44], config('options.payment_term'))),
+                    'carfare_payment_remarks_2' => $line[45],
+                    'employment_insurance_3' => strval(array_search($line[46], config('options.existence'))),
+                    'social_insurance_3' => strval(array_search($line[47], config('options.existence'))),
+                    'payment_unit_price_3' => $line[48],
+                    'payment_unit_3' => strval(array_search($line[49], config('options.salary_term'))),
+                    'carfare_3' => $line[50],
+                    'carfare_payment_3' => strval(array_search($line[51], config('options.payment_term'))),
+                    'carfare_payment_remarks_3' => $line[52],
+                    'scheduled_period' => strval(array_search($line[53], config('options.scheduled_period'))),
+                    'expected_end_date' => Carbon::parse($line[54])->toDateString(),
+                    'period_remarks' => $line[55],
+                    'holiday' => json_encode($holidays),
+                    'long_vacation' => json_encode($longVacations),
+                    'holiday_remarks' => $line[68],
+                    'working_hours_1' => $line[69],
+                    'actual_working_hours_1' => $line[70],
+                    'break_time_1' => $line[71],
+                    'overtime' => $line[72],
+                    'working_hours_remarks' => $line[73],
+                    'working_hours_2' => $line[74],
+                    'actual_working_hours_2' => $line[75],
+                    'break_time_2' => $line[76],
+                    'working_hours_3' => $line[77],
+                    'actual_working_hours_3' => $line[78],
+                    'break_time_3' => $line[79],
+                    'nearest_station' => $line[80],
+                    'travel_time_station' => $line[81],
+                    'nearest_bus_stop' => $line[82],
+                    'travel_time_bus_stop' => $line[83],
+                    'commuting_by_car' => strval(array_search($line[84], config('options.permission'))),
+                    'traffic_commuting_remarks' => $line[85],
+                    'parking' => strval(array_search($line[86], config('options.parking'))),
+                    'status' => strval(array_search($line[87], config('options.status_edit'))),
+                    'job_withdrawal' => strval(array_search($line[88], config('options.job_withdrawal'))),
+                    'posting_site' => strval(array_search($line[89], config('options.posting_site'))),
+                    'order_date' => Carbon::parse($line[90])->toDateString(),
+                    'qualification' => strval(array_search($line[91], config('options.requirement'))),
+                    'qualification_content' => $line[92],
+                    'experience' => strval(array_search($line[93], config('options.requirement'))),
+                    'experience_content' => $line[94],
+                    'sex' => strval(array_search($line[95], config('options.sex'))),
+                    'age' => $line[96],
+                    'uniform_supply' => strval(array_search($line[97], config('options.uniform_supply'))),
+                    'supply' => $line[98],
+                    'self_prepared' => $line[99],
+                    'clothes' => $line[100],
+                    'other_hair_colors' => $line[101],
+                    'remarks_workplace' => $line[102],
+                    'gender_ratio' => $line[103],
+                    'age_ratio' => $line[104],
+                    'after_introduction' => $line[105],
+                    'timing_of_switching' => $line[106],
+                    'monthly_lower_limit' => $line[107],
+                    'monthly_upper_limit' => $line[108],
+                    'annual_lower_limit' => $line[109],
+                    'annual_upper_limit' => $line[110],
+                    'bonuses_treatment' => $line[111],
+                    'holidays_vacations' => $line[112],
+                    'introduction_others' => $line[113],
+                ];
+            }
+        }
+        // 一時ファイル削除
+        unlink($filepath);
+
+        JobOffer::insert($saveDataList);
+        $request->session()->flash('SucccessMsg', '登録しました');
+        return redirect(route('job_offers.index'));
     }
 
 }

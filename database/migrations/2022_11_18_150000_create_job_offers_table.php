@@ -30,6 +30,14 @@ class CreateJobOffersTable extends Migration
             $table->string('company_others', 100)->nullable()->comment('就業先備考');//
             $table->string('ordering_business', 100)->comment('発注業務');//
             $table->string('order_details', 100)->comment('発注業務詳細');//
+            //新規追加
+            $table->string('number_of_ordering_bases')->comment('発注拠点数(1:単独拠点, 2:複数拠点（P&C拠点内）, 3:全拠点（P&C拠点内）' )->nullable();//
+            $table->string('order_number')->comment('発注人数（1:地域限定, 2:複数地域, 3:全国展開）')->nullable();//
+            $table->string('transaction_duration')->comment('取引継続期間（1:無し, 2:低い, 3:高い）')->nullable();//
+            $table->string('expected_sales')->comment('売上見込み額（1:創業10年未満, 2:創業10年以上, 3:創業30年以上）')->nullable();//
+            $table->string('profit_rate')->comment('利益率（1:14%以下, 2:15%〜20%, 3:21%以上)')->nullable();//
+            $table->string('special_matters')->comment('特別事項（（1:配慮不要,2:マネージャー決裁,3:役員決裁）')->nullable();//
+            //ここまで
             $table->string('counter_measures')->comment('喫煙対策内容');//
             $table->string('invoice_unit_price_1', 100)->comment('請求単価①');//
             $table->string('billing_unit_1', 100)->comment('請求単位①');//
