@@ -11,7 +11,6 @@
         @method('PUT')
         @csrf
         <input type="hidden" name="jobOfferId" value="{{ $jobOffer->id }}">
-        <input type="hidden" name="fromOrderDate" value="{{ $fromOrderDate }}">
         <input class="btn btn-secondary mb-2" type="button" value="印刷" onclick="window.print();" />
         @if(!$isDraftJobOffer)
         {{-- <input class="btn btn-success mb-2" type="submit" value="複製" onclick="duplicate()" /> --}}

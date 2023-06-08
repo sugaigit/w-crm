@@ -174,5 +174,10 @@ $(document).ready(function() {
 		}
    });
 
-
+	/******************************************
+   * 下書き保存ボタンを押下時はhtmlのrequire属性を無効化
+   ******************************************/
+   $('#draft_create_btn').on('click', function () {
+    $('[required]').removeAttr('required');
+  });
 });
