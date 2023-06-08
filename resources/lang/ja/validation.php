@@ -105,7 +105,7 @@ return [
     'prohibited_if'        => ':attributeフィールドは、:otherが:valueの場合は禁止されています。',
     'prohibited_unless'    => ':attributeフィールドは、:otherが:valuesでない限り禁止されています。',
     'prohibits'            => 'The :attribute field prohibits :other from being present.',
-    'regex'                => ':attributeには、有効な正規表現を指定してください。',
+    'regex'                => ':attributeの形式が不正です。',
     'required'             => ':attributeは、必ず指定してください。',
     'required_array_keys'  => 'The :attribute field must contain entries for: :values.',
     'required_if'          => ':otherが:valueの場合、:attributeを指定してください。',
@@ -141,6 +141,7 @@ return [
 
         'user_id' => '営業担当',
         'customer_name' => '顧客名',
+        'customer_kana' => '顧客名（全角カナ）',
         'corporate_type' => '法人形態',
         'address' => '住所',
         'phone' => '電話番号',
