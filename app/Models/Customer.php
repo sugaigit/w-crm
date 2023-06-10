@@ -19,6 +19,12 @@ class Customer extends Model
         'corporate_type',
         'customer_name',
         'customer_kana',
+        'industry',
+        'company_size',
+        'business_development_area',
+        'business_expansion_potential',
+        'company_history',
+        'reliability',
         'address',
         'phone',
         'fax',
@@ -45,6 +51,23 @@ class Customer extends Model
     public function jobOffer()
     {
         return $this->hasMany(JobOffer::class);
+    }
+
+    public function getCustomerRankPoint()
+    {
+        $companySizePoint = is_null($this->company_size) ? 0 : config('points.companySize')[intval($this->company_size)];
+        $businessDevelopmentAreaPoint = is_null($this->business_development_area) ? 0 : config('points.businessDevelopmentArea')[intval($this->business_development_area)];
+        $businessExpansionPotentialPoint = is_null($this->business_expansion_potential) ? 0 : config('points.businessExpansionPotential')[intval($this->business_expansion_potential)];
+        $companyHistoryPoint = is_null($this->company_history) ? 0 : config('points.companyHistory')[intval($this->company_history)];
+        $reliabilityPoint = is_null($this->reliability) ? 0 : config('points.reliability')[intval($this->reliability)];
+
+        $customerRankPoint = $companySizePoint
+            + $businessDevelopmentAreaPoint
+            + $businessExpansionPotentialPoint
+            + $companyHistoryPoint
+            + $reliabilityPoint;
+
+        return $customerRankPoint;
     }
 
     // public function updateCustomer($request,$cutomer)

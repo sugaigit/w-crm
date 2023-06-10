@@ -107,6 +107,12 @@ class CustomerController extends Controller
             'corporate_type' => $request->input('corporate_type'),
             'customer_name' => $customerName,
             'customer_kana' => $customerKana,
+            'industry' => $request->input('industry'),
+            'company_size' => $request->input('company_size'),
+            'business_development_area' => $request->input('business_development_area'),
+            'business_expansion_potential' => $request->input('business_expansion_potential'),
+            'company_history' => $request->input('company_history'),
+            'reliability' => $request->input('reliability'),
             'department' => $request->input('department'),
             'manager_name' => $request->input('manager_name'),
             'address' => $address,
@@ -194,6 +200,12 @@ class CustomerController extends Controller
         $customer->corporate_type = $request->input('corporate_type');
         $customer->customer_name = $customerName;
         $customer->customer_kana = $customerKana;
+        $customer->industry = $request->input('industry');
+        $customer->company_size = $request->input('company_size');
+        $customer->business_development_area = $request->input('business_development_area');
+        $customer->business_expansion_potential = $request->input('business_expansion_potential');
+        $customer->company_history = $request->input('company_history');
+        $customer->reliability = $request->input('reliability');
         $customer->department = $request->input('department');
         $customer->manager_name = $request->input('manager_name');
         $customer->address = $address;
