@@ -34,7 +34,7 @@
                             </div>
                           @endforeach
                         </div>
-                        
+
                         <label class="mt-3">起算日</label>
                         <div class="d-flex justify-content-evenly">
                             <label class="mt-3"></label>
@@ -64,10 +64,17 @@
     <tr class=m-auto style="background-color: lightgray">
         <th>求人ID</th>
         <th>ステータス</th>
+        <th>求人ランク</th>
+        <th>取扱会社種別</th>
+        <th>取扱事業所名</th>
         <th>仕事番号</th>
         <th>就業先名称</th>
+        <th>契約形態</th>
+        <th>発注業務</th>
+        <th>発注人数</th>
+        <th>請求単価①</th>
+        <th>支払単価①</th>
         <th>営業担当</th>
-        <th>起算日</th>
         <th>操作</th>
     </tr>
     </thead>
@@ -76,10 +83,17 @@
         <tr>
             <td>{{ $jobOffer->id }}</td>
             <td>{{ $jobOffer->status != null ? config('options.status_edit')[$jobOffer->status] : '' }}</td>
-            <td>{{ $jobOffer->job_number }}</td>
+            <td>{{ $jobOffer->jobo }}</td>
+            <td>{{ $jobOffer->handling_type != null ? config('options.handling_type')[$jobOffer->handling_type] : '' }}</td>
+            <td>{{ $jobOffer->handling_office != null ? config('options.handling_office')[$jobOffer->handling_office] : '' }}</td>
+            <td>{{ $jobOffer->job_number}}</td>
             <td>{{ $jobOffer->company_name }}</td>
+            <td>{{ $jobOffer->type_contract != null ? config('options.type_contract')[$jobOffer->type_contract] : '' }}</td>
+            <td>{{ $jobOffer->ordering_business }}</td>
+            <td>{{ $jobOffer->order_number }}</td>
+            <td>{{ $jobOffer->Invoice_unit_price_1 }}</td>
+            <td>{{ $jobOffer->payment_unit_price_1 }}</td>
             <td>{{ $jobOffer->user->name }}</td>
-            <td>{{ $jobOffer->order_date }}</td>
             <td>
                 <div class="d-flex justify-content-around">
                     <a href="{{ route('job_offers.edit', ['job_offer' => $jobOffer->id]) }}">

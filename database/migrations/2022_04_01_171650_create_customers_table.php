@@ -21,7 +21,7 @@ class CreateCustomersTable extends Migration
             $table->string('handling_office')->comment('取扱事業所名（1:北九州本社, 2:福岡支店）');
             $table->string('corporate_type')->comment('法人形態（1:（前）株式会社, 2:（後）株式会社, 3:（前）合同会社, 4:（後）合同会社, 5:（前）有限会社, 6:（後）有限会社, 7:なし, 8:その他）');
             $table->string('customer_name')->comment('顧客名');
-            $table->string('customer_kana')->nullable()->comment('顧客名（カナ）');
+            $table->string('customer_kana')->nullable()->comment('顧客名（全角カナ）');
             $table->string('industry')->nullable()->comment('業種');
             //企業ランク
             $table->string('company_size')->nullable()->comment('会社規模');
