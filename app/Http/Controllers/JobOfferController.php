@@ -13,6 +13,8 @@ use GuzzleHttp\Client;
 use Auth;
 use Carbon\Carbon;
 
+use App\Http\Controllers\DraftJobOfferController;
+
 use function Ramsey\Uuid\v1;
 
 // use Slack;
@@ -69,7 +71,7 @@ class JobOfferController extends Controller
 
             return $query;
         })
-        ->orderBy('created_at', 'desc')
+        ->orderBy('id', 'desc')
         ->paginate($perPage)
         ->withQueryString();
 
@@ -136,12 +138,41 @@ class JobOfferController extends Controller
             'order_date'=> ['required'],
             'status'=> ['required'],
             'parking'=> ['required'],
+            'number_of_ordering_bases' => ['required'],
+            'order_number' => ['required'],
+            'transaction_duration' => ['required'],
+            'expected_sales' => ['required'],
+            'profit_rate' => ['required'],
+            'special_matters' => ['required'],
         ]);
 
         $saveData = $request->all();
         $saveData['holiday'] = json_encode($saveData['holiday']);
         if (isset($saveData['long_vacation'])) {
             $saveData['long_vacation'] = json_encode($saveData['long_vacation']);
+        }
+		// 企業ランク
+        $customer = Customer::find($request->input('customer_id'));
+		$customerRankPoint = $customer->getCustomerRankPoint();
+		// 商談ランク
+		$numberOfOrderingBasesPoint = config('points.numberOfOrderingBases')[intval($request->input('number_of_ordering_bases'))];
+        $orderNumberPoint = config('points.orderNumber')[intval($request->input('order_number'))];
+        $transactionDurationPoint = config('points.transactionDuration')[intval($request->input('transaction_duration'))];
+        $expectedSalesPoint = config('points.expectedSales')[intval($request->input('expected_sales'))];
+        $profitRatePoint = config('points.profitRate')[intval($request->input('profit_rate'))];
+        $specialMattersPoint = config('points.specialMatters')[intval($request->input('special_matters'))];
+
+        $negotiationPoint = $numberOfOrderingBasesPoint
+            + $orderNumberPoint
+            + $transactionDurationPoint
+            + $expectedSalesPoint
+            + $profitRatePoint
+            + $specialMattersPoint;
+
+		// 求人ランク
+        $jobOfferRank = $customerRankPoint + $negotiationPoint;
+        if ($jobOfferRank < 51) {
+			return app()->make('App\Http\Controllers\DraftJobOfferController')->store($request);
         }
 
         $newJobOffer = JobOffer::create($saveData);
@@ -260,6 +291,12 @@ class JobOfferController extends Controller
                 'order_date'=> ['required'],
                 'status'=> ['required'],
                 'parking'=> ['required'],
+                'number_of_ordering_bases' => ['required'],
+                'order_number' => ['required'],
+                'transaction_duration' => ['required'],
+                'expected_sales' => ['required'],
+                'profit_rate' => ['required'],
+                'special_matters' => ['required'],
             ]);
 
             // 求人情報の更新処理
@@ -368,6 +405,11 @@ class JobOfferController extends Controller
             $jobOffer->introduction_others= $request->input('introduction_others');
             $jobOffer->status= $request->input('status');
             $jobOffer->order_date= $request->input('order_date');
+            $jobOffer->order_date= $request->input('number_of_ordering_bases');
+            $jobOffer->order_date= $request->input('transaction_duration');
+            $jobOffer->order_date= $request->input('expected_sales');
+            $jobOffer->order_date= $request->input('profit_rate');
+            $jobOffer->order_date= $request->input('special_matters');
 
             $jobOffer->save();
             $request->session()->flash('SucccessMsg', '保存しました');
