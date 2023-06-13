@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('Dashboard') }}</div>
+                    <div class="card-header">{{ __('目次') }}</div>
 
                     <div class="card-body">
                         @if (session('status'))
@@ -17,17 +17,6 @@
                         <ul>
 
                             <div class="d-flex justify-content-evenly">
-                                @canany('viewAny', auth()->user())
-                                <div>
-                                    <li>
-                                        <a href="{{ route('users.index') }}" style="text-decoration: none;">
-                                            <button class="btn btn-secondary btn-lg mb-2" type="button">
-                                                社員一覧
-                                            </button>
-                                        </a>
-                                    </li>
-                                </div>
-                                @endcanany
 
                                 <div>
                                     <li>
