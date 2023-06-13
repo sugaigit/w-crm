@@ -179,9 +179,9 @@
                         <th>発注業務詳細<span class="text-danger">*</span></th>
                         <td>
                             @if (is_null(old('order_details')))
-                            <input type="text" maxlength="100" class="form-control" name="order_details" value="{{ isset($jobOffer->order_details) ? $jobOffer->order_details : '' }}" required>
+                            <textarea type="textarea" rows="3" class="form-control" name="order_details" required>> {{ isset($jobOffer->order_details) ? $jobOffer->order_details : '' }}</textarea>
                             @else
-                            <input type="text" maxlength="100" class="form-control" name="order_details" value="{{ old('order_details') }}" required>
+                            <textarea type="textarea" rows="3" class="form-control" name="order_details" required> {{ old('order_details') }}</textarea>
                             @endif
                         </td>
                     </tr>
@@ -398,19 +398,19 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>交通費①<span class="text-danger">*</span></th>
+                        <th>交通費①</th>
                         <td>
                             @if (is_null(old('carfare_1')))
-                            <input  type="text" class="form-control" name="carfare_1" value="{{ isset($jobOffer->carfare_1) ? $jobOffer->carfare_1 : '' }}" required>
+                            <input  type="text" class="form-control" name="carfare_1" value="{{ isset($jobOffer->carfare_1) ? $jobOffer->carfare_1 : '' }}">
                             @else
-                            <input  type="text" class="form-control" name="carfare_1" value="{{ old('carfare_1') }}" required>
+                            <input  type="text" class="form-control" name="carfare_1" value="{{ old('carfare_1') }}">
                             @endif
                         </td>
                     </tr>
                     <tr>
-                        <th>交通費支払単位①<span class="text-danger">*</span></th>
+                        <th>交通費支払単位①</th>
                         <td>
-                            <select type="text" class="form-control" name="carfare_payment_1" required>
+                            <select type="text" class="form-control" name="carfare_payment_1">
                             <option value="">交通費支払単位を選んで下さい</option>
                             @foreach( config('options.payment_term') as $key => $carfare_payment_1 )
                                 @if (is_null(old('carfare_payment_1')))
@@ -680,9 +680,9 @@
                         <th>休日備考</th>
                         <td>
                             @if (is_null(old('holiday_remarks')))
-                            <input  type="text" class="form-control" name="holiday_remarks" value="{{ isset($jobOffer->holiday_remarks) ? $jobOffer->holiday_remarks : '' }}">
+                            <textarea type="textarea" rows="3" class="form-control" name="holiday_remarks" required> {{ isset($jobOffer->holiday_remarks) ? $jobOffer->holiday_remarks : '' }}</textarea>
                             @else
-                            <input  type="text" class="form-control" name="holiday_remarks" value="{{ old('holiday_remarks') }}">
+                            <textarea type="textarea" rows="3" class="form-control" name="holiday_remarks" required> {{ old('holiday_remarks') }}</textarea>
                             @endif
                         </td>
                     </tr>
@@ -800,9 +800,9 @@
                         <th>勤務時間備考</th>
                         <td>
                             @if (is_null(old('working_hours_remarks')))
-                            <input  type="text" class="form-control" name="working_hours_remarks" value="{{ isset($jobOffer->working_hours_remarks) ? $jobOffer->working_hours_remarks : '' }}">
+                            <textarea type="textarea" rows="3" class="form-control" name="working_hours_remarks" required> {{ isset($jobOffer->working_hours_remarks) ? $jobOffer->working_hours_remarks : '' }}</textarea>
                             @else
-                            <input  type="text" class="form-control" name="working_hours_remarks" value="{{ old('working_hours_remarks') }}">
+                            <textarea type="textarea" rows="3" class="form-control" name="working_hours_remarks" required> {{ old('working_hours_remarks') }}</textarea>
                             @endif
                         </td>
                     </tr>

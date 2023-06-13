@@ -122,7 +122,7 @@
                                 <tr>
                                     <th>発注業務詳細<span class="text-danger">*</span></th>
                                     <td>
-                                        <textarea rows="3" type="text" class="form-control bg-danger bg-opacity-25" name="order_details">{{ old('order_details')}}</textarea required>
+                                        <textarea rows="3" type="text" class="form-control" name="order_details" required>{{ old('order_details')}}</textarea>
                                     </td>
                                 </tr>
                                 <tr>
@@ -272,15 +272,15 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>交通費①<span class="text-danger">*</span></th>
+                                    <th>交通費①</th>
                                     <td>
-                                        <input  type="text" class="form-control bg-danger bg-opacity-25" name="carfare_1" value="{{ old('carfare_1') }}" required>
+                                        <input  type="text" class="form-control bg-danger bg-opacity-25" name="carfare_1" value="{{ old('carfare_1') }}" >
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>交通費支払単位①<span class="text-danger">*</span></th>
+                                    <th>交通費支払単位①</th>
                                     <td>
-                                        <select type="text" class="form-control bg-danger bg-opacity-25" name="carfare_payment_1" required>
+                                        <select type="text" class="form-control bg-danger bg-opacity-25" name="carfare_payment_1" >
                                             <option value="">交通費支払単位を選んで下さい</option>
                                             @foreach( config('options.payment_term') as $key => $carfare_payment_1 )
                                                 <option value="{{ $key }}" {{ old('carfare_payment_1') == $key ? 'selected' : '' }}>{{ $carfare_payment_1 }}</option>
