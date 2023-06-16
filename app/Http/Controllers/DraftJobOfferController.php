@@ -59,7 +59,7 @@ class DraftJobOfferController extends Controller
 
         $request->session()->flash('SucccessMsg', '下書き保存しました');
 
-        return redirect(route('job_offers.index'));
+        return redirect(route('draft.index'));
     }
 
     /**
@@ -202,11 +202,17 @@ class DraftJobOfferController extends Controller
         $draftJobOffer->introduction_others= $request->input('introduction_others');
         $draftJobOffer->status= $request->input('status');
         $draftJobOffer->order_date= $request->input('order_date');
+        $draftJobOffer->number_of_ordering_bases= $request->input('number_of_ordering_bases');
+        $draftJobOffer->order_number= $request->input('order_number');
+        $draftJobOffer->transaction_duration= $request->input('transaction_duration');
+        $draftJobOffer->expected_sales= $request->input('expected_sales');
+        $draftJobOffer->profit_rate= $request->input('profit_rate');
+        $draftJobOffer->special_matters= $request->input('special_matters');
 
         $draftJobOffer->save();
         $request->session()->flash('SucccessMsg', '下書き更新しました');
 
-        return redirect(route('job_offers.index'));
+        return redirect(route('draft.index'));
     }
 
     public function destroy($id)
@@ -216,7 +222,7 @@ class DraftJobOfferController extends Controller
 
         \Session::flash('SucccessMsg', '削除しました');
 
-        return redirect(route('job_offers.index'));
+        return redirect(route('draft.index'));
     }
 
 }

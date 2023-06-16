@@ -258,9 +258,8 @@ class JobOfferController extends Controller
             $this->store($request);
             return redirect(route('job_offers.index'));
         } elseif ($request->has('draftJobOfferId')) { // 下書きが登録された場合
-            $this->store($request);
             DraftJobOffer::destroy($request->draftJobOfferId);
-            return redirect(route('job_offers.index'));
+            return $this->store($request);
         } else {
             $request->validate([
                 'user_id' => ['required'],
