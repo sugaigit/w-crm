@@ -432,16 +432,16 @@ class JobOfferController extends Controller
 
                 $client = new Client();
                 $content ="
-```■{$status}
-取扱会社種別：{$handlingType}
-取扱事業所：{$handlingOffice}
-営業担当：{$jobOffer->user->name}
-お仕事番号：{$request->input('job_number')}
-就業先名称と発注業務：{$request->input('company_name')}/{$request->input('ordering_business')}
-募集人数：{$request->input('recruitment_number')}人
-予定期間：{$request->input('scheduled_period')}
-詳細：{$path}```
-";
+                ```■{$status}
+                取扱会社種別：{$handlingType}
+                取扱事業所：{$handlingOffice}
+                営業担当：{$jobOffer->user->name}
+                お仕事番号：{$request->input('job_number')}
+                就業先名称と発注業務：{$request->input('company_name')}/{$request->input('ordering_business')}
+                募集人数：{$request->input('recruitment_number')}人
+                予定期間：{$request->input('scheduled_period')}
+                詳細：{$path}```
+                ";
                 $response = $client->post(
                     config('slack.webhook_url'),
                     [

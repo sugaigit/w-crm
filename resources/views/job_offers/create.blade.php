@@ -122,7 +122,7 @@
                                 <tr>
                                     <th>発注業務詳細<span class="text-danger">*</span></th>
                                     <td>
-                                        <textarea rows="3" type="text" class="form-control required" name="order_details" required>{{ old('order_details')}}</textarea>
+                                        <textarea rows="3" type="text" class="form-control required" name="order_details" required>{{ old('order_details')}}</textarea
                                     </td>
                                 </tr>
                                 <tr>
@@ -338,13 +338,13 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>交通費①<span class="text-danger">*</span></th>
+                                    <th>交通費①</th>
                                     <td>
                                         <input  type="text" class="form-control required" name="carfare_1" value="{{ old('carfare_1') }}" required>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>交通費支払単位①<span class="text-danger">*</span></th>
+                                    <th>交通費支払単位①</th>
                                     <td>
                                         <select type="text" class="form-control required" name="carfare_payment_1" required>
                                             <option value="">交通費支払単位を選んで下さい</option>
