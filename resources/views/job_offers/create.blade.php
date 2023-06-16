@@ -122,7 +122,7 @@
                                 <tr>
                                     <th>発注業務詳細<span class="text-danger">*</span></th>
                                     <td>
-                                        <textarea rows="3" type="text" class="form-control required" name="order_details" required>{{ old('order_details')}}</textarea
+                                        <textarea rows="3" type="text" class="form-control required" name="order_details" required>{{ old('order_details')}}</textarea>
                                     </td>
                                 </tr>
                                 <tr>
