@@ -153,7 +153,7 @@ $(document).ready(function() {
     /******************************************
      * 必須項目の表示切替
      ******************************************/
-        if ($('.required').val().length) {
+    if ($('.required').val().length) {
         $('.required').removeClass('bg-danger bg-opacity-25');
     } else {
         $('.required').addClass('bg-danger bg-opacity-25');
