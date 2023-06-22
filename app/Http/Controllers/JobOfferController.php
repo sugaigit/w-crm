@@ -649,13 +649,13 @@ class JobOfferController extends Controller
             }
         }
 
+        // 一時ファイル削除
+        unlink($filepath);
+
         // エラー処理
         if ($hasErrors) {
             return back()->withInput()->withErrors($errorMsgs);
         }
-
-        // 一時ファイル削除
-        unlink($filepath);
 
         JobOffer::insert($saveDataList);
         $request->session()->flash('SucccessMsg', '登録しました');
