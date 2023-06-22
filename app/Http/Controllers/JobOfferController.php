@@ -489,9 +489,14 @@ class JobOfferController extends Controller
         $users = User::all();
         $customers = Customer::all();
 
+        $hasErrors = false;
+        $errorMsgs = [];
         $saveDataList = [];
         foreach ($file as $key => $line) {
             if ($key !== 0) {
+                if (empty($line[0]) || empty($line[5])) {
+                    continue;
+                }
                 // DB保存のためにデータ整形
                 $_holidays = [
                     $line[56] == "TRUE" ? 'mon' : '',
@@ -521,13 +526,27 @@ class JobOfferController extends Controller
                     $longVacations[] = $longVacation;
                 }
 
+                // 作成者バリデーション
+                $user = $users->where('name', $line[0])->first();
+                if (is_null($user)) {
+                    $errorMsgs[] = "{$line[0]}という作成者は登録されていません。";
+                    $hasErrors = true;
+                }
+
+                // 顧客名バリデーション
+                $customer = $customers->where('customer_name', $line[5])->first();
+                if (is_null($customer)) {
+                    $errorMsgs[] = "{$line[5]}という顧客名は登録されていません。";
+                    $hasErrors = true;
+                }
+
                 $saveDataList[] = [
-                    'user_id' => $users->where('name', $line[0])->first()->id, // 営業担当
+                    'user_id' => is_null($user) ? 0 : $user->id, // 営業担当
                     'handling_type' => strval(array_search($line[1], config('options.handling_type'))), // 取扱会社種別
                     'job_number' => $line[2], // 仕事番号
                     'handling_office' => strval(array_search($line[3], config('options.handling_office'))),
                     'business_type' => strval(array_search($line[4], config('options.business_type'))),
-                    'customer_id' => $customers->where('customer_name', $line[5])->first()->id,
+                    'customer_id' => is_null($customer) ? 0 : $customer->id, // 顧客名
                     'type_contract' => strval(array_search($line[6], config('options.type_contract'))),
                     'recruitment_number' => intval($line[7]),
                     'company_name' => $line[8],
@@ -629,6 +648,12 @@ class JobOfferController extends Controller
                 ];
             }
         }
+
+        // エラー処理
+        if ($hasErrors) {
+            return back()->withInput()->withErrors($errorMsgs);
+        }
+
         // 一時ファイル削除
         unlink($filepath);
 
