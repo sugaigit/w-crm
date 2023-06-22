@@ -127,8 +127,6 @@ class JobOfferController extends Controller
             'social_insurance'=> ['required'],
             'payment_unit_price_1'=> ['required'],
             'payment_unit_1'=> ['required'],
-            'carfare_1'=> ['required'],
-            'carfare_payment_1'=> ['required'],
             'holiday'=> ['required'],
             'working_hours_1'=> ['required'],
             'actual_working_hours_1'=> ['required'],
@@ -171,10 +169,26 @@ class JobOfferController extends Controller
 
 		// 求人ランク
         $jobOfferRank = $customerRankPoint + $negotiationPoint;
+
+        if ($jobOfferRank > 90) {
+            $rank = 'SS';
+        } elseif ($jobOfferRank > 80) {
+            $rank = 'S';
+        } elseif ($jobOfferRank > 70) {
+            $rank = 'A';
+        } elseif ($jobOfferRank > 50) {
+            $rank = 'B';
+        } elseif ($jobOfferRank > 20) {
+            $rank = 'C';
+        } else {
+            $rank = 'D';
+        }
         if ($jobOfferRank < 51) {
+            $request['rank'] = $rank;
 			return app()->make('App\Http\Controllers\DraftJobOfferController')->store($request);
         }
 
+        $saveData['rank'] = $rank;
         $newJobOffer = JobOffer::create($saveData);
 
         $request->session()->flash('SucccessMsg', '登録しました');
