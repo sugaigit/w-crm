@@ -176,6 +176,12 @@ return [
         'parking' => '駐車場',
         'order_date' => '起算日',
         'status' => '作成ステータス',
+        'number_of_ordering_bases' => '発注拠点数',
+        'order_number' => '発注人数',
+        'transaction_duration' => '取引継続期間',
+        'expected_sales' => '売上見込額',
+        'profit_rate' => '利益率',
+        'special_matters' => '特別事項',
     ],
     'required_without_all' => ' :values のどれか一つは入力してください。',
 ];

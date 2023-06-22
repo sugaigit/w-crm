@@ -321,4 +321,14 @@ class CustomerController extends Controller
         $request->session()->flash('SucccessMsg', '登録しました');
         return redirect(route('customers.index'));
     }
+
+    public function showDetail($customerId)
+    {
+        $customer = Customer::find($customerId);
+        $users = User::all();
+        return view('customers.detail',[
+            'customer' => $customer,
+            'users' => $users
+        ]);
+    }
 }

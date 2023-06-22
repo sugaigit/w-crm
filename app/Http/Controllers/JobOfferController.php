@@ -637,5 +637,34 @@ class JobOfferController extends Controller
         return redirect(route('job_offers.index'));
     }
 
+    public function showDetail($id)
+    {
+        $jobOffer = JobOffer::find($id);
+        $jobOffer['holiday'] = json_decode($jobOffer['holiday']);
+        if ($jobOffer['long_vacation']) {
+            $jobOffer['long_vacation'] = json_decode($jobOffer['long_vacation']);
+        }
+
+        $users = User::all();
+        $customers = Customer::all();
+        $activityRecords = $jobOffer->activityRecords;
+
+        $differentUserAlert = false;
+        if (Auth::id() != $jobOffer->user->id) {
+            $differentUserAlert = true;
+            \Session::flash('AlertMsg', '警告：データーベースに登録されている営業担当とログインユーザーが一致しません');
+        }
+
+
+        return view('job_offers.detail', [
+            'jobOffer' => $jobOffer,
+            'users' => $users,
+            'customers' => $customers,
+            'activityRecords' => $activityRecords,
+            'isDraftJobOffer' => false,
+            'differentUserAlert' => $differentUserAlert,
+        ]);
+    }
+
 }
 

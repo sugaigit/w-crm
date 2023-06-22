@@ -158,7 +158,20 @@ $(document).ready(function() {
             $(this).addClass('bg-danger bg-opacity-25');
         }
     });
+    /******************************************
+     * 削除アラート
+     ******************************************/
+    $('#delete').on('click', function () {
+        if(!confirm('本当に削除しますか？')){
+            return false;
+        }
+    });
     
-
+    click(function(){
+        if(!confirm('本当に削除しますか？')){
+            /* キャンセルの時の処理 */
+            return false;
+        }
+    });
 
 });
