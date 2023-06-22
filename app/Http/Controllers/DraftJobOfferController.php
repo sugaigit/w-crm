@@ -225,4 +225,27 @@ class DraftJobOfferController extends Controller
         return redirect(route('draft.index'));
     }
 
+    public function showDetail($id)
+    {
+        $draftJobOffer = DraftJobOffer::find($id);
+
+        if (isset($draftJobOffer['holiday'])) {
+            $draftJobOffer['holiday'] = json_decode($draftJobOffer['holiday']);
+        }
+        if ($draftJobOffer['long_vacation']) {
+            $draftJobOffer['long_vacation'] = json_decode($draftJobOffer['long_vacation']);
+        }
+
+        $users = User::all();
+        $customers = Customer::all();
+
+        return view('draft_job_offers.detail', [
+            'draftJobOffer' => $draftJobOffer,
+            'users' => $users,
+            'customers' => $customers,
+            'isDraftJobOffer' => true,
+            'differentUserAlert' => false,
+        ]);
+    }
+
 }

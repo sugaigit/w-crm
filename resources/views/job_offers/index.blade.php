@@ -96,14 +96,9 @@
             <td>{{ $jobOffer->user->name }}</td>
             <td>
                 <div class="d-flex justify-content-around">
-                    <a href="{{ route('job_offers.edit', ['job_offer' => $jobOffer->id]) }}">
-                        <button class="btn btn-primary" type="button">編集</button>
+                    <a href="{{ route('job_offers.detail', $jobOffer->id) }}">
+                        <button class="btn btn-primary" type="button">詳細</button>
                     </a>
-                    <form method="POST" action="{{ route('job_offers.destroy', $jobOffer->id) }}">
-                        @method('DELETE')
-                        @csrf
-                        <button class="delete-btn btn btn-danger" type="submit">削除</button>
-                    </form>
                 </div>
             </td>
         </tr>
