@@ -286,7 +286,6 @@ class CustomerController extends Controller
             \SplFileObject::DROP_NEW_LINE
         );
         // バリデーション（後々実装）
-        //Slack通知←どうする？todo: 要確認
         $users = User::all();
 
         $saveDataList = [];
@@ -300,14 +299,14 @@ class CustomerController extends Controller
                     'customer_name' => $line[4],
                     'customer_kana' => $line[5],
                     'industry' => strval(array_search($line[6], config('options.industry'))), // 業種
-                    'company_size' => strval(array_search($line[7], config('options.company_size'))),
-                    'business_development_area' => strval(array_search($line[8], config('options.business_development_area'))),
-                    'business_expansion_potential' => strval(array_search($line[9], config('options.business_expansion_potential'))),
-                    'company_history' => strval(array_search($line[10], config('options.company_history'))),
-                    'reliability' => strval(array_search($line[11], config('options.reliability'))),
-                    'department' => $line[12],
-                    'manager_name' => $line[13],
-                    'address' => $line[14],
+                    'company_size' => strval(array_search($line[7], config('options.company_size'))), // 会社規模
+                    'business_development_area' => strval(array_search($line[8], config('options.business_development_area'))), // 事業展開地域
+                    'business_expansion_potential' => strval(array_search($line[9], config('options.business_expansion_potential'))), // 取引拡大可能性
+                    'company_history' => strval(array_search($line[10], config('options.company_history'))), // 社歴
+                    'reliability' => strval(array_search($line[11], config('options.reliability'))), // 信頼性
+                    'department' => $line[12], // 所属部署
+                    'manager_name' => $line[13], // 顧客担当者名
+                    'address' => $line[14], // 顧客住所
                     'phone' => $line[15],
                     'email' => $line[16],
                     'fax' => $line[17],
