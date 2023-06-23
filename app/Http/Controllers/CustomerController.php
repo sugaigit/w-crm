@@ -72,13 +72,54 @@ class CustomerController extends Controller
             'user_id' => ['required'],
             'handling_type' => ['required'],
             'handling_office'=> ['required'],
-            // 'corporate_type'=> ['required'],
-            'customer_name'=> ['required','unique:customers,customer_name'],
-            // 'address'=> ['required'],
-            // 'phone'=> ['required'],
+            'customer_name'=> [
+                'required',
+                'unique:customers,customer_name'
+            ],
+            'customer_kana'=> [
+                'regex:/^[ァ-ン　　 ]*$/u' // 全角カタカナとスペースのみ許容
+            ],
         ]);
 
-        Customer::create($request->all());
+        // 顧客名：スペースがあったらスペースを無しにする
+        $customerName = str_replace(
+            [' ', '　'],
+            '',
+            $request['customer_name']
+        );
+        // 顧客名（全角カナ）：スペースがあったら無しにする
+        $customerKana = str_replace(
+            [' ', '　'],
+            '',
+            $request['customer_kana']
+        );
+        // 顧客住所：スペースがあればスペースを無しにする
+        $address = str_replace(
+            [' ', '　'],
+            '',
+            $request['address']
+        );
+
+        Customer::create([
+            'user_id' => $request->input('user_id'),
+            'handling_type' => $request->input('handling_type'),
+            'handling_office' => $request->input('handling_office'),
+            'corporate_type' => $request->input('corporate_type'),
+            'customer_name' => $customerName,
+            'customer_kana' => $customerKana,
+            'industry' => $request->input('industry'),
+            'company_size' => $request->input('company_size'),
+            'business_development_area' => $request->input('business_development_area'),
+            'business_expansion_potential' => $request->input('business_expansion_potential'),
+            'company_history' => $request->input('company_history'),
+            'reliability' => $request->input('reliability'),
+            'department' => $request->input('department'),
+            'manager_name' => $request->input('manager_name'),
+            'address' => $address,
+            'phone' => $request->input('phone'),
+            'email' => $request->input('email'),
+            'fax' => $request->input('fax'),
+        ]);
 
         $request->session()->flash('SucccessMsg', '登録しました');
 
@@ -126,23 +167,48 @@ class CustomerController extends Controller
             'user_id' => ['required'],
             'handling_type' => ['required'],
             'handling_office'=> ['required'],
-            // 'corporate_type'=> ['required'],
             'customer_name'=> ['required'],
-            // 'address'=> ['required'],
-            // 'phone'=> ['required'],
+            'customer_kana'=> [
+                'regex:/^[ァ-ン　　 ]*$/u' // 全角カタカナとスペースのみ許容
+            ],
 
         ]);
+
+        // 顧客名：スペースがあったらスペースを無しにする
+        $customerName = str_replace(
+            [' ', '　'],
+            '',
+            $request['customer_name']
+        );
+        // 顧客名（全角カナ）：スペースがあったら無しにする
+        $customerKana = str_replace(
+            [' ', '　'],
+            '',
+            $request['customer_kana']
+        );
+        // 顧客住所：スペースがあればスペースを無しにする
+        $address = str_replace(
+            [' ', '　'],
+            '',
+            $request['address']
+        );
 
         $customer = Customer::find($customerId);
         $customer->user_id =$request->input('user_id');
         $customer->handling_type =$request->input('handling_type');
         $customer->handling_office = $request->input('handling_office');
         $customer->corporate_type = $request->input('corporate_type');
-        $customer->customer_name = $request->input('customer_name');
-        $customer->customer_kana = $request->input('customer_kana');
+        $customer->customer_name = $customerName;
+        $customer->customer_kana = $customerKana;
+        $customer->industry = $request->input('industry');
+        $customer->company_size = $request->input('company_size');
+        $customer->business_development_area = $request->input('business_development_area');
+        $customer->business_expansion_potential = $request->input('business_expansion_potential');
+        $customer->company_history = $request->input('company_history');
+        $customer->reliability = $request->input('reliability');
         $customer->department = $request->input('department');
         $customer->manager_name = $request->input('manager_name');
-        $customer->address = $request->input('address');
+        $customer->address = $address;
         $customer->phone = $request->input('phone');
         $customer->email = $request->input('email');
         $customer->fax = $request->input('fax');
@@ -220,7 +286,6 @@ class CustomerController extends Controller
             \SplFileObject::DROP_NEW_LINE
         );
         // バリデーション（後々実装）
-        //Slack通知←どうする？todo: 要確認
         $users = User::all();
 
         $saveDataList = [];
@@ -234,14 +299,14 @@ class CustomerController extends Controller
                     'customer_name' => $line[4],
                     'customer_kana' => $line[5],
                     'industry' => strval(array_search($line[6], config('options.industry'))), // 業種
-                    'company_size' => strval(array_search($line[7], config('options.company_size'))),
-                    'business_development_area' => strval(array_search($line[8], config('options.business_development_area'))),
-                    'business_expansion_potential' => strval(array_search($line[9], config('options.business_expansion_potential'))),
-                    'company_history' => strval(array_search($line[10], config('options.company_history'))),
-                    'reliability' => strval(array_search($line[11], config('options.reliability'))),
-                    'department' => $line[12],
-                    'manager_name' => $line[13],
-                    'address' => $line[14],
+                    'company_size' => strval(array_search($line[7], config('options.company_size'))), // 会社規模
+                    'business_development_area' => strval(array_search($line[8], config('options.business_development_area'))), // 事業展開地域
+                    'business_expansion_potential' => strval(array_search($line[9], config('options.business_expansion_potential'))), // 取引拡大可能性
+                    'company_history' => strval(array_search($line[10], config('options.company_history'))), // 社歴
+                    'reliability' => strval(array_search($line[11], config('options.reliability'))), // 信頼性
+                    'department' => $line[12], // 所属部署
+                    'manager_name' => $line[13], // 顧客担当者名
+                    'address' => $line[14], // 顧客住所
                     'phone' => $line[15],
                     'email' => $line[16],
                     'fax' => $line[17],
@@ -254,5 +319,15 @@ class CustomerController extends Controller
         Customer::insert($saveDataList);
         $request->session()->flash('SucccessMsg', '登録しました');
         return redirect(route('customers.index'));
+    }
+
+    public function showDetail($customerId)
+    {
+        $customer = Customer::find($customerId);
+        $users = User::all();
+        return view('customers.detail',[
+            'customer' => $customer,
+            'users' => $users
+        ]);
     }
 }

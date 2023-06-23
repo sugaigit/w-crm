@@ -110,6 +110,13 @@ class DraftJobOffer extends Model
         'bonuses_treatment',
         'holidays_vacations',
         'introduction_others',
+        'number_of_ordering_bases',
+        'order_number',
+        'transaction_duration',
+        'expected_sales',
+        'profit_rate',
+        'special_matters',
+        'rank'
     ];
 
     public function user()

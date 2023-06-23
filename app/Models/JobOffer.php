@@ -110,6 +110,13 @@ class JobOffer extends Model
         'bonuses_treatment',
         'holidays_vacations',
         'introduction_others',
+        'number_of_ordering_bases',
+        'order_number',
+        'transaction_duration',
+        'expected_sales',
+        'profit_rate',
+        'special_matters',
+        'rank'
     ];
 
 
@@ -125,7 +132,26 @@ class JobOffer extends Model
 
     public function activityRecords()
     {
-        return $this->hasMany(ActivityRecord::class);
+        return $this->hasMany(ActivityRecord::class)->orderBy('date', 'desc');;
+    }
+
+    public function getJobOfferPoint()
+    {
+        $numberOfOrderingBasesPoint = empty($this->number_of_ordering_bases) ? 0 : config('points.numberOfOrderingBases')[intval($this->number_of_ordering_bases)];
+        $orderNumberPoint = empty($this->order_number) ? 0 : config('points.orderNumber')[intval($this->order_number)];
+        $transactionDurationPoint = empty($this->transaction_duration) ? 0 : config('points.transactionDuration')[intval($this->transaction_duration)];
+        $expectedSalesPoint = empty($this->expected_sales) ? 0 : config('points.expectedSales')[intval($this->expected_sales)];
+        $profitRatePoint = empty($this->profit_rate) ? 0 : config('points.profitRate')[intval($this->profit_rate)];
+        $specialMattersPoint = empty($this->special_matters) ? 0 : config('points.specialMatters')[intval($this->special_matters)];
+
+        $JobOfferPoint = $numberOfOrderingBasesPoint
+            + $orderNumberPoint
+            + $transactionDurationPoint
+            + $expectedSalesPoint
+            + $profitRatePoint
+            + $specialMattersPoint;
+
+        return $JobOfferPoint;
     }
 
     // public function customerLogs()

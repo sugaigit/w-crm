@@ -127,5 +127,51 @@ $(document).ready(function() {
     }
    });
 
+    /******************************************
+     * 下書き必須項目の表示切替
+     ******************************************/
+    if ($('.draft-require').val().length) {
+        $('.draft-require').removeClass('bg-danger text-white');
+    } else {
+        $('.draft-require').addClass('bg-danger text-white');
+    }
+    $('.draft-require').on('change', function () {
+        if ($(this).val().length) {
+            $(this).removeClass('bg-danger text-white');
+        } else {
+            $(this).addClass('bg-danger text-white');
+        }
+    });
+
+    /******************************************
+     * 必須項目の表示切替
+     ******************************************/
+    if ($('.required').val().length) {
+        $('.required').removeClass('bg-danger bg-opacity-25');
+    } else {
+        $('.required').addClass('bg-danger bg-opacity-25');
+    }
+    $('.required').on('change', function () {
+        if ($(this).val().length) {
+            $(this).removeClass('bg-danger bg-opacity-25');
+        } else {
+            $(this).addClass('bg-danger bg-opacity-25');
+        }
+    });
+    /******************************************
+     * 削除アラート
+     ******************************************/
+    $('#delete').on('click', function () {
+        if(!confirm('本当に削除しますか？')){
+            return false;
+        }
+    });
+    
+    click(function(){
+        if(!confirm('本当に削除しますか？')){
+            /* キャンセルの時の処理 */
+            return false;
+        }
+    });
 
 });

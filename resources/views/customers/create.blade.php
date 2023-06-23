@@ -7,7 +7,7 @@
             <div class="mb-2">
                 <label for="csv_import">CSVインポート</label><br>
                 <input type="file" id="csv_import" name="csv_import">
-                <button type="submit" class="btn btn-primary">選択したCSVを反映する</button>
+                <button id="csv_submit" type="submit" class="btn btn-primary">選択したCSVを反映する</button>
             </div>
         </form>
         <div class="card mb-4">
@@ -19,7 +19,7 @@
                 <ul class="list-group">
                     <li class="list-group-item list-group-item-action">
                         作成者<span class="text-danger">*</span>
-                        <select type="text" class="form-control" name="user_id" required>
+                        <select type="text" class="form-control required" name="user_id" required>
                             <option value="">作成者を選んで下さい</option>
                             @foreach( $users as $user )
                             <option value="{{ $user->id }}" {{ old('user_id') == $user->id ? 'selected' : '' }}>{{ $user->name }}</option>
@@ -28,7 +28,7 @@
                     </li>
                     <li class="list-group-item list-group-item-action">
                         取扱会社種別<span class="text-danger">*</span>
-                        <select type="text" class="form-control" name="handling_type" required>
+                        <select type="text" class="form-control required" name="handling_type" required>
                             <option value="">取扱会社種別を選んで下さい</option>
                             @foreach( config('options.handling_type') as $key => $val )
                                 <option value="{{ $key }}" {{ old('handling_type') == $key ? 'selected' : '' }}>{{ $val }}</option>
@@ -37,7 +37,7 @@
                     </li>
                     <li class="list-group-item list-group-item-action">
                         取扱事業所<span class="text-danger">*</span>
-                        <select type="text" class="form-control" name="handling_office" required>
+                        <select type="text" class="form-control required" name="handling_office" required>
                             <option value="">取扱事業所を選んで下さい</option>
                             @foreach( config('options.handling_office') as $key => $val )
                                 <option value="{{ $key }}" {{ old('handling_office') == $key ? 'selected' : '' }}>{{ $val }}</option>
@@ -46,7 +46,7 @@
                     </li>
                     <li class="list-group-item list-group-item-action">
                         法人形態<span class="text-danger">*</span>
-                        <select type="text" class="form-control" name="corporate_type" required>
+                        <select type="text" class="form-control required" name="corporate_type" required>
                             <option value="">法人形態を選んで下さい</option>
                             @foreach( config('options.corporate_type') as $key => $val )
                                 <option value="{{ $key }}" {{ old('corporate_type') == $key ? 'selected' : '' }}>{{ $val }}</option>
@@ -55,11 +55,65 @@
                     </li>
                     <li class="list-group-item list-group-item-action">
                         顧客名<span class="text-danger">*</span>
-                        <input class="form-control" type="text" name="customer_name" value="{{ old('customer_name') }}" required>
+                        <input class="form-control required" type="text" name="customer_name" value="{{ old('customer_name') }}" required>
                     </li>
                     <li class="list-group-item list-group-item-action">
-                        顧客名（カナ）
+                        顧客名（全角カナ）
                         <input class="form-control" type="text" name="customer_kana" value="{{ old('customer_kana') }}">
+                    </li>
+                    <li class="list-group-item list-group-item-action">
+                        業種
+                        <select type="text" class="form-control" name="industry" required>
+                            <option value="">業種を選んで下さい</option>
+                            @foreach( config('options.industry') as $key => $val )
+                                <option value="{{ $key }}" {{ old('industry') == $key ? 'selected' : '' }}>{{ $val }}</option>
+                            @endforeach
+                        </select>
+                    </li>
+                    <li class="list-group-item list-group-item-action">
+                        会社規模
+                        <select type="text" class="form-control" name="company_size" required>
+                            <option value="">会社規模を選んで下さい</option>
+                            @foreach( config('options.company_size') as $key => $val )
+                                <option value="{{ $key }}" {{ old('company_size') == $key ? 'selected' : '' }}>{{ $val }}</option>
+                            @endforeach
+                        </select>
+                    </li>
+                    <li class="list-group-item list-group-item-action">
+                        事業展開地域
+                        <select type="text" class="form-control" name="business_development_area" required>
+                            <option value="">事業展開地域を選んで下さい</option>
+                            @foreach( config('options.business_development_area') as $key => $val )
+                                <option value="{{ $key }}" {{ old('business_development_area') == $key ? 'selected' : '' }}>{{ $val }}</option>
+                            @endforeach
+                        </select>
+                    </li>
+                    <li class="list-group-item list-group-item-action">
+                        取引拡大可能性
+                        <select type="text" class="form-control" name="business_expansion_potential" required>
+                            <option value="">取引拡大可能性を選んで下さい</option>
+                            @foreach( config('options.business_expansion_potential') as $key => $val )
+                                <option value="{{ $key }}" {{ old('business_expansion_potential') == $key ? 'selected' : '' }}>{{ $val }}</option>
+                            @endforeach
+                        </select>
+                    </li>
+                    <li class="list-group-item list-group-item-action">
+                        社歴
+                        <select type="text" class="form-control" name="company_history" required>
+                            <option value="">社歴を選んで下さい</option>
+                            @foreach( config('options.company_history') as $key => $val )
+                                <option value="{{ $key }}" {{ old('company_history') == $key ? 'selected' : '' }}>{{ $val }}</option>
+                            @endforeach
+                        </select>
+                    </li>
+                    <li class="list-group-item list-group-item-action">
+                        信頼性
+                        <select type="text" class="form-control" name="reliability" required>
+                            <option value="">信頼性を選んで下さい</option>
+                            @foreach( config('options.reliability') as $key => $val )
+                                <option value="{{ $key }}" {{ old('reliability') == $key ? 'selected' : '' }}>{{ $val }}</option>
+                            @endforeach
+                        </select>
                     </li>
                     <li class="list-group-item list-group-item-action">
                         所属部署
@@ -106,4 +160,8 @@
     </div>
 </div>
 
+@endsection
+
+@section('js')
+    <script type="text/javascript" src="{{ asset('/js/customer/create.js') }}"></script>
 @endsection

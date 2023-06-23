@@ -13,6 +13,8 @@ use GuzzleHttp\Client;
 use Auth;
 use Carbon\Carbon;
 
+use App\Http\Controllers\DraftJobOfferController;
+
 use function Ramsey\Uuid\v1;
 
 // use Slack;
@@ -36,6 +38,12 @@ class JobOfferController extends Controller
         })
         ->when($request->status, function ($query, $status) {
             return $query->whereIn('status', $status);
+        })
+        ->when($request->orderDateStart, function ($query, $orderDateStart) {
+            return $query->whereDate('order_date', '>=', $orderDateStart);
+        })
+        ->when($request->orderDateEnd, function ($query, $orderDateEnd) {
+            return $query->whereDate('order_date', '<=', $orderDateEnd);
         })
         ->when($request->keywords, function ($query, $keywords) {
             $smallSpaceKeywords = mb_convert_kana($keywords, 's');
@@ -63,7 +71,7 @@ class JobOfferController extends Controller
 
             return $query;
         })
-        ->orderBy('created_at', 'desc')
+        ->orderBy('id', 'desc')
         ->paginate($perPage)
         ->withQueryString();
 
@@ -119,8 +127,6 @@ class JobOfferController extends Controller
             'social_insurance'=> ['required'],
             'payment_unit_price_1'=> ['required'],
             'payment_unit_1'=> ['required'],
-            'carfare_1'=> ['required'],
-            'carfare_payment_1'=> ['required'],
             'holiday'=> ['required'],
             'working_hours_1'=> ['required'],
             'actual_working_hours_1'=> ['required'],
@@ -130,6 +136,12 @@ class JobOfferController extends Controller
             'order_date'=> ['required'],
             'status'=> ['required'],
             'parking'=> ['required'],
+            'number_of_ordering_bases' => ['required'],
+            'order_number' => ['required'],
+            'transaction_duration' => ['required'],
+            'expected_sales' => ['required'],
+            'profit_rate' => ['required'],
+            'special_matters' => ['required'],
         ]);
 
         $saveData = $request->all();
@@ -137,7 +149,46 @@ class JobOfferController extends Controller
         if (isset($saveData['long_vacation'])) {
             $saveData['long_vacation'] = json_encode($saveData['long_vacation']);
         }
+		// 企業ランク
+        $customer = Customer::find($request->input('customer_id'));
+		$customerRankPoint = $customer->getCustomerRankPoint();
+		// 商談ランク
+		$numberOfOrderingBasesPoint = config('points.numberOfOrderingBases')[intval($request->input('number_of_ordering_bases'))];
+        $orderNumberPoint = config('points.orderNumber')[intval($request->input('order_number'))];
+        $transactionDurationPoint = config('points.transactionDuration')[intval($request->input('transaction_duration'))];
+        $expectedSalesPoint = config('points.expectedSales')[intval($request->input('expected_sales'))];
+        $profitRatePoint = config('points.profitRate')[intval($request->input('profit_rate'))];
+        $specialMattersPoint = config('points.specialMatters')[intval($request->input('special_matters'))];
 
+        $negotiationPoint = $numberOfOrderingBasesPoint
+            + $orderNumberPoint
+            + $transactionDurationPoint
+            + $expectedSalesPoint
+            + $profitRatePoint
+            + $specialMattersPoint;
+
+		// 求人ランク
+        $jobOfferRank = $customerRankPoint + $negotiationPoint;
+
+        if ($jobOfferRank > 90) {
+            $rank = 'SS';
+        } elseif ($jobOfferRank > 80) {
+            $rank = 'S';
+        } elseif ($jobOfferRank > 70) {
+            $rank = 'A';
+        } elseif ($jobOfferRank > 50) {
+            $rank = 'B';
+        } elseif ($jobOfferRank > 20) {
+            $rank = 'C';
+        } else {
+            $rank = 'D';
+        }
+        if ($jobOfferRank < 51) {
+            $request['rank'] = $rank;
+			return app()->make('App\Http\Controllers\DraftJobOfferController')->store($request);
+        }
+
+        $saveData['rank'] = $rank;
         $newJobOffer = JobOffer::create($saveData);
 
         $request->session()->flash('SucccessMsg', '登録しました');
@@ -184,7 +235,6 @@ class JobOfferController extends Controller
      */
     public function edit(Request $request, $id)
     {
-        $fromOrderDate = $request->query('from_order_date') ?? '';
         $jobOffer = JobOffer::find($id);
         $jobOffer['holiday'] = json_decode($jobOffer['holiday']);
         if ($jobOffer['long_vacation']) {
@@ -209,7 +259,6 @@ class JobOfferController extends Controller
             'activityRecords' => $activityRecords,
             'isDraftJobOffer' => false,
             'differentUserAlert' => $differentUserAlert,
-            'fromOrderDate' => $fromOrderDate,
         ]);
     }
 
@@ -223,9 +272,8 @@ class JobOfferController extends Controller
             $this->store($request);
             return redirect(route('job_offers.index'));
         } elseif ($request->has('draftJobOfferId')) { // 下書きが登録された場合
-            $this->store($request);
             DraftJobOffer::destroy($request->draftJobOfferId);
-            return redirect(route('job_offers.index'));
+            return $this->store($request);
         } else {
             $request->validate([
                 'user_id' => ['required'],
@@ -245,8 +293,6 @@ class JobOfferController extends Controller
                 'social_insurance'=> ['required'],
                 'payment_unit_price_1'=> ['required'],
                 'payment_unit_1'=> ['required'],
-                'carfare_1'=> ['required'],
-                'carfare_payment_1'=> ['required'],
                 'holiday'=> ['required'],
                 'working_hours_1'=> ['required'],
                 'actual_working_hours_1'=> ['required'],
@@ -256,6 +302,12 @@ class JobOfferController extends Controller
                 'order_date'=> ['required'],
                 'status'=> ['required'],
                 'parking'=> ['required'],
+                'number_of_ordering_bases' => ['required'],
+                'order_number' => ['required'],
+                'transaction_duration' => ['required'],
+                'expected_sales' => ['required'],
+                'profit_rate' => ['required'],
+                'special_matters' => ['required'],
             ]);
 
             // 求人情報の更新処理
@@ -364,6 +416,11 @@ class JobOfferController extends Controller
             $jobOffer->introduction_others= $request->input('introduction_others');
             $jobOffer->status= $request->input('status');
             $jobOffer->order_date= $request->input('order_date');
+            $jobOffer->number_of_ordering_bases= $request->input('number_of_ordering_bases');
+            $jobOffer->transaction_duration= $request->input('transaction_duration');
+            $jobOffer->expected_sales= $request->input('expected_sales');
+            $jobOffer->profit_rate= $request->input('profit_rate');
+            $jobOffer->special_matters= $request->input('special_matters');
 
             $jobOffer->save();
             $request->session()->flash('SucccessMsg', '保存しました');
@@ -387,16 +444,16 @@ class JobOfferController extends Controller
 
                 $client = new Client();
                 $content ="
-```■{$status}
-取扱会社種別：{$handlingType}
-取扱事業所：{$handlingOffice}
-営業担当：{$jobOffer->user->name}
-お仕事番号：{$request->input('job_number')}
-就業先名称と発注業務：{$request->input('company_name')}/{$request->input('ordering_business')}
-募集人数：{$request->input('recruitment_number')}人
-予定期間：{$request->input('scheduled_period')}
-詳細：{$path}```
-";
+                ```■{$status}
+                取扱会社種別：{$handlingType}
+                取扱事業所：{$handlingOffice}
+                営業担当：{$jobOffer->user->name}
+                お仕事番号：{$request->input('job_number')}
+                就業先名称と発注業務：{$request->input('company_name')}/{$request->input('ordering_business')}
+                募集人数：{$request->input('recruitment_number')}人
+                予定期間：{$request->input('scheduled_period')}
+                詳細：{$path}```
+                ";
                 $response = $client->post(
                     config('slack.webhook_url'),
                     [
@@ -409,7 +466,7 @@ class JobOfferController extends Controller
                     ]
                 );
             }
-            return redirect(empty($request->fromOrderDate) ? route('job_offers.index') : route('jobffer.order_date.index'));
+            return redirect(route('job_offers.index'));
         }
 
     }
@@ -422,41 +479,6 @@ class JobOfferController extends Controller
         \Session::flash('SucccessMsg', '削除しました');
 
         return redirect(route('job_offers.index'));
-    }
-
-    public function showOrderDate(Request $request)
-    {
-        $draftJobOffers = DraftJobOffer::all();
-        $users = User::all();
-        $jobOffers = JobOffer::when($request->userId, function ($query, $userId) {
-            return $query->where('user_id', $userId);
-        })
-        ->when($request->companyName, function ($query, $companyName) {
-            return $query->where('company_name', 'like' , "%{$companyName}%");
-        })
-        ->when($request->jobNumber, function ($query, $jobNumber) {
-            return $query->where('job_number', $jobNumber);
-        })
-        ->when($request->orderingBusiness, function ($query, $orderingBusiness) {
-            return $query->where('ordering_business', $orderingBusiness);
-        })
-        ->when($request->orderDateStart, function ($query, $orderDateStart) {
-            return $query->whereDate('order_date', '>=', $orderDateStart);
-        })
-        ->when($request->orderDateEnd, function ($query, $orderDateEnd) {
-            return $query->whereDate('order_date', '<=', $orderDateEnd);
-        })
-        ->when($request->postingSite, function ($query, $postingSite) {
-            return $query->whereIn('posting_site', $postingSite);
-        })
-        ->orderBy('created_at', 'desc')
-        ->get();
-
-        return view('job_offers.order', [
-            'jobOffers' => $jobOffers,
-            'draftJobOffers' => $draftJobOffers,
-            'users' => $users,
-        ]);
     }
 
     public function importCsv(Request $request)
@@ -479,9 +501,14 @@ class JobOfferController extends Controller
         $users = User::all();
         $customers = Customer::all();
 
+        $hasErrors = false;
+        $errorMsgs = [];
         $saveDataList = [];
         foreach ($file as $key => $line) {
             if ($key !== 0) {
+                if (empty($line[0]) || empty($line[5])) {
+                    continue;
+                }
                 // DB保存のためにデータ整形
                 $_holidays = [
                     $line[56] == "TRUE" ? 'mon' : '',
@@ -511,13 +538,27 @@ class JobOfferController extends Controller
                     $longVacations[] = $longVacation;
                 }
 
+                // 作成者バリデーション
+                $user = $users->where('name', $line[0])->first();
+                if (is_null($user)) {
+                    $errorMsgs[] = "{$line[0]}という作成者は登録されていません。";
+                    $hasErrors = true;
+                }
+
+                // 顧客名バリデーション
+                $customer = $customers->where('customer_name', $line[5])->first();
+                if (is_null($customer)) {
+                    $errorMsgs[] = "{$line[5]}という顧客名は登録されていません。";
+                    $hasErrors = true;
+                }
+
                 $saveDataList[] = [
-                    'user_id' => $users->where('name', $line[0])->first()->id, // 営業担当
+                    'user_id' => is_null($user) ? 0 : $user->id, // 営業担当
                     'handling_type' => strval(array_search($line[1], config('options.handling_type'))), // 取扱会社種別
                     'job_number' => $line[2], // 仕事番号
                     'handling_office' => strval(array_search($line[3], config('options.handling_office'))),
                     'business_type' => strval(array_search($line[4], config('options.business_type'))),
-                    'customer_id' => $customers->where('customer_name', $line[5])->first()->id,
+                    'customer_id' => is_null($customer) ? 0 : $customer->id, // 顧客名
                     'type_contract' => strval(array_search($line[6], config('options.type_contract'))),
                     'recruitment_number' => intval($line[7]),
                     'company_name' => $line[8],
@@ -619,12 +660,47 @@ class JobOfferController extends Controller
                 ];
             }
         }
+
         // 一時ファイル削除
         unlink($filepath);
+
+        // エラー処理
+        if ($hasErrors) {
+            return back()->withInput()->withErrors($errorMsgs);
+        }
 
         JobOffer::insert($saveDataList);
         $request->session()->flash('SucccessMsg', '登録しました');
         return redirect(route('job_offers.index'));
+    }
+
+    public function showDetail($id)
+    {
+        $jobOffer = JobOffer::find($id);
+        $jobOffer['holiday'] = json_decode($jobOffer['holiday']);
+        if ($jobOffer['long_vacation']) {
+            $jobOffer['long_vacation'] = json_decode($jobOffer['long_vacation']);
+        }
+
+        $users = User::all();
+        $customers = Customer::all();
+        $activityRecords = $jobOffer->activityRecords;
+
+        $differentUserAlert = false;
+        if (Auth::id() != $jobOffer->user->id) {
+            $differentUserAlert = true;
+            \Session::flash('AlertMsg', '警告：データーベースに登録されている営業担当とログインユーザーが一致しません');
+        }
+
+
+        return view('job_offers.detail', [
+            'jobOffer' => $jobOffer,
+            'users' => $users,
+            'customers' => $customers,
+            'activityRecords' => $activityRecords,
+            'isDraftJobOffer' => false,
+            'differentUserAlert' => $differentUserAlert,
+        ]);
     }
 
 }
