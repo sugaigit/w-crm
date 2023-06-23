@@ -293,8 +293,6 @@ class JobOfferController extends Controller
                 'social_insurance'=> ['required'],
                 'payment_unit_price_1'=> ['required'],
                 'payment_unit_1'=> ['required'],
-                'carfare_1'=> ['required'],
-                'carfare_payment_1'=> ['required'],
                 'holiday'=> ['required'],
                 'working_hours_1'=> ['required'],
                 'actual_working_hours_1'=> ['required'],
@@ -418,11 +416,11 @@ class JobOfferController extends Controller
             $jobOffer->introduction_others= $request->input('introduction_others');
             $jobOffer->status= $request->input('status');
             $jobOffer->order_date= $request->input('order_date');
-            $jobOffer->order_date= $request->input('number_of_ordering_bases');
-            $jobOffer->order_date= $request->input('transaction_duration');
-            $jobOffer->order_date= $request->input('expected_sales');
-            $jobOffer->order_date= $request->input('profit_rate');
-            $jobOffer->order_date= $request->input('special_matters');
+            $jobOffer->number_of_ordering_bases= $request->input('number_of_ordering_bases');
+            $jobOffer->transaction_duration= $request->input('transaction_duration');
+            $jobOffer->expected_sales= $request->input('expected_sales');
+            $jobOffer->profit_rate= $request->input('profit_rate');
+            $jobOffer->special_matters= $request->input('special_matters');
 
             $jobOffer->save();
             $request->session()->flash('SucccessMsg', '保存しました');

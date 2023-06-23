@@ -90,7 +90,7 @@
                 <td>{{ $jobOffer->type_contract != null ? config('options.type_contract')[$jobOffer->type_contract] : '' }}</td>
                 <td>{{ $jobOffer->ordering_business }}</td>
                 <td>{{ $jobOffer->order_number != null ? config('options.order_number')[$jobOffer->order_number] : '' }}</td>
-                <td>{{ $jobOffer->Invoice_unit_price_1 }}</td>
+                <td>{{ $jobOffer->invoice_unit_price_1 }}</td>
                 <td>{{ $jobOffer->payment_unit_price_1 }}</td>
                 <td>{{ $jobOffer->user->name }}</td>
                 <td>
