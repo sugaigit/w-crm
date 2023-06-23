@@ -61,12 +61,8 @@
             <th class="text-center">顧客名</th>
             <th class="text-center">取扱会社種別</th>
             <th class="text-center">取扱事業所</th>
-            <th class="text-center">企業ランク</th>
-            <th class="text-center">法人形態</th>
-            <th class="text-center">顧客名</th>
             <th class="text-center">業種</th>
             <th class="text-center">住所</th>
-            <th class="text-center">電話番号</th>
             <th class="text-center">作成者</th>
             <th class="text-center">操作</th>
         </tr>
@@ -80,8 +76,8 @@
         </td>
         <td>{{ !empty($customer->handling_type) ? config('options')['handling_type'][$customer->handling_type] :'' }}</td>
         <td>{{ !empty($customer->handling_office) ? config('options')['handling_office'][$customer->handling_office] :'' }}</td>
+        <td>{{ $customer->industry }}</td>
         <td>{{ $customer->address }}</td>
-        <td>{{ $customer->phone }}</td>
         <td>{{ $customer->user->name }}</td>
         <td>
             <div class="d-flex justify-content-around">
@@ -101,30 +97,10 @@
     @endforeach
 </table>
 
-{{--  pagenation link -------------------------------------------------------------------------------       --}}
-<table width="100%">
-    <tr>
-        @if($customers->lastPage() > 1)
-            <td width="120px"><a href="{{ $customers->url(0) }}">最初のページへ</a></td>
-            <td width="120px">
-                @if($customers->previousPageUrl())
-                    <a href="{{ $customers->previousPageUrl() }}">前のページへ</a>
-                @endif
-            </td>
-            <td width="120px" style="text-align: center">{{ $customers->currentPage() }}
-                / {{ $customers->lastPage() }}</td>
-            <td width="120px">
-                @if($customers->nextPageUrl())
-                    <a href="{{ $customers->nextPageUrl() }}">次のページへ</a>
-                @endif
-            </td>
-            <td width="120px"><a href="{{ $customers->url($customers->lastPage()) }}">最後のページへ</a>
-            </td>
+<div class="d-flex justify-content-center mt-2">
+    {{ $customers->links() }}
+</div>
 
-        @endif
-    </tr>
-</table>
-{{--  End of pagenation link -------------------------------------------------------------------------       --}}
 
 @endsection
 

@@ -68,7 +68,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>顧客<span class="text-danger">*</span></th>
+                                    <th>顧客名<span class="text-danger">*</span></th>
                                     <td>
                                         <select type="text" class="form-control required" name="customer_id" required>
                                         <option value="">顧客を選んで下さい</option>
