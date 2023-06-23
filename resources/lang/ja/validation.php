@@ -182,6 +182,8 @@ return [
         'expected_sales' => '売上見込額',
         'profit_rate' => '利益率',
         'special_matters' => '特別事項',
+        'item' => '項目',
+        'date' => '日付',
     ],
     'required_without_all' => ' :values のどれか一つは入力してください。',
 ];

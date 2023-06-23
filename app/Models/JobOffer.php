@@ -132,7 +132,7 @@ class JobOffer extends Model
 
     public function activityRecords()
     {
-        return $this->hasMany(ActivityRecord::class);
+        return $this->hasMany(ActivityRecord::class)->orderBy('date', 'desc');;
     }
 
     public function getJobOfferPoint()

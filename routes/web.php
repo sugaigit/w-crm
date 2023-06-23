@@ -34,3 +34,6 @@ Route::get('/draft/edit/{id}', [App\Http\Controllers\DraftJobOfferController::cl
 Route::put('/draft/update/{id}', [App\Http\Controllers\DraftJobOfferController::class, 'update'])->name('draft.update');
 Route::get('/draft/delete/{id}', [App\Http\Controllers\DraftJobOfferController::class, 'destroy'])->name('draft.destroy');
 Route::get('/draft/{id}/detail', [App\Http\Controllers\DraftJobOfferController::class, 'showDetail'])->name('draft.detail')->middleware('auth');
+
+Route::get('/activity/edit/{id}', [App\Http\Controllers\ActivityRecordController::class, 'edit'])->name('activity.edit')->middleware('auth');
+Route::post('/activity/update/{id}', [App\Http\Controllers\ActivityRecordController::class, 'update'])->name('activity.update')->middleware('auth');

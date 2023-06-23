@@ -1342,6 +1342,7 @@
             <th>日付</th>
             <th>項目</th>
             <th>詳細</th>
+            <th>操作</th>
           </tr>
           @if(isset($activityRecords))
           @foreach($activityRecords as $activityRecord)
@@ -1349,6 +1350,12 @@
               <td>{{ $activityRecord->date }}</td>
               <td>{{ config('options.item')[$activityRecord->item] }}</td>
               <td>{{ $activityRecord->detail }}</td>
+              <td>
+                {{-- <a href="{{ route('job_offers.edit', ['job_offer' => $jobOffer->id]) }}"> --}}
+                <a href="{{ route('activity.edit', $activityRecord->id) }}">
+                    <button class="btn btn-primary mb-2 me-3" type="button">編集</button>
+                </a>
+              </td>
           </tr>
           @endforeach
           @endif
