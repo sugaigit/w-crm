@@ -86,7 +86,7 @@ class JobOfferController extends Controller
     {
         $jobOffers = JobOffer::all();
         $users = User::all();
-        $customers = Customer::all();
+        $customers = Customer::where('is_show', 1)->get();
 
         return view('job_offers.create', [
             'jobOffers' => $jobOffers,
@@ -242,7 +242,7 @@ class JobOfferController extends Controller
         }
 
         $users = User::all();
-        $customers = Customer::all();
+        $customers = Customer::where('is_show', 1)->get();
         $activityRecords = $jobOffer->activityRecords;
 
         $differentUserAlert = false;

@@ -79,7 +79,7 @@ class DraftJobOfferController extends Controller
         }
 
         $users = User::all();
-        $customers = Customer::all();
+        $customers = Customer::where('is_show', 1)->get();
         $activityRecords = null;
 
         // $differentUserAlert = false;
