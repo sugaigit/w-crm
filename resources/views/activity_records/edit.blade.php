@@ -43,7 +43,7 @@
                                 @endif
                             </td>
                         </tr>
-                        <input  type="hidden" name="job_offer_id" value="{{ $activityRecord->jobOffer->id }}">
+                        <input  type="hidden" name="job_offer_id" value="{{ $activityRecordJobOfferId }}">
                         </tr>
                     </tbody>
                 </table>

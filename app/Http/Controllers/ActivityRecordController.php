@@ -15,9 +15,11 @@ class ActivityRecordController extends Controller
     public function edit(Request $request, $activityRecordId)
     {
         $activityRecord = ActivityRecord::find($activityRecordId);
+        $activityRecordJobOfferId = jobOffer::find($activityRecord->job_offer_id)->id;
 
         return view('activity_records.edit', [
             'activityRecord' => $activityRecord,
+            'activityRecordJobOfferId' => $activityRecordJobOfferId
         ]);
     }
 
