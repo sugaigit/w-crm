@@ -85,12 +85,6 @@
             </div>
         @endif
 
-        @if (session('SucccessMsg'))
-        <div class="alert alert-success d-flex justify-content-center">
-            {{ session('SucccessMsg') }}
-        </div>
-    @endif
-
         <main class="py-4">
             @yield('content')
         </main>

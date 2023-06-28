@@ -121,6 +121,10 @@
                         </select>
                     </li>
                     <li class="list-group-item list-group-item-action">
+                        支店
+                        <input class="form-control" type="text" name="branch" value="{{ old('branch') }}">
+                    </li>
+                    <li class="list-group-item list-group-item-action">
                         所属部署
                         <input class="form-control" type="text" name="department" value="{{ old('department') }}">
                     </li>
