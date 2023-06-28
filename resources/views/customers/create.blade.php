@@ -10,6 +10,11 @@
                 <button id="csv_submit" type="submit" class="btn btn-primary">選択したCSVを反映する</button>
             </div>
         </form>
+        @if (session('AlertMsg'))
+            <div class="alert alert-danger d-flex justify-content-center">
+                {{ session('AlertMsg') }}
+            </div>
+        @endif
         <div class="card mb-4">
             <div class="card-header">顧客新規登録</div>
             {{-- todo: スタイルを整える --}}
@@ -62,7 +67,7 @@
                         <input class="form-control" type="text" name="customer_kana" value="{{ old('customer_kana') }}">
                     </li>
                     <li class="list-group-item list-group-item-action">
-                        業種
+                        業種<span class="text-danger">*</span>
                         <select type="text" class="form-control" name="industry" required>
                             <option value="">業種を選んで下さい</option>
                             @foreach( config('options.industry') as $key => $val )
@@ -71,7 +76,7 @@
                         </select>
                     </li>
                     <li class="list-group-item list-group-item-action">
-                        会社規模
+                        会社規模<span class="text-danger">*</span>
                         <select type="text" class="form-control" name="company_size" required>
                             <option value="">会社規模を選んで下さい</option>
                             @foreach( config('options.company_size') as $key => $val )
@@ -80,7 +85,7 @@
                         </select>
                     </li>
                     <li class="list-group-item list-group-item-action">
-                        事業展開地域
+                        事業展開地域<span class="text-danger">*</span>
                         <select type="text" class="form-control" name="business_development_area" required>
                             <option value="">事業展開地域を選んで下さい</option>
                             @foreach( config('options.business_development_area') as $key => $val )
@@ -89,7 +94,7 @@
                         </select>
                     </li>
                     <li class="list-group-item list-group-item-action">
-                        取引拡大可能性
+                        取引拡大可能性<span class="text-danger">*</span>
                         <select type="text" class="form-control" name="business_expansion_potential" required>
                             <option value="">取引拡大可能性を選んで下さい</option>
                             @foreach( config('options.business_expansion_potential') as $key => $val )
@@ -98,7 +103,7 @@
                         </select>
                     </li>
                     <li class="list-group-item list-group-item-action">
-                        社歴
+                        社歴<span class="text-danger">*</span>
                         <select type="text" class="form-control" name="company_history" required>
                             <option value="">社歴を選んで下さい</option>
                             @foreach( config('options.company_history') as $key => $val )
@@ -107,7 +112,7 @@
                         </select>
                     </li>
                     <li class="list-group-item list-group-item-action">
-                        信頼性
+                        信頼性<span class="text-danger">*</span>
                         <select type="text" class="form-control" name="reliability" required>
                             <option value="">信頼性を選んで下さい</option>
                             @foreach( config('options.reliability') as $key => $val )

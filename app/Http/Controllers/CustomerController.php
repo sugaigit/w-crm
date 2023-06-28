@@ -291,6 +291,11 @@ class CustomerController extends Controller
         $saveDataList = [];
         foreach ($file as $key => $line) {
             if ($key !== 0) {
+                // バリデーション
+                if (Customer::where('customer_name', $line[4])->exists() ) {
+                    \Session::flash('AlertMsg', "顧客名:{$line[4]}は既に登録されています。");
+                    return view('customers.create', ['users' => $users]);
+                }
                 $saveDataList[] = [
                     'user_id' => $users->where('name', $line[0])->first()->id, // 営業担当
                     'handling_type' => strval(array_search($line[1], config('options.handling_type'))), // 取扱会社種別

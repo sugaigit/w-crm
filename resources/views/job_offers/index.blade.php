@@ -67,6 +67,7 @@
             <th>取扱会社種別</th>
             <th>取扱事業所名</th>
             <th>仕事番号</th>
+            <th>顧客名</th>
             <th>就業先名称</th>
             <th>契約形態</th>
             <th>発注業務</th>
@@ -86,6 +87,7 @@
                 <td>{{ $jobOffer->handling_type != null ? config('options.handling_type')[$jobOffer->handling_type] : '' }}</td>
                 <td>{{ $jobOffer->handling_office != null ? config('options.handling_office')[$jobOffer->handling_office] : '' }}</td>
                 <td>{{ $jobOffer->job_number}}</td>
+                <td>{{ $jobOffer->customer->customer_name}}</td>
                 <td>{{ $jobOffer->company_name }}</td>
                 <td>{{ $jobOffer->type_contract != null ? config('options.type_contract')[$jobOffer->type_contract] : '' }}</td>
                 <td>{{ $jobOffer->ordering_business }}</td>
@@ -104,7 +106,6 @@
         @endforeach
     </table>
 </div>
-
 
 <div class="d-flex justify-content-center mt-2">
   {{ $jobOffers->links() }}
