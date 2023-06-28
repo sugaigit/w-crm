@@ -10,6 +10,11 @@
                 <button id="csv_submit" type="submit" class="btn btn-primary">選択したCSVを反映する</button>
             </div>
         </form>
+        @if (session('AlertMsg'))
+            <div class="alert alert-danger d-flex justify-content-center">
+                {{ session('AlertMsg') }}
+            </div>
+        @endif
         <div class="card mb-4">
             <div class="card-header">顧客新規登録</div>
             {{-- todo: スタイルを整える --}}
