@@ -10,6 +10,14 @@
                 <button id="csv_submit" type="submit" class="btn btn-primary" disabled>選択したCSVを反映する</button>
             </div>
         </form>
+        {{-- エラーを表示--}}
+        @if( $errors->any() )
+        <ul>
+            @foreach($errors->all() as $error)
+                <li class="text-danger">{{$error}}</li>
+            @endforeach
+        </ul>
+        @endif
         <div class="card mb-4">
             <div class="card-header">
                     <div class="card-header">求人情報新規登録</div>
@@ -885,16 +893,6 @@
                         </div>
 
                     </form>
-
-                    {{-- エラーを表示--}}
-                    @if( $errors->any() )
-                        <ul>
-                            @foreach($errors->all() as $error)
-                                <li class="text-danger">{{$error}}</li>
-                            @endforeach
-                        </ul>
-                    @endif
-
                 </div>
             </div>
 

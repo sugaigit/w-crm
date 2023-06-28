@@ -127,8 +127,6 @@ class JobOfferController extends Controller
             'social_insurance'=> ['required'],
             'payment_unit_price_1'=> ['required'],
             'payment_unit_1'=> ['required'],
-            'carfare_1'=> ['required'],
-            'carfare_payment_1'=> ['required'],
             'holiday'=> ['required'],
             'working_hours_1'=> ['required'],
             'actual_working_hours_1'=> ['required'],
@@ -171,10 +169,26 @@ class JobOfferController extends Controller
 
 		// 求人ランク
         $jobOfferRank = $customerRankPoint + $negotiationPoint;
+
+        if ($jobOfferRank > 90) {
+            $rank = 'SS';
+        } elseif ($jobOfferRank > 80) {
+            $rank = 'S';
+        } elseif ($jobOfferRank > 70) {
+            $rank = 'A';
+        } elseif ($jobOfferRank > 50) {
+            $rank = 'B';
+        } elseif ($jobOfferRank > 20) {
+            $rank = 'C';
+        } else {
+            $rank = 'D';
+        }
         if ($jobOfferRank < 51) {
+            $request['rank'] = $rank;
 			return app()->make('App\Http\Controllers\DraftJobOfferController')->store($request);
         }
 
+        $saveData['rank'] = $rank;
         $newJobOffer = JobOffer::create($saveData);
 
         $request->session()->flash('SucccessMsg', '登録しました');
@@ -279,8 +293,6 @@ class JobOfferController extends Controller
                 'social_insurance'=> ['required'],
                 'payment_unit_price_1'=> ['required'],
                 'payment_unit_1'=> ['required'],
-                'carfare_1'=> ['required'],
-                'carfare_payment_1'=> ['required'],
                 'holiday'=> ['required'],
                 'working_hours_1'=> ['required'],
                 'actual_working_hours_1'=> ['required'],
@@ -404,11 +416,11 @@ class JobOfferController extends Controller
             $jobOffer->introduction_others= $request->input('introduction_others');
             $jobOffer->status= $request->input('status');
             $jobOffer->order_date= $request->input('order_date');
-            $jobOffer->order_date= $request->input('number_of_ordering_bases');
-            $jobOffer->order_date= $request->input('transaction_duration');
-            $jobOffer->order_date= $request->input('expected_sales');
-            $jobOffer->order_date= $request->input('profit_rate');
-            $jobOffer->order_date= $request->input('special_matters');
+            $jobOffer->number_of_ordering_bases= $request->input('number_of_ordering_bases');
+            $jobOffer->transaction_duration= $request->input('transaction_duration');
+            $jobOffer->expected_sales= $request->input('expected_sales');
+            $jobOffer->profit_rate= $request->input('profit_rate');
+            $jobOffer->special_matters= $request->input('special_matters');
 
             $jobOffer->save();
             $request->session()->flash('SucccessMsg', '保存しました');
@@ -489,9 +501,14 @@ class JobOfferController extends Controller
         $users = User::all();
         $customers = Customer::all();
 
+        $hasErrors = false;
+        $errorMsgs = [];
         $saveDataList = [];
         foreach ($file as $key => $line) {
             if ($key !== 0) {
+                if (empty($line[0]) || empty($line[5])) {
+                    continue;
+                }
                 // DB保存のためにデータ整形
                 $_holidays = [
                     $line[56] == "TRUE" ? 'mon' : '',
@@ -521,13 +538,27 @@ class JobOfferController extends Controller
                     $longVacations[] = $longVacation;
                 }
 
+                // 作成者バリデーション
+                $user = $users->where('name', $line[0])->first();
+                if (is_null($user)) {
+                    $errorMsgs[] = "{$line[0]}という作成者は登録されていません。";
+                    $hasErrors = true;
+                }
+
+                // 顧客名バリデーション
+                $customer = $customers->where('customer_name', $line[5])->first();
+                if (is_null($customer)) {
+                    $errorMsgs[] = "{$line[5]}という顧客名は登録されていません。";
+                    $hasErrors = true;
+                }
+
                 $saveDataList[] = [
-                    'user_id' => $users->where('name', $line[0])->first()->id, // 営業担当
+                    'user_id' => is_null($user) ? 0 : $user->id, // 営業担当
                     'handling_type' => strval(array_search($line[1], config('options.handling_type'))), // 取扱会社種別
                     'job_number' => $line[2], // 仕事番号
                     'handling_office' => strval(array_search($line[3], config('options.handling_office'))),
                     'business_type' => strval(array_search($line[4], config('options.business_type'))),
-                    'customer_id' => $customers->where('customer_name', $line[5])->first()->id,
+                    'customer_id' => is_null($customer) ? 0 : $customer->id, // 顧客名
                     'type_contract' => strval(array_search($line[6], config('options.type_contract'))),
                     'recruitment_number' => intval($line[7]),
                     'company_name' => $line[8],
@@ -629,12 +660,47 @@ class JobOfferController extends Controller
                 ];
             }
         }
+
         // 一時ファイル削除
         unlink($filepath);
+
+        // エラー処理
+        if ($hasErrors) {
+            return back()->withInput()->withErrors($errorMsgs);
+        }
 
         JobOffer::insert($saveDataList);
         $request->session()->flash('SucccessMsg', '登録しました');
         return redirect(route('job_offers.index'));
+    }
+
+    public function showDetail($id)
+    {
+        $jobOffer = JobOffer::find($id);
+        $jobOffer['holiday'] = json_decode($jobOffer['holiday']);
+        if ($jobOffer['long_vacation']) {
+            $jobOffer['long_vacation'] = json_decode($jobOffer['long_vacation']);
+        }
+
+        $users = User::all();
+        $customers = Customer::all();
+        $activityRecords = $jobOffer->activityRecords;
+
+        $differentUserAlert = false;
+        if (Auth::id() != $jobOffer->user->id) {
+            $differentUserAlert = true;
+            \Session::flash('AlertMsg', '警告：データーベースに登録されている営業担当とログインユーザーが一致しません');
+        }
+
+
+        return view('job_offers.detail', [
+            'jobOffer' => $jobOffer,
+            'users' => $users,
+            'customers' => $customers,
+            'activityRecords' => $activityRecords,
+            'isDraftJobOffer' => false,
+            'differentUserAlert' => $differentUserAlert,
+        ]);
     }
 
 }

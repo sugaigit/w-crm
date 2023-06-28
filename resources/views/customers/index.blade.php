@@ -46,9 +46,9 @@
         @endif --}}
 
         <select type="text" class="form-control mt-3" name="show_filter">
-            <option value="show" {{ request()->query('show_filter') == 'show' ? 'selected' : '' }}>表示を見る</option>
-            <option value="hidden" {{ request()->query('show_filter') == 'hidden' ? 'selected' : '' }}>非表示を見る</option>
-            <option value="all" {{ request()->query('show_filter') == 'all' ? 'selected' : '' }}>すべてを見る</option>
+            <option value="show" {{ request()->query('show_filter') == 'show' ? 'selected' : '' }}>▼表示を見る</option>
+            <option value="hidden" {{ request()->query('show_filter') == 'hidden' ? 'selected' : '' }}>▼非表示を見る</option>
+            <option value="all" {{ request()->query('show_filter') == 'all' ? 'selected' : '' }}>▼すべてを見る</option>
         </select>
     </div>
 </div>
@@ -57,8 +57,6 @@
     <thead>
         <tr class=m-auto style="background-color: lightgray">
             <th class="text-center">顧客ID</th>
-            <th class="text-center">法人形態</th>
-            <th class="text-center">顧客名</th>
             <th class="text-center">取扱会社種別</th>
             <th class="text-center">取扱事業所</th>
             <th class="text-center">業種</th>
@@ -70,10 +68,6 @@
     @foreach($customers as $customer)
     <tr>
         <td>{{ $customer->id }}</td>
-        <td>{{ !empty($customer->corporate_type) ? config('options')['corporate_type'][$customer->corporate_type] :'' }}</td>
-        <td>
-            {{ $customer->customer_name }}
-        </td>
         <td>{{ !empty($customer->handling_type) ? config('options')['handling_type'][$customer->handling_type] :'' }}</td>
         <td>{{ !empty($customer->handling_office) ? config('options')['handling_office'][$customer->handling_office] :'' }}</td>
         <td>{{ $customer->industry }}</td>
@@ -81,16 +75,9 @@
         <td>{{ $customer->user->name }}</td>
         <td>
             <div class="d-flex justify-content-around">
-                <a href="{{ route('customers.edit', $customer->id) }}">
-                    <button class="btn btn-primary" type="button">編集</button>
+                <a href="{{ route('customers.detail', $customer->id) }}">
+                    <button class="btn btn-primary" type="button">詳細</button>
                 </a>
-                <form method="POST" action="{{ route('customers.hidden', $customer->id) }}">
-                    @csrf
-                    <button class="btn {{ $customer->is_show == true ? 'btn-danger' : 'btn-success'}}" type="submit">
-                        {{ $customer->is_show == true ? '非表示にする' : '表示にする'}}
-                    </button>
-                    <input type="hidden" name="hidden_flag" value={{ $customer->is_show == true ? '1' : '0'}}>
-                </form>
             </div>
         </td>
     </tr>

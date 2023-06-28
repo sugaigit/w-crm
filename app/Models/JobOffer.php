@@ -115,7 +115,8 @@ class JobOffer extends Model
         'transaction_duration',
         'expected_sales',
         'profit_rate',
-        'special_matters'
+        'special_matters',
+        'rank'
     ];
 
 
@@ -131,7 +132,7 @@ class JobOffer extends Model
 
     public function activityRecords()
     {
-        return $this->hasMany(ActivityRecord::class);
+        return $this->hasMany(ActivityRecord::class)->orderBy('date', 'desc');;
     }
 
     public function getJobOfferPoint()

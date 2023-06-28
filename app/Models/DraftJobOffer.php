@@ -115,7 +115,8 @@ class DraftJobOffer extends Model
         'transaction_duration',
         'expected_sales',
         'profit_rate',
-        'special_matters'
+        'special_matters',
+        'rank'
     ];
 
     public function user()
