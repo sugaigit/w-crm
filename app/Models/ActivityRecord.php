@@ -20,6 +20,6 @@ class ActivityRecord extends Model
 
     public function jobOffer()
     {
-        return $this->belongsTo(jobOffer::class);
+        return $this->belongsTo(JobOffer::class);
     }
 }
