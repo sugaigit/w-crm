@@ -136,6 +136,12 @@
                             </td>
                         </tr>
                         <tr>
+                            <th>支店</th>
+                            <td>
+                                <input type="text" class="form-control" name="branch" value="{{ isset($customer->branch) ? $customer->branch : '' }}">
+                            </td>
+                        </tr>
+                        <tr>
                             <th>所属部署</th>
                             <td>
                                 <input type="text" class="form-control" name="department" value="{{ isset($customer->department) ? $customer->department : '' }}">

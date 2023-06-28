@@ -113,6 +113,7 @@ class CustomerController extends Controller
             'business_expansion_potential' => $request->input('business_expansion_potential'),
             'company_history' => $request->input('company_history'),
             'reliability' => $request->input('reliability'),
+            'branch' => $request->input('branch'),
             'department' => $request->input('department'),
             'manager_name' => $request->input('manager_name'),
             'address' => $address,
@@ -121,7 +122,7 @@ class CustomerController extends Controller
             'fax' => $request->input('fax'),
         ]);
 
-        $request->session()->flash('SucccessMsg', '登録しました');
+        $request->session()->flash('SuccessMsg', '登録しました');
 
         return redirect('/customers');
     }
@@ -206,6 +207,7 @@ class CustomerController extends Controller
         $customer->business_expansion_potential = $request->input('business_expansion_potential');
         $customer->company_history = $request->input('company_history');
         $customer->reliability = $request->input('reliability');
+        $customer->branch = $request->input('branch');
         $customer->department = $request->input('department');
         $customer->manager_name = $request->input('manager_name');
         $customer->address = $address;
@@ -217,7 +219,7 @@ class CustomerController extends Controller
 
         $request->session()->flash('SucccessMsg', '保存しました');
 
-        return redirect('/customers');
+        return redirect(route('customers.detail', $customerId));
     }
 
     /**

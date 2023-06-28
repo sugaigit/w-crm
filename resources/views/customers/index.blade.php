@@ -70,7 +70,7 @@
         <td>{{ $customer->id }}</td>
         <td>{{ !empty($customer->handling_type) ? config('options')['handling_type'][$customer->handling_type] :'' }}</td>
         <td>{{ !empty($customer->handling_office) ? config('options')['handling_office'][$customer->handling_office] :'' }}</td>
-        <td>{{ $customer->industry }}</td>
+        <td>{{ !empty($customer->industry) ? config('options')['industry'][$customer->industry] :'' }}</td>
         <td>{{ $customer->address }}</td>
         <td>{{ $customer->user->name }}</td>
         <td>
