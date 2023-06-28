@@ -53,8 +53,8 @@ class CreateJobOffersTable extends Migration
             $table->string('social_insurance', 100)->comment('社会保険加入');//
             $table->string('payment_unit_price_1', 100)->comment('支払単価①');//
             $table->string('payment_unit_1', 100)->comment('支払単位①');//
-            $table->string('carfare_1', 100)->comment('交通費①');//
-            $table->string('carfare_payment_1', 100)->comment('交通費支払単位①');//
+            $table->string('carfare_1', 100)->comment('交通費①');->nullable();//
+            $table->string('carfare_payment_1', 100)->comment('交通費支払単位①');->nullable();//
             $table->string('carfare_payment_remarks_1', 100)->comment('支払情報①備考')->nullable();//
             $table->string('employment_insurance_2', 100)->comment('雇用保険加入②');//
             $table->string('social_insurance_2', 100)->comment('社会保険加入②');//
