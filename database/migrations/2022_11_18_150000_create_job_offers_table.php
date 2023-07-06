@@ -53,8 +53,8 @@ class CreateJobOffersTable extends Migration
             $table->string('social_insurance', 100)->comment('社会保険加入');//
             $table->string('payment_unit_price_1', 100)->comment('支払単価①');//
             $table->string('payment_unit_1', 100)->comment('支払単位①');//
-            $table->string('carfare_1', 100)->comment('交通費①');->nullable();//
-            $table->string('carfare_payment_1', 100)->comment('交通費支払単位①');->nullable();//
+            $table->string('carfare_1', 100)->comment('交通費①')->nullable();//
+            $table->string('carfare_payment_1', 100)->comment('交通費支払単位①')->nullable();//
             $table->string('carfare_payment_remarks_1', 100)->comment('支払情報①備考')->nullable();//
             $table->string('employment_insurance_2', 100)->comment('雇用保険加入②');//
             $table->string('social_insurance_2', 100)->comment('社会保険加入②');//
@@ -74,7 +74,7 @@ class CreateJobOffersTable extends Migration
             $table->date('expected_end_date')->comment('終了予定日')->nullable();//
             $table->text('period_remarks')->comment('期間備考')->nullable();//
             $table->string('holiday')->comment('休日');//
-            $table->string('long_vacation')->comment('長期休暇');//
+            $table->string('long_vacation')->comment('長期休暇')->nullable();//
             $table->text('holiday_remarks')->comment('休日備考')->nullable();//
             $table->string('working_hours_1')->comment('勤務時間①');//
             $table->string('actual_working_hours_1')->comment('実働時間①');//
