@@ -195,7 +195,7 @@ class JobOfferController extends Controller
 
         //Slack通知
         if (!$isDuplicated) {
-            $path = route('job_offers.edit', ['job_offer' => $newJobOffer->id]);
+            $path = route('job_offers.detail', ['job_offer' => $newJobOffer->id]);
             $status = config('options.status_edit')[$newJobOffer->status];
             $handlingType = config('options.handling_type')[$newJobOffer->handling_type];
             $handlingOffice = config('options.handling_office')[$newJobOffer->handling_office];
@@ -212,7 +212,7 @@ class JobOfferController extends Controller
 予定期間：{$newJobOffer->scheduled_period}
 詳細：{$path}```
 ";
-            $response = $client->post(
+            $client->post(
                 config('slack.webhook_url'),
                 [
                     'headers' => [
@@ -437,7 +437,7 @@ class JobOfferController extends Controller
 
             //Slack通知
             if ($statusIsUpdated) {
-                $path = route('job_offers.edit', ['job_offer' => $request->jobOfferId]);
+                $path = route('job_offers.detail', ['job_offer' => $request->jobOfferId]);
                 $status = config('options.status_edit')[$request->input('status')];
                 $handlingType = config('options.handling_type')[$request->input('handling_type')];
                 $handlingOffice = config('options.handling_office')[$request->input('handling_office')];
@@ -454,7 +454,7 @@ class JobOfferController extends Controller
                 予定期間：{$request->input('scheduled_period')}
                 詳細：{$path}```
                 ";
-                $response = $client->post(
+                $client->post(
                     config('slack.webhook_url'),
                     [
                         'headers' => [
@@ -497,7 +497,6 @@ class JobOfferController extends Controller
             \SplFileObject::DROP_NEW_LINE
         );
         // バリデーション（後々実装）
-        //Slack通知←どうする？todo: 要確認
         $users = User::all();
         $customers = Customer::all();
 
