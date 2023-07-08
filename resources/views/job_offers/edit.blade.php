@@ -103,6 +103,7 @@
                                 <option value="{{ $customer->id }}" {{ $customer->id == old('customer_id') ? 'selected' : '' }}>{{ $customer->customer_name }}</option>
                                 @endif
                             @endforeach
+                            </select>
                         </td>
                     </tr>
                     <tr>
