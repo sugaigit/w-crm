@@ -58,7 +58,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="{{ route('invalid.index') }}" style="text-decoration: none;">
+                                        <a href="{{ route('invalid_job_offers') }}" style="text-decoration: none;">
                                             <button class="btn btn-secondary btn-lg mb-2" type="button">
                                                 ランク外求人一覧
                                             </button>
