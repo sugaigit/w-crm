@@ -94,7 +94,7 @@
                     <tr>
                         <th>顧客<span class="text-danger">*</span></th>
                         <td>
-                            <select type="text" class="form-control required" name="customer_id" required>
+                            <select type="text" class="form-control select2 required" name="customer_id" required>
                             <option value="">顧客を選んで下さい</option>
                             @foreach( $customers as $customer )
                                 @if (is_null(old('customer_id')))
@@ -103,7 +103,6 @@
                                 <option value="{{ $customer->id }}" {{ $customer->id == old('customer_id') ? 'selected' : '' }}>{{ $customer->customer_name }}</option>
                                 @endif
                             @endforeach
-                            </select>
                         </td>
                     </tr>
                     <tr>
@@ -1374,5 +1373,18 @@
 @endsection
 
 @section('js')
-  <script type="text/javascript" src="{{ asset('/js/job_offer/edit.js') }}"></script>
+    <!-- Select2.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css">
+    <!-- Select2本体 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.min.js"></script>
+    <!-- Select2日本語化 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/i18n/ja.js"></script>
+    <script>
+        $(function() {
+            $('.select2').select2({
+                language: "ja" //日本語化
+            });
+        })
+    </script>
+    <script type="text/javascript" src="{{ asset('/js/job_offer/edit.js') }}"></script>
 @endsection
