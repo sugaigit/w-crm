@@ -27,7 +27,9 @@ class JobOfferController extends Controller
         $users = User::all();
         $perPage = $request->per_page ?? 30;
 
-        $jobOffers = JobOffer::when($request->userId, function ($query, $userId) {
+        $jobOffers = JobOffer::whereNotIn('rank', ['C', 'D'])
+        ->orWhereNull('rank')
+        ->when($request->userId, function ($query, $userId) {
             return $query->where('user_id', $userId);
         })
         ->when($request->companyName, function ($query, $companyName) {
@@ -78,6 +80,66 @@ class JobOfferController extends Controller
         return view('job_offers.index', [
             'jobOffers' => $jobOffers,
             'draftJobOffers' => $draftJobOffers,
+            'users' => $users,
+        ]);
+    }
+
+    public function showInvalids(Request $request)
+    {
+        $users = User::all();
+        $perPage = $request->per_page ?? 30;
+
+        $jobOffers = JobOffer::whereIn('rank', ['C', 'D'])
+        ->when($request->userId, function ($query, $userId) {
+            return $query->where('user_id', $userId);
+        })
+        ->when($request->companyName, function ($query, $companyName) {
+            return $query->where('company_name', 'like' , "%{$companyName}%");
+        })
+        ->when($request->jobNumber, function ($query, $jobNumber) {
+            return $query->where('job_number', $jobNumber);
+        })
+        ->when($request->status, function ($query, $status) {
+            return $query->whereIn('status', $status);
+        })
+        ->when($request->orderDateStart, function ($query, $orderDateStart) {
+            return $query->whereDate('order_date', '>=', $orderDateStart);
+        })
+        ->when($request->orderDateEnd, function ($query, $orderDateEnd) {
+            return $query->whereDate('order_date', '<=', $orderDateEnd);
+        })
+        ->when($request->keywords, function ($query, $keywords) {
+            $smallSpaceKeywords = mb_convert_kana($keywords, 's');
+            $keywords = explode(' ', $smallSpaceKeywords);
+
+            // キーワードはAND、カラムはOR
+            foreach($keywords as $keyword) {
+                if (array_search($keyword, config('options.holiday'))) {
+                    $keyword = array_search($keyword, config('options.holiday'));
+                }
+                if (array_search($keyword, config('options.long_vacation'))) {
+                    $keyword = array_search($keyword, config('options.long_vacation'));
+                }
+                $query->where(function($query) use ($keyword){
+                    $query->where('company_name', 'LIKE', "%{$keyword}%")
+                        ->orWhere('company_address', 'LIKE', "%{$keyword}%")
+                        ->orWhere('ordering_business', 'LIKE', "%{$keyword}%")
+                        ->orWhere('order_details', 'LIKE', "%{$keyword}%")
+                        ->orWhere('scheduled_period', 'LIKE', "%{$keyword}%")
+                        ->orWhere('holiday', 'LIKE', "%{$keyword}%")
+                        ->orWhere('long_vacation', 'LIKE', "%{$keyword}%")
+                        ->orWhere('scheduled_period', 'LIKE', "%{$keyword}%");
+                });
+            }
+
+            return $query;
+        })
+        ->orderBy('id', 'desc')
+        ->paginate($perPage)
+        ->withQueryString();
+
+        return view('invalid_job_offers.index', [
+            'jobOffers' => $jobOffers,
             'users' => $users,
         ]);
     }
@@ -183,10 +245,6 @@ class JobOfferController extends Controller
         } else {
             $rank = 'D';
         }
-        if ($jobOfferRank < 51) {
-            $request['rank'] = $rank;
-			return app()->make('App\Http\Controllers\DraftJobOfferController')->store($request);
-        }
 
         $saveData['rank'] = $rank;
         $newJobOffer = JobOffer::create($saveData);
@@ -223,6 +281,10 @@ class JobOfferController extends Controller
                     ]
                 ]
             );
+        }
+
+        if ($jobOfferRank < 51) {
+			return redirect(route('invalid_job_offers.index'));
         }
 
         return redirect(route('job_offers.index'));
