@@ -130,7 +130,7 @@
                                 <tr>
                                     <th>発注業務詳細<span class="text-danger">*</span></th>
                                     <td>
-                                        <textarea rows="3" type="text" class="form-control required" name="order_details" required>{{ old('order_details')}}</textarea>
+                                        <textarea rows="5" type="text" class="form-control required" name="order_details" required>{{ old('order_details')}}</textarea>
                                     </td>
                                 </tr>
                                 <tr>
@@ -550,7 +550,7 @@
                                 <tr>
                                     <th>休日備考</th>
                                     <td>
-                                        <textarea rows="3" class="form-control" name="holiday_remarks">{{ old('holiday_remarks') }}</textarea>
+                                        <textarea rows="1" class="form-control" name="holiday_remarks">{{ old('holiday_remarks') }}</textarea>
                                     </td>
                                 </tr>
                                 <tr>
@@ -626,7 +626,7 @@
                                 <tr>
                                     <th>勤務時間備考</th>
                                     <td>
-                                        <textarea rows="3" type="text" class="form-control" name="working_hours_remarks">{{ old('working_hours_remarks') }}</textarea>
+                                        <textarea rows="5" type="text" class="form-control" name="working_hours_remarks">{{ old('working_hours_remarks') }}</textarea>
                                     </td>
                                 </tr>
                                 <tr>
@@ -667,7 +667,7 @@
                                 <tr>
                                     <th>交通通勤備考</th>
                                     <td>
-                                        <textarea rows="3" class="form-control" name="traffic_commuting_remarks" >{{ old('traffic_commuting_remarks') }}</textarea>
+                                        <textarea rows="5" class="form-control" name="traffic_commuting_remarks" >{{ old('traffic_commuting_remarks') }}</textarea>
                                     </td>
                                 </tr>
                                 <tr>
@@ -770,7 +770,7 @@
                                 <tr>
                                     <th>職場の雰囲気・備考</th>
                                     <td>
-                                        <textarea type="textarea" rows="3" class="form-control" name="remarks_workplace">{{ old('remarks_workplace') }}</textarea>
+                                        <textarea type="textarea" rows="10" class="form-control" name="remarks_workplace">{{ old('remarks_workplace') }}</textarea>
                                     </td>
                                 </tr>
                                 <tr>
@@ -878,7 +878,7 @@
                                 <tr class="afterRecruit">
                                     <th>その他</th>
                                     <td>
-                                        <textarea rows="3" type="text" class="form-control" name="introduction_others">{{ old('introduction_others') }}</textarea>
+                                        <textarea rows="5" type="text" class="form-control" name="introduction_others">{{ old('introduction_others') }}</textarea>
                                     </td>
                                 </tr>
                             </tbody>

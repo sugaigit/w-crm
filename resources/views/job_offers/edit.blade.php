@@ -179,9 +179,9 @@
                         <th>発注業務詳細<span class="text-danger">*</span></th>
                         <td>
                             @if (is_null(old('order_details')))
-                            <textarea type="text" maxlength="100" class="form-control required" name="order_details" required> {{ isset($jobOffer->order_details) ? $jobOffer->order_details : '' }} </textarea>
+                            <textarea type="text" maxlength="100" rows="5" class="form-control required" name="order_details" required> {{ isset($jobOffer->order_details) ? $jobOffer->order_details : '' }} </textarea>
                             @else
-                            <textarea type="textarea" rows="3" class="form-control" name="order_details" required> {{ old('order_details') }}</textarea>
+                            <textarea type="textarea" rows="5" class="form-control" name="order_details" required> {{ old('order_details') }}</textarea>
                             @endif
                         </td>
                     </tr>
@@ -523,9 +523,9 @@
                         </td>
                     </tr>
                     <tr class="payment-2">
-                        <th>雇用保険加入②<span class="text-danger">*</span></th>
+                        <th>雇用保険加入②</th>
                         <td>
-                            <select type="text" class="form-control required" name="employment_insurance_2" required>
+                            <select type="text" class="form-control required" name="employment_insurance_2">
                             <option value="">雇用保険の有無を選んで下さい</option>
                             @foreach( config('options.existence') as $key => $employment_insurance_2 )
                                 @if (is_null(old('employment_insurance_2')))
@@ -538,9 +538,9 @@
                         </td>
                     </tr>
                     <tr class="payment-2">
-                        <th>社会保険加入②<span class="text-danger">*</span></th>
+                        <th>社会保険加入②</th>
                         <td>
-                            <select type="text" class="form-control required" name="social_insurance_2" required>
+                            <select type="text" class="form-control required" name="social_insurance_2">
                             <option value="">社会保険の有無を選んで下さい</option>
                             @foreach( config('options.existence') as $key => $social_insurance_2 )
                                 @if (is_null(old('social_insurance_2')))
@@ -612,9 +612,9 @@
                         </td>
                     </tr>
                     <tr class="payment-3">
-                        <th>雇用保険加入③<span class="text-danger">*</span></th>
+                        <th>雇用保険加入③</th>
                         <td>
-                            <select type="text" class="form-control required" name="employment_insurance_3" required>
+                            <select type="text" class="form-control required" name="employment_insurance_3" >
                             <option value="">雇用保険の有無を選んで下さい</option>
                             @foreach( config('options.existence') as $key => $employment_insurance_3 )
                                 @if (is_null(old('employment_insurance_3')))
@@ -627,9 +627,9 @@
                         </td>
                     </tr>
                     <tr class="payment-3">
-                        <th>社会保険加入③<span class="text-danger">*</span></th>
+                        <th>社会保険加入③</th>
                         <td>
-                            <select type="text" class="form-control required" name="social_insurance_3" required>
+                            <select type="text" class="form-control required" name="social_insurance_3">
                             <option value="">社会保険の有無を選んで下さい</option>
                             @foreach( config('options.existence') as $key => $social_insurance_3 )
                                 @if (is_null(old('social_insurance_3')))
@@ -770,9 +770,9 @@
                         <th>休日備考</th>
                         <td>
                             @if (is_null(old('holiday_remarks')))
-                            <textarea type="textarea" rows="3" class="form-control" name="holiday_remarks"> {{ isset($jobOffer->holiday_remarks) ? $jobOffer->holiday_remarks : '' }}</textarea>
+                            <textarea type="textarea" rows="1" class="form-control" name="holiday_remarks"> {{ isset($jobOffer->holiday_remarks) ? $jobOffer->holiday_remarks : '' }}</textarea>
                             @else
-                            <textarea type="textarea" rows="3" class="form-control" name="holiday_remarks"> {{ old('holiday_remarks') }}</textarea>
+                            <textarea type="textarea" rows="1" class="form-control" name="holiday_remarks"> {{ old('holiday_remarks') }}</textarea>
                             @endif
                         </td>
                     </tr>
@@ -890,9 +890,9 @@
                         <th>勤務時間備考</th>
                         <td>
                             @if (is_null(old('working_hours_remarks')))
-                            <textarea type="textarea" rows="3" class="form-control" name="working_hours_remarks"> {{ isset($jobOffer->working_hours_remarks) ? $jobOffer->working_hours_remarks : '' }}</textarea>
+                            <textarea type="textarea" rows="1" class="form-control" name="working_hours_remarks"> {{ isset($jobOffer->working_hours_remarks) ? $jobOffer->working_hours_remarks : '' }}</textarea>
                             @else
-                            <textarea type="textarea" rows="3" class="form-control" name="working_hours_remarks"> {{ old('working_hours_remarks') }}</textarea>
+                            <textarea type="textarea" rows="1" class="form-control" name="working_hours_remarks"> {{ old('working_hours_remarks') }}</textarea>
                             @endif
                         </td>
                     </tr>
@@ -1110,9 +1110,9 @@
                         <th>職場の雰囲気・備考</th>
                         <td>
                             @if (is_null(old('remarks_workplace')))
-                            <textarea type="textarea" rows="3" class="form-control" name="remarks_workplace">{{ isset( $jobOffer->remarks_workplace) ? $jobOffer->remarks_workplace : '' }}</textarea>
+                            <textarea type="textarea" rows="10" class="form-control" name="remarks_workplace">{{ isset( $jobOffer->remarks_workplace) ? $jobOffer->remarks_workplace : '' }}</textarea>
                             @else
-                            <textarea type="textarea" rows="3" class="form-control" name="remarks_workplace">{{ old('remarks_workplace') }}</textarea>
+                            <textarea type="textarea" rows="10" class="form-control" name="remarks_workplace">{{ old('remarks_workplace') }}</textarea>
                             @endif
                         </td>
                     </tr>
