@@ -253,14 +253,15 @@ class JobOfferController extends Controller
 
         //Slack通知
         if (!$isDuplicated) {
-            $path = route('job_offers.detail', ['job_offer' => $newJobOffer->id]);
+            // $path = route('job_offers.detail', ['job_offer' => $newJobOffer->id]);
+            $path = route('job_offers.detail', $joboffer->id);
             $status = config('options.status_edit')[$newJobOffer->status];
             $handlingType = config('options.handling_type')[$newJobOffer->handling_type];
             $handlingOffice = config('options.handling_office')[$newJobOffer->handling_office];
 
             $client = new Client();
             $content ="
-```■{$status}
+■{$status}
 取扱会社種別：{$handlingType}
 取扱事業所：{$handlingOffice}
 営業担当：{$newJobOffer->user->name}
@@ -499,14 +500,15 @@ class JobOfferController extends Controller
 
             //Slack通知
             if ($statusIsUpdated) {
-                $path = route('job_offers.detail', ['job_offer' => $request->jobOfferId]);
+                // $path = route('job_offers.detail', ['job_offer' => $request->jobOfferId]);
+                $path = route('job_offers.detail', $request->jobOfferId);
                 $status = config('options.status_edit')[$request->input('status')];
                 $handlingType = config('options.handling_type')[$request->input('handling_type')];
                 $handlingOffice = config('options.handling_office')[$request->input('handling_office')];
 
                 $client = new Client();
                 $content ="
-```■{$status}
+■{$status}
 取扱会社種別：{$handlingType}
 取扱事業所：{$handlingOffice}
 営業担当：{$jobOffer->user->name}
@@ -514,7 +516,7 @@ class JobOfferController extends Controller
 就業先名称と発注業務：{$request->input('company_name')}/{$request->input('ordering_business')}
 募集人数：{$request->input('recruitment_number')}人
 予定期間：{$request->input('scheduled_period')}
-詳細：{$path}```
+詳細：{$path}
 ";
                 $client->post(
                     config('slack.webhook_url'),
