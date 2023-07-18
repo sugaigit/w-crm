@@ -181,13 +181,13 @@
                         <th>発注業務詳細<span class="text-danger">*</span></th>
                         <td>
                             @if (is_null(old('order_details')))
-                            <input  style="pointer-events: none;" tabindex="-1" type="text" maxlength="100" class="form-control required" name="order_details" value="{{ isset($jobOffer->order_details) ? $jobOffer->order_details : '' }}" required>
+                            <textarea style="pointer-events: none;" type="textarea" rows="5" class="form-control" name="order_details" required>{{ isset( $jobOffer->order_details) ? $jobOffer->order_details : '' }}</textarea>
                             @else
-                            <input  style="pointer-events: none;" tabindex="-1" type="text" maxlength="100" class="form-control required" name="order_details" value="{{ old('order_details') }}" required>
+                            <textarea style="pointer-events: none;" type="textarea" rows="5" class="form-control" name="order_details" required> {{ old('order_details') }}</textarea>
                             @endif
                         </td>
                     </tr>
-                    <th>発注拠点数<span class="text-danger">*</span></th>
+                    <th>発注拠点数</th>
                     <td>
                         <select  style="pointer-events: none;" tabindex="-1" type="text" class="form-control required" name="number_of_ordering_bases" required>
                             <option value="">発注拠点数を選んで下さい</option>
@@ -202,7 +202,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th>発注人数<span class="text-danger">*</span></th>
+                    <th>発注人数</th>
                     <td>
                         <select  style="pointer-events: none;" tabindex="-1" type="text" class="form-control required" name="order_number" required>
                             <option value="">発注人数を選んで下さい</option>
@@ -217,7 +217,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th>取引継続期間<span class="text-danger">*</span></th>
+                    <th>取引継続期間</th>
                     <td>
                         <select  style="pointer-events: none;" tabindex="-1" type="text" class="form-control required" name="transaction_duration" required>
                             <option value="">取引継続期間を選んで下さい</option>
@@ -232,7 +232,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th>売上見込額<span class="text-danger">*</span></th>
+                    <th>売上見込額</th>
                     <td>
                         <select  style="pointer-events: none;" tabindex="-1" type="text" class="form-control required" name="expected_sales" required>
                             <option value="">売上見込額を選んで下さい</option>
@@ -247,7 +247,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th>利益率<span class="text-danger">*</span></th>
+                    <th>利益率</th>
                     <td>
                         <select  style="pointer-events: none;" tabindex="-1" type="text" class="form-control required" name="profit_rate" required>
                             <option value="">利益率を選んで下さい</option>
@@ -262,7 +262,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th>特別事項<span class="text-danger">*</span></th>
+                    <th>特別事項</th>
                     <td>
                         <select  style="pointer-events: none;" tabindex="-1" type="text" class="form-control required" name="special_matters" required>
                             <option value="">特別事項を選んで下さい</option>
@@ -771,9 +771,9 @@
                         <th>休日備考</th>
                         <td>
                             @if (is_null(old('holiday_remarks')))
-                            <textarea type="textarea" rows="3" class="form-control" name="holiday_remarks"> {{ isset($jobOffer->holiday_remarks) ? $jobOffer->holiday_remarks : '' }}</textarea>
+                            <textarea style="pointer-events: none;" tabindex="-1" type="textarea" rows="1" class="form-control" name="holiday_remarks"> {{ isset($jobOffer->holiday_remarks) ? $jobOffer->holiday_remarks : '' }}</textarea>
                             @else
-                            <textarea type="textarea" rows="3" class="form-control" name="holiday_remarks"> {{ old('holiday_remarks') }}</textarea>
+                            <textarea type="textarea" rows="1" class="form-control" name="holiday_remarks"> {{ old('holiday_remarks') }}</textarea>
                             @endif
                         </td>
                     </tr>
@@ -891,9 +891,9 @@
                         <th>勤務時間備考</th>
                         <td>
                             @if (is_null(old('working_hours_remarks')))
-                            <textarea type="textarea" rows="3" class="form-control" name="working_hours_remarks"> {{ isset($jobOffer->working_hours_remarks) ? $jobOffer->working_hours_remarks : '' }}</textarea>
+                            <textarea style="pointer-events: none;"  rows="1" class="form-control" name="working_hours_remarks"> {{ isset($jobOffer->working_hours_remarks) ? $jobOffer->working_hours_remarks : '' }}</textarea>
                             @else
-                            <textarea type="textarea" rows="3" class="form-control" name="working_hours_remarks"> {{ old('working_hours_remarks') }}</textarea>
+                            <textarea type="textarea" rows="1" class="form-control" name="working_hours_remarks"> {{ old('working_hours_remarks') }}</textarea>
                             @endif
                         </td>
                     </tr>
@@ -1111,9 +1111,9 @@
                         <th>職場の雰囲気・備考</th>
                         <td>
                             @if (is_null(old('remarks_workplace')))
-                            <textarea type="textarea" rows="3" class="form-control" name="remarks_workplace">{{ isset( $jobOffer->remarks_workplace) ? $jobOffer->remarks_workplace : '' }}</textarea>
+                            <textarea style="pointer-events: none;" type="textarea" rows="10" class="form-control" name="remarks_workplace">{{ isset( $jobOffer->remarks_workplace) ? $jobOffer->remarks_workplace : '' }}</textarea>
                             @else
-                            <textarea type="textarea" rows="3" class="form-control" name="remarks_workplace">{{ old('remarks_workplace') }}</textarea>
+                            <textarea style="pointer-events: none;" type="textarea" rows="10" class="form-control" name="remarks_workplace">{{ old('remarks_workplace') }}</textarea>
                             @endif
                         </td>
                     </tr>
