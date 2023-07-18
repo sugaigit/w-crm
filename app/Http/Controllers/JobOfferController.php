@@ -528,7 +528,7 @@ class JobOfferController extends Controller
                     ]
                 );
             }
-            return redirect(route('job_offers.index'));
+            return redirect(route('job_offers.detail', $jobOffer->id));
         }
 
     }
