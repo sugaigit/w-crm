@@ -74,7 +74,7 @@ class DraftJobOfferController extends Controller
         if (isset($draftJobOffer['holiday'])) {
             $draftJobOffer['holiday'] = json_decode($draftJobOffer['holiday']);
         }
-        if ($draftJobOffer['long_vacation']) {
+        if (isset($draftJobOffer['long_vacation'])) {
             $draftJobOffer['long_vacation'] = json_decode($draftJobOffer['long_vacation']);
         }
 
@@ -232,7 +232,7 @@ class DraftJobOfferController extends Controller
         if (isset($draftJobOffer['holiday'])) {
             $draftJobOffer['holiday'] = json_decode($draftJobOffer['holiday']);
         }
-        if ($draftJobOffer['long_vacation']) {
+        if (isset($draftJobOffer['long_vacation'])) {
             $draftJobOffer['long_vacation'] = json_decode($draftJobOffer['long_vacation']);
         }
 
