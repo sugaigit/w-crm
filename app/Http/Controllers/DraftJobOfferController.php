@@ -212,7 +212,7 @@ class DraftJobOfferController extends Controller
         $draftJobOffer->save();
         $request->session()->flash('SucccessMsg', '下書き更新しました');
 
-        return redirect(route('draft.index'));
+        return redirect(route('draft.detail', $draftJobOffer->id));
     }
 
     public function destroy($id)
