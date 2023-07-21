@@ -74,6 +74,7 @@
             <th>発注人数</th>
             <th>請求単価①</th>
             <th>支払単価①</th>
+            <th>利益率①</th>
             <th>営業担当</th>
             <th>操作</th>
         </tr>
@@ -94,6 +95,7 @@
                 <td>{{ $jobOffer->order_number != null ? config('options.order_number')[$jobOffer->order_number] : '' }}</td>
                 <td>{{ $jobOffer->invoice_unit_price_1 }}</td>
                 <td>{{ $jobOffer->payment_unit_price_1 }}</td>
+                <td>{{ $jobOffer->profit_rate_1 }}</td>
                 <td>{{ $jobOffer->user->name }}</td>
                 <td>
                     <div class="d-flex justify-content-around">
