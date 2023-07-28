@@ -253,24 +253,43 @@ class JobOfferController extends Controller
 
         //Slack通知
         if (!$isDuplicated) {
-            // $path = route('job_offers.detail', ['job_offer' => $newJobOffer->id]);
-            $path = route('job_offers.detail', $joboffer->id);
+            $path = route('job_offers.detail', ['job_offer' => $newJobOffer->id]);
+            // $path = route('job_offers.detail', $joboffer->id);
             $status = config('options.status_edit')[$newJobOffer->status];
             $handlingType = config('options.handling_type')[$newJobOffer->handling_type];
             $handlingOffice = config('options.handling_office')[$newJobOffer->handling_office];
+            $jobwithdrawal = config('options.job_withdrawal')[$draftJobOffers->job_withdrawal];
+            $typecontract = config('options.type_contract')[$newJobOffer->type_contract];
 
             $client = new Client();
-            $content ="
+
+            if($status == '新規作成'){
+                $content ="
 ■{$status}
 取扱会社種別：{$handlingType}
 取扱事業所：{$handlingOffice}
-営業担当：{$newJobOffer->user->name}
-就業先名称と発注業務：{$newJobOffer->company_name}/{$newJobOffer->ordering_business}
-お仕事番号：{$newJobOffer->job_number}
-募集人数：{$newJobOffer->recruitment_number}人
-予定期間：{$newJobOffer->scheduled_period}
-詳細：{$path}```
-";
+営業担当：{$jobOffer->user->name}
+就業先名称と発注業務：{$request->input('company_name')}/{$request->input('ordering_business')}
+募集人数：{$request->input('recruitment_number')}人
+予定期間：{$request->input('scheduled_period')}
+契約形態：{$typecontract}
+詳細：{$path}
+                ";
+            } else if ($status == '再発注'){
+                $content ="
+■{$status}
+取扱会社種別：{$handlingType}
+取扱事業所：{$handlingOffice}
+営業担当：{$jobOffer->user->name}
+お仕事番号：{$request->input('job_number')}
+就業先名称と発注業務：{$request->input('company_name')}/{$request->input('ordering_business')}
+募集人数：{$request->input('recruitment_number')}人
+予定期間：{$request->input('scheduled_period')}
+契約形態：{$typecontract}
+詳細：{$path}
+                ";
+        }
+
             $client->post(
                 config('slack.webhook_url'),
                 [
@@ -375,7 +394,6 @@ class JobOfferController extends Controller
 
             // 求人情報の更新処理
             $jobOffer = JobOffer::find($request->jobOfferId);
-
             // Slack通知をするかしないか判定するためのフラグ
             $statusIsUpdated = false;
 
@@ -484,6 +502,7 @@ class JobOfferController extends Controller
             $jobOffer->expected_sales= $request->input('expected_sales');
             $jobOffer->profit_rate= $request->input('profit_rate');
             $jobOffer->special_matters= $request->input('special_matters');
+            $jobOffer->job_withdrawal = $request->input('job_withdrawal');
 
             $jobOffer->save();
             $request->session()->flash('SucccessMsg', '保存しました');
@@ -505,9 +524,24 @@ class JobOfferController extends Controller
                 $status = config('options.status_edit')[$request->input('status')];
                 $handlingType = config('options.handling_type')[$request->input('handling_type')];
                 $handlingOffice = config('options.handling_office')[$request->input('handling_office')];
-
+                $typecontract = config('options.type_contract')[$request->input('type_contract')];
+                $jobwithdrawal = config('options.job_withdrawal')[$request->input('job_withdrawal')];
                 $client = new Client();
-                $content ="
+
+                if($status == '新規作成'){
+                    $content ="
+■{$status}
+取扱会社種別：{$handlingType}
+取扱事業所：{$handlingOffice}
+営業担当：{$jobOffer->user->name}
+就業先名称と発注業務：{$request->input('company_name')}/{$request->input('ordering_business')}
+募集人数：{$request->input('recruitment_number')}人
+予定期間：{$request->input('scheduled_period')}
+契約形態：{$typecontract}
+詳細：{$path}
+                    ";
+                } else if ($status == '再発注'){
+                    $content ="
 ■{$status}
 取扱会社種別：{$handlingType}
 取扱事業所：{$handlingOffice}
@@ -516,8 +550,29 @@ class JobOfferController extends Controller
 就業先名称と発注業務：{$request->input('company_name')}/{$request->input('ordering_business')}
 募集人数：{$request->input('recruitment_number')}人
 予定期間：{$request->input('scheduled_period')}
+契約形態：{$typecontract}
 詳細：{$path}
-";
+                    ";
+                    } else if ($status == '更新/編集'){
+                        $content ="
+■{$status}
+取扱事業所：{$handlingOffice}
+営業担当：{$jobOffer->user->name}
+お仕事番号：{$request->input('job_number')}
+就業先名称と発注業務：{$request->input('company_name')}/{$request->input('ordering_business')}
+詳細：{$path}
+                        ";
+                    } else if ($status == '案件終了'){
+                        $content ="
+■{$status}
+取扱会社種別：{$handlingType}
+取扱事業所：{$handlingOffice}
+お仕事番号：{$request->input('job_number')}
+就業先名称と発注業務：{$request->input('company_name')}/{$request->input('ordering_business')}
+求人取り下げの理由：{$jobwithdrawal}
+詳細：{$path}
+                        ";
+                    }
                 $client->post(
                     config('slack.webhook_url'),
                     [
