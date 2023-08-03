@@ -253,8 +253,7 @@ class JobOfferController extends Controller
 
         //Slack通知
         if (!$isDuplicated) {
-            // $path = route('job_offers.detail', ['job_offer' => $newJobOffer->id]);
-            // $path = route('job_offers.detail', $joboffer->id);
+            // $path = route('job_offers.detail', $request->jobOfferId);
             $status = config('options.status_edit')[$newJobOffer->status];
             $handlingType = config('options.handling_type')[$newJobOffer->handling_type];
             $handlingOffice = config('options.handling_office')[$newJobOffer->handling_office];
@@ -267,24 +266,22 @@ class JobOfferController extends Controller
 ■{$status}
 取扱会社種別：{$handlingType}
 取扱事業所：{$handlingOffice}
-営業担当：{$jobOffer->user->name}
+営業担当：{$newJobOffer->user->name}
 就業先名称と発注業務：{$request->input('company_name')}/{$request->input('ordering_business')}
 募集人数：{$request->input('recruitment_number')}人
 予定期間：{$request->input('scheduled_period')}
 契約形態：{$typecontract}
-詳細：{$path}
                 ";
             } else if ($status == '再発注'){
                 $content ="
 ■{$status}
 取扱会社種別：{$handlingType}
 取扱事業所：{$handlingOffice}
-営業担当：{$jobOffer->user->name}
+営業担当：{$newJobOffer->user->name}
 お仕事番号：{$request->input('job_number')}
 就業先名称と発注業務：{$request->input('company_name')}/{$request->input('ordering_business')}
 募集人数：{$request->input('recruitment_number')}人
 予定期間：{$request->input('scheduled_period')}
-契約形態：{$typecontract}
                 ";
         }
 
