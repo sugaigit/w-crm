@@ -253,12 +253,11 @@ class JobOfferController extends Controller
 
         //Slack通知
         if (!$isDuplicated) {
-            $path = route('job_offers.detail', ['job_offer' => $newJobOffer->id]);
+            // $path = route('job_offers.detail', ['job_offer' => $newJobOffer->id]);
             // $path = route('job_offers.detail', $joboffer->id);
             $status = config('options.status_edit')[$newJobOffer->status];
             $handlingType = config('options.handling_type')[$newJobOffer->handling_type];
             $handlingOffice = config('options.handling_office')[$newJobOffer->handling_office];
-            $jobwithdrawal = config('options.job_withdrawal')[$draftJobOffers->job_withdrawal];
             $typecontract = config('options.type_contract')[$newJobOffer->type_contract];
 
             $client = new Client();
@@ -286,7 +285,6 @@ class JobOfferController extends Controller
 募集人数：{$request->input('recruitment_number')}人
 予定期間：{$request->input('scheduled_period')}
 契約形態：{$typecontract}
-詳細：{$path}
                 ";
         }
 

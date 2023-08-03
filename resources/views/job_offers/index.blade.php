@@ -10,7 +10,7 @@
 						<h2 class="text-center">検索</h2>
 
 						<label for="userInput">営業担当</label>
-						<select type="text" class="form-control" name="userId">
+						    <select type="text" class="form-control" name="userId">
 							<option value="">営業担当を選んで下さい</option>
 							@foreach( $users as $user )
 							<option value="{{ $user->id }}" @if (Request::input('userId') == $user->id) selected @endif>{{ $user->name }}</option>
