@@ -130,13 +130,13 @@
                                 <tr>
                                     <th>発注業務詳細<span class="text-danger">*</span></th>
                                     <td>
-                                        <textarea rows="3" type="text" class="form-control required" name="order_details" required>{{ old('order_details')}}</textarea>
+                                        <textarea rows="5" type="text" class="form-control required" name="order_details" required>{{ old('order_details')}}</textarea>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>発注拠点数<span class="text-danger">*</span></th>
+                                    <th>発注拠点数</th>
                                     <td>
-                                        <select type="text" class="form-control required" name="number_of_ordering_bases" required>
+                                        <select type="text" class="form-control" name="number_of_ordering_bases">
                                             <option value="">発注拠点数を選んで下さい</option>
                                             @foreach( config('options.number_of_ordering_bases') as $key => $number_of_ordering_bases )
                                                 <option value="{{ $key }}" {{ old('number_of_ordering_bases') == $key ? 'selected' : '' }}>{{ $number_of_ordering_bases }}</option>
@@ -145,9 +145,9 @@
                                     </td>
                                 </tr>
 								<tr>
-									<th>発注人数<span class="text-danger">*</span></th>
+									<th>発注人数</th>
 									<td>
-										<select type="text" class="form-control required" name="order_number" required>
+										<select type="text" class="form-control" name="order_number" >
 											<option value="">発注人数を選んで下さい</option>
 											@foreach( config('options.order_number') as $key => $order_number )
 												<option value="{{ $key }}" {{ old('order_number') == $key ? 'selected' : '' }}>{{ $order_number }}</option>
@@ -156,9 +156,9 @@
 									</td>
 								</tr>
 								<tr>
-									<th>取引継続期間<span class="text-danger">*</span></th>
+									<th>取引継続期間</th>
 									<td>
-										<select type="text" class="form-control required" name="transaction_duration" required>
+										<select type="text" class="form-control" name="transaction_duration" >
 											<option value="">取引継続期間を選んで下さい</option>
 											@foreach( config('options.transaction_duration') as $key => $transaction_duration )
 												<option value="{{ $key }}" {{ old('transaction_duration') == $key ? 'selected' : '' }}>{{ $transaction_duration }}</option>
@@ -167,9 +167,9 @@
 									</td>
 								</tr>
 								<tr>
-									<th>売上見込額<span class="text-danger">*</span></th>
+									<th>売上見込額</th>
 									<td>
-										<select type="text" class="form-control required" name="expected_sales" required>
+										<select type="text" class="form-control" name="expected_sales" >
 											<option value="">売上見込額を選んで下さい</option>
 											@foreach( config('options.expected_sales') as $key => $expected_sales )
 												<option value="{{ $key }}" {{ old('expected_sales') == $key ? 'selected' : '' }}>{{ $expected_sales }}</option>
@@ -178,9 +178,9 @@
 									</td>
 								</tr>
 								<tr>
-									<th>利益率<span class="text-danger">*</span></th>
+									<th>利益率</th>
 									<td>
-										<select type="text" class="form-control required" name="profit_rate" required>
+										<select type="text" class="form-control " name="profit_rate">
 											<option value="">利益率を選んで下さい</option>
 											@foreach( config('options.profit_rate') as $key => $profit_rate )
 												<option value="{{ $key }}" {{ old('profit_rate') == $key ? 'selected' : '' }}>{{ $profit_rate }}</option>
@@ -189,9 +189,9 @@
 									</td>
 								</tr>
 								<tr>
-									<th>特別事項<span class="text-danger">*</span></th>
+									<th>特別事項</th>
 									<td>
-										<select type="text" class="form-control required" name="special_matters" required>
+										<select type="text" class="form-control" name="special_matters">
 											<option value="">特別事項を選んで下さい</option>
 											@foreach( config('options.special_matters') as $key => $special_matters )
 												<option value="{{ $key }}" {{ old('special_matters') == $key ? 'selected' : '' }}>{{ $special_matters }}</option>
@@ -550,7 +550,7 @@
                                 <tr>
                                     <th>休日備考</th>
                                     <td>
-                                        <textarea rows="3" class="form-control" name="holiday_remarks">{{ old('holiday_remarks') }}</textarea>
+                                        <textarea rows="1" class="form-control" name="holiday_remarks">{{ old('holiday_remarks') }}</textarea>
                                     </td>
                                 </tr>
                                 <tr>
@@ -626,7 +626,7 @@
                                 <tr>
                                     <th>勤務時間備考</th>
                                     <td>
-                                        <textarea rows="3" type="text" class="form-control" name="working_hours_remarks">{{ old('working_hours_remarks') }}</textarea>
+                                        <textarea rows="5" type="text" class="form-control" name="working_hours_remarks">{{ old('working_hours_remarks') }}</textarea>
                                     </td>
                                 </tr>
                                 <tr>
@@ -667,7 +667,7 @@
                                 <tr>
                                     <th>交通通勤備考</th>
                                     <td>
-                                        <textarea rows="3" class="form-control" name="traffic_commuting_remarks" >{{ old('traffic_commuting_remarks') }}</textarea>
+                                        <textarea rows="5" class="form-control" name="traffic_commuting_remarks" >{{ old('traffic_commuting_remarks') }}</textarea>
                                     </td>
                                 </tr>
                                 <tr>
@@ -770,7 +770,7 @@
                                 <tr>
                                     <th>職場の雰囲気・備考</th>
                                     <td>
-                                        <textarea type="textarea" rows="3" class="form-control" name="remarks_workplace">{{ old('remarks_workplace') }}</textarea>
+                                        <textarea type="textarea" rows="10" class="form-control" name="remarks_workplace">{{ old('remarks_workplace') }}</textarea>
                                     </td>
                                 </tr>
                                 <tr>
@@ -878,7 +878,7 @@
                                 <tr class="afterRecruit">
                                     <th>その他</th>
                                     <td>
-                                        <textarea rows="3" type="text" class="form-control" name="introduction_others">{{ old('introduction_others') }}</textarea>
+                                        <textarea rows="5" type="text" class="form-control" name="introduction_others">{{ old('introduction_others') }}</textarea>
                                     </td>
                                 </tr>
                             </tbody>
