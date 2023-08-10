@@ -257,7 +257,7 @@ class JobOfferController extends Controller
             $status = config('options.status_edit')[$newJobOffer->status];
             $handlingType = config('options.handling_type')[$newJobOffer->handling_type];
             $handlingOffice = config('options.handling_office')[$newJobOffer->handling_office];
-            $typecontract = config('options.type_contract')[$newJobOffer->type_contract];
+            $typeContract = config('options.type_contract')[$newJobOffer->type_contract];
 
             $client = new Client();
 
@@ -270,7 +270,7 @@ class JobOfferController extends Controller
 就業先名称と発注業務：{$request->input('company_name')}/{$request->input('ordering_business')}
 募集人数：{$request->input('recruitment_number')}人
 予定期間：{$request->input('scheduled_period')}
-契約形態：{$typecontract}
+契約形態：{$typeContract}
                 ";
             } else if ($status == '再発注'){
                 $content ="
@@ -519,8 +519,8 @@ class JobOfferController extends Controller
                 $status = config('options.status_edit')[$request->input('status')];
                 $handlingType = config('options.handling_type')[$request->input('handling_type')];
                 $handlingOffice = config('options.handling_office')[$request->input('handling_office')];
-                $typecontract = config('options.type_contract')[$request->input('type_contract')];
-                $jobwithdrawal = config('options.job_withdrawal')[$request->input('job_withdrawal')];
+                $typeContract = config('options.type_contract')[$request->input('type_contract')];
+                $jobwithDrawal = config('options.job_withdrawal')[$request->input('job_withdrawal')];
                 $client = new Client();
 
                 if($status == '新規作成'){
@@ -532,7 +532,7 @@ class JobOfferController extends Controller
 就業先名称と発注業務：{$request->input('company_name')}/{$request->input('ordering_business')}
 募集人数：{$request->input('recruitment_number')}人
 予定期間：{$request->input('scheduled_period')}
-契約形態：{$typecontract}
+契約形態：{$typeContract}
 詳細：{$path}
                     ";
                 } else if ($status == '再発注'){
@@ -545,7 +545,7 @@ class JobOfferController extends Controller
 就業先名称と発注業務：{$request->input('company_name')}/{$request->input('ordering_business')}
 募集人数：{$request->input('recruitment_number')}人
 予定期間：{$request->input('scheduled_period')}
-契約形態：{$typecontract}
+契約形態：{$typeContract}
 詳細：{$path}
                     ";
                     } else if ($status == '更新/編集'){
@@ -564,7 +564,7 @@ class JobOfferController extends Controller
 取扱事業所：{$handlingOffice}
 お仕事番号：{$request->input('job_number')}
 就業先名称と発注業務：{$request->input('company_name')}/{$request->input('ordering_business')}
-求人取り下げの理由：{$jobwithdrawal}
+求人取り下げの理由：{$jobwithDrawal}
 詳細：{$path}
                         ";
                     }
