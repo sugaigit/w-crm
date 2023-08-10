@@ -253,7 +253,7 @@ class JobOfferController extends Controller
 
         //Slack通知
         if (!$isDuplicated) {
-            // $path = route('job_offers.detail', $request->jobOfferId);
+            $path = route('job_offers.detail', ['id' => $newJobOffer->id]);
             $status = config('options.status_edit')[$newJobOffer->status];
             $handlingType = config('options.handling_type')[$newJobOffer->handling_type];
             $handlingOffice = config('options.handling_office')[$newJobOffer->handling_office];
@@ -580,7 +580,7 @@ class JobOfferController extends Controller
                     ]
                 );
             }
-            return redirect(route('job_offers.index'));
+            return redirect(route('job_offers.detail', $jobOffer->id));
         }
 
     }
