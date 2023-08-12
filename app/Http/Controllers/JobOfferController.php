@@ -25,12 +25,16 @@ class JobOfferController extends Controller
     {
         $draftJobOffers = DraftJobOffer::all();
         $users = User::all();
+        $customers = Customer::all();
         $perPage = $request->per_page ?? 30;
 
         $jobOffers = JobOffer::whereNotIn('rank', ['C', 'D'])
-        ->orWhereNull('rank')
         ->when($request->userId, function ($query, $userId) {
             return $query->where('user_id', $userId);
+        })
+        ->when($request->customerName, function ($query, $customerName) {
+            $customerId = Customer::where('customer_name', $customerName)->first()->id;
+            return $query->where('customer_id', $customerId);
         })
         ->when($request->companyName, function ($query, $companyName) {
             return $query->where('company_name', 'like' , "%{$companyName}%");
@@ -81,6 +85,7 @@ class JobOfferController extends Controller
             'jobOffers' => $jobOffers,
             'draftJobOffers' => $draftJobOffers,
             'users' => $users,
+            'customers' => $customers,
         ]);
     }
 
