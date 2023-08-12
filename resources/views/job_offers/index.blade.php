@@ -88,7 +88,7 @@
                 <td>{{ $jobOffer->handling_type != null ? config('options.handling_type')[$jobOffer->handling_type] : '' }}</td>
                 <td>{{ $jobOffer->handling_office != null ? config('options.handling_office')[$jobOffer->handling_office] : '' }}</td>
                 <td>{{ $jobOffer->job_number}}</td>
-                <td>{{ $jobOffer->customer->customer_name}}</td>
+                <td><a href="{{ route('customers.detail', $jobOffer->customer->id) }}">{{ $jobOffer->customer->customer_name}}</a></td>
                 <td>{{ $jobOffer->company_name }}</td>
                 <td>{{ $jobOffer->type_contract != null ? config('options.type_contract')[$jobOffer->type_contract] : '' }}</td>
                 <td>{{ $jobOffer->ordering_business }}</td>
