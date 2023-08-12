@@ -75,7 +75,7 @@
         <td>{{ !empty($customer->handling_office) ? config('options')['handling_office'][$customer->handling_office] :'' }}</td>
         <td>{{ $customer->rank }}</td>
         <td>{{ !empty($customer->corporate_type) ? config('options')['corporate_type'][$customer->corporate_type] :'' }}</td>
-        <td>{{ $customer->customer_name }}</td>
+        <td><a href="{{ route('job_offers.index', ['customerName' => $customer->customer_name]) }}">{{ $customer->customer_name }}</a></td>
         <td>{{ !empty($customer->industry) ? config('options')['industry'][$customer->industry] :'' }}</td>
         <td>{{ $customer->address }}</td>
         <td>{{ $customer->user->name }}</td>
