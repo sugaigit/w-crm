@@ -520,7 +520,7 @@ class JobOfferController extends Controller
                 $handlingType = config('options.handling_type')[$request->input('handling_type')];
                 $handlingOffice = config('options.handling_office')[$request->input('handling_office')];
                 $typeContract = config('options.type_contract')[$request->input('type_contract')];
-                $jobwithDrawal = config('options.job_withdrawal')[$request->input('job_withdrawal')];
+                $jobwithDrawal = $request->input('job_withdrawal') ? config('options.job_withdrawal')[$request->input('job_withdrawal')] : "未記入";
                 $client = new Client();
 
                 if($status == '新規作成'){
