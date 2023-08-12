@@ -17,6 +17,14 @@
 							@endforeach
 						</select>
 
+						<label for="clientInput" class="mt-3">顧客名</label>
+						<input class="form-control mt-1" type="search" id="customerInput" placeholder="顧客名を入力" name="customerName" value="{{ Request::input('customerName') }}" list="customers-list">
+                        <datalist id="customers-list">
+                            @foreach( $customers as $customer )
+                                <option value="{{ $customer->customer_name }}">
+                            @endforeach
+                        </datalist>
+
 						<label for="clientInput" class="mt-3">就業先名称</label>
 						<input class="form-control mt-1" type="search" id="clientInput" placeholder="就業先名称を入力" name="companyName" value="{{ Request::input('companyName') }}">
 
