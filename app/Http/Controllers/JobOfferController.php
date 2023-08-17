@@ -204,12 +204,12 @@ class JobOfferController extends Controller
             'order_date'=> ['required'],
             'status'=> ['required'],
             'parking'=> ['required'],
-            'number_of_ordering_bases' => ['required'],
-            'order_number' => ['required'],
-            'transaction_duration' => ['required'],
-            'expected_sales' => ['required'],
-            'profit_rate' => ['required'],
-            'special_matters' => ['required'],
+            // 'number_of_ordering_bases' => ['required'],
+            // 'order_number' => ['required'],
+            // 'transaction_duration' => ['required'],
+            // 'expected_sales' => ['required'],
+            // 'profit_rate' => ['required'],
+            // 'special_matters' => ['required'],
         ]);
 
         $saveData = $request->all();
@@ -385,12 +385,12 @@ class JobOfferController extends Controller
                 'order_date'=> ['required'],
                 'status'=> ['required'],
                 'parking'=> ['required'],
-                'number_of_ordering_bases' => ['required'],
-                'order_number' => ['required'],
-                'transaction_duration' => ['required'],
-                'expected_sales' => ['required'],
-                'profit_rate' => ['required'],
-                'special_matters' => ['required'],
+                // 'number_of_ordering_bases' => ['required'],
+                // 'order_number' => ['required'],
+                // 'transaction_duration' => ['required'],
+                // 'expected_sales' => ['required'],
+                // 'profit_rate' => ['required'],
+                // 'special_matters' => ['required'],
             ]);
 
             // 求人情報の更新処理
