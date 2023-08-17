@@ -177,6 +177,57 @@
                                 <input type="text" class="form-control" name="fax" value="{{ isset($customer->fax) ? $customer->fax : '' }}">
                             </td>
                         </tr>
+                        @for($i = 2; $i < 6; $i++)
+                            <tr class="branch-{{$i}} branch-info-{{$i}}">
+                                <th>支店-{{ $i }}</th>
+                                <td>
+                                    @php $branch = "branch_{$i}" @endphp
+                                    <input type="text" class="form-control" name="{{ $branch }}" value="{{ isset($customer->$branch) ? $customer->$branch : '' }}">
+                                </td>
+                            </tr>
+                            <tr class="department-{{$i}} branch-info-{{$i}}">
+                                <th>所属部署-{{ $i }}</th>
+                                <td>
+                                    @php $department = "department_{$i}" @endphp
+                                    <input type="text" class="form-control" name="{{ $department }}" value="{{ isset($customer->$department) ? $customer->$department : '' }}">
+                                </td>
+                            </tr>
+                            <tr class="manager_name-{{$i}} branch-info-{{$i}}">
+                                <th>顧客担当者名-{{ $i }}</th>
+                                <td>
+                                    @php $manager_name = "manager_name_{$i}" @endphp
+                                    <input type="text" class="form-control" name="{{ $manager_name }}" value="{{ isset($customer->$manager_name) ? $customer->$manager_name : '' }}">
+                                </td>
+                            </tr>
+                            <tr class="address-{{$i}} branch-info-{{$i}}">
+                                <th>住所-{{ $i }}</th>
+                                <td>
+                                    @php $address = "address_{$i}" @endphp
+                                    <input type="text" class="form-control" name="{{ $address }}" value="{{ isset($customer->$address) ? $customer->$address : '' }}">
+                                </td>
+                            </tr>
+                            <tr class="phone-{{$i}} branch-info-{{$i}}">
+                                <th>電話番号-{{ $i }}</th>
+                                <td>
+                                    @php $phone = "phone_{$i}" @endphp
+                                    <input type="text" class="form-control" name="{{ $phone }}" value="{{ isset($customer->$phone) ? $customer->$phone : '' }}">
+                                </td>
+                            </tr>
+                            <tr class="email-{{$i}} branch-info-{{$i}}">
+                                <th>メールアドレス-{{ $i }}</th>
+                                <td>
+                                    @php $email = "email_{$i}" @endphp
+                                    <input type="text" class="form-control" name="{{ $email }}" value="{{ isset($customer->$email) ? $customer->$email : '' }}">
+                                </td>
+                            </tr>
+                            <tr class="fax-{{$i}} branch-info-{{$i}}">
+                                <th>FAX-{{ $i }}</th>
+                                <td>
+                                    @php $fax = "fax_{$i}" @endphp
+                                    <input type="text" class="form-control" name="{{ $fax }}" value="{{ isset($customer->$fax) ? $customer->$fax : '' }}">
+                                </td>
+                            </tr>
+                        @endfor
                     </tbody>
                 </table>
 
