@@ -186,6 +186,73 @@
                                 <input disabled type="text" class="form-control" name="fax" value="{{ isset($customer->fax) ? $customer->fax : '' }}">
                             </td>
                         </tr>
+                        @for($i = 2; $i < 6; $i++)
+                            @php
+                                $branch = "branch_{$i}";
+                                $department = "department_{$i}";
+                                $manager_name = "manager_name_{$i}";
+                                $address = "address_{$i}";
+                                $phone = "phone_{$i}";
+                                $email = "email_{$i}";
+                                $fax = "fax_{$i}";
+                            @endphp
+                            @if(isset($customer->$branch))
+                            <tr>
+                                <th>支店-{{$i}}</th>
+                                <td>
+                                    <input disabled type="text" class="form-control" name="branch" value="{{ isset($customer->$branch) ? $customer->$branch : '' }}">
+                                </td>
+                            </tr>
+                            @endif
+                            @if(isset($customer->$department))
+                            <tr>
+                                <th>所属部署-{{$i}}</th>
+                                <td>
+                                    <input disabled type="text" class="form-control" name="department" value="{{ isset($customer->$department) ? $customer->$department : '' }}">
+                                </td>
+                            </tr>
+                            @endif
+                            @if(isset($customer->$manager_name))
+                            <tr>
+                                <th>顧客担当者名-{{$i}}</th>
+                                <td>
+                                    <input disabled type="text" class="form-control" name="manager_name" value="{{ isset($customer->$manager_name) ? $customer->$manager_name : '' }}">
+                                </td>
+                            </tr>
+                            @endif
+                            @if(isset($customer->$address))
+                            <tr>
+                                <th>顧客住所-{{$i}}</th>
+                                <td>
+                                    <input disabled type="text" class="form-control" name="address" value="{{ isset($customer->$address) ? $customer->$address : '' }}">
+                                </td>
+                            </tr>
+                            @endif
+                            @if(isset($customer->$phone))
+                            <tr>
+                                <th>電話番号-{{$i}}</th>
+                                <td>
+                                    <input disabled type="text" class="form-control" name="phone" value="{{ isset($customer->$phone) ? $customer->$phone : '' }}">
+                                </td>
+                            </tr>
+                            @endif
+                            @if(isset($customer->$email))
+                            <tr>
+                                <th>メールアドレス-{{$i}}</th>
+                                <td>
+                                    <input disabled type="text" class="form-control" name="email" value="{{ isset($customer->$email) ? $customer->$email : '' }}">
+                                </td>
+                            </tr>
+                            @endif
+                            @if(isset($customer->$fax))
+                            <tr>
+                                <th>FAX-{{$i}}</th>
+                                <td>
+                                    <input disabled type="text" class="form-control" name="fax" value="{{ isset($customer->$fax) ? $customer->$fax : '' }}">
+                                </td>
+                            </tr>
+                            @endif
+                        @endfor
                     </tbody>
                 </table>
 
