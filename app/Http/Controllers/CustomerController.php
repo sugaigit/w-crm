@@ -37,7 +37,9 @@ class CustomerController extends Controller
             $query->where('user_id', 'like', "%{$usersearch}%");
         }
 
-        $customers = $query->paginate();
+        $customers = $query
+            ->orderBy('id', 'desc')
+            ->paginate();
 
         return view('customers.index')
         ->with([
