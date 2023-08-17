@@ -39,4 +39,24 @@ $(document).ready(function() {
         }
     });
 
+    /******************************************
+     * 支店情報の追加・削除
+    ******************************************/
+    for(let i=2; i<6; i++){
+        // 初期化
+        $('.branch-info-'+i).css("display", "none");
+        // 追加ボタンの処理
+        $('#open_branch_info_'+i).on('click', function () {
+            $('.branch-info-'+i).css("display", "");
+            $(this).css("display", "none");
+            $('#close_branch_info_'+(i-1)).css("display", "none");
+          });
+        // 削除ボタンの処理
+        $('#close_branch_info_'+i).on('click', function () {
+            $('.branch-info-'+i).css("display", "none");
+            $('#open_branch_info_'+i).css("display", "");
+            $('#close_branch_info_'+(i-1)).css("display", "");
+        });
+    }
+    
 });

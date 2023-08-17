@@ -21,7 +21,7 @@
             {{-- todo: バリデーションメッセージの日本語化 --}}
             <form action="{{ route('customers.store') }}" method="POST">
                 @csrf
-                <ul class="list-group">
+                <ul class="list-group" id="customerInput">
                     <li class="list-group-item list-group-item-action">
                         作成者<span class="text-danger">*</span>
                         <select type="text" class="form-control required" name="user_id" required>
@@ -121,33 +121,66 @@
                         </select>
                     </li>
                     <li class="list-group-item list-group-item-action">
-                        支店
+                        支店-1
                         <input class="form-control" type="text" name="branch" value="{{ old('branch') }}">
                     </li>
                     <li class="list-group-item list-group-item-action">
-                        所属部署
+                        所属部署-1
                         <input class="form-control" type="text" name="department" value="{{ old('department') }}">
                     </li>
                     <li class="list-group-item list-group-item-action">
-                        顧客担当者名
+                        顧客担当者名-1
                         <input class="form-control" type="text" name="manager_name" value="{{ old('manager_name') }}">
                     </li>
                     <li class="list-group-item list-group-item-action">
-                        住所<span class="text-danger"></span>
+                        住所-1<span class="text-danger"></span>
                         <input class="form-control" type="text" name="address" value="{{ old('address') }}">
                     </li>
                     <li class="list-group-item list-group-item-action">
-                        電話番号<span class="text-danger"></span>
+                        電話番号-1<span class="text-danger"></span>
                         <input class="form-control" type="text" name="phone" value="{{ old('phone') }}">
                     </li>
                     <li class="list-group-item list-group-item-action">
-                        メールアドレス
+                        メールアドレス-1
                         <input class="form-control" type="text" name="email" value="{{ old('email') }}">
                     </li>
                     <li class="list-group-item list-group-item-action">
-                        FAX
+                        FAX-1
                         <input class="form-control" type="text" name="fax" value="{{ old('fax') }}">
+                        <i class="bi bi-plus-circle" id="open_branch_info_2"></i>
                     </li>
+                    @for($i = 2; $i < 6; $i++)
+                        <li class="list-group-item list-group-item-action branch-{{$i}} branch-info-{{$i}}">
+                            支店-{{ $i }}
+                            <input class="form-control" type="text" name="branch" value="{{ old("branch_{$i}") }}">
+                        </li>
+                        <li class="list-group-item list-group-item-action department-{{$i}} branch-info-{{$i}}">
+                            所属部署-{{ $i }}
+                            <input class="form-control" type="text" name="department" value="{{ old("department_{$i}") }}">
+                        </li>
+                        <li class="list-group-item list-group-item-action manager_name-{{$i}} branch-info-{{$i}}">
+                            顧客担当者名-{{ $i }}
+                            <input class="form-control" type="text" name="manager_name" value="{{ old("manager_name_{$i}") }}">
+                        </li>
+                        <li class="list-group-item list-group-item-action address-{{$i}} branch-info-{{$i}}">
+                            住所-{{ $i }}<span class="text-danger"></span>
+                            <input class="form-control" type="text" name="address" value="{{ old("address_{$i}") }}">
+                        </li>
+                        <li class="list-group-item list-group-item-action phone-{{$i}} branch-info-{{$i}}">
+                            電話番号-{{ $i }}<span class="text-danger"></span>
+                            <input class="form-control" type="text" name="phone" value="{{ old("phone_{$i}") }}">
+                        </li>
+                        <li class="list-group-item list-group-item-action email-{{$i}} branch-info-{{$i}}">
+                            メールアドレス-{{ $i }}
+                            <input class="form-control" type="text" name="email" value="{{ old("email_{$i}") }}">
+                        </li>
+                        <li class="list-group-item list-group-item-action fax-{{$i}} branch-info-{{$i}}">
+                            FAX-{{ $i }}
+                            <input class="form-control" type="text" name="fax" value="{{ old("fax_{$i}") }}">
+                            @if($i != 5)<i class="bi bi-plus-circle" id="open_branch_info_{{ $i+1 }}"></i>@endif
+                            <i class="bi bi-dash-circle" id="close_branch_info_{{ $i }}"></i>
+                        </li>
+                    @endfor
                 </ul>
 
                 <div class="d-flex justify-content-center mt-4 mb-3">
