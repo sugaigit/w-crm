@@ -152,31 +152,31 @@
                     @for($i = 2; $i < 6; $i++)
                         <li class="list-group-item list-group-item-action branch-{{$i}} branch-info-{{$i}}">
                             支店-{{ $i }}
-                            <input class="form-control" type="text" name="branch" value="{{ old("branch_{$i}") }}">
+                            <input class="form-control" type="text" name="branch_{{$i}}" value="{{ old("branch_{$i}") }}">
                         </li>
                         <li class="list-group-item list-group-item-action department-{{$i}} branch-info-{{$i}}">
                             所属部署-{{ $i }}
-                            <input class="form-control" type="text" name="department" value="{{ old("department_{$i}") }}">
+                            <input class="form-control" type="text" name="department_{{$i}}" value="{{ old("department_{$i}") }}">
                         </li>
                         <li class="list-group-item list-group-item-action manager_name-{{$i}} branch-info-{{$i}}">
                             顧客担当者名-{{ $i }}
-                            <input class="form-control" type="text" name="manager_name" value="{{ old("manager_name_{$i}") }}">
+                            <input class="form-control" type="text" name="manager_name_{{$i}}" value="{{ old("manager_name_{$i}") }}">
                         </li>
                         <li class="list-group-item list-group-item-action address-{{$i}} branch-info-{{$i}}">
                             住所-{{ $i }}<span class="text-danger"></span>
-                            <input class="form-control" type="text" name="address" value="{{ old("address_{$i}") }}">
+                            <input class="form-control" type="text" name="address_{{$i}}" value="{{ old("address_{$i}") }}">
                         </li>
                         <li class="list-group-item list-group-item-action phone-{{$i}} branch-info-{{$i}}">
                             電話番号-{{ $i }}<span class="text-danger"></span>
-                            <input class="form-control" type="text" name="phone" value="{{ old("phone_{$i}") }}">
+                            <input class="form-control" type="text" name="phone_{{$i}}" value="{{ old("phone_{$i}") }}">
                         </li>
                         <li class="list-group-item list-group-item-action email-{{$i}} branch-info-{{$i}}">
                             メールアドレス-{{ $i }}
-                            <input class="form-control" type="text" name="email" value="{{ old("email_{$i}") }}">
+                            <input class="form-control" type="text" name="email_{{$i}}" value="{{ old("email_{$i}") }}">
                         </li>
                         <li class="list-group-item list-group-item-action fax-{{$i}} branch-info-{{$i}}">
                             FAX-{{ $i }}
-                            <input class="form-control" type="text" name="fax" value="{{ old("fax_{$i}") }}">
+                            <input class="form-control" type="text" name="fax_{{$i}}" value="{{ old("fax_{$i}") }}">
                             @if($i != 5)<i class="bi bi-plus-circle" id="open_branch_info_{{ $i+1 }}"></i>@endif
                             <i class="bi bi-dash-circle" id="close_branch_info_{{ $i }}"></i>
                         </li>
