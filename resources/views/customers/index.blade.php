@@ -59,6 +59,9 @@
             <th class="text-center">顧客ID</th>
             <th class="text-center">取扱会社種別</th>
             <th class="text-center">取扱事業所</th>
+            <th class="text-center">企業ランク</th>
+            <th class="text-center">法人形態</th>
+            <th class="text-center">顧客名</th>
             <th class="text-center">業種</th>
             <th class="text-center">住所</th>
             <th class="text-center">作成者</th>
@@ -70,6 +73,9 @@
         <td>{{ $customer->id }}</td>
         <td>{{ !empty($customer->handling_type) ? config('options')['handling_type'][$customer->handling_type] :'' }}</td>
         <td>{{ !empty($customer->handling_office) ? config('options')['handling_office'][$customer->handling_office] :'' }}</td>
+        <td>{{ $customer->rank }}</td>
+        <td>{{ !empty($customer->corporate_type) ? config('options')['corporate_type'][$customer->corporate_type] :'' }}</td>
+        <td><a href="{{ route('job_offers.index', ['customerName' => $customer->customer_name]) }}">{{ $customer->customer_name }}</a></td>
         <td>{{ !empty($customer->industry) ? config('options')['industry'][$customer->industry] :'' }}</td>
         <td>{{ $customer->address }}</td>
         <td>{{ $customer->user->name }}</td>

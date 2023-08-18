@@ -81,9 +81,9 @@
                             </td>
                         </tr>
                         <tr>
-                            <th>会社規模<span class="text-danger">*</span></th>
+                            <th>会社規模</th>
                             <td>
-                                <select type="text" class="form-control required" name="company_size" required>
+                                <select type="text" class="form-control " name="company_size" >
                                     <option value="">会社規模を選んで下さい</option>
                                     @foreach( config('options.company_size') as $key => $company_size )
                                     <option value="{{ $key }}" {{ $key == $customer->company_size ? 'selected' : '' }}>{{ $company_size }}</option>
@@ -92,9 +92,9 @@
                             </td>
                         </tr>
                         <tr>
-                            <th>事業展開地域<span class="text-danger">*</span></th>
+                            <th>事業展開地域</th>
                             <td>
-                                <select type="text" class="form-control required" name="business_development_area" required>
+                                <select type="text" class="form-control " name="business_development_area" >
                                     <option value="">事業展開地域を選んで下さい</option>
                                     @foreach( config('options.business_development_area') as $key => $business_development_area )
                                     <option value="{{ $key }}" {{ $key == $customer->business_development_area ? 'selected' : '' }}>{{ $business_development_area }}</option>
@@ -103,9 +103,9 @@
                             </td>
                         </tr>
                         <tr>
-                            <th>取引拡大可能性<span class="text-danger">*</span></th>
+                            <th>取引拡大可能性</th>
                             <td>
-                                <select type="text" class="form-control required" name="business_expansion_potential" required>
+                                <select type="text" class="form-control" name="business_expansion_potential" >
                                     <option value="">取引拡大可能性を選んで下さい</option>
                                     @foreach( config('options.business_expansion_potential') as $key => $business_expansion_potential )
                                     <option value="{{ $key }}" {{ $key == $customer->business_expansion_potential ? 'selected' : '' }}>{{ $business_expansion_potential }}</option>
@@ -114,9 +114,9 @@
                             </td>
                         </tr>
                         <tr>
-                            <th>社歴<span class="text-danger">*</span></th>
+                            <th>社歴</th>
                             <td>
-                                <select type="text" class="form-control required" name="company_history" required>
+                                <select type="text" class="form-control" name="company_history" >
                                     <option value="">社歴を選んで下さい</option>
                                     @foreach( config('options.company_history') as $key => $company_history )
                                     <option value="{{ $key }}" {{ $key == $customer->company_history ? 'selected' : '' }}>{{ $company_history }}</option>
@@ -125,9 +125,9 @@
                             </td>
                         </tr>
                         <tr>
-                            <th>信頼性<span class="text-danger">*</span></th>
+                            <th>信頼性</th>
                             <td>
-                                <select type="text" class="form-control required" name="reliability" required>
+                                <select type="text" class="form-control" name="reliability" >
                                     <option value="">信頼性を選んで下さい</option>
                                     @foreach( config('options.reliability') as $key => $reliability )
                                     <option value="{{ $key }}" {{ $key == $customer->reliability ? 'selected' : '' }}>{{ $reliability }}</option>
@@ -177,6 +177,57 @@
                                 <input type="text" class="form-control" name="fax" value="{{ isset($customer->fax) ? $customer->fax : '' }}">
                             </td>
                         </tr>
+                        @for($i = 2; $i < 6; $i++)
+                            <tr class="branch-{{$i}} branch-info-{{$i}}">
+                                <th>支店-{{ $i }}</th>
+                                <td>
+                                    @php $branch = "branch_{$i}" @endphp
+                                    <input type="text" class="form-control" name="{{ $branch }}" value="{{ isset($customer->$branch) ? $customer->$branch : '' }}">
+                                </td>
+                            </tr>
+                            <tr class="department-{{$i}} branch-info-{{$i}}">
+                                <th>所属部署-{{ $i }}</th>
+                                <td>
+                                    @php $department = "department_{$i}" @endphp
+                                    <input type="text" class="form-control" name="{{ $department }}" value="{{ isset($customer->$department) ? $customer->$department : '' }}">
+                                </td>
+                            </tr>
+                            <tr class="manager_name-{{$i}} branch-info-{{$i}}">
+                                <th>顧客担当者名-{{ $i }}</th>
+                                <td>
+                                    @php $manager_name = "manager_name_{$i}" @endphp
+                                    <input type="text" class="form-control" name="{{ $manager_name }}" value="{{ isset($customer->$manager_name) ? $customer->$manager_name : '' }}">
+                                </td>
+                            </tr>
+                            <tr class="address-{{$i}} branch-info-{{$i}}">
+                                <th>住所-{{ $i }}</th>
+                                <td>
+                                    @php $address = "address_{$i}" @endphp
+                                    <input type="text" class="form-control" name="{{ $address }}" value="{{ isset($customer->$address) ? $customer->$address : '' }}">
+                                </td>
+                            </tr>
+                            <tr class="phone-{{$i}} branch-info-{{$i}}">
+                                <th>電話番号-{{ $i }}</th>
+                                <td>
+                                    @php $phone = "phone_{$i}" @endphp
+                                    <input type="text" class="form-control" name="{{ $phone }}" value="{{ isset($customer->$phone) ? $customer->$phone : '' }}">
+                                </td>
+                            </tr>
+                            <tr class="email-{{$i}} branch-info-{{$i}}">
+                                <th>メールアドレス-{{ $i }}</th>
+                                <td>
+                                    @php $email = "email_{$i}" @endphp
+                                    <input type="text" class="form-control" name="{{ $email }}" value="{{ isset($customer->$email) ? $customer->$email : '' }}">
+                                </td>
+                            </tr>
+                            <tr class="fax-{{$i}} branch-info-{{$i}}">
+                                <th>FAX-{{ $i }}</th>
+                                <td>
+                                    @php $fax = "fax_{$i}" @endphp
+                                    <input type="text" class="form-control" name="{{ $fax }}" value="{{ isset($customer->$fax) ? $customer->$fax : '' }}">
+                                </td>
+                            </tr>
+                        @endfor
                     </tbody>
                 </table>
 

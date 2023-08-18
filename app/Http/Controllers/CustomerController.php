@@ -37,7 +37,9 @@ class CustomerController extends Controller
             $query->where('user_id', 'like', "%{$usersearch}%");
         }
 
-        $customers = $query->paginate();
+        $customers = $query
+            ->orderBy('id', 'desc')
+            ->paginate();
 
         return view('customers.index')
         ->with([
@@ -97,8 +99,15 @@ class CustomerController extends Controller
         $address = str_replace(
             [' ', '　'],
             '',
-            $request['address']
+            $request->input('address')
         );
+        for ($i=2; $i<6; $i++) {
+            ${"address_{$i}"} = str_replace(
+                [' ', '　'],
+                '',
+                $request->input("address_{$i}")
+            );
+        }
 
         Customer::create([
             'user_id' => $request->input('user_id'),
@@ -120,6 +129,34 @@ class CustomerController extends Controller
             'phone' => $request->input('phone'),
             'email' => $request->input('email'),
             'fax' => $request->input('fax'),
+            'branch_2' => $request->input('branch_2'),
+            'department_2' => $request->input('department_2'),
+            'manager_name_2' => $request->input('manager_name_2'),
+            'address_2' => $address_2,
+            'phone_2' => $request->input('phone_2'),
+            'email_2' => $request->input('email_2'),
+            'fax_2' => $request->input('fax_2'),
+            'branch_3' => $request->input('branch_3'),
+            'department_3' => $request->input('department_3'),
+            'manager_name_3' => $request->input('manager_name_3'),
+            'address_3' => $address_3,
+            'phone_3' => $request->input('phone_3'),
+            'email_3' => $request->input('email_3'),
+            'fax_3' => $request->input('fax_3'),
+            'branch_4' => $request->input('branch_4'),
+            'department_4' => $request->input('department_4'),
+            'manager_name_4' => $request->input('manager_name_4'),
+            'address_4' => $address_4,
+            'phone_4' => $request->input('phone_4'),
+            'email_4' => $request->input('email_4'),
+            'fax_4' => $request->input('fax_4'),
+            'branch_5' => $request->input('branch_5'),
+            'department_5' => $request->input('department_5'),
+            'manager_name_5' => $request->input('manager_name_5'),
+            'address_5' => $address_5,
+            'phone_5' => $request->input('phone_5'),
+            'email_5' => $request->input('email_5'),
+            'fax_5' => $request->input('fax_5'),
         ]);
 
         $request->session()->flash('SuccessMsg', '登録しました');
@@ -191,8 +228,15 @@ class CustomerController extends Controller
         $address = str_replace(
             [' ', '　'],
             '',
-            $request['address']
+            $request->input('address')
         );
+        for ($i=2; $i<6; $i++) {
+            ${"address_{$i}"} = str_replace(
+                [' ', '　'],
+                '',
+                $request->input("address_{$i}")
+            );
+        }
 
         $customer = Customer::find($customerId);
         $customer->user_id =$request->input('user_id');
@@ -214,6 +258,35 @@ class CustomerController extends Controller
         $customer->phone = $request->input('phone');
         $customer->email = $request->input('email');
         $customer->fax = $request->input('fax');
+        $customer->branch_2 = $request->input('branch_2');
+        $customer->department_2 = $request->input('department_2');
+        $customer->manager_name_2 = $request->input('manager_name_2');
+        $customer->address_2 = $address_2;
+        $customer->phone_2 = $request->input('phone_2');
+        $customer->email_2 = $request->input('email_2');
+        $customer->fax_2 = $request->input('fax_2');
+        $customer->branch_3 = $request->input('branch_3');
+        $customer->department_3 = $request->input('department_3');
+        $customer->manager_name_3 = $request->input('manager_name_3');
+        $customer->address_3 = $address_3;
+        $customer->phone_3 = $request->input('phone_3');
+        $customer->email_3 = $request->input('email_3');
+        $customer->fax_3 = $request->input('fax_3');
+        $customer->branch_4 = $request->input('branch_4');
+        $customer->department_4 = $request->input('department_4');
+        $customer->manager_name_4 = $request->input('manager_name_4');
+        $customer->address_4 = $address_4;
+        $customer->phone_4 = $request->input('phone_4');
+        $customer->email_4 = $request->input('email_4');
+        $customer->fax_4 = $request->input('fax_4');
+        $customer->branch_5 = $request->input('branch_5');
+        $customer->department_5 = $request->input('department_5');
+        $customer->manager_name_5 = $request->input('manager_name_5');
+        $customer->address_5 = $address_5;
+        $customer->phone_5 = $request->input('phone_5');
+        $customer->email_5 = $request->input('email_5');
+        $customer->fax_5 = $request->input('fax_5');
+
 
         $customer->save();
 

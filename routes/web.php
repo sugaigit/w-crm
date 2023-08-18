@@ -26,7 +26,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::resource('job_offers', \App\Http\Controllers\JobOfferController::class)->middleware('auth');
 Route::get('job_offers/delete/{id}', [App\Http\Controllers\JobOfferController::class, 'destroy'])->name('job_offers.destroy');
 Route::get('/job_offers/{id}/detail', [\App\Http\Controllers\JobOfferController::class, 'showDetail'])->name('job_offers.detail')->middleware('auth');
-Route::get('job_offers/invalid/list', [App\Http\Controllers\JobOfferController::class, 'showInvalids'])->name('invalid_job_offers')->middleware('auth');
+Route::get('job_offers/invalid/list', [App\Http\Controllers\JobOfferController::class, 'showInvalids'])->name('invalid_job_offers.index')->middleware('auth');
 Route::post('job_offers/import_csv', [App\Http\Controllers\JobOfferController::class, 'importCsv'])->name('job_offers.import_csv')->middleware('auth');
 Route::get('/drafts', [App\Http\Controllers\DraftJobOfferController::class, 'index'])->middleware('auth')->name('draft.index');
 Route::post('/draft/create', [App\Http\Controllers\DraftJobOfferController::class, 'store'])->middleware('auth')->name('draft.create');

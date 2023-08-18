@@ -10,12 +10,20 @@
 						<h2 class="text-center">検索</h2>
 
 						<label for="userInput">営業担当</label>
-						<select type="text" class="form-control" name="userId">
+                        <select type="text" class="form-control" name="userId">
 							<option value="">営業担当を選んで下さい</option>
 							@foreach( $users as $user )
 							<option value="{{ $user->id }}" @if (Request::input('userId') == $user->id) selected @endif>{{ $user->name }}</option>
 							@endforeach
 						</select>
+
+						<label for="clientInput" class="mt-3">顧客名</label>
+						<input class="form-control mt-1" type="search" id="customerInput" placeholder="顧客名を入力" name="customerName" value="{{ Request::input('customerName') }}" list="customers-list">
+                        <datalist id="customers-list">
+                            @foreach( $customers as $customer )
+                                <option value="{{ $customer->customer_name }}">
+                            @endforeach
+                        </datalist>
 
 						<label for="clientInput" class="mt-3">就業先名称</label>
 						<input class="form-control mt-1" type="search" id="clientInput" placeholder="就業先名称を入力" name="companyName" value="{{ Request::input('companyName') }}">
@@ -74,6 +82,7 @@
             <th>発注人数</th>
             <th>請求単価①</th>
             <th>支払単価①</th>
+            <th>利益率①</th>
             <th>営業担当</th>
             <th>操作</th>
         </tr>
@@ -87,13 +96,14 @@
                 <td>{{ $jobOffer->handling_type != null ? config('options.handling_type')[$jobOffer->handling_type] : '' }}</td>
                 <td>{{ $jobOffer->handling_office != null ? config('options.handling_office')[$jobOffer->handling_office] : '' }}</td>
                 <td>{{ $jobOffer->job_number}}</td>
-                <td>{{ $jobOffer->customer->customer_name}}</td>
+                <td><a href="{{ route('customers.detail', $jobOffer->customer->id) }}">{{ $jobOffer->customer->customer_name}}</a></td>
                 <td>{{ $jobOffer->company_name }}</td>
                 <td>{{ $jobOffer->type_contract != null ? config('options.type_contract')[$jobOffer->type_contract] : '' }}</td>
                 <td>{{ $jobOffer->ordering_business }}</td>
                 <td>{{ $jobOffer->order_number != null ? config('options.order_number')[$jobOffer->order_number] : '' }}</td>
                 <td>{{ $jobOffer->invoice_unit_price_1 }}</td>
                 <td>{{ $jobOffer->payment_unit_price_1 }}</td>
+                <td>{{ $jobOffer->profit_rate_1 }}</td>
                 <td>{{ $jobOffer->user->name }}</td>
                 <td>
                     <div class="d-flex justify-content-around">
