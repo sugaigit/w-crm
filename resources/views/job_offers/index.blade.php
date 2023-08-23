@@ -66,55 +66,59 @@
 		</div>
 	</div>
     <div class="card-header w-100">求人一覧</div>
-    <table class="table table-bordered table-hover w-100">
-        <thead>
-        <tr class=m-auto style="background-color: lightgray">
-            <th>求人ID</th>
-            <th>ステータス</th>
-            <th>求人ランク</th>
-            <th>取扱会社種別</th>
-            <th>取扱事業所名</th>
-            <th>仕事番号</th>
-            <th>顧客名</th>
-            <th>就業先名称</th>
-            <th>契約形態</th>
-            <th>発注業務</th>
-            <th>発注人数</th>
-            <th>請求単価①</th>
-            <th>支払単価①</th>
-            <th>利益率①</th>
-            <th>営業担当</th>
-            <th>操作</th>
-        </tr>
-        </thead>
-
-        @foreach($jobOffers as $jobOffer)
-            <tr>
-                <td>{{ $jobOffer->id }}</td>
-                <td>{{ $jobOffer->status != null ? config('options.status_edit')[$jobOffer->status] : '' }}</td>
-                <td>{{ $jobOffer->rank }}</td>
-                <td>{{ $jobOffer->handling_type != null ? config('options.handling_type')[$jobOffer->handling_type] : '' }}</td>
-                <td>{{ $jobOffer->handling_office != null ? config('options.handling_office')[$jobOffer->handling_office] : '' }}</td>
-                <td>{{ $jobOffer->job_number}}</td>
-                <td><a href="{{ route('customers.detail', $jobOffer->customer->id) }}">{{ $jobOffer->customer->customer_name}}</a></td>
-                <td>{{ $jobOffer->company_name }}</td>
-                <td>{{ $jobOffer->type_contract != null ? config('options.type_contract')[$jobOffer->type_contract] : '' }}</td>
-                <td>{{ $jobOffer->ordering_business }}</td>
-                <td>{{ $jobOffer->order_number != null ? config('options.order_number')[$jobOffer->order_number] : '' }}</td>
-                <td>{{ $jobOffer->invoice_unit_price_1 }}</td>
-                <td>{{ $jobOffer->payment_unit_price_1 }}</td>
-                <td>{{ $jobOffer->profit_rate_1 }}</td>
-                <td>{{ $jobOffer->user->name }}</td>
-                <td>
-                    <div class="d-flex justify-content-around">
-                        <a href="{{ route('job_offers.detail', $jobOffer->id) }}">
-                            <button class="btn btn-primary" type="button">詳細</button>
-                        </a>
-                    </div>
-                </td>
+    <div class="table_wrap" style="overflow: auto; max-height: 400px;">
+        <table class="table table-bordered table-hover w-100" style="overflow-x: auto; white-space: nowrap; margin-bottom: 0;">
+            <thead>
+            <tr class=m-auto style="background-color: lightgray">
+                <th>求人ID</th>
+                <th>ステータス</th>
+                <th>求人ランク</th>
+                <th>取扱会社種別</th>
+                <th>取扱事業所名</th>
+                <th>仕事番号</th>
+                <th>顧客名</th>
+                <th>就業先名称</th>
+                <th>就業先住所</th>
+                <th>契約形態</th>
+                <th>発注業務</th>
+                <th>発注人数</th>
+                <th>請求単価①</th>
+                <th>支払単価①</th>
+                <th>利益率①</th>
+                <th>営業担当</th>
+                <th>操作</th>
             </tr>
-        @endforeach
-    </table>
+            </thead>
+
+            @foreach($jobOffers as $jobOffer)
+                <tr>
+                    <td>{{ $jobOffer->id }}</td>
+                    <td>{{ $jobOffer->status != null ? config('options.status_edit')[$jobOffer->status] : '' }}</td>
+                    <td>{{ $jobOffer->rank }}</td>
+                    <td>{{ $jobOffer->handling_type != null ? config('options.handling_type')[$jobOffer->handling_type] : '' }}</td>
+                    <td>{{ $jobOffer->handling_office != null ? config('options.handling_office')[$jobOffer->handling_office] : '' }}</td>
+                    <td>{{ $jobOffer->job_number}}</td>
+                    <td><a href="{{ route('customers.detail', $jobOffer->customer->id) }}">{{ $jobOffer->customer->customer_name}}</a></td>
+                    <td>{{ $jobOffer->company_name }}</td>
+                    <td>{{ $jobOffer->company_address }}</td>
+                    <td>{{ $jobOffer->type_contract != null ? config('options.type_contract')[$jobOffer->type_contract] : '' }}</td>
+                    <td>{{ $jobOffer->ordering_business }}</td>
+                    <td>{{ $jobOffer->order_number != null ? config('options.order_number')[$jobOffer->order_number] : '' }}</td>
+                    <td>{{ $jobOffer->invoice_unit_price_1 }}</td>
+                    <td>{{ $jobOffer->payment_unit_price_1 }}</td>
+                    <td>{{ $jobOffer->profit_rate_1 }}</td>
+                    <td>{{ $jobOffer->user->name }}</td>
+                    <td>
+                        <div class="d-flex justify-content-around">
+                            <a href="{{ route('job_offers.detail', $jobOffer->id) }}">
+                                <button class="btn btn-primary" type="button">詳細</button>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            @endforeach
+        </table>
+    </div>
 </div>
 
 <div class="d-flex justify-content-center mt-2">
