@@ -79,7 +79,7 @@ class CustomerController extends Controller
                 'unique:customers,customer_name'
             ],
             'customer_kana'=> [
-                'regex:/^[ァ-ン　　 ]*$/u' // 全角カタカナとスペースのみ許容
+                'regex:/^[ァ-ンヴー・　]*$/u' // 全角カタカナとスペースのみ許容
             ],
         ]);
 
@@ -207,7 +207,7 @@ class CustomerController extends Controller
             'handling_office'=> ['required'],
             'customer_name'=> ['required'],
             'customer_kana'=> [
-                'regex:/^[ァ-ン　　 ]*$/u' // 全角カタカナとスペースのみ許容
+                'regex:/^[ァ-ンヴー・　]*$/u' // 全角カタカナとスペースのみ許容
             ],
 
         ]);
