@@ -1,0 +1,16 @@
+@charset "UTF-8";
+
+.ranks_btn a{
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
+    background: #B9E229;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    font-weight: bold;
+}
+
+.ranks_btn a:hover{
+    opacity: 0.7;
+}
