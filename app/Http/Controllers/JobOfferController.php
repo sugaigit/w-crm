@@ -336,11 +336,12 @@ class JobOfferController extends Controller
             \Session::flash('AlertMsg', '警告：データーベースに登録されている営業担当とログインユーザーが一致しません');
         }
 
-
+        $customerName = Customer::where('id', $jobOffer->customer_id)->first()->customer_name;
         return view('job_offers.edit', [
             'jobOffer' => $jobOffer,
             'users' => $users,
             'customers' => $customers,
+            'customerName' => $customerName,
             'activityRecords' => $activityRecords,
             'isDraftJobOffer' => false,
             'differentUserAlert' => $differentUserAlert,
