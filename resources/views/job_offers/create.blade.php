@@ -76,14 +76,14 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>顧客名<span class="text-danger">*</span></th>
+                                    <th>顧客<span class="text-danger">*</span></th>
                                     <td>
-                                        <select type="text" class="form-control required" name="customer_id" required>
-                                        <option value="">顧客を選んで下さい</option>
+                                        <input id="customer_input" class="form-control required" name="customer_id" list="customer_list" placeholder="顧客を選んで下さい">
+                                        <datalist id="customer_list">
                                         @foreach( $customers as $customer )
-                                            <option value="{{ $customer->id }}" {{ old('customer_id') == $key ? 'selected' : '' }}>{{ $customer->customer_name }}</option>
+                                            <option value="{{ $customer->customer_name }}" {{ old('customer_id') == $customer->id ? 'selected' : '' }}>
                                         @endforeach
-                                        </select>
+                                        </datalist>
                                     </td>
                                 </tr>
                                 <tr>
@@ -885,7 +885,7 @@
                         </table>
 
                         <div class="d-flex justify-content-center mt-4 mb-3">
-                            <button class="btn btn-primary" type="submit">登録</button>
+                            <button id="submit-btn" class="btn btn-primary" type="submit">登録</button>
                         </div>
 
                         <div class="d-flex justify-content-center mt-4 mb-3">
