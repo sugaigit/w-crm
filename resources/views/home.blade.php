@@ -71,7 +71,7 @@
                             </div>
                         </ul>
                         <div class="ranks_btn">
-                            <a href="https://docs.google.com/spreadsheets/d/1VJM2uhGigCk0Lsg_He5ZJ-oWGr4o1SwB/edit#gid=30032893" target="_blank">求人ランクスコア表</a>
+                            <a href="https://docs.google.com/spreadsheets/d/1z1fpR122xxeQctW4g8yxW-F_9qUsiBfq/edit?usp=sharing&ouid=112695035610882837534&rtpof=true&sd=true" target="_blank">求人ランクスコア表</a>
                         </div>
                     </div>
                 </div>
