@@ -93,7 +93,7 @@
                         </select>
                         </td>
                     </tr>
-                    <tr>
+                    {{-- <tr>
                         <th>顧客<span class="text-danger">*</span></th>
                         <td>
                             <select type="text" class="form-control required" name="customer_id" >
@@ -106,6 +106,21 @@
                                 @endif
                             @endforeach
                             </select>
+                        </td>
+                    </tr> --}}
+                    <tr>
+                        <th>顧客名<span class="text-danger">*</span></th>
+                        <td>
+                            <input id="customer_input" class="form-control required" name="customer_id" list="customer_list" placeholder="顧客名を選んで下さい" value={{ $customerName }}>
+                            <datalist id="customer_list">
+                                @foreach( $customers as $customer )
+                                    @if (is_null(old('customer_id')))
+                                    <option value="{{ $customer->customer_name }}" {{$customer->id == $jobOffer->customer_id ? 'selected' : '' }}>
+                                    @else
+                                    <option value="{{ $customer->customer_name }}" {{ old('customer_id') == $customer->customer_name ? 'selected' : '' }}>
+                                    @endif
+                                @endforeach
+                            </datalist>
                         </td>
                     </tr>
                     <tr>
