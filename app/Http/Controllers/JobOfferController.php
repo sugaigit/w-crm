@@ -354,6 +354,7 @@ class JobOfferController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $customerId = Customer::where('customer_name', $request->input('customer_id'))->first()->id;
         if ($request->has('duplicate')) { // 複製ボタンが押されたときはstoreアクションが走る
             $this->store($request);
             return redirect(route('job_offers.index'));
@@ -410,7 +411,7 @@ class JobOfferController extends Controller
             $jobOffer->job_number= $request->input('job_number');
             $jobOffer->handling_office= $request->input('handling_office');
             $jobOffer->business_type= $request->input('business_type');
-            $jobOffer->customer_id= $request->input('customer_id');
+            $jobOffer->customer_id= $customerId;
             $jobOffer->type_contract= $request->input('type_contract');
             $jobOffer->recruitment_number= $request->input('recruitment_number');
             $jobOffer->company_name= $request->input('company_name');
