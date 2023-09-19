@@ -44,6 +44,20 @@ services:
             test: ["CMD", "mysqladmin", "ping", "-p${DB_PASSWORD}"]
             retries: 3
             timeout: 5s
+
+    phpmyadmin:
+        # ログイン情報
+            # サーバー：mariadb, ユーザー：root, パスワード：,
+        image: phpmyadmin/phpmyadmin
+        environment:
+            - PMA_HOSTS=mariadb
+        ports:
+            - "4040:80"
+        networks:
+            - sail
+        volumes:
+            - ./docker/phpmyadmin/sessions:/sessions
+
 networks:
     sail:
         driver: bridge

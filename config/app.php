@@ -161,6 +161,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        App\Providers\SlackServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -175,7 +176,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Search\Providers\SearchServiceProvider::class,
-
+        // App\Providers\SlackServiceProvider::class,
 
     ],
 
@@ -231,7 +232,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
+        'Slack' => App\Services\Slack\SlackFacade::class,
     ],
 
 ];

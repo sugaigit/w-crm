@@ -11,12 +11,73 @@ class Customer extends Model
 
     use HasFactory;
     protected $guarded = [];
+    protected $fillable = [
+        'type',
+        'user_id',
+        'handling_type',
+        'handling_office',
+        'corporate_type',
+        'customer_name',
+        'customer_kana',
+        'industry',
+        'company_size',
+        'business_development_area',
+        'business_expansion_potential',
+        'company_history',
+        'reliability',
+        'address',
+        'phone',
+        'fax',
+        'company_rank',
+        'branch',
+        'branch_2',
+        'department_2',
+        'manager_name_2',
+        'address_2',
+        'phone_2',
+        'email_2',
+        'fax_2',
+        'branch_3',
+        'department_3',
+        'manager_name_3',
+        'address_3',
+        'phone_3',
+        'email_3',
+        'fax_3',
+        'branch_4',
+        'department_4',
+        'manager_name_4',
+        'address_4',
+        'phone_4',
+        'email_4',
+        'fax_4',
+        'branch_5',
+        'department_5',
+        'manager_name_5',
+        'address_5',
+        'phone_5',
+        'email_5',
+        'fax_5',
+        'branch_6',
+        'department_6',
+        'manager_name_6',
+        'address_6',
+        'phone_6',
+        'email_6',
+        'fax_6',
+    ];
 
+
+    // public function company()
+    // {
+    //     return $this->belongsTo(Company::class);
+    // }
 
     public function user()
     {
-        return $this->belongsTo(Company::class);
+        return $this->belongsTo(User::class);
     }
+
 
     // public function customerLogs()
     // {
@@ -26,6 +87,23 @@ class Customer extends Model
     public function jobOffer()
     {
         return $this->hasMany(JobOffer::class);
+    }
+
+    public function getCustomerRankPoint()
+    {
+        $companySizePoint = empty($this->company_size) ? 0 : config('points.companySize')[intval($this->company_size)];
+        $businessDevelopmentAreaPoint = empty($this->business_development_area) ? 0 : config('points.businessDevelopmentArea')[intval($this->business_development_area)];
+        $businessExpansionPotentialPoint = empty($this->business_expansion_potential) ? 0 : config('points.businessExpansionPotential')[intval($this->business_expansion_potential)];
+        $companyHistoryPoint = empty($this->company_history) ? 0 : config('points.companyHistory')[intval($this->company_history)];
+        $reliabilityPoint = empty($this->reliability) ? 0 : config('points.reliability')[intval($this->reliability)];
+
+        $customerRankPoint = $companySizePoint
+            + $businessDevelopmentAreaPoint
+            + $businessExpansionPotentialPoint
+            + $companyHistoryPoint
+            + $reliabilityPoint;
+
+        return $customerRankPoint;
     }
 
     // public function updateCustomer($request,$cutomer)

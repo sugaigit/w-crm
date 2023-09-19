@@ -5,7 +5,7 @@ _iming_of_switching
 monthly_lower_limit
 monthly_upper_limit
 annual_lower_limit
-age_upper_limit
+annual_upper_limit
 bonuses_treatment
 holidays_vacations
 introduction_others'''

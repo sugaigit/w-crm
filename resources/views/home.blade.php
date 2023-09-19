@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('Dashboard') }}</div>
+                    <div class="card-header">{{ __('Tree') }}</div>
 
                     <div class="card-body">
                         @if (session('status'))
@@ -15,18 +15,77 @@
                         @endif
 
                         <ul>
-                            @canany('viewAny', auth()->user())
-                            <li><a href="{{ route('users.index') }}">社員一覧</a></li>
-                            @endcanany
-                            <li><a href="{{ route('customers.index') }}">顧客一覧</a></li>
-                            <li><a href="{{ route('customers.create') }}">顧客新規登録</a></li>
-                            {{-- 認可の要件がわからないので一旦制限を書けずに作成 (2022/10/20)平岡 --}}
-                            <li><a href="{{ route('job_offers.index') }}">求人一覧</a></li>
-                            <li><a href="{{ route('job_offers.create') }}">求人新規登録</a></li>
+
+                            <div class="d-flex justify-content-evenly">
+
+                                <div>
+                                    <li>
+                                        <a href="{{ route('customers.create') }}" style="text-decoration: none;">
+                                            <button class="btn btn-outline-secondary btn-lg mb-2" type="button">
+                                                顧客新規登録
+                                            </button>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('customers.index') }}" style="text-decoration: none;">
+                                            <button class="btn btn-secondary btn-lg mb-2" type="button">
+                                                顧客一覧
+                                            </button>
+                                        </a>
+                                    </li>
+                                </div>
+
+                                <div>
+                                    <li>
+                                        <a href="{{ route('job_offers.create') }}" style="text-decoration: none;">
+                                            <button class="btn btn-outline-secondary btn-lg mb-2" type="button">
+                                                求人新規登録
+                                            </button>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('job_offers.index') }}" style="text-decoration: none;">
+                                            <button class="btn btn-secondary btn-lg mb-2" type="button">
+                                                求人一覧
+                                            </button>
+                                        </a>
+                                    </li>
+                                </div>
+
+                                <div>
+                                    <li>
+                                        <a href="{{ route('draft.index') }}" style="text-decoration: none;">
+                                            <button class="btn btn-outline-secondary btn-lg mb-2" type="button">
+                                                求人下書き一覧
+                                            </button>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('invalid_job_offers.index') }}" style="text-decoration: none;">
+                                            <button class="btn btn-secondary btn-lg mb-2" type="button">
+                                                ランク外求人一覧
+                                            </button>
+                                        </a>
+                                    </li>
+                                </div>
+                            </div>
                         </ul>
+                        <div class="ranks_btn">
+                            <a href="https://docs.google.com/spreadsheets/d/1z1fpR122xxeQctW4g8yxW-F_9qUsiBfq/edit?usp=sharing&ouid=112695035610882837534&rtpof=true&sd=true" target="_blank">求人ランクスコア表</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 @endsection
+
+<style>
+ul {
+    padding-left:0;
+}
+
+li {
+    list-style:none;
+}
+</style>
