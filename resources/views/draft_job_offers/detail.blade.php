@@ -96,10 +96,10 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>顧客<span class="text-danger">*</span></th>
+                        <th>顧客名<span class="text-danger">*</span></th>
                         <td>
                             <select style="pointer-events: none;" tabindex="-1" type="text" class="form-control required" name="customer_id" >
-                            <option value="">顧客を選んで下さい</option>
+                            <option value="">顧客を選択もしくは入力してください</option>
                             @foreach( $customers as $customer )
                                 @if (is_null(old('customer_id')))
                                 <option value="{{ $customer->id }}" {{ $customer->id == $draftJobOffer->customer_id ? 'selected' : '' }}>{{ $customer->customer_name }}</option>

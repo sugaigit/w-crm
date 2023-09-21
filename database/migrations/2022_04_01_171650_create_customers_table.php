@@ -15,7 +15,7 @@ class CreateCustomersTable extends Migration
     {
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id')->unsigned()->comment('作成者');
+            $table->bigInteger('user_id')->unsigned()->comment('営業担当');
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('handling_type')->comment('取扱会社種別（1:HA, 2:HC）');
             $table->string('handling_office')->comment('取扱事業所名（1:北九州本社, 2:福岡支店）');
