@@ -14,7 +14,7 @@
                             <td>{{ $customer->id}}</td>
                         </tr>
                         <tr>
-                            <th>作成者<span class="text-danger">*</span></th>
+                            <th>営業担当<span class="text-danger">*</span></th>
                             <td>
                                 <select type="text" class="form-control required" name="user_id" required>
                                     <option value="">営業担当を選んで下さい</option>
@@ -81,7 +81,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <th>会社規模</th>
+                            <th>会社規模<span class="text-danger">*</span></th>
                             <td>
                                 <select type="text" class="form-control " name="company_size" >
                                     <option value="">会社規模を選んで下さい</option>
@@ -92,7 +92,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <th>事業展開地域</th>
+                            <th>事業展開地域<span class="text-danger">*</span></th>
                             <td>
                                 <select type="text" class="form-control " name="business_development_area" >
                                     <option value="">事業展開地域を選んで下さい</option>
@@ -103,7 +103,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <th>取引拡大可能性</th>
+                            <th>取引拡大可能性<span class="text-danger">*</span></th>
                             <td>
                                 <select type="text" class="form-control" name="business_expansion_potential" >
                                     <option value="">取引拡大可能性を選んで下さい</option>
@@ -114,7 +114,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <th>社歴</th>
+                            <th>社歴<span class="text-danger">*</span></th>
                             <td>
                                 <select type="text" class="form-control" name="company_history" >
                                     <option value="">社歴を選んで下さい</option>
@@ -125,7 +125,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <th>信頼性</th>
+                            <th>信頼性<span class="text-danger">*</span></th>
                             <td>
                                 <select type="text" class="form-control" name="reliability" >
                                     <option value="">信頼性を選んで下さい</option>

@@ -661,10 +661,10 @@ class JobOfferController extends Controller
                     $longVacations[] = $longVacation;
                 }
 
-                // 作成者バリデーション
+                // 営業担当バリデーション
                 $user = $users->where('name', $line[0])->first();
                 if (is_null($user)) {
-                    $errorMsgs[] = "{$line[0]}という作成者は登録されていません。";
+                    $errorMsgs[] = "{$line[0]}という営業担当は登録されていません。";
                     $hasErrors = true;
                 }
 
