@@ -29,8 +29,8 @@ class JobOfferController extends Controller
         $perPage = $request->per_page ?? 30;
 
         // todo: 企業ランクを有効化する際に下のwhereNotInを復活させる
-        $jobOffers = JobOffer::/*whereNotIn('rank', ['C', 'D'])
-        ->*/when($request->userId, function ($query, $userId) {
+        $jobOffers = JobOffer::whereNotIn('rank', ['C', 'D'])
+        ->when($request->userId, function ($query, $userId) {
             return $query->where('user_id', $userId);
         })
         ->when($request->customerName, function ($query, $customerName) {
@@ -220,41 +220,41 @@ class JobOfferController extends Controller
             $saveData['long_vacation'] = json_encode($saveData['long_vacation']);
         }
 		// 企業ランク
-        // $customer = Customer::find($customerId);
-		// $customerRankPoint = $customer->getCustomerRankPoint();
-		// // 商談ランク
-		// $numberOfOrderingBasesPoint = config('points.numberOfOrderingBases')[intval($request->input('number_of_ordering_bases'))];
-        // $orderNumberPoint = config('points.orderNumber')[intval($request->input('order_number'))];
-        // $transactionDurationPoint = config('points.transactionDuration')[intval($request->input('transaction_duration'))];
-        // $expectedSalesPoint = config('points.expectedSales')[intval($request->input('expected_sales'))];
-        // $profitRatePoint = config('points.profitRate')[intval($request->input('profit_rate'))];
-        // $specialMattersPoint = config('points.specialMatters')[intval($request->input('special_matters'))];
+        $customer = Customer::find($customerId);
+		$customerRankPoint = $customer->getCustomerRankPoint();
+		// 商談ランク
+		$numberOfOrderingBasesPoint = config('points.numberOfOrderingBases')[intval($request->input('number_of_ordering_bases'))];
+        $orderNumberPoint = config('points.orderNumber')[intval($request->input('order_number'))];
+        $transactionDurationPoint = config('points.transactionDuration')[intval($request->input('transaction_duration'))];
+        $expectedSalesPoint = config('points.expectedSales')[intval($request->input('expected_sales'))];
+        $profitRatePoint = config('points.profitRate')[intval($request->input('profit_rate'))];
+        $specialMattersPoint = config('points.specialMatters')[intval($request->input('special_matters'))];
 
-        // $negotiationPoint = $numberOfOrderingBasesPoint
-        //     + $orderNumberPoint
-        //     + $transactionDurationPoint
-        //     + $expectedSalesPoint
-        //     + $profitRatePoint
-        //     + $specialMattersPoint;
+        $negotiationPoint = $numberOfOrderingBasesPoint
+            + $orderNumberPoint
+            + $transactionDurationPoint
+            + $expectedSalesPoint
+            + $profitRatePoint
+            + $specialMattersPoint;
 
-		// // 求人ランク
-        // $jobOfferRank = $customerRankPoint + $negotiationPoint;
+		// 求人ランク
+        $jobOfferRank = $customerRankPoint + $negotiationPoint;
 
-        // if ($jobOfferRank > 90) {
-        //     $rank = 'SS';
-        // } elseif ($jobOfferRank > 80) {
-        //     $rank = 'S';
-        // } elseif ($jobOfferRank > 70) {
-        //     $rank = 'A';
-        // } elseif ($jobOfferRank > 50) {
-        //     $rank = 'B';
-        // } elseif ($jobOfferRank > 20) {
-        //     $rank = 'C';
-        // } else {
-        //     $rank = 'D';
-        // }
+        if ($jobOfferRank > 90) {
+            $rank = 'SS';
+        } elseif ($jobOfferRank > 80) {
+            $rank = 'S';
+        } elseif ($jobOfferRank > 70) {
+            $rank = 'A';
+        } elseif ($jobOfferRank > 50) {
+            $rank = 'B';
+        } elseif ($jobOfferRank > 20) {
+            $rank = 'C';
+        } else {
+            $rank = 'D';
+        }
         // todo: 企業ランクを有効化する際は以下の行のコメントを外す
-        // $saveData['rank'] = $rank;
+        $saveData['rank'] = $rank;
         $newJobOffer = JobOffer::create($saveData);
 
         $request->session()->flash('SucccessMsg', '登録しました');
@@ -306,9 +306,9 @@ class JobOfferController extends Controller
             );
         }
         // todo: 企業ランクを有効化する際は以下の行のコメントを外す
-        // if ($jobOfferRank < 51) {
-		// 	return redirect(route('invalid_job_offers.index'));
-        // }
+        if ($jobOfferRank < 51) {
+			return redirect(route('invalid_job_offers.index'));
+        }
 
         return redirect(route('job_offers.index'));
     }
