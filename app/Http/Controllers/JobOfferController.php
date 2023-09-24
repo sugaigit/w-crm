@@ -406,6 +406,43 @@ class JobOfferController extends Controller
                 $statusIsUpdated = true;
             }
 
+            // 企業ランク
+            $customer = Customer::find($customerId);
+            $customerRankPoint = $customer->getCustomerRankPoint();
+            // 商談ランク
+            $numberOfOrderingBasesPoint = config('points.numberOfOrderingBases')[intval($request->input('number_of_ordering_bases'))];
+            $orderNumberPoint = config('points.orderNumber')[intval($request->input('order_number'))];
+            $transactionDurationPoint = config('points.transactionDuration')[intval($request->input('transaction_duration'))];
+            $expectedSalesPoint = config('points.expectedSales')[intval($request->input('expected_sales'))];
+            $profitRatePoint = config('points.profitRate')[intval($request->input('profit_rate'))];
+            $specialMattersPoint = config('points.specialMatters')[intval($request->input('special_matters'))];
+
+            $negotiationPoint = $numberOfOrderingBasesPoint
+                + $orderNumberPoint
+                + $transactionDurationPoint
+                + $expectedSalesPoint
+                + $profitRatePoint
+                + $specialMattersPoint;
+
+            // 求人ランク
+            $jobOfferRank = $customerRankPoint + $negotiationPoint;
+
+            if ($jobOfferRank > 90) {
+                $rank = 'SS';
+            } elseif ($jobOfferRank > 80) {
+                $rank = 'S';
+            } elseif ($jobOfferRank > 70) {
+                $rank = 'A';
+            } elseif ($jobOfferRank > 50) {
+                $rank = 'B';
+            } elseif ($jobOfferRank > 20) {
+                $rank = 'C';
+            } else {
+                $rank = 'D';
+            }
+            // todo: 企業ランクを有効化する際は以下の行のコメントを外す
+            $jobOffer->rank = $rank;
+
             $jobOffer->user_id= $request->input('user_id');
             $jobOffer->handling_type= $request->input('handling_type');
             $jobOffer->job_number= $request->input('job_number');
@@ -590,6 +627,12 @@ class JobOfferController extends Controller
                     ]
                 );
             }
+
+            // todo: 企業ランクを有効化する際は以下の行のコメントを外す
+            if ($jobOfferRank < 51) {
+                return redirect(route('invalid_job_offers.index'));
+            }
+
             return redirect(route('job_offers.detail', $jobOffer->id));
         }
 
