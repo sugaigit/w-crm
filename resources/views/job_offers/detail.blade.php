@@ -13,7 +13,7 @@
         <input class="btn btn-secondary mb-2 me-3" type="button" value="印刷" onclick="window.print();" />
         @if(!$isDraftJobOffer)
         {{-- <input class="btn btn-success mb-2" type="submit" value="複製" onclick="duplicate()" /> --}}
-        <input class="btn btn-success mb-2 me-3" type="submit" name="duplicate" value="複製">
+        {{-- <input class="btn btn-success mb-2 me-3" type="submit" name="duplicate" value="複製"> --}}
         @else
         <input type="hidden" name="draftJobOfferId" value="{{ $jobOffer->id }}">
         @endif
@@ -98,10 +98,10 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>顧客<span class="text-danger">*</span></th>
+                        <th>顧客名<span class="text-danger">*</span></th>
                         <td>
                             <select style="pointer-events: none;" tabindex="-1" type="text" class="form-control required" name="customer_id" required>
-                            <option value="">顧客を選んで下さい</option>
+                            <option value="">顧客を選択もしくは入力してください</option>
                             @foreach( $customers as $customer )
                                 @if (is_null(old('customer_id')))
                                 <option value="{{ $customer->id }}" {{ $customer->id == $jobOffer->customer_id ? 'selected' : '' }}>{{ $customer->customer_name }}</option>
@@ -187,7 +187,7 @@
                             @endif
                         </td>
                     </tr>
-                    <th>発注拠点数</th>
+                    <th>発注拠点数<span class="text-danger">*</span></th>
                     <td>
                         <select  style="pointer-events: none;" tabindex="-1" type="text" class="form-control required" name="number_of_ordering_bases" required>
                             <option value="">発注拠点数を選んで下さい</option>
@@ -202,7 +202,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th>発注人数</th>
+                    <th>発注人数<span class="text-danger">*</span></th>
                     <td>
                         <select  style="pointer-events: none;" tabindex="-1" type="text" class="form-control required" name="order_number" required>
                             <option value="">発注人数を選んで下さい</option>
@@ -217,7 +217,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th>取引継続期間</th>
+                    <th>取引継続期間<span class="text-danger">*</span></th>
                     <td>
                         <select  style="pointer-events: none;" tabindex="-1" type="text" class="form-control required" name="transaction_duration" required>
                             <option value="">取引継続期間を選んで下さい</option>
@@ -232,7 +232,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th>売上見込額</th>
+                    <th>売上見込額<span class="text-danger">*</span></th>
                     <td>
                         <select  style="pointer-events: none;" tabindex="-1" type="text" class="form-control required" name="expected_sales" required>
                             <option value="">売上見込額を選んで下さい</option>
@@ -247,7 +247,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th>利益率</th>
+                    <th>利益率<span class="text-danger">*</span></th>
                     <td>
                         <select  style="pointer-events: none;" tabindex="-1" type="text" class="form-control required" name="profit_rate" required>
                             <option value="">利益率を選んで下さい</option>
@@ -262,7 +262,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th>特別事項</th>
+                    <th>特別事項<span class="text-danger">*</span></th>
                     <td>
                         <select  style="pointer-events: none;" tabindex="-1" type="text" class="form-control required" name="special_matters" required>
                             <option value="">特別事項を選んで下さい</option>

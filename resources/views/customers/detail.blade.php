@@ -2,7 +2,7 @@
 @section('content')
 <div class="container">
     <div class="col-md-12">
-        <div class="d-flex">  
+        <div class="d-flex">
             <a href="{{ route('customers.edit', $customer->id) }}">
                 <button class="btn btn-primary mb-2" type="button">編集</button>
             </a>
@@ -23,7 +23,7 @@
                             <td>{{ $customer->id}}</td>
                         </tr>
                         <tr>
-                            <th>作成者<span class="text-danger">*</span></th>
+                            <th>営業担当<span class="text-danger">*</span></th>
                             <td>
                                 <select disabled type="text" class="form-control required" name="user_id" required>
                                     <option value="">営業担当を選んで下さい</option>

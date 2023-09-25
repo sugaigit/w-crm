@@ -11,7 +11,7 @@
                         <input class="form-control mt-3" type="search" placeholder="電話番号を入力" name="phonesearch" value="@if (isset($phonesearch)) {{ $phonesearch }} @endif">
 
                         <select type="text" class="form-control mt-3" name="usersearch">
-                            <option value="">作成者を選択</option>
+                            <option value="">営業担当を選択</option>
                             @foreach( $users as $key => $user )
                             <option value="{{ $user->id }}">{{ $user->name }}</option>
                             @endforeach
@@ -64,7 +64,7 @@
                 <th class="text-center">顧客名</th>
                 <th class="text-center">業種</th>
                 <th class="text-center">住所</th>
-                <th class="text-center">作成者</th>
+                <th class="text-center">営業担当</th>
                 <th class="text-center">操作</th>
             </tr>
         </thead>
