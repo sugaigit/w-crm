@@ -30,6 +30,7 @@ class JobOfferController extends Controller
 
         // todo: 企業ランクを有効化する際に下のwhereNotInを復活させる
         $jobOffers = JobOffer::whereNotIn('rank', ['C', 'D'])
+        ->orWhereNull('rank')
         ->when($request->userId, function ($query, $userId) {
             return $query->where('user_id', $userId);
         })
