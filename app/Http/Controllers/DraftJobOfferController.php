@@ -88,7 +88,7 @@ class DraftJobOfferController extends Controller
         //     \Session::flash('AlertMsg', '警告：データーベースに登録されている営業担当とログインユーザーが一致しません');
         // }
 
-        $customerName = Customer::where('id', $draftJobOffer->customer_id)->first()->customer_name;
+        $customerName = Customer::where('id', $draftJobOffer->customer_id)->first()->customer_name ?? '';
 
         return view('draft_job_offers.edit', [
             'jobOffer' => $draftJobOffer,
@@ -109,12 +109,17 @@ class DraftJobOfferController extends Controller
         // 求人情報の更新処理
         $draftJobOffer = DraftJobOffer::find($id);
 
+        $customerId = '';
+        if (!empty($request->customer_id)) {
+            $customerId = Customer::where('customer_name', $request->input('customer_id'))->first()->id;
+        }
+
         $draftJobOffer->user_id= $request->input('user_id');
         $draftJobOffer->handling_type= $request->input('handling_type');
         $draftJobOffer->job_number= $request->input('job_number');
         $draftJobOffer->handling_office= $request->input('handling_office');
         $draftJobOffer->business_type= $request->input('business_type');
-        $draftJobOffer->customer_id= $request->input('customer_id');
+        $draftJobOffer->customer_id= $customerId;
         $draftJobOffer->type_contract= $request->input('type_contract');
         $draftJobOffer->recruitment_number= $request->input('recruitment_number');
         $draftJobOffer->company_name= $request->input('company_name');
@@ -242,12 +247,15 @@ class DraftJobOfferController extends Controller
         $users = User::all();
         $customers = Customer::all();
 
+        $customerName = Customer::where('id', $draftJobOffer->customer_id)->first()->customer_name ?? '';
+        // dd($customerName);
         return view('draft_job_offers.detail', [
             'draftJobOffer' => $draftJobOffer,
             'users' => $users,
             'customers' => $customers,
             'isDraftJobOffer' => true,
             'differentUserAlert' => false,
+            'customerName' => $customerName,
         ]);
     }
 

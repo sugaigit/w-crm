@@ -98,16 +98,16 @@
                     <tr>
                         <th>顧客名<span class="text-danger">*</span></th>
                         <td>
-                            <select style="pointer-events: none;" tabindex="-1" type="text" class="form-control required" name="customer_id" >
-                            <option value="">顧客を選択もしくは入力してください</option>
-                            @foreach( $customers as $customer )
-                                @if (is_null(old('customer_id')))
-                                <option value="{{ $customer->id }}" {{ $customer->id == $draftJobOffer->customer_id ? 'selected' : '' }}>{{ $customer->customer_name }}</option>
-                                @else
-                                <option value="{{ $customer->id }}" {{ $customer->id == old('customer_id') ? 'selected' : '' }}>{{ $customer->customer_name }}</option>
-                                @endif
-                            @endforeach
-                            </select>
+                            <input class="form-control required" name="customer_id" list="customer_list" placeholder="顧客名を選んで下さい" style="pointer-events: none;" tabindex="-1" type="text" value={{ $customerName }}>
+                            <datalist id="customer_list">
+                                @foreach( $customers as $customer )
+                                    @if (is_null(old('customer_id')))
+                                    <option value="{{ $customer->customer_name }}" {{$customer->id == $draftJobOffer->customer_id ? 'selected' : '' }}>
+                                    @else
+                                    <option value="{{ $customer->customer_name }}" {{ old('customer_id') == $customer->customer_name ? 'selected' : '' }}>
+                                    @endif
+                                @endforeach
+                            </datalist>
                         </td>
                     </tr>
                     <tr>
