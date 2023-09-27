@@ -280,6 +280,7 @@ class JobOfferController extends Controller
 募集人数：{$request->input('recruitment_number')}人
 予定期間：{$request->input('scheduled_period')}
 契約形態：{$typeContract}
+詳細：{$path}
                 ";
             } else if ($status == '再発注'){
                 $content ="
@@ -291,6 +292,7 @@ class JobOfferController extends Controller
 就業先名称と発注業務：{$request->input('company_name')}/{$request->input('ordering_business')}
 募集人数：{$request->input('recruitment_number')}人
 予定期間：{$request->input('scheduled_period')}
+詳細：{$path}
                 ";
         }
 
