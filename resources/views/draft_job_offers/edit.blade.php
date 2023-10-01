@@ -7,9 +7,9 @@
 @endif
 <div class="container">
   <div class="col-md-12">
-    <form action="{{ route('job_offers.update', $jobOffer->id) }}" method="POST">
+    <form action="{{ route('job_offers.store') }}" method="POST">
         @csrf
-        @method('PUT')
+        {{-- @method('PUT') --}}
         <input type="hidden" name="jobOfferId" value="{{ $jobOffer->id }}">
         @if(!$isDraftJobOffer)
             <input class="btn btn-success mb-2" type="submit" name="duplicate" value="複製">
@@ -18,7 +18,7 @@
         @endif
         <div class="card mb-4">
             <div class="card-header">
-                求人情報編集
+                求人情報下書き編集
             </div>
 
             <table class="table">
@@ -142,7 +142,7 @@
                         <th>募集人数<span class="text-danger">*</span></th>
                         <td>
                             @if (is_null(old('recruitment_number')))
-                            <input type="text" class="form-control required" name="recruitment_number" value="{{ isset($jobOffer->recruitment_number) ? $jobOffer->recruitment_number : '' }}" >
+                            <input type="text" class="form-control required" name="recruitment_number" value="{{ $jobOffer->recruitment_number!=0 ? $jobOffer->recruitment_number : '' }}" >
                             @else
                             <input type="text" class="form-control required" name="recruitment_number" value="{{ old('recruitment_number') }}" >
                             @endif
@@ -481,7 +481,7 @@
                             @if (is_null(old('payment_unit_price_1')))
                             <input type="text" class="form-control required" name="payment_unit_price_1" value="{{ isset($jobOffer->payment_unit_price_1) ? $jobOffer->payment_unit_price_1 : '' }}" >
                             @else
-                            <input type="text" class="form-control" name="payment_unit_price_1" value="{{ old('payment_unit_price_1') }}" >
+                            <input type="text" class="form-control required" name="payment_unit_price_1" value="{{ old('payment_unit_price_1') }}" >
                             @endif
                         </td>
                     </tr>
@@ -753,11 +753,11 @@
                         <th>休日<span class="text-danger">*</span></th>
                         <td>
                             @foreach(config('options.holiday') as $index => $holiday)
-                                <div class="form-check form-check-inline">
+                                <div class="form-check form-check-inline required">
                                     @if (is_null(old('holiday')))
-                                    <input class="form-check-input require" type="checkbox" id="{{ 'holidayInput' . $index }}" name="holiday[]" value="{{ $index }}" @if(is_array($jobOffer->holiday)) {{ in_array($index, $jobOffer->holiday) ? 'checked' : '' }} @endif>
+                                    <input class="form-check-input required" type="checkbox" id="{{ 'holidayInput' . $index }}" name="holiday[]" value="{{ $index }}" @if(is_array($jobOffer->holiday)) {{ in_array($index, $jobOffer->holiday) ? 'checked' : '' }} @endif>
                                     @else
-                                    <input class="form-check-input require" type="checkbox" id="{{ 'holidayInput' . $index }}" name="holiday[]" value="{{ $index }}" @if(in_array($index, old('holiday'))) checked @endif>
+                                    <input class="form-check-input required" type="checkbox" id="{{ 'holidayInput' . $index }}" name="holiday[]" value="{{ $index }}" @if(in_array($index, old('holiday'))) checked @endif>
                                     @endif
                                     <label class="form-check-label" for="{{ 'holidayInput' . $index }}">{{ $holiday }}</label>
                                 </div>

@@ -129,7 +129,7 @@
                         <th>募集人数<span class="text-danger">*</span></th>
                         <td>
                             @if (is_null(old('recruitment_number')))
-                            <input style="pointer-events: none;" tabindex="-1" type="text" class="form-control required" name="recruitment_number" value="{{ isset($draftJobOffer->recruitment_number) ? $draftJobOffer->recruitment_number : '' }}" >
+                            <input style="pointer-events: none;" tabindex="-1" type="text" class="form-control required" name="recruitment_number" value="{{ $draftJobOffer->recruitment_number!=0 ? $draftJobOffer->recruitment_number : '' }}" >
                             @else
                             <input style="pointer-events: none;" tabindex="-1" type="text" class="form-control required" name="recruitment_number" value="{{ old('recruitment_number') }}" >
                             @endif

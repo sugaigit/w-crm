@@ -26,12 +26,17 @@ class JobOfferController extends Controller
         $draftJobOffers = DraftJobOffer::all();
         $users = User::all();
         $customers = Customer::all();
+        // dd($request->customerName);
         $perPage = $request->per_page ?? 30;
 
         // todo: 企業ランクを有効化する際に下のwhereNotInを復活させる
-        $jobOffers = JobOffer::whereNotIn('rank', ['C', 'D'])
+        $jobOffers = JobOffer::where(function ($query) {
+            $query->where('rank', ['C', 'D'])
+                ->orWhereNull('rank');
+        })
+        /*whereNotIn('rank', ['C', 'D'])
         ->orWhereNull('rank')
-        ->when($request->userId, function ($query, $userId) {
+        */->when($request->userId, function ($query, $userId) {
             return $query->where('user_id', $userId);
         })
         ->when($request->customerName, function ($query, $customerName) {
