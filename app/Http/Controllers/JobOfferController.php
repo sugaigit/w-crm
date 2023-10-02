@@ -26,17 +26,14 @@ class JobOfferController extends Controller
         $draftJobOffers = DraftJobOffer::all();
         $users = User::all();
         $customers = Customer::all();
-        // dd($request->customerName);
         $perPage = $request->per_page ?? 30;
 
         // todo: 企業ランクを有効化する際に下のwhereNotInを復活させる
         $jobOffers = JobOffer::where(function ($query) {
-            $query->where('rank', ['C', 'D'])
+            $query->whereNotIn('rank', ['C', 'D'])
                 ->orWhereNull('rank');
         })
-        /*whereNotIn('rank', ['C', 'D'])
-        ->orWhereNull('rank')
-        */->when($request->userId, function ($query, $userId) {
+        ->when($request->userId, function ($query, $userId) {
             return $query->where('user_id', $userId);
         })
         ->when($request->customerName, function ($query, $customerName) {
@@ -210,12 +207,12 @@ class JobOfferController extends Controller
             'order_date'=> ['required'],
             'status'=> ['required'],
             'parking'=> ['required'],
-            // 'number_of_ordering_bases' => ['required'],
-            // 'order_number' => ['required'],
-            // 'transaction_duration' => ['required'],
-            // 'expected_sales' => ['required'],
-            // 'profit_rate' => ['required'],
-            // 'special_matters' => ['required'],
+            'number_of_ordering_bases' => ['required'],
+            'order_number' => ['required'],
+            'transaction_duration' => ['required'],
+            'expected_sales' => ['required'],
+            'profit_rate' => ['required'],
+            'special_matters' => ['required'],
         ]);
 
         $saveData = $request->all();
@@ -397,12 +394,12 @@ class JobOfferController extends Controller
                 'order_date'=> ['required'],
                 'status'=> ['required'],
                 'parking'=> ['required'],
-                // 'number_of_ordering_bases' => ['required'],
-                // 'order_number' => ['required'],
-                // 'transaction_duration' => ['required'],
-                // 'expected_sales' => ['required'],
-                // 'profit_rate' => ['required'],
-                // 'special_matters' => ['required'],
+                'number_of_ordering_bases' => ['required'],
+                'order_number' => ['required'],
+                'transaction_duration' => ['required'],
+                'expected_sales' => ['required'],
+                'profit_rate' => ['required'],
+                'special_matters' => ['required'],
             ]);
 
             // 求人情報の更新処理
@@ -636,10 +633,9 @@ class JobOfferController extends Controller
                 );
             }
 
-            // todo: 企業ランクを有効化する際は以下の行のコメントを外す
-            if ($jobOfferRank < 51) {
-                return redirect(route('invalid_job_offers.index'));
-            }
+            // if ($jobOfferRank < 51) {
+            //     return redirect(route('invalid_job_offers.index'));
+            // }
 
             return redirect(route('job_offers.detail', $jobOffer->id));
         }
