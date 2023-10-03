@@ -129,7 +129,7 @@
                         <th>募集人数<span class="text-danger">*</span></th>
                         <td>
                             @if (is_null(old('recruitment_number')))
-                            <input style="pointer-events: none;" tabindex="-1" type="text" class="form-control required" name="recruitment_number" value="{{ isset($draftJobOffer->recruitment_number) ? $draftJobOffer->recruitment_number : '' }}" >
+                            <input style="pointer-events: none;" tabindex="-1" type="text" class="form-control required" name="recruitment_number" value="{{ $draftJobOffer->recruitment_number!=0 ? $draftJobOffer->recruitment_number : '' }}" >
                             @else
                             <input style="pointer-events: none;" tabindex="-1" type="text" class="form-control required" name="recruitment_number" value="{{ old('recruitment_number') }}" >
                             @endif
@@ -186,9 +186,9 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>発注拠点数</th>
+                        <th>発注拠点数<span class="text-danger">*</span></th>
                         <td>
-                            <select style="pointer-events: none;" tabindex="-1" type="text" class="form-control" name="number_of_ordering_bases">
+                            <select style="pointer-events: none;" tabindex="-1" type="text" class="form-control required" name="number_of_ordering_bases">
                                 <option value="">発注拠点数を選んで下さい</option>
                                 @foreach( config('options.number_of_ordering_bases') as $key => $number_of_ordering_bases )
                                     @if (is_null(old('number_of_ordering_bases')))
@@ -201,9 +201,9 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>発注人数</th>
+                        <th>発注人数<span class="text-danger">*</span></th>
                         <td>
-                            <select style="pointer-events: none;" tabindex="-1" type="text" class="form-control" name="order_number">
+                            <select style="pointer-events: none;" tabindex="-1" type="text" class="form-control required" name="order_number">
                                 <option value="">発注人数を選んで下さい</option>
                                 @foreach( config('options.order_number') as $key => $order_number )
                                     @if (is_null(old('order_number')))
@@ -216,9 +216,9 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>取引継続期間</th>
+                        <th>取引継続期間<span class="text-danger">*</span></th>
                         <td>
-                            <select style="pointer-events: none;" tabindex="-1" type="text" class="form-control" name="transaction_duration">
+                            <select style="pointer-events: none;" tabindex="-1" type="text" class="form-control required" name="transaction_duration">
                                 <option value="">取引継続期間を選んで下さい</option>
                                 @foreach( config('options.transaction_duration') as $key => $transaction_duration )
                                     @if (is_null(old('transaction_duration')))
@@ -231,9 +231,9 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>売上見込額</th>
+                        <th>売上見込額<span class="text-danger">*</span></th>
                         <td>
-                            <select style="pointer-events: none;" tabindex="-1" type="text" class="form-control" name="expected_sales">
+                            <select style="pointer-events: none;" tabindex="-1" type="text" class="form-control required" name="expected_sales">
                                 <option value="">売上見込額を選んで下さい</option>
                                 @foreach( config('options.expected_sales') as $key => $expected_sales )
                                     @if (is_null(old('expected_sales')))
@@ -246,9 +246,9 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>利益率</th>
+                        <th>利益率<span class="text-danger">*</span></th>
                         <td>
-                            <select style="pointer-events: none;" tabindex="-1" type="text" class="form-control" name="profit_rate">
+                            <select style="pointer-events: none;" tabindex="-1" type="text" class="form-control required" name="profit_rate">
                                 <option value="">利益率を選んで下さい</option>
                                 @foreach( config('options.profit_rate') as $key => $profit_rate )
                                     @if (is_null(old('profit_rate')))
@@ -261,9 +261,9 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>特別事項</th>
+                        <th>特別事項<span class="text-danger">*</span></th>
                         <td>
-                            <select style="pointer-events: none;" tabindex="-1" type="text" class="form-control" name="special_matters">
+                            <select style="pointer-events: none;" tabindex="-1" type="text" class="form-control required" name="special_matters">
                                 <option value="">特別事項を選んで下さい</option>
                                 @foreach( config('options.special_matters') as $key => $special_matters )
                                     @if (is_null(old('special_matters')))

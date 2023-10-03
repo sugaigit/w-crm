@@ -91,11 +91,11 @@ class Customer extends Model
 
     public function getCustomerRankPoint()
     {
-        $companySizePoint = empty($this->company_size) ? 0 : config('points.companySize')[intval($this->company_size)];
-        $businessDevelopmentAreaPoint = empty($this->business_development_area) ? 0 : config('points.businessDevelopmentArea')[intval($this->business_development_area)];
-        $businessExpansionPotentialPoint = empty($this->business_expansion_potential) ? 0 : config('points.businessExpansionPotential')[intval($this->business_expansion_potential)];
-        $companyHistoryPoint = empty($this->company_history) ? 0 : config('points.companyHistory')[intval($this->company_history)];
-        $reliabilityPoint = empty($this->reliability) ? 0 : config('points.reliability')[intval($this->reliability)];
+        $companySizePoint = empty($this->company_size) ? 1 : config('points.companySize')[intval($this->company_size)];
+        $businessDevelopmentAreaPoint = empty($this->business_development_area) ? 1 : config('points.businessDevelopmentArea')[intval($this->business_development_area)];
+        $businessExpansionPotentialPoint = empty($this->business_expansion_potential) ? 1 : config('points.businessExpansionPotential')[intval($this->business_expansion_potential)];
+        $companyHistoryPoint = empty($this->company_history) ? 1 : config('points.companyHistory')[intval($this->company_history)];
+        $reliabilityPoint = empty($this->reliability) ? 1 : config('points.reliability')[intval($this->reliability)];
 
         $customerRankPoint = $companySizePoint
             + $businessDevelopmentAreaPoint

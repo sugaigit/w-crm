@@ -146,12 +146,21 @@ $(document).ready(function() {
     /******************************************
      * 必須項目の表示切替
      ******************************************/
-    if ($('.required').val().length) {
-        $('.required').removeClass('bg-danger bg-opacity-25');
-    } else {
-        $('.required').addClass('bg-danger bg-opacity-25');
-    }
+    // if ($('.required').val().length) {
+    //     $('.required').removeClass('bg-danger bg-opacity-25');
+    //     console.log('必須の記述あり');
+    // } else {
+    //     $('.required').addClass('bg-danger bg-opacity-25');
+    //     console.log('必須の記述なし');
+    // }
     $('.required').on('change', function () {
+        if ($(this).val().length) {
+            $(this).removeClass('bg-danger bg-opacity-25');
+        } else {
+            $(this).addClass('bg-danger bg-opacity-25');
+        }
+    });
+    $(".required").each(function(i) {
         if ($(this).val().length) {
             $(this).removeClass('bg-danger bg-opacity-25');
         } else {

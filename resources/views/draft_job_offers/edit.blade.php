@@ -7,9 +7,9 @@
 @endif
 <div class="container">
   <div class="col-md-12">
-    <form action="{{ route('job_offers.update', $jobOffer->id) }}" method="POST">
+    <form action="{{ route('job_offers.store') }}" method="POST">
         @csrf
-        @method('PUT')
+        {{-- @method('PUT') --}}
         <input type="hidden" name="jobOfferId" value="{{ $jobOffer->id }}">
         @if(!$isDraftJobOffer)
             <input class="btn btn-success mb-2" type="submit" name="duplicate" value="複製">
@@ -18,7 +18,7 @@
         @endif
         <div class="card mb-4">
             <div class="card-header">
-                求人情報編集
+                求人情報下書き編集
             </div>
 
             <table class="table">
@@ -142,7 +142,7 @@
                         <th>募集人数<span class="text-danger">*</span></th>
                         <td>
                             @if (is_null(old('recruitment_number')))
-                            <input type="text" class="form-control required" name="recruitment_number" value="{{ isset($jobOffer->recruitment_number) ? $jobOffer->recruitment_number : '' }}" >
+                            <input type="text" class="form-control required" name="recruitment_number" value="{{ $jobOffer->recruitment_number!=0 ? $jobOffer->recruitment_number : '' }}" >
                             @else
                             <input type="text" class="form-control required" name="recruitment_number" value="{{ old('recruitment_number') }}" >
                             @endif
@@ -199,9 +199,9 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>発注拠点数</th>
+                        <th>発注拠点数<span class="text-danger">*</span></th>
                         <td>
-                            <select type="text" class="form-control" name="number_of_ordering_bases">
+                            <select type="text" class="form-control required" name="number_of_ordering_bases">
                                 <option value="">発注拠点数を選んで下さい</option>
                                 @foreach( config('options.number_of_ordering_bases') as $key => $number_of_ordering_bases )
                                     @if (is_null(old('number_of_ordering_bases')))
@@ -214,9 +214,9 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>発注人数</th>
+                        <th>発注人数<span class="text-danger">*</span></th>
                         <td>
-                            <select type="text" class="form-control" name="order_number">
+                            <select type="text" class="form-control required" name="order_number">
                                 <option value="">発注人数を選んで下さい</option>
                                 @foreach( config('options.order_number') as $key => $order_number )
                                     @if (is_null(old('order_number')))
@@ -229,9 +229,9 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>取引継続期間</th>
+                        <th>取引継続期間<span class="text-danger">*</span></th>
                         <td>
-                            <select type="text" class="form-control" name="transaction_duration">
+                            <select type="text" class="form-control required" name="transaction_duration">
                                 <option value="">取引継続期間を選んで下さい</option>
                                 @foreach( config('options.transaction_duration') as $key => $transaction_duration )
                                     @if (is_null(old('transaction_duration')))
@@ -244,9 +244,9 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>売上見込額</th>
+                        <th>売上見込額<span class="text-danger">*</span></th>
                         <td>
-                            <select type="text" class="form-control" name="expected_sales">
+                            <select type="text" class="form-control required" name="expected_sales">
                                 <option value="">売上見込額を選んで下さい</option>
                                 @foreach( config('options.expected_sales') as $key => $expected_sales )
                                     @if (is_null(old('expected_sales')))
@@ -259,9 +259,9 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>利益率</th>
+                        <th>利益率<span class="text-danger">*</span></th>
                         <td>
-                            <select type="text" class="form-control" name="profit_rate">
+                            <select type="text" class="form-control required" name="profit_rate">
                                 <option value="">利益率を選んで下さい</option>
                                 @foreach( config('options.profit_rate') as $key => $profit_rate )
                                     @if (is_null(old('profit_rate')))
@@ -274,9 +274,9 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>特別事項</th>
+                        <th>特別事項<span class="text-danger">*</span></th>
                         <td>
-                            <select type="text" class="form-control" name="special_matters">
+                            <select type="text" class="form-control required" name="special_matters">
                                 <option value="">特別事項を選んで下さい</option>
                                 @foreach( config('options.special_matters') as $key => $special_matters )
                                     @if (is_null(old('special_matters')))
@@ -481,7 +481,7 @@
                             @if (is_null(old('payment_unit_price_1')))
                             <input type="text" class="form-control required" name="payment_unit_price_1" value="{{ isset($jobOffer->payment_unit_price_1) ? $jobOffer->payment_unit_price_1 : '' }}" >
                             @else
-                            <input type="text" class="form-control" name="payment_unit_price_1" value="{{ old('payment_unit_price_1') }}" >
+                            <input type="text" class="form-control required" name="payment_unit_price_1" value="{{ old('payment_unit_price_1') }}" >
                             @endif
                         </td>
                     </tr>
@@ -753,11 +753,11 @@
                         <th>休日<span class="text-danger">*</span></th>
                         <td>
                             @foreach(config('options.holiday') as $index => $holiday)
-                                <div class="form-check form-check-inline">
+                                <div class="form-check form-check-inline required">
                                     @if (is_null(old('holiday')))
-                                    <input class="form-check-input require" type="checkbox" id="{{ 'holidayInput' . $index }}" name="holiday[]" value="{{ $index }}" @if(is_array($jobOffer->holiday)) {{ in_array($index, $jobOffer->holiday) ? 'checked' : '' }} @endif>
+                                    <input class="form-check-input required" type="checkbox" id="{{ 'holidayInput' . $index }}" name="holiday[]" value="{{ $index }}" @if(is_array($jobOffer->holiday)) {{ in_array($index, $jobOffer->holiday) ? 'checked' : '' }} @endif>
                                     @else
-                                    <input class="form-check-input require" type="checkbox" id="{{ 'holidayInput' . $index }}" name="holiday[]" value="{{ $index }}" @if(in_array($index, old('holiday'))) checked @endif>
+                                    <input class="form-check-input required" type="checkbox" id="{{ 'holidayInput' . $index }}" name="holiday[]" value="{{ $index }}" @if(in_array($index, old('holiday'))) checked @endif>
                                     @endif
                                     <label class="form-check-label" for="{{ 'holidayInput' . $index }}">{{ $holiday }}</label>
                                 </div>
