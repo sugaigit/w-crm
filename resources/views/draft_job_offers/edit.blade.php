@@ -192,9 +192,9 @@
                         <th>発注業務詳細<span class="text-danger">*</span></th>
                         <td>
                             @if (is_null(old('order_details')))
-                            <input type="text" maxlength="100" class="form-control required" name="order_details" value="{{ isset($jobOffer->order_details) ? $jobOffer->order_details : '' }}" >
+                            <textarea rows="15" class="form-control required" name="order_details" value="{{ isset($jobOffer->order_details) ? $jobOffer->order_details : '' }}" >
                             @else
-                            <input type="text" maxlength="100" class="form-control required" name="order_details" value="{{ old('order_details') }}" >
+                            <textarea rows="15" class="form-control required" name="order_details" value="{{ old('order_details') }}" >
                             @endif
                         </td>
                     </tr>

@@ -181,9 +181,9 @@
                         <th>発注業務詳細<span class="text-danger">*</span></th>
                         <td>
                             @if (is_null(old('order_details')))
-                            <textarea style="pointer-events: none;" type="textarea" rows="5" class="form-control" name="order_details" required>{{ isset( $jobOffer->order_details) ? $jobOffer->order_details : '' }}</textarea>
+                            <textarea style="pointer-events: none;" rows="15" class="form-control" name="order_details" required>{{ isset( $jobOffer->order_details) ? $jobOffer->order_details : '' }}</textarea>
                             @else
-                            <textarea style="pointer-events: none;" type="textarea" rows="5" class="form-control" name="order_details" required> {{ old('order_details') }}</textarea>
+                            <textarea style="pointer-events: none;" rows="15" class="form-control" name="order_details" required> {{ old('order_details') }}</textarea>
                             @endif
                         </td>
                     </tr>
