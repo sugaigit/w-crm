@@ -57,7 +57,7 @@
 			</div>
 		</div>
 	</div>
-    <div class="card-header w-100">求人一覧</div>
+    <div class="card-header w-100">ランク外求人一覧</div>
     <table class="table table-bordered table-hover w-100">
         <thead>
         <tr class=m-auto style="background-color: lightgray">
