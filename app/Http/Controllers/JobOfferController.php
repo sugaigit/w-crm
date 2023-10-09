@@ -258,6 +258,11 @@ class JobOfferController extends Controller
         }
         // todo: 企業ランクを有効化する際は以下の行のコメントを外す
         $saveData['rank'] = $rank;
+        // 複製の場合
+        if ($isDuplicated) {
+            $saveData['job_number'] = '';
+            $saveData['status'] = '';
+        }
         $newJobOffer = JobOffer::create($saveData);
 
         $request->session()->flash('SucccessMsg', '登録しました');
