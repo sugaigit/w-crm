@@ -262,6 +262,7 @@ class JobOfferController extends Controller
         if ($isDuplicated) {
             $saveData['job_number'] = '';
             $saveData['status'] = '';
+            $saveData['is_duplicated'] = true;
         }
         $newJobOffer = JobOffer::create($saveData);
 

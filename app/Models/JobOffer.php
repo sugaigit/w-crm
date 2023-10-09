@@ -116,7 +116,8 @@ class JobOffer extends Model
         'expected_sales',
         'profit_rate',
         'special_matters',
-        'rank'
+        'rank',
+        'is_duplicated',
     ];
 
 

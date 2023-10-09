@@ -8,7 +8,10 @@
 <div class="container">
   <div class="col-md-12">
     <form action="{{ route('job_offers.update', ['job_offer' => $jobOffer->id]) }}" method="POST">
-        @method('PUT')
+        @if (!$jobOffer->is_duplicated)
+            @method('PUT')
+        @endif
+
         @csrf
         <input type="hidden" name="jobOfferId" value="{{ $jobOffer->id }}">
         <input class="btn btn-secondary mb-2 me-3" type="button" value="印刷" onclick="window.print();" />
@@ -1340,6 +1343,11 @@
                 </div>
             @endif
 
+            @if($jobOffer->is_duplicated)
+                <div class="d-flex justify-content-center mt-4 mb-3">
+                    <button class="btn btn-secondary" type="submit" formaction="{{ route('draft.create') }}">下書き保存</button>
+                </div>
+            @endif
         </form>
     </div>
 
