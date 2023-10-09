@@ -6,7 +6,7 @@
 			<div class="col-md-8 offset-md-2">
 				<h1 class="text-center">ランク外求人情報</h1>
 				<div class="d-flex justify-content">
-					<form class="form-control" method="GET" action="{{ route('job_offers.index') }}">
+					<form class="form-control" method="GET" action="{{ route('invalid_job_offers.index') }}">
 						<h2 class="text-center">検索</h2>
 
 						<label for="userInput">営業担当</label>
