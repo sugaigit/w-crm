@@ -8,7 +8,10 @@
 <div class="container">
   <div class="col-md-12">
     <form action="{{ route('job_offers.update', ['job_offer' => $jobOffer->id]) }}" method="POST">
-        @method('PUT')
+        @if (!$jobOffer->is_duplicated)
+            @method('PUT')
+        @endif
+
         @csrf
         <input type="hidden" name="jobOfferId" value="{{ $jobOffer->id }}">
         <input class="btn btn-secondary mb-2 me-3" type="button" value="印刷" onclick="window.print();" />
@@ -194,9 +197,9 @@
                         <th>発注業務詳細<span class="text-danger">*</span></th>
                         <td>
                             @if (is_null(old('order_details')))
-                            <textarea type="text" maxlength="100" rows="5" class="form-control required" name="order_details" required> {{ isset($jobOffer->order_details) ? $jobOffer->order_details : '' }} </textarea>
+                            <textarea rows="15" class="form-control required" name="order_details" required> {{ isset($jobOffer->order_details) ? $jobOffer->order_details : '' }} </textarea>
                             @else
-                            <textarea type="textarea" rows="5" class="form-control" name="order_details" required> {{ old('order_details') }}</textarea>
+                            <textarea rows="15" class="form-control" name="order_details" required> {{ old('order_details') }}</textarea>
                             @endif
                         </td>
                     </tr>
@@ -1340,6 +1343,11 @@
                 </div>
             @endif
 
+            @if($jobOffer->is_duplicated)
+                <div class="d-flex justify-content-center mt-4 mb-3">
+                    <button class="btn btn-secondary" type="submit" formaction="{{ route('draft.create') }}">下書き保存</button>
+                </div>
+            @endif
         </form>
     </div>
 
