@@ -551,6 +551,7 @@ class JobOfferController extends Controller
             $jobOffer->status= $request->input('status');
             $jobOffer->order_date= $request->input('order_date');
             $jobOffer->number_of_ordering_bases= $request->input('number_of_ordering_bases');
+            $jobOffer->order_number = $request->input('order_number');
             $jobOffer->transaction_duration= $request->input('transaction_duration');
             $jobOffer->expected_sales= $request->input('expected_sales');
             $jobOffer->profit_rate= $request->input('profit_rate');

@@ -49,7 +49,7 @@
 						<div class="d-grid gap-2 d-md-flex justify-content-md-end">
 							<button class="btn btn-info m-2" type="submit">検索</button>
 							<button class="btn btn-success m-2">
-									<a href="{{ route('job_offers.index') }}" class="text-white text-decoration-none">クリア</a>
+									<a href="{{ route('invalid_job_offers.index') }}" class="text-white text-decoration-none">クリア</a>
 							</button>
 						</div>
 					</form>

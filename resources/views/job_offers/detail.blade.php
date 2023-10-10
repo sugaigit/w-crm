@@ -3,8 +3,8 @@
 
 <div class="container">
   <div class="col-md-12">
-    <form action="{{ route('job_offers.update', ['job_offer' => $jobOffer->id]) }}" method="POST">
-        @method('PUT')
+    <form action="{{ route('job_offers.update', $jobOffer->id) }}" method="POST">
+        {{-- @method('PUT') --}}
         @csrf
         <a href="{{ route('job_offers.edit', ['job_offer' => $jobOffer->id]) }}">
             <button class="btn btn-primary mb-2 me-3" type="button">編集</button>
