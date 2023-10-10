@@ -54,7 +54,9 @@ class DraftJobOfferController extends Controller
         if (isset($saveData['long_vacation'])) {
             $saveData['long_vacation'] = json_encode($saveData['long_vacation']);
         }
-
+        $customerId = Customer::where('customer_name', $saveData['customer_id'])->first()->id;
+        $saveData['customer_id'] = $customerId;
+        
         DraftJobOffer::create($saveData);
 
         $request->session()->flash('SucccessMsg', '下書き保存しました');

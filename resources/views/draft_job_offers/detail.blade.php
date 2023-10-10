@@ -7,9 +7,9 @@
 @endif
 <div class="container">
   <div class="col-md-12">
-    <form action="{{ route('job_offers.update', ['job_offer' => $draftJobOffer->id]) }}" method="POST">
+    <form action="{{ route('job_offers.update', $draftJobOffer->id) }}" method="POST">
         @csrf
-        @method('PUT')
+        {{-- @method('PUT') --}}
         <input style="pointer-events: none;" tabindex="-1" type="hidden" name="jobOfferId" value="{{ $draftJobOffer->id }}">
         <a href="{{ route('draft.edit', $draftJobOffer->id) }}">
             <button class="btn btn-primary mb-2 me-3" type="button">編集</button>

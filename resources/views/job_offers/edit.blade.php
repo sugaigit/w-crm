@@ -7,9 +7,9 @@
 @endif
 <div class="container">
   <div class="col-md-12">
-    <form action="{{ route('job_offers.update', ['job_offer' => $jobOffer->id]) }}" method="POST">
+    <form action="{{ route('job_offers.update', $jobOffer->id) }}" method="POST">
         @if (!$jobOffer->is_duplicated)
-            @method('PUT')
+            {{-- @method('PUT') --}}
         @endif
 
         @csrf

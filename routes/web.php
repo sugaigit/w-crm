@@ -23,9 +23,10 @@ Route::post('/customers/{customer_id}/hidden', [\App\Http\Controllers\CustomerCo
 Route::get('/customers/{customer_id}/detail', [\App\Http\Controllers\CustomerController::class, 'showDetail'])->name('customers.detail')->middleware('auth');
 Route::post('customers/import_csv', [\App\Http\Controllers\CustomerController::class, 'importCsv'])->name('customers.import_csv')->middleware('auth');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::resource('job_offers', \App\Http\Controllers\JobOfferController::class)->middleware('auth');
+Route::resource('job_offers', \App\Http\Controllers\JobOfferController::class)->except(['update'])->middleware('auth');
+Route::post('job_offers/update/{id}', [\App\Http\Controllers\JobOfferController::class, 'update'])->name('job_offers.update'); // updateのrouteを上書き
 Route::get('job_offers/delete/{id}', [App\Http\Controllers\JobOfferController::class, 'destroy'])->name('job_offers.destroy');
-Route::get('/job_offers/{id}/detail', [\App\Http\Controllers\JobOfferController::class, 'showDetail'])->name('job_offers.detail')->middleware('auth');
+Route::get('job_offers/{id}/detail', [\App\Http\Controllers\JobOfferController::class, 'showDetail'])->name('job_offers.detail')->middleware('auth');
 Route::get('job_offers/invalid/list', [App\Http\Controllers\JobOfferController::class, 'showInvalids'])->name('invalid_job_offers.index')->middleware('auth');
 Route::post('job_offers/import_csv', [App\Http\Controllers\JobOfferController::class, 'importCsv'])->name('job_offers.import_csv')->middleware('auth');
 Route::get('/drafts', [App\Http\Controllers\DraftJobOfferController::class, 'index'])->middleware('auth')->name('draft.index');
