@@ -31,6 +31,18 @@
 						<label for="jobNumberInput" class="mt-3">仕事番号</label>
 						<input class="form-control mt-1" type="search" id="jobNumberInput" placeholder="仕事番号を入力" name="jobNumber" value="{{ Request::input('jobNumber') }}">
 
+                        <label class="mt-3">求人ランク</label>
+                        <div class="d-flex justify-content-evenly">
+                          @foreach( config('options.rank') as $key => $rank )
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox" name="rank[]" value="{{ $rank }}" {{ old('rank') == $rank ? 'checked' : '' }} id="{{ 'rankInput' . $key }}" @if(is_array(Request::input('rank')) && in_array($rank, Request::input('rank'))) checked @endif>
+                              <label class="form-check-label" for="{{ 'rankInput' . $key }}">
+                                {{ $rank }}
+                              </label>
+                            </div>
+                          @endforeach
+                        </div>
+
 						<label class="mt-3">ステータス</label>
                         <div class="d-flex justify-content-evenly">
                           @foreach( config('options.status_edit') as $key => $status )
