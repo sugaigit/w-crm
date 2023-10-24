@@ -268,7 +268,7 @@ class JobOfferController extends Controller
         $request->session()->flash('SucccessMsg', '登録しました');
 
         //Slack通知
-        if (!$isDuplicated) {
+        if (!$isDuplicated || $request->input('send_slack_message')) {
             $path = route('job_offers.detail', ['id' => $newJobOffer->id]);
             $status = config('options.status_edit')[$newJobOffer->status];
             $handlingType = config('options.handling_type')[$newJobOffer->handling_type];
@@ -410,11 +410,11 @@ class JobOfferController extends Controller
             // 求人情報の更新処理
             $jobOffer = JobOffer::find($request->jobOfferId);
             // Slack通知をするかしないか判定するためのフラグ
-            $statusIsUpdated = false;
+            // $statusIsUpdated = false;
 
-            if ($jobOffer->status != $request->input('status')) {
-                $statusIsUpdated = true;
-            }
+            // if ($jobOffer->status != $request->input('status')) {
+            //     $statusIsUpdated = true;
+            // }
 
             // 企業ランク
             $customer = Customer::find($customerId);
@@ -571,7 +571,7 @@ class JobOfferController extends Controller
             }
 
             //Slack通知
-            if ($statusIsUpdated) {
+            if ($request->input('send_slack_message')) {
                 // $path = route('job_offers.detail', ['job_offer' => $request->jobOfferId]);
                 $path = route('job_offers.detail', $request->jobOfferId);
                 $status = config('options.status_edit')[$request->input('status')];
