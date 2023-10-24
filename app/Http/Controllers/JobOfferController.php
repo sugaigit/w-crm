@@ -28,10 +28,9 @@ class JobOfferController extends Controller
         $customers = Customer::all();
         $perPage = $request->per_page ?? 30;
 
-        // todo: 企業ランクを有効化する際に下のwhereNotInを復活させる
-        $jobOffers = JobOffer::where(function ($query) {
-            $query->whereNotIn('rank', ['C', 'D'])
-                ->orWhereNull('rank');
+        $jobOffers = JobOffer::whereNotNull('rank')
+        ->when($request->rank, function ($query, $rank) {
+            return $query->whereIn('rank', $rank);
         })
         ->when($request->userId, function ($query, $userId) {
             return $query->where('user_id', $userId);

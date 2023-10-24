@@ -60,13 +60,13 @@
                                             </button>
                                         </a>
                                     </li>
-                                    <li>
+                                    <!-- <li>
                                         <a href="{{ route('invalid_job_offers.index') }}" style="text-decoration: none;">
                                             <button class="btn btn-secondary btn-lg mb-2" type="button">
                                                 ランク外求人一覧
                                             </button>
                                         </a>
-                                    </li>
+                                    </li> -->
                                 </div>
                             </div>
                         </ul>
