@@ -1331,6 +1331,10 @@
             <div class="d-flex justify-content-center mt-4 mb-3">
                 <button class="btn btn-primary" type="submit">登録</button>
             </div>
+            <div class="align-self-center mb-3">
+                <input type="checkbox" id="send_slack_message" name="send_slack_message">
+                <label for="send_slack_message">変更内容をSlackに通知する</label>
+            </div>
 
             @if($isDraftJobOffer)
                 <div class="d-flex justify-content-center mt-4 mb-3">
