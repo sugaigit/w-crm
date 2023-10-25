@@ -287,7 +287,7 @@ class JobOfferController extends Controller
 募集人数：{$request->input('recruitment_number')}人
 予定期間：{$request->input('scheduled_period')}
 契約形態：{$typeContract}
-求人ランク：{$rank}（{$$jobOfferRank}点)
+求人ランク：{$rank}（{$jobOfferRank}点)
 詳細：{$path}
                 ";
             } else if ($status == '再発注'){
@@ -300,7 +300,7 @@ class JobOfferController extends Controller
 就業先名称と発注業務：{$request->input('company_name')}/{$request->input('ordering_business')}
 募集人数：{$request->input('recruitment_number')}人
 予定期間：{$request->input('scheduled_period')}
-求人ランク：{$rank}（{$$jobOfferRank}点)
+求人ランク：{$rank}（{$jobOfferRank}点)
 詳細：{$path}
                 ";
         }
@@ -593,7 +593,7 @@ class JobOfferController extends Controller
 募集人数：{$request->input('recruitment_number')}人
 予定期間：{$request->input('scheduled_period')}
 契約形態：{$typeContract}
-求人ランク：{$rank}（{$$jobOfferRank}点)
+求人ランク：{$rank}（{$jobOfferRank}点)
 詳細：{$path}
                     ";
                 } else if ($status == '再発注'){
@@ -607,7 +607,7 @@ class JobOfferController extends Controller
 募集人数：{$request->input('recruitment_number')}人
 予定期間：{$request->input('scheduled_period')}
 契約形態：{$typeContract}
-求人ランク：{$rank}（{$$jobOfferRank}点)
+求人ランク：{$rank}（{$jobOfferRank}点)
 詳細：{$path}
                     ";
                     } else if ($status == '更新/編集'){
@@ -617,7 +617,7 @@ class JobOfferController extends Controller
 営業担当：{$jobOffer->user->name}
 お仕事番号：{$request->input('job_number')}
 就業先名称と発注業務：{$request->input('company_name')}/{$request->input('ordering_business')}
-求人ランク：{$rank}（{$$jobOfferRank}点)
+求人ランク：{$rank}（{$jobOfferRank}点)
 詳細：{$path}
                         ";
                     } else if ($status == '案件終了'){
@@ -628,7 +628,7 @@ class JobOfferController extends Controller
 お仕事番号：{$request->input('job_number')}
 就業先名称と発注業務：{$request->input('company_name')}/{$request->input('ordering_business')}
 求人取り下げの理由：{$jobwithDrawal}
-求人ランク：{$rank}（{$$jobOfferRank}点)
+求人ランク：{$rank}（{$jobOfferRank}点)
 詳細：{$path}
                         ";
                     }
