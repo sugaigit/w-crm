@@ -28,8 +28,7 @@ class JobOfferController extends Controller
         $customers = Customer::all();
         $perPage = $request->per_page ?? 30;
 
-        $jobOffers = JobOffer::whereNotNull('rank')
-        ->when($request->rank, function ($query, $rank) {
+        $jobOffers = JobOffer::when($request->rank, function ($query, $rank) {
             return $query->whereIn('rank', $rank);
         })
         ->when($request->userId, function ($query, $userId) {
