@@ -106,7 +106,7 @@
                 <tr>
                     <td>{{ $jobOffer->id }}</td>
                     <td>{{ $jobOffer->status != null ? config('options.status_edit')[$jobOffer->status] : '' }}</td>
-                    <td>{{ $jobOffer->rank }}</td>
+                    <td>{{ $jobOffer->rank }}({{ $jobOffer->getNegotiationPoint() + $jobOffer->customer->getCustomerRankPoint() }}点)</td>
                     <td>{{ $jobOffer->handling_type != null ? config('options.handling_type')[$jobOffer->handling_type] : '' }}</td>
                     <td>{{ $jobOffer->handling_office != null ? config('options.handling_office')[$jobOffer->handling_office] : '' }}</td>
                     <td>{{ $jobOffer->job_number}}</td>

@@ -136,7 +136,7 @@ class JobOffer extends Model
         return $this->hasMany(ActivityRecord::class)->orderBy('date', 'desc');;
     }
 
-    public function getJobOfferPoint()
+    public function getNegotiationPoint()
     {
         $numberOfOrderingBasesPoint = empty($this->number_of_ordering_bases) ? 0 : config('points.numberOfOrderingBases')[intval($this->number_of_ordering_bases)];
         $orderNumberPoint = empty($this->order_number) ? 0 : config('points.orderNumber')[intval($this->order_number)];
