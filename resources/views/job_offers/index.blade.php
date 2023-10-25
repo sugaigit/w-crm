@@ -82,6 +82,7 @@
         <table class="table table-bordered table-hover w-100" style="overflow-x: auto; white-space: nowrap; margin-bottom: 0;">
             <thead>
             <tr class=m-auto style="background-color: lightgray">
+                <th>操作</th>
                 <th>求人ID</th>
                 <th>ステータス</th>
                 <th>求人ランク</th>
@@ -98,12 +99,18 @@
                 <th>支払単価①</th>
                 <th>利益率①</th>
                 <th>営業担当</th>
-                <th>操作</th>
             </tr>
             </thead>
 
             @foreach($jobOffers as $jobOffer)
                 <tr>
+                    <td>
+                        <div class="d-flex justify-content-around">
+                            <a href="{{ route('job_offers.detail', $jobOffer->id) }}">
+                                <button class="btn btn-primary" type="button">詳細</button>
+                            </a>
+                        </div>
+                    </td>
                     <td>{{ $jobOffer->id }}</td>
                     <td>{{ $jobOffer->status != null ? config('options.status_edit')[$jobOffer->status] : '' }}</td>
                     <td>{{ $jobOffer->rank }}({{ $jobOffer->getNegotiationPoint() + $jobOffer->customer->getCustomerRankPoint() }}点)</td>
@@ -120,13 +127,6 @@
                     <td>{{ $jobOffer->payment_unit_price_1 }}</td>
                     <td>{{ $jobOffer->profit_rate_1 }}</td>
                     <td>{{ $jobOffer->user->name }}</td>
-                    <td>
-                        <div class="d-flex justify-content-around">
-                            <a href="{{ route('job_offers.detail', $jobOffer->id) }}">
-                                <button class="btn btn-primary" type="button">詳細</button>
-                            </a>
-                        </div>
-                    </td>
                 </tr>
             @endforeach
         </table>

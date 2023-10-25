@@ -37,21 +37,16 @@
 <table class="table table-bordered table-hover w-75 m-auto">
     <thead>
     <tr class=m-auto style="background-color: lightgray">
+        <th>操作</th>
         <th>求人ID</th>
         <th>ステータス</th>
         <th>仕事番号</th>
         <th>就業先名称</th>
         <th>営業担当</th>
-        <th>操作</th>
     </tr>
     </thead>
     @foreach($draftJobOffers as $draftJobOffer)
     <tr class="bg-light text-secondary">
-        <td>下書き</td>
-        <td>{{ $draftJobOffer->status != null ? config('options.status_edit')[$draftJobOffer->status] : '' }}</td>
-        <td>{{ $draftJobOffer->job_number }}</td>
-        <td>{{ $draftJobOffer->company_name }}</td>
-        <td>{{ $draftJobOffer->user->name }}</td>
         <td>
             <div class="d-flex justify-content-around">
                 <a href="{{ route('draft.detail', $draftJobOffer->id) }}">
@@ -59,6 +54,11 @@
                 </a>
             </div>
         </td>
+        <td>下書き</td>
+        <td>{{ $draftJobOffer->status != null ? config('options.status_edit')[$draftJobOffer->status] : '' }}</td>
+        <td>{{ $draftJobOffer->job_number }}</td>
+        <td>{{ $draftJobOffer->company_name }}</td>
+        <td>{{ $draftJobOffer->user->name }}</td>
     </tr>
     @endforeach
 </table>
