@@ -1258,9 +1258,9 @@
                         <th>賞与等・待遇</th>
                         <td>
                             @if (is_null(old('bonuses_treatment')))
-                            <input style="pointer-events: none;" tabindex="-1"  type="text" class="form-control" name="bonuses_treatment" value="{{ isset($draftJobOffer->bonuses_treatment) ? $draftJobOffer->bonuses_treatment : '' }}">
+                            <textarea style="pointer-events: none;" tabindex="-1" class="form-control" name="bonuses_treatment" rows=5>{{ isset($draftJobOffer->bonuses_treatment) ? $draftJobOffer->bonuses_treatment : '' }}</textarea>
                             @else
-                            <input style="pointer-events: none;" tabindex="-1"  type="text" class="form-control" name="bonuses_treatment" value="{{ old('bonuses_treatment') }}">
+                            <textarea style="pointer-events: none;" tabindex="-1" class="form-control" name="bonuses_treatment" rows=5>{{ old('bonuses_treatment') }}</textarea>
                             @endif
                         </td>
                     </tr>
@@ -1268,9 +1268,9 @@
                         <th>休日・休暇</th>
                         <td>
                             @if (is_null(old('holidays_vacations')))
-                            <input style="pointer-events: none;" tabindex="-1"  type="text" class="form-control" name="holidays_vacations" value="{{ isset($draftJobOffer->holidays_vacations) ? $draftJobOffer->holidays_vacations : '' }}">
+                            <textarea style="pointer-events: none;" tabindex="-1" class="form-control" name="holidays_vacations" rows=5>{{ isset($draftJobOffer->holidays_vacations) ? $draftJobOffer->holidays_vacations : '' }}</textarea>
                             @else
-                            <input style="pointer-events: none;" tabindex="-1"  type="text" class="form-control" name="holidays_vacations" value="{{ old('holidays_vacations') }}">
+                            <textarea style="pointer-events: none;" tabindex="-1" class="form-control" name="holidays_vacations" rows=5>{{ old('holidays_vacations') }}</textarea>
                             @endif
                         </td>
                     </tr>
@@ -1278,9 +1278,9 @@
                         <th>その他</th>
                         <td>
                             @if (is_null(old('introduction_others')))
-                            <input style="pointer-events: none;" tabindex="-1"  type="text" class="form-control" name="introduction_others" value="{{ isset($draftJobOffer->introduction_others) ? $draftJobOffer->introduction_others : '' }}">
+                            <textarea style="pointer-events: none;" tabindex="-1" class="form-control" name="introduction_others" rows=5>{{ isset($draftJobOffer->introduction_others) ? $draftJobOffer->introduction_others : '' }}</textarea>
                             @else
-                            <input style="pointer-events: none;" tabindex="-1"  type="text" class="form-control" name="introduction_others" value="{{ old('introduction_others') }}">
+                            <textarea style="pointer-events: none;" tabindex="-1" class="form-control" name="introduction_others" rows=5>{{ old('introduction_others') }}</textarea>
                             @endif
                         </td>
                     </tr>

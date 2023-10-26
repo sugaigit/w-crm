@@ -28,8 +28,7 @@ class JobOfferController extends Controller
         $customers = Customer::all();
         $perPage = $request->per_page ?? 30;
 
-        $jobOffers = JobOffer::whereNotNull('rank')
-        ->when($request->rank, function ($query, $rank) {
+        $jobOffers = JobOffer::when($request->rank, function ($query, $rank) {
             return $query->whereIn('rank', $rank);
         })
         ->when($request->userId, function ($query, $userId) {
@@ -240,17 +239,17 @@ class JobOfferController extends Controller
             + $specialMattersPoint;
 
 		// 求人ランク
-        $jobOfferRank = $customerRankPoint + $negotiationPoint;
+        $jobOfferRankPoint = $customerRankPoint + $negotiationPoint;
 
-        if ($jobOfferRank > 90) {
+        if ($jobOfferRankPoint > 90) {
             $rank = 'SS';
-        } elseif ($jobOfferRank > 80) {
+        } elseif ($jobOfferRankPoint > 80) {
             $rank = 'S';
-        } elseif ($jobOfferRank > 70) {
+        } elseif ($jobOfferRankPoint > 70) {
             $rank = 'A';
-        } elseif ($jobOfferRank > 50) {
+        } elseif ($jobOfferRankPoint > 50) {
             $rank = 'B';
-        } elseif ($jobOfferRank > 20) {
+        } elseif ($jobOfferRankPoint > 20) {
             $rank = 'C';
         } else {
             $rank = 'D';
@@ -287,7 +286,7 @@ class JobOfferController extends Controller
 募集人数：{$request->input('recruitment_number')}人
 予定期間：{$request->input('scheduled_period')}
 契約形態：{$typeContract}
-求人ランク：{$rank}（{$jobOfferRank}点)
+求人ランク：{$rank}（{$jobOfferRankPoint}点)
 詳細：{$path}
                 ";
             } else if ($status == '再発注'){
@@ -300,7 +299,7 @@ class JobOfferController extends Controller
 就業先名称と発注業務：{$request->input('company_name')}/{$request->input('ordering_business')}
 募集人数：{$request->input('recruitment_number')}人
 予定期間：{$request->input('scheduled_period')}
-求人ランク：{$rank}（{$jobOfferRank}点)
+求人ランク：{$rank}（{$jobOfferRankPoint}点)
 詳細：{$path}
                 ";
         }
@@ -318,7 +317,7 @@ class JobOfferController extends Controller
             );
         }
         // todo: 企業ランクを有効化する際は以下の行のコメントを外す
-        if ($jobOfferRank < 51) {
+        if ($jobOfferRankPoint < 51) {
 			return redirect(route('invalid_job_offers.index'));
         }
 
@@ -437,17 +436,17 @@ class JobOfferController extends Controller
                 + $specialMattersPoint;
 
             // 求人ランク
-            $jobOfferRank = $customerRankPoint + $negotiationPoint;
+            $jobOfferRankPoint = $customerRankPoint + $negotiationPoint;
 
-            if ($jobOfferRank > 90) {
+            if ($jobOfferRankPoint > 90) {
                 $rank = 'SS';
-            } elseif ($jobOfferRank > 80) {
+            } elseif ($jobOfferRankPoint > 80) {
                 $rank = 'S';
-            } elseif ($jobOfferRank > 70) {
+            } elseif ($jobOfferRankPoint > 70) {
                 $rank = 'A';
-            } elseif ($jobOfferRank > 50) {
+            } elseif ($jobOfferRankPoint > 50) {
                 $rank = 'B';
-            } elseif ($jobOfferRank > 20) {
+            } elseif ($jobOfferRankPoint > 20) {
                 $rank = 'C';
             } else {
                 $rank = 'D';
@@ -593,7 +592,7 @@ class JobOfferController extends Controller
 募集人数：{$request->input('recruitment_number')}人
 予定期間：{$request->input('scheduled_period')}
 契約形態：{$typeContract}
-求人ランク：{$rank}（{$jobOfferRank}点)
+求人ランク：{$rank}（{$jobOfferRankPoint}点)
 詳細：{$path}
                     ";
                 } else if ($status == '再発注'){
@@ -607,7 +606,7 @@ class JobOfferController extends Controller
 募集人数：{$request->input('recruitment_number')}人
 予定期間：{$request->input('scheduled_period')}
 契約形態：{$typeContract}
-求人ランク：{$rank}（{$jobOfferRank}点)
+求人ランク：{$rank}（{$jobOfferRankPoint}点)
 詳細：{$path}
                     ";
                     } else if ($status == '更新/編集'){
@@ -617,7 +616,7 @@ class JobOfferController extends Controller
 営業担当：{$jobOffer->user->name}
 お仕事番号：{$request->input('job_number')}
 就業先名称と発注業務：{$request->input('company_name')}/{$request->input('ordering_business')}
-求人ランク：{$rank}（{$jobOfferRank}点)
+求人ランク：{$rank}（{$jobOfferRankPoint}点)
 詳細：{$path}
                         ";
                     } else if ($status == '案件終了'){
@@ -628,7 +627,7 @@ class JobOfferController extends Controller
 お仕事番号：{$request->input('job_number')}
 就業先名称と発注業務：{$request->input('company_name')}/{$request->input('ordering_business')}
 求人取り下げの理由：{$jobwithDrawal}
-求人ランク：{$rank}（{$jobOfferRank}点)
+求人ランク：{$rank}（{$jobOfferRankPoint}点)
 詳細：{$path}
                         ";
                     }
@@ -645,7 +644,7 @@ class JobOfferController extends Controller
                 );
             }
 
-            // if ($jobOfferRank < 51) {
+            // if ($jobOfferRankPoint < 51) {
             //     return redirect(route('invalid_job_offers.index'));
             // }
 
