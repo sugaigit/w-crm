@@ -1271,9 +1271,9 @@
                         <th>賞与等・待遇</th>
                         <td>
                             @if (is_null(old('bonuses_treatment')))
-                            <textarea class="form-control" name="bonuses_treatment">{{ isset($jobOffer->bonuses_treatment) ? $jobOffer->bonuses_treatment : '' }}</textarea>
+                            <textarea class="form-control" name="bonuses_treatment" rows=5>{{ isset($jobOffer->bonuses_treatment) ? $jobOffer->bonuses_treatment : '' }}</textarea>
                             @else
-                            <textarea class="form-control" name="bonuses_treatment">{{ old('bonuses_treatment') }}</textarea>
+                            <textarea class="form-control" name="bonuses_treatment" rows=5>{{ old('bonuses_treatment') }}</textarea>
                             @endif
                         </td>
                     </tr>
@@ -1281,9 +1281,9 @@
                         <th>休日・休暇</th>
                         <td>
                             @if (is_null(old('holidays_vacations')))
-                            <textarea class="form-control" name="holidays_vacations">{{ isset($jobOffer->holidays_vacations) ? $jobOffer->holidays_vacations : '' }}</textarea>
+                            <textarea class="form-control" name="holidays_vacations" rows=5>{{ isset($jobOffer->holidays_vacations) ? $jobOffer->holidays_vacations : '' }}</textarea>
                             @else
-                            <textarea class="form-control" name="holidays_vacations">{{ old('holidays_vacations') }}</textarea>
+                            <textarea class="form-control" name="holidays_vacations" rows=5>{{ old('holidays_vacations') }}</textarea>
                             @endif
                         </td>
                     </tr>
@@ -1291,9 +1291,9 @@
                         <th>その他</th>
                         <td>
                             @if (is_null(old('introduction_others')))
-                            <textarea class="form-control" name="introduction_others">{{ isset($jobOffer->introduction_others) ? $jobOffer->introduction_others : '' }}</textarea>
+                            <textarea class="form-control" name="introduction_others" rows=5>{{ isset($jobOffer->introduction_others) ? $jobOffer->introduction_others : '' }}</textarea>
                             @else
-                            <textarea class="form-control" name="introduction_others">{{ old('introduction_others') }}</textarea>
+                            <textarea class="form-control" name="introduction_others" rows=5>{{ old('introduction_others') }}</textarea>
                             @endif
                         </td>
                     </tr>
