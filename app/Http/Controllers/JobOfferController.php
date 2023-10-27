@@ -317,9 +317,9 @@ class JobOfferController extends Controller
             );
         }
         // todo: 企業ランクを有効化する際は以下の行のコメントを外す
-        if ($jobOfferRankPoint < 51) {
-			return redirect(route('invalid_job_offers.index'));
-        }
+        // if ($jobOfferRankPoint < 51) {
+		// 	return redirect(route('invalid_job_offers.index'));
+        // }
 
         return redirect(route('job_offers.index'));
     }
