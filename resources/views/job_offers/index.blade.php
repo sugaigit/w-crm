@@ -31,6 +31,18 @@
 						<label for="jobNumberInput" class="mt-3">仕事番号</label>
 						<input class="form-control mt-1" type="search" id="jobNumberInput" placeholder="仕事番号を入力" name="jobNumber" value="{{ Request::input('jobNumber') }}">
 
+                        <label class="mt-3">求人ランク</label>
+                        <div class="d-flex justify-content-evenly">
+                          @foreach( config('options.rank') as $key => $rank )
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox" name="rank[]" value="{{ $rank }}" {{ old('rank') == $rank ? 'checked' : '' }} id="{{ 'rankInput' . $key }}" @if(is_array(Request::input('rank')) && in_array($rank, Request::input('rank'))) checked @endif>
+                              <label class="form-check-label" for="{{ 'rankInput' . $key }}">
+                                {{ $rank }}
+                              </label>
+                            </div>
+                          @endforeach
+                        </div>
+
 						<label class="mt-3">ステータス</label>
                         <div class="d-flex justify-content-evenly">
                           @foreach( config('options.status_edit') as $key => $status )
@@ -70,6 +82,7 @@
         <table class="table table-bordered table-hover w-100" style="overflow-x: auto; white-space: nowrap; margin-bottom: 0;">
             <thead>
             <tr class=m-auto style="background-color: lightgray">
+                <th>操作</th>
                 <th>求人ID</th>
                 <th>ステータス</th>
                 <th>求人ランク</th>
@@ -86,15 +99,21 @@
                 <th>支払単価①</th>
                 <th>利益率①</th>
                 <th>営業担当</th>
-                <th>操作</th>
             </tr>
             </thead>
 
             @foreach($jobOffers as $jobOffer)
                 <tr>
+                    <td>
+                        <div class="d-flex justify-content-around">
+                            <a href="{{ route('job_offers.detail', $jobOffer->id) }}">
+                                <button class="btn btn-primary" type="button">詳細</button>
+                            </a>
+                        </div>
+                    </td>
                     <td>{{ $jobOffer->id }}</td>
                     <td>{{ $jobOffer->status != null ? config('options.status_edit')[$jobOffer->status] : '' }}</td>
-                    <td>{{ $jobOffer->rank }}</td>
+                    <td>{{ $jobOffer->rank }}({{ $jobOffer->getNegotiationPoint() + $jobOffer->customer->getCustomerRankPoint() }}点)</td>
                     <td>{{ $jobOffer->handling_type != null ? config('options.handling_type')[$jobOffer->handling_type] : '' }}</td>
                     <td>{{ $jobOffer->handling_office != null ? config('options.handling_office')[$jobOffer->handling_office] : '' }}</td>
                     <td>{{ $jobOffer->job_number}}</td>
@@ -108,13 +127,6 @@
                     <td>{{ $jobOffer->payment_unit_price_1 }}</td>
                     <td>{{ $jobOffer->profit_rate_1 }}</td>
                     <td>{{ $jobOffer->user->name }}</td>
-                    <td>
-                        <div class="d-flex justify-content-around">
-                            <a href="{{ route('job_offers.detail', $jobOffer->id) }}">
-                                <button class="btn btn-primary" type="button">詳細</button>
-                            </a>
-                        </div>
-                    </td>
                 </tr>
             @endforeach
         </table>

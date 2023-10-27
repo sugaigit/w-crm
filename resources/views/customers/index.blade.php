@@ -56,6 +56,7 @@
     <table class="table table-bordered table-hover m-auto" style="overflow-x: auto; white-space: nowrap; margin-bottom: 0px;">
         <thead>
             <tr class=m-auto style="background-color: lightgray">
+                <th class="text-center">操作</th>
                 <th class="text-center">顧客ID</th>
                 <th class="text-center">取扱会社種別</th>
                 <th class="text-center">取扱事業所</th>
@@ -65,11 +66,17 @@
                 <th class="text-center">業種</th>
                 <th class="text-center">住所</th>
                 <th class="text-center">営業担当</th>
-                <th class="text-center">操作</th>
             </tr>
         </thead>
         @foreach($customers as $customer)
         <tr>
+            <td>
+                <div class="d-flex justify-content-around">
+                    <a href="{{ route('customers.detail', $customer->id) }}">
+                        <button class="btn btn-primary" type="button">詳細</button>
+                    </a>
+                </div>
+            </td>
             <td>{{ $customer->id }}</td>
             <td>{{ !empty($customer->handling_type) ? config('options')['handling_type'][$customer->handling_type] :'' }}</td>
             <td>{{ !empty($customer->handling_office) ? config('options')['handling_office'][$customer->handling_office] :'' }}</td>
@@ -79,13 +86,6 @@
             <td>{{ !empty($customer->industry) ? config('options')['industry'][$customer->industry] :'' }}</td>
             <td>{{ $customer->address }}</td>
             <td>{{ $customer->user->name }}</td>
-            <td>
-                <div class="d-flex justify-content-around">
-                    <a href="{{ route('customers.detail', $customer->id) }}">
-                        <button class="btn btn-primary" type="button">詳細</button>
-                    </a>
-                </div>
-            </td>
         </tr>
         @endforeach
     </table>

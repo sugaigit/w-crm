@@ -1276,9 +1276,9 @@
                         <th>賞与等・待遇</th>
                         <td>
                             @if (is_null(old('bonuses_treatment')))
-                            <input  type="text" class="form-control" name="bonuses_treatment" value="{{ isset($jobOffer->bonuses_treatment) ? $jobOffer->bonuses_treatment : '' }}">
+                            <textarea tabindex="-1"  type="text" class="form-control" name="bonuses_treatment" rows=5>{{ isset($jobOffer->bonuses_treatment) ? $jobOffer->bonuses_treatment : '' }}</textarea>
                             @else
-                            <input  type="text" class="form-control" name="bonuses_treatment" value="{{ old('bonuses_treatment') }}">
+                            <textarea tabindex="-1"  type="text" class="form-control" name="bonuses_treatment" rows=5>{{ old('bonuses_treatment') }}</textarea>
                             @endif
                         </td>
                     </tr>
@@ -1286,9 +1286,9 @@
                         <th>休日・休暇</th>
                         <td>
                             @if (is_null(old('holidays_vacations')))
-                            <input  type="text" class="form-control" name="holidays_vacations" value="{{ isset($jobOffer->holidays_vacations) ? $jobOffer->holidays_vacations : '' }}">
+                            <textarea tabindex="-1"  type="text" class="form-control" name="holidays_vacations" rows=5>{{ isset($jobOffer->holidays_vacations) ? $jobOffer->holidays_vacations : '' }}</textarea>
                             @else
-                            <input  type="text" class="form-control" name="holidays_vacations" value="{{ old('holidays_vacations') }}">
+                            <textarea tabindex="-1"  type="text" class="form-control" name="holidays_vacations" rows=5>{{ old('holidays_vacations') }}</textarea>
                             @endif
                         </td>
                     </tr>
@@ -1296,9 +1296,9 @@
                         <th>その他</th>
                         <td>
                             @if (is_null(old('introduction_others')))
-                            <input  type="text" class="form-control" name="introduction_others" value="{{ isset($jobOffer->introduction_others) ? $jobOffer->introduction_others : '' }}">
+                            <textarea tabindex="-1"  type="text" class="form-control" name="introduction_others" rows=5>{{ isset($jobOffer->introduction_others) ? $jobOffer->introduction_others : '' }}</textarea>
                             @else
-                            <input  type="text" class="form-control" name="introduction_others" value="{{ old('introduction_others') }}">
+                            <textarea tabindex="-1"  type="text" class="form-control" name="introduction_others" rows=5>{{ old('introduction_others') }}</textarea>
                             @endif
                         </td>
                     </tr>
@@ -1333,8 +1333,12 @@
             </table>
             @endif
 
-            <div class="d-flex justify-content-center mt-4 mb-3">
+            <div class="d-flex justify-content-center mt-4 mb-1">
                 <button class="btn btn-primary" type="submit">登録</button>
+            </div>
+            <div class="align-self-center mb-3">
+                <input type="checkbox" id="send_slack_message" name="send_slack_message" checked>
+                <label for="send_slack_message">変更内容をSlackに通知する</label>
             </div>
 
             @if($isDraftJobOffer)
@@ -1385,7 +1389,7 @@
     @endif
 
     <a href="{{ route('job_offers.index') }}">
-        <button class="btn btn-outline-secondary btn-lg"type="button">
+        <button class="btn btn-outline-secondary btn-lg" type="button">
             求人情報一覧に戻る
         </button>
     </a>

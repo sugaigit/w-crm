@@ -866,19 +866,19 @@
                                 <tr class="afterRecruit">
                                     <th>賞与等・待遇</th>
                                     <td>
-                                        <input  type="text" class="form-control" name="bonuses_treatment" value="{{ old('bonuses_treatment') }}">
+                                        <textarea class="form-control" name="bonuses_treatment" rows=5>{{ old('bonuses_treatment') }}</textarea>
                                     </td>
                                 </tr>
                                 <tr class="afterRecruit">
                                     <th>休日・休暇</th>
                                     <td>
-                                        <input  type="text" class="form-control" name="holidays_vacations" value="{{ old('holidays_vacations') }}">
+                                        <textarea class="form-control" name="holidays_vacations" rows=5>{{ old('holidays_vacations') }}</textarea>
                                     </td>
                                 </tr>
                                 <tr class="afterRecruit">
                                     <th>その他</th>
                                     <td>
-                                        <textarea rows="5" type="text" class="form-control" name="introduction_others">{{ old('introduction_others') }}</textarea>
+                                        <textarea rows="5" type="text" class="form-control" name="introduction_others" rows=5>{{ old('introduction_others') }}</textarea>
                                     </td>
                                 </tr>
                             </tbody>
