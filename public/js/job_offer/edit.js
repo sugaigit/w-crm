@@ -31,32 +31,50 @@ $(document).ready(function() {
   /******************************************
   * 請求単価②等の表示・非表示切り替え
   ******************************************/
-   $('.billing-2').css("display", "none");
-   $('.billing-3').css("display", "none");
+  $('.billing-2').css("display", "none");
+  $('.billing-3').css("display", "none");
 
-   $('#open_billing_2').on('click', function () {
-     $('.billing-2').css("display", "");
-     $(this).css("display", "none");
-   });
+  function openBilling2() {
+    $('.billing-2').css("display", "");
+    $('#open_billing_2').css("display", "none");
+  }
 
-   $('#close_billing_2').on('click', function () {
-     $('.billing-2').css("display", "none");
-     $('#open_billing_2').css("display", "");
-     // $(this).css("display", "none");
-   });
+  var openBilling2Vals = $('input[name="invoice_unit_price_2"]').val()
+    + $('[name="billing_unit_2"]').val()
+    + $('input[name="profit_rate_2"]').val()
+    + $('input[name="billing_information_2"]').val();
 
-   $('#open_billing_3').on('click', function () {
-     $('.billing-3').css("display", "");
-     $(this).css("display", "none");
-     $('#close_billing_2').css("display", "none");
-   });
+  if (openBilling2Vals.length) {
+    openBilling2();
+  }
+  $('#open_billing_2').click(openBilling2);
+  
+  $('#close_billing_2').click(function () {
+    $('.billing-2').css("display", "none");
+    $('#open_billing_2').css("display", "");
+  });
 
-   $('#close_billing_3').on('click', function () {
-     $('.billing-3').css("display", "none");
-     $('#open_billing_3').css("display", "");
-     // $(this).css("display", "none");
-     $('#close_billing_2').css("display", "");
-   });
+  function openBilling3() {
+    $('.billing-3').css("display", "");
+    $('#open_billing_3').css("display", "none");
+    $('#close_billing_2').css("display", "none");
+  }
+
+  var openBilling3Vals = $('input[name="invoice_unit_price_3"]').val()
+    + $('[name="billing_unit_3"]').val()
+    + $('input[name="profit_rate_3"]').val()
+    + $('input[name="billing_information_3"]').val();
+  
+  if (openBilling3Vals.length) {
+    openBilling3();
+  }
+  $('#open_billing_3').click(openBilling3);
+
+  $('#close_billing_3').on('click', function () {
+    $('.billing-3').css("display", "none");
+    $('#open_billing_3').css("display", "");
+    $('#close_billing_2').css("display", "");
+  });
 
 
   /******************************************
@@ -73,7 +91,6 @@ $(document).ready(function() {
    $('#close_payment_2').on('click', function () {
      $('.payment-2').css("display", "none");
      $('#open_payment_2').css("display", "");
-     // $(this).css("display", "none");
    });
 
    $('#open_payment_3').on('click', function () {
@@ -85,7 +102,6 @@ $(document).ready(function() {
    $('#close_payment_3').on('click', function () {
      $('.payment-3').css("display", "none");
      $('#open_payment_3').css("display", "");
-     // $(this).css("display", "none");
      $('#close_payment_2').css("display", "");
    });
 
@@ -103,7 +119,6 @@ $(document).ready(function() {
    $('#close_working_2').on('click', function () {
      $('.working-2').css("display", "none");
      $('#open_working_2').css("display", "");
-     // $(this).css("display", "none");
    });
 
    $('#open_working_3').on('click', function () {
@@ -115,7 +130,6 @@ $(document).ready(function() {
    $('#close_working_3').on('click', function () {
      $('.working-3').css("display", "none");
      $('#open_working_3').css("display", "");
-     // $(this).css("display", "none");
      $('#close_working_2').css("display", "");
    });
 
@@ -146,13 +160,6 @@ $(document).ready(function() {
     /******************************************
      * 必須項目の表示切替
      ******************************************/
-    // if ($('.required').val().length) {
-    //     $('.required').removeClass('bg-danger bg-opacity-25');
-    //     console.log('必須の記述あり');
-    // } else {
-    //     $('.required').addClass('bg-danger bg-opacity-25');
-    //     console.log('必須の記述なし');
-    // }
     $('.required').on('change', function () {
         if ($(this).val().length) {
             $(this).removeClass('bg-danger bg-opacity-25');
