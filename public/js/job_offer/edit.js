@@ -80,30 +80,56 @@ $(document).ready(function() {
   /******************************************
   * 支払単価②等の表示・非表示切り替え
   ******************************************/
-   $('.payment-2').css("display", "none");
-   $('.payment-3').css("display", "none");
+  $('.payment-2').css("display", "none");
+  $('.payment-3').css("display", "none");
 
-   $('#open_payment_2').on('click', function () {
-     $('.payment-2').css("display", "");
-     $(this).css("display", "none");
-   });
+  function openPayment2() {
+    $('.payment-2').css("display", "");
+    $('#open_payment_2').css("display", "none");
+  }
 
-   $('#close_payment_2').on('click', function () {
-     $('.payment-2').css("display", "none");
-     $('#open_payment_2').css("display", "");
-   });
+  var openPayment2Vals = $('[name="employment_insurance_2"]').val()
+    + $('[name="social_insurance_2"]').val()
+    + $('input[name="payment_unit_price_2"]').val()
+    + $('input[name="payment_unit_2"]').val();
+    + $('input[name="carfare_2"]').val();
+    + $('[name="carfare_payment_2"]').val();
+    + $('input[name="carfare_payment_remarks_2"]').val();
 
-   $('#open_payment_3').on('click', function () {
-     $('.payment-3').css("display", "");
-     $(this).css("display", "none");
-     $('#close_payment_2').css("display", "none");
-   });
+  if (openPayment2Vals.length) {
+    openPayment2();
+  }
+  $('#open_payment_2').click(openPayment2);
 
-   $('#close_payment_3').on('click', function () {
-     $('.payment-3').css("display", "none");
-     $('#open_payment_3').css("display", "");
-     $('#close_payment_2').css("display", "");
-   });
+  $('#close_payment_2').on('click', function () {
+    $('.payment-2').css("display", "none");
+    $('#open_payment_2').css("display", "");
+  });
+
+  function openPayment3() {
+    $('.payment-3').css("display", "");
+    $('#open_payment_3').css("display", "none");
+    $('#close_payment_2').css("display", "none");
+  }
+
+  var openPayment3Vals = $('[name="employment_insurance_3"]').val()
+    + $('[name="social_insurance_3"]').val()
+    + $('input[name="payment_unit_price_3"]').val();
+    + $('input[name="payment_unit_3"]').val()
+    + $('input[name="carfare_3"]').val()
+    + $('[name="carfare_payment_3"]').val()
+    + $('input[name="carfare_payment_remarks_3"]').val();
+
+  if (openPayment3Vals.length) {
+    openPayment3();
+  }
+  $('#open_payment_3').click(openPayment3);
+
+  $('#close_payment_3').on('click', function () {
+    $('.payment-3').css("display", "none");
+    $('#open_payment_3').css("display", "");
+    $('#close_payment_2').css("display", "");
+  });
 
   /******************************************
   * 勤務時間②等の表示・非表示切り替え

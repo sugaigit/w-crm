@@ -654,13 +654,13 @@
                     <tr class="payment-3">
                         <th>支払単位③</th>
                         <td>
-                            <select style="pointer-events: none;" tabindex="-1" type="text" class="form-control" name="carfare_payment_3">
+                            <select style="pointer-events: none;" tabindex="-1" type="text" class="form-control" name="payment_unit_3">
                             <option value="">交通費支払単位を選んで下さい</option>
-                            @foreach( config('options.payment_term') as $key => $carfare_payment_3 )
-                                @if (is_null(old('carfare_payment_3')))
-                                <option value="{{ $key }}" {{ $key == $draftJobOffer->carfare_payment_3 ? 'selected' : '' }}>{{ $carfare_payment_3 }}</option>
+                            @foreach( config('options.payment_term') as $key => $payment_unit_3 )
+                                @if (is_null(old('payment_unit_3')))
+                                <option value="{{ $key }}" {{ $key == $draftJobOffer->payment_unit_3 ? 'selected' : '' }}>{{ $payment_unit_3 }}</option>
                                 @else
-                                <option value="{{ $key }}" {{ $key == old('carfare_payment_3') ? 'selected' : '' }}>{{ $carfare_payment_3 }}</option>
+                                <option value="{{ $key }}" {{ $key == old('payment_unit_3') ? 'selected' : '' }}>{{ $payment_unit_3 }}</option>
                                 @endif
                             @endforeach
                             </select>
