@@ -106,6 +106,28 @@ class Customer extends Model
         return $customerRankPoint;
     }
 
+    public function getCustomerRank()
+    {
+        $customerRankPoint = $this->getCustomerRankPoint();
+
+        $customerRank = '';
+        if ($customerRankPoint > 45) {
+            $customerRank = 'SS';
+        } elseif ($customerRankPoint > 40) {
+            $customerRank = 'S';
+        } elseif ($customerRankPoint > 34) {
+            $customerRank = 'A';
+        } elseif ($customerRankPoint > 24) {
+            $customerRank = 'B';
+        } elseif ($customerRankPoint > 10) {
+            $customerRank = 'C';
+        } else {
+            $customerRank = 'D';
+        }
+
+        return $customerRank;
+    }
+
     // public function updateCustomer($request,$cutomer)
     // {
     //     $result = $cutomer->fill([client_name => $request->client_name])->save();
