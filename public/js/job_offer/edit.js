@@ -134,38 +134,57 @@ $(document).ready(function() {
   /******************************************
   * 勤務時間②等の表示・非表示切り替え
   ******************************************/
-   $('.working-2').css("display", "none");
-   $('.working-3').css("display", "none");
+  $('.working-2').css("display", "none");
+  $('.working-3').css("display", "none");
 
-   $('#open_working_2').on('click', function () {
-     $('.working-2').css("display", "");
-     $(this).css("display", "none");
-   });
+  function openWorking2() {
+    $('.working-2').css("display", "");
+    $('#open_working_2').css("display", "none");
+  }
 
-   $('#close_working_2').on('click', function () {
-     $('.working-2').css("display", "none");
-     $('#open_working_2').css("display", "");
-   });
+  var openWorking2Vals = $('input[name="working_hours_2"]').val()
+    + $('input[name="actual_working_hours_2"]').val()
+    + $('input[name="break_time_2"]').val();
 
-   $('#open_working_3').on('click', function () {
-     $('.working-3').css("display", "");
-     $(this).css("display", "none");
-     $('#close_working_2').css("display", "none");
-   });
+  if (openWorking2Vals.length) {
+    openWorking2();
+  }
+  $('#open_working_2').click(openWorking2);
 
-   $('#close_working_3').on('click', function () {
-     $('.working-3').css("display", "none");
-     $('#open_working_3').css("display", "");
-     $('#close_working_2').css("display", "");
-   });
+  $('#close_working_2').on('click', function () {
+    $('.working-2').css("display", "none");
+    $('#open_working_2').css("display", "");
+  });
 
-   $('#statusInput').on('change', function () {
+
+  function openWorking3() {
+    $('.working-3').css("display", "");
+    $('#open_working_3').css("display", "none");
+    $('#close_working_2').css("display", "none");
+  }
+
+  var openWorking3Vals = $('input[name="working_hours_3"]').val()
+    + $('input[name="actual_working_hours_3"]').val()
+    + $('input[name="break_time_3"]').val();
+
+  if (openWorking3Vals.length) {
+    openWorking3();
+  }
+  $('#open_working_3').click(openWorking3);
+
+  $('#close_working_3').on('click', function () {
+    $('.working-3').css("display", "none");
+    $('#open_working_3').css("display", "");
+    $('#close_working_2').css("display", "");
+  });
+
+  $('#statusInput').on('change', function () {
     if ($(this).val() == 4) {
       $('.after-closed').css("display", "");
     } else {
       $('.after-closed').css("display", "none");
     }
-   });
+  });
 
     /******************************************
      * 下書き必須項目の表示切替
