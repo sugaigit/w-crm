@@ -48,18 +48,19 @@ class DraftJobOfferController extends Controller
             'company_name'=> ['required'],
         ]);
         $saveData = $request->all();
-        if ($saveData['holiday']) {
+
+        if ($request->input('holiday')) {
             $saveData['holiday'] = json_encode($saveData['holiday']);
         }
-        if ($saveData['long_vacation']) {
+        if ($request->input('long_vacation')) {
             $saveData['long_vacation'] = json_encode($saveData['long_vacation']);
         }
-        if ($saveData['customer_id']) {
+        if ($request->input('customer_id')) {
             $customerId = Customer::where('customer_name', $saveData['customer_id'])->first()->id;
             $saveData['customer_id'] = $customerId;
         }
 
-        
+
         DraftJobOffer::create($saveData);
 
         $request->session()->flash('SucccessMsg', '下書き保存しました');
