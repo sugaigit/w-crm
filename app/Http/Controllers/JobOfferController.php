@@ -266,6 +266,10 @@ class JobOfferController extends Controller
 
         $request->session()->flash('SucccessMsg', '登録しました');
 
+        if ($request->has('draftJobOfferId')) { // 下書きから登録された場合はDraftJobOffer.destroyが走る
+            DraftJobOffer::destroy($request->draftJobOfferId);
+        }
+
         //Slack通知
         if (!$isDuplicated || $request->input('send_slack_message')) {
             $path = route('job_offers.detail', ['id' => $newJobOffer->id]);
