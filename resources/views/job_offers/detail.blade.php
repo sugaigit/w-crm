@@ -18,7 +18,10 @@
         <input type="hidden" name="draftJobOfferId" value="{{ $jobOffer->id }}">
         @endif
         <a href="{{ route('job_offers.destroy', $jobOffer->id) }}">
-            <button id="delete" class="delete-btn btn btn-danger mb-2" type="button">削除</button>
+            <button id="delete" class="delete-btn btn btn-danger mb-2 me-3" type="button">削除</button>
+        </a>
+        <a href="{{ route('job_offers.history', $jobOffer->id) }}">
+            <button  class="btn btn-dark mb-2" type="button">編集ログ</button>
         </a>
         <div class="card mb-4">
             <div class="card-header">
@@ -747,7 +750,7 @@
                                     @else
                                     <input  style="pointer-events: none;" tabindex="-1" class="form-check-input required" type="checkbox" id="{{ 'holidayInput' . $index }}" name="holiday[]" value="{{ $index }}" @if(in_array($index, old('holiday'))) checked @endif>
                                     @endif
-                                    <label class="form-check-label" for="{{ 'holidayInput' . $index }}">{{ $holiday }}</label>
+                                    <label style="pointer-events: none;" tabindex="-1" class="form-check-label" for="{{ 'holidayInput' . $index }}">{{ $holiday }}</label>
                                 </div>
                             @endforeach
                         </td>
@@ -762,7 +765,7 @@
                                     @else
                                     <input  style="pointer-events: none;" tabindex="-1" class="form-check-input" type="checkbox" id="{{ 'longVacationInput' . $index }}" name="long_vacation[]" value="{{ $index }}" @if(in_array($index, old('long_vacation'))) checked @endif>
                                     @endif
-                                    <label class="form-check-label" for="{{ 'longVacationInput' . $index }}">{{ $longVacation }}</label>
+                                    <label style="pointer-events: none;" tabindex="-1" class="form-check-label" for="{{ 'longVacationInput' . $index }}">{{ $longVacation }}</label>
                                 </div>
                             @endforeach
                         </td>

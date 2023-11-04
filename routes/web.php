@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
+
 Route::get('/', [\App\Http\Controllers\TopPageController::class, 'top_page'])->name('top_page');
 Route::resource('users', \App\Http\Controllers\UserController::class)->middleware('auth');
 Route::get('/roles', \App\Http\Controllers\RoleController::class)->name('ロール一覧')->middleware('auth');
@@ -23,6 +24,7 @@ Route::post('/customers/{customer_id}/hidden', [\App\Http\Controllers\CustomerCo
 Route::get('/customers/{customer_id}/detail', [\App\Http\Controllers\CustomerController::class, 'showDetail'])->name('customers.detail')->middleware('auth');
 Route::post('customers/import_csv', [\App\Http\Controllers\CustomerController::class, 'importCsv'])->name('customers.import_csv')->middleware('auth');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/job_offers/{job_offer_id}/history', [App\Http\Controllers\JobOfferController::class, 'history'])->name('job_offers.history')->middleware('auth');
 Route::resource('job_offers', \App\Http\Controllers\JobOfferController::class)->except(['update'])->middleware('auth');
 Route::post('job_offers/update/{id}', [\App\Http\Controllers\JobOfferController::class, 'update'])->name('job_offers.update'); // updateのrouteを上書き
 Route::get('job_offers/delete/{id}', [App\Http\Controllers\JobOfferController::class, 'destroy'])->name('job_offers.destroy');
