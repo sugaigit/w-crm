@@ -881,8 +881,6 @@ class JobOfferController extends Controller
         $jobOfferHistories = JobOfferHistory::where('job_offer_id', $jobOfferId)->orderBy('created_at', 'desc')->limit(50)->get();
         $users = User::all()->pluck('name', 'id');
 
-        // dd($jobOfferHistories[0]->updated_content['holiday']);
-
         return view('job_offers.history', [
             'jobOfferHistories' => $jobOfferHistories,
             'users' => $users,
