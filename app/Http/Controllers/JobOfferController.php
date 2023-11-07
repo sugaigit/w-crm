@@ -882,7 +882,6 @@ class JobOfferController extends Controller
         $users = User::all()->pluck('name', 'id');
         $customers = Customer::all()->pluck('customer_name', 'id');
 
-
         return view('job_offers.history', [
             'jobOfferHistories' => $jobOfferHistories,
             'users' => $users,

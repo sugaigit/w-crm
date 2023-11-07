@@ -25,7 +25,17 @@
                 @endforeach
                 <?php $count = 0 ?>
                 @foreach($jobOfferHistory->updated_content as $key => $record)
-                    @if($record['after'] != $record['before'])
+                    <?php
+                    $recordBefore = 'before';
+                    $recordAfter  = 'after';
+                    ?>
+                    @if ($key == 'long_vacation' || $key == 'holiday')
+                        <?php
+                        $recordBefore = is_string($record['before']) ? json_decode($record['before']) : $record['before'];
+                        $recordAfter = is_string($record['after']) ? json_decode($record['after']) : $record['after'];
+                        ?>
+                    @endif
+                    @if ($record['after'] != $record['before'] && $recordBefore != $recordAfter)
                         <tr>
                             @if ($count == 0)
                             <td class="align-middle" rowspan="{{ $num }}">{{ $jobOfferHistory->created_at }}</td>
@@ -48,8 +58,7 @@
                             <?php
                                 $holidayBefore = '';
                                 $holidayAfter = '';
-                                $recordBefore = is_string($record['before']) ? json_decode($record['before']) : $record['before'];
-                                $recordAfter = is_string($record['after']) ? json_decode($record['after']) : $record['after'];
+
                                 foreach ($recordBefore as $index => $dayOfWeek) {
                                     if ($index != 0) {
                                         $holidayBefore .= ', ';
@@ -69,8 +78,6 @@
                             <?php
                                 $longVacationBefore = '';
                                 $longVacationAfter = '';
-                                $recordBefore = is_string($record['before']) ? json_decode($record['before']) : $record['before'];
-                                $recordAfter = is_string($record['after']) ? json_decode($record['after']) : $record['after'];
 
                                 if (!is_null($recordBefore)) {
                                     foreach ($recordBefore as $index => $whatDay) {
@@ -94,9 +101,15 @@
                             @elseif ($key == 'status')
                             <td>{{ $record['before'] ? config('options')['status_edit'][intval($record['before'])] : '' }}</td>
                             <td>{{ $record['after'] ? config('options')['status_edit'][intval($record['after'])] : '' }}</td>
+                            @elseif ($key == 'billing_unit_1' || $key == 'billing_unit_2' || $key == 'billing_unit_3'|| $key == 'payment_unit_1')
+                            <td>{{ $record['before'] ? config('options')['salary_term'][intval($record['before'])] : '' }}</td>
+                            <td>{{ $record['after'] ? config('options')['salary_term'][intval($record['after'])] : '' }}</td>
+                            @elseif ($key == 'qualification' || $key == 'experience')
+                            <td>{{ $record['before'] ? config('options')['requirement'][intval($record['before'])] : '' }}</td>
+                            <td>{{ $record['after'] ? config('options')['requirement'][intval($record['after'])] : '' }}</td>      
                             @else
-                            <td>{{ array_key_exists($key, config('options')) ? config('options')[$key][$record['before']] : $record['before'] }}</td>
-                            <td>{{ array_key_exists($key, config('options')) ? config('options')[$key][$record['after']] : $record['after'] }}</td>
+                            <td>{{ array_key_exists($key, config('options')) && !empty($record['before']) ? config('options')[$key][intval($record['before'])] : $record['before'] }}</td>
+                            <td>{{ array_key_exists($key, config('options')) && !empty($record['after']) ? config('options')[$key][intval($record['after'])] : $record['after'] }}</td>
                             @endif
                         </tr>
                         <?php $count++ ?>
