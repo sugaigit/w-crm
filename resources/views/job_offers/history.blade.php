@@ -69,7 +69,6 @@
                             <?php
                                 $longVacationBefore = '';
                                 $longVacationAfter = '';
-                                exit($record['before']);
                                 $recordBefore = is_string($record['before']) ? json_decode($record['before']) : $record['before'];
                                 $recordAfter = is_string($record['after']) ? json_decode($record['after']) : $record['after'];
 
