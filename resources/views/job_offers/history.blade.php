@@ -101,12 +101,18 @@
                             @elseif ($key == 'status')
                             <td>{{ $record['before'] ? config('options')['status_edit'][intval($record['before'])] : '' }}</td>
                             <td>{{ $record['after'] ? config('options')['status_edit'][intval($record['after'])] : '' }}</td>
-                            @elseif ($key == 'billing_unit_1' || $key == 'billing_unit_2' || $key == 'billing_unit_3'|| $key == 'payment_unit_1')
+                            @elseif ($key == 'billing_unit_1' || $key == 'billing_unit_2' || $key == 'billing_unit_3'|| $key == 'payment_unit_1' || $key == 'payment_unit_2' || $key == 'payment_unit_3')
                             <td>{{ $record['before'] ? config('options')['salary_term'][intval($record['before'])] : '' }}</td>
                             <td>{{ $record['after'] ? config('options')['salary_term'][intval($record['after'])] : '' }}</td>
                             @elseif ($key == 'qualification' || $key == 'experience')
                             <td>{{ $record['before'] ? config('options')['requirement'][intval($record['before'])] : '' }}</td>
-                            <td>{{ $record['after'] ? config('options')['requirement'][intval($record['after'])] : '' }}</td>      
+                            <td>{{ $record['after'] ? config('options')['requirement'][intval($record['after'])] : '' }}</td>
+                            @elseif ($key == 'employment_insurance' || $key == 'social_insurance' || $key == 'billing_unit_3'|| $key == 'employment_insurance_2' || $key == 'social_insurance_2' || $key == 'employment_insurance_3' || $key == 'social_insurance_3')
+                            <td>{{ $record['before'] ? config('options')['existence'][intval($record['before'])] : '' }}</td>
+                            <td>{{ $record['after'] ? config('options')['existence'][intval($record['after'])] : '' }}</td>
+                            @elseif ($key == 'commuting_by_car')
+                            <td>{{ $record['before'] ? config('options')['permission'][intval($record['before'])] : '' }}</td>
+                            <td>{{ $record['after'] ? config('options')['permission'][intval($record['after'])] : '' }}</td>
                             @else
                             <td>{{ array_key_exists($key, config('options')) && !empty($record['before']) ? config('options')[$key][intval($record['before'])] : $record['before'] }}</td>
                             <td>{{ array_key_exists($key, config('options')) && !empty($record['after']) ? config('options')[$key][intval($record['after'])] : $record['after'] }}</td>
