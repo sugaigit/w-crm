@@ -880,10 +880,13 @@ class JobOfferController extends Controller
     {
         $jobOfferHistories = JobOfferHistory::where('job_offer_id', $jobOfferId)->orderBy('created_at', 'desc')->limit(50)->get();
         $users = User::all()->pluck('name', 'id');
+        $customers = Customer::all()->pluck('customer_name', 'id');
+
 
         return view('job_offers.history', [
             'jobOfferHistories' => $jobOfferHistories,
             'users' => $users,
+            'customers' => $customers,
             'jobOfferId' => $jobOfferId,
         ]);
     }

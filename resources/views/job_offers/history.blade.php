@@ -31,8 +31,17 @@
                             <td class="align-middle" rowspan="{{ $num }}">{{ $jobOfferHistory->created_at }}</td>
                             <td class="align-middle" rowspan="{{ $num }}">{{ $jobOfferHistory->user->name }}</td>
                             @endif
+                            
+                            @if ($key == 'customerId')
+                            <td>顧客名</td>
+                            @else
                             <td>{{ config('items')[$key] }}</td>
-                            @if ($key == 'user_id')
+                            @endif
+
+                            @if (($key == 'customerId'))
+                            <td>{{ $customers[$record['before']] }}</td>
+                            <td>{{ $customers[$record['after']] }}</td>
+                            @elseif ($key == 'user_id')
                             <td>{{ $users[$record['before']] }}</td>
                             <td>{{ $users[$record['after']] }}</td>
                             @elseif ($key == 'holiday')
@@ -60,6 +69,7 @@
                             <?php
                                 $longVacationBefore = '';
                                 $longVacationAfter = '';
+                                exit($record['before']);
                                 $recordBefore = is_string($record['before']) ? json_decode($record['before']) : $record['before'];
                                 $recordAfter = is_string($record['after']) ? json_decode($record['after']) : $record['after'];
 
