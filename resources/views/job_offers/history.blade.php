@@ -19,7 +19,17 @@
             @foreach($jobOfferHistories as $jobOfferHistory)
                 <?php $num = 0 ?>
                 @foreach($jobOfferHistory->updated_content as $key => $record)
-                    @if($record['after'] != $record['before'])
+                    <?php
+                    $recordBefore = 'before';
+                    $recordAfter  = 'after';
+                    ?>
+                    @if ($key == 'long_vacation' || $key == 'holiday')
+                        <?php
+                        $recordBefore = is_string($record['before']) ? json_decode($record['before']) : $record['before'];
+                        $recordAfter = is_string($record['after']) ? json_decode($record['after']) : $record['after'];
+                        ?>
+                    @endif
+                    @if($record['after'] != $record['before'] && $recordBefore != $recordAfter)
                         <?php $num++ ?>
                     @endif
                 @endforeach
