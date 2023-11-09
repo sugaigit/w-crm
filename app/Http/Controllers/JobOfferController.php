@@ -9,6 +9,7 @@ use App\Models\DraftJobOffer;
 use App\Models\User;
 use App\Models\Customer;
 use App\Models\ActivityRecord;
+use App\Models\JobOfferHistory;
 use GuzzleHttp\Client;
 use Auth;
 use Carbon\Carbon;
@@ -414,6 +415,14 @@ class JobOfferController extends Controller
 
             // 求人情報の更新処理
             $jobOffer = JobOffer::find($request->jobOfferId);
+
+            $holiday = $request->input('holiday');
+
+            if (!$request->input('expected_end_date')) {
+                $expectedEndDate = "0000-00-00";
+            } else {
+                $expectedEndDate = $request->input('expected_end_date');
+            }
             // Slack通知をするかしないか判定するためのフラグ
             // $statusIsUpdated = false;
 
@@ -458,112 +467,120 @@ class JobOfferController extends Controller
             // todo: 企業ランクを有効化する際は以下の行のコメントを外す
             $jobOffer->rank = $rank;
 
-            $jobOffer->user_id= $request->input('user_id');
-            $jobOffer->handling_type= $request->input('handling_type');
-            $jobOffer->job_number= $request->input('job_number');
-            $jobOffer->handling_office= $request->input('handling_office');
-            $jobOffer->business_type= $request->input('business_type');
-            $jobOffer->customer_id= $customerId;
-            $jobOffer->type_contract= $request->input('type_contract');
-            $jobOffer->recruitment_number= $request->input('recruitment_number');
-            $jobOffer->company_name= $request->input('company_name');
-            $jobOffer->company_address= $request->input('company_address');
-            $jobOffer->company_others= $request->input('company_others');
-            $jobOffer->ordering_business= $request->input('ordering_business');
-            $jobOffer->order_details= $request->input('order_details');
-            $jobOffer->counter_measures= $request->input('counter_measures');
-            $jobOffer->invoice_unit_price_1= $request->input('invoice_unit_price_1');
-            $jobOffer->billing_unit_1= $request->input('billing_unit_1');
-            $jobOffer->profit_rate_1= $request->input('profit_rate_1');
-            $jobOffer->billing_information_1= $request->input('billing_information_1');
-            $jobOffer->invoice_unit_price_2= $request->input('invoice_unit_price_2');
-            $jobOffer->billing_unit_2= $request->input('billing_unit_2');
-            $jobOffer->profit_rate_2= $request->input('profit_rate_2');
-            $jobOffer->billing_information_2= $request->input('billing_information_2');
-            $jobOffer->invoice_unit_price_3= $request->input('invoice_unit_price_3');
-            $jobOffer->billing_unit_3= $request->input('billing_unit_3');
-            $jobOffer->profit_rate_3= $request->input('profit_rate_3');
-            $jobOffer->billing_information_3= $request->input('billing_information_3');
-            $jobOffer->employment_insurance= $request->input('employment_insurance');
-            $jobOffer->social_insurance= $request->input('social_insurance');
-            $jobOffer->payment_unit_price_1= $request->input('payment_unit_price_1');
-            $jobOffer->payment_unit_1= $request->input('payment_unit_1');
-            $jobOffer->carfare_1= $request->input('carfare_1');
-            $jobOffer->carfare_payment_1= $request->input('carfare_payment_1');
-            $jobOffer->carfare_payment_remarks_1= $request->input('carfare_payment_remarks_1');
-            $jobOffer->employment_insurance_2= $request->input('employment_insurance_2');
-            $jobOffer->social_insurance_2= $request->input('social_insurance_2');
-            $jobOffer->payment_unit_price_2= $request->input('payment_unit_price_2');
-            $jobOffer->payment_unit_2= $request->input('payment_unit_2');
-            $jobOffer->carfare_2= $request->input('carfare_2');
-            $jobOffer->carfare_payment_2= $request->input('carfare_payment_2');
-            $jobOffer->carfare_payment_remarks_2= $request->input('carfare_payment_remarks_2');
-            $jobOffer->employment_insurance_3= $request->input('employment_insurance_3');
-            $jobOffer->social_insurance_3= $request->input('social_insurance_3');
-            $jobOffer->payment_unit_price_3= $request->input('payment_unit_price_3');
-            $jobOffer->carfare_payment_3= $request->input('carfare_payment_3');
-            $jobOffer->carfare_3= $request->input('carfare_3');
-            $jobOffer->carfare_payment_remarks_3= $request->input('carfare_payment_remarks_3');
-            $jobOffer->scheduled_period= $request->input('scheduled_period');
-            $jobOffer->expected_end_date= $request->input('expected_end_date');
-            $jobOffer->period_remarks= $request->input('period_remarks');
-            $jobOffer->holiday= $request->input('holiday');
-            $jobOffer->long_vacation= $request->input('long_vacation');
-            $jobOffer->holiday_remarks= $request->input('holiday_remarks');
-            $jobOffer->working_hours_1= $request->input('working_hours_1');
-            $jobOffer->actual_working_hours_1= $request->input('actual_working_hours_1');
-            $jobOffer->break_time_1= $request->input('break_time_1');
-            $jobOffer->overtime= $request->input('overtime');
-            $jobOffer->working_hours_remarks= $request->input('working_hours_remarks');
-            $jobOffer->working_hours_2= $request->input('working_hours_2');
-            $jobOffer->actual_working_hours_2= $request->input('actual_working_hours_2');
-            $jobOffer->break_time_2= $request->input('break_time_2');
-            $jobOffer->working_hours_3= $request->input('working_hours_3');
-            $jobOffer->actual_working_hours_3= $request->input('actual_working_hours_3');
-            $jobOffer->break_time_3= $request->input('break_time_3');
-            $jobOffer->nearest_station= $request->input('nearest_station');
-            $jobOffer->travel_time_station= $request->input('travel_time_station');
-            $jobOffer->nearest_bus_stop= $request->input('nearest_bus_stop');
-            $jobOffer->travel_time_bus_stop= $request->input('travel_time_bus_stop');
-            $jobOffer->commuting_by_car= $request->input('commuting_by_car');
-            $jobOffer->traffic_commuting_remarks= $request->input('traffic_commuting_remarks');
-            $jobOffer->parking= $request->input('parking');
-            $jobOffer->posting_site= $request->input('posting_site');
-            $jobOffer->qualification= $request->input('qualification');
-            $jobOffer->qualification_content= $request->input('qualification_content');
-            $jobOffer->experience= $request->input('experience');
-            $jobOffer->experience_content= $request->input('experience_content');
-            $jobOffer->sex= $request->input('sex');
-            $jobOffer->age= $request->input('age');
-            $jobOffer->uniform_supply= $request->input('uniform_supply');
-            $jobOffer->supply= $request->input('supply');
-            $jobOffer->clothes= $request->input('clothes');
-            $jobOffer->other_hair_colors= $request->input('other_hair_colors');
-            $jobOffer->self_prepared= $request->input('self_prepared');
-            $jobOffer->remarks_workplace= $request->input('remarks_workplace');
-            $jobOffer->gender_ratio= $request->input('gender_ratio');
-            $jobOffer->age_ratio= $request->input('age_ratio');
-            $jobOffer->after_introduction= $request->input('after_introduction');
-            $jobOffer->timing_of_switching= $request->input('timing_of_switching');
-            $jobOffer->monthly_lower_limit= $request->input('monthly_lower_limit');
-            $jobOffer->monthly_upper_limit= $request->input('monthly_upper_limit');
-            $jobOffer->annual_lower_limit= $request->input('annual_lower_limit');
-            $jobOffer->annual_upper_limit= $request->input('annual_upper_limit');
-            $jobOffer->bonuses_treatment= $request->input('bonuses_treatment');
-            $jobOffer->holidays_vacations= $request->input('holidays_vacations');
-            $jobOffer->introduction_others= $request->input('introduction_others');
-            $jobOffer->status= $request->input('status');
-            $jobOffer->order_date= $request->input('order_date');
-            $jobOffer->number_of_ordering_bases= $request->input('number_of_ordering_bases');
-            $jobOffer->order_number = $request->input('order_number');
-            $jobOffer->transaction_duration= $request->input('transaction_duration');
-            $jobOffer->expected_sales= $request->input('expected_sales');
-            $jobOffer->profit_rate= $request->input('profit_rate');
-            $jobOffer->special_matters= $request->input('special_matters');
-            $jobOffer->job_withdrawal = $request->input('job_withdrawal');
+            // todo: いずれ、DBのテーブルを比較して差分で更新された項目を判別するアルゴリズムにリファクタリングする
+            $historyData = [];
+            $historyData['user_id'] = ['before' => $jobOffer->user_id, 'after' => $request->input('user_id')];$jobOffer->user_id = $request->input('user_id');
+            $historyData['handling_type'] = ['before' => $jobOffer->handling_type, 'after' => $request->input('handling_type')];$jobOffer->type_contract = $request->input('type_contract');
+            $historyData['job_number'] = ['before' => $jobOffer->job_number, 'after' => $request->input('job_number')];$jobOffer->handling_type = $request->input('handling_type');
+            $historyData['handling_office'] = ['before' => $jobOffer->handling_office, 'after' => $request->input('handling_office')];$jobOffer->handling_office = $request->input('handling_office');
+            $historyData['business_type'] = ['before' => $jobOffer->business_type, 'after' => $request->input('business_type')];$jobOffer->business_type = $request->input('business_type');
+            $historyData['customerId'] = ['before' => $jobOffer->customer_id, 'after' => $customerId];$jobOffer->customer_id = $customerId;
+            $historyData['type_contract'] = ['before' => $jobOffer->type_contract, 'after' => $request->input('type_contract')];$jobOffer->type_contract = $request->input('type_contract');
+            $historyData['recruitment_number'] = ['before' => $jobOffer->recruitment_number, 'after' => $request->input('recruitment_number')];$jobOffer->recruitment_number = $request->input('recruitment_number');
+            $historyData['company_name'] = ['before' => $jobOffer->company_name, 'after' => $request->input('company_name')];$jobOffer->company_name = $request->input('company_name');
+            $historyData['company_address'] = ['before' => $jobOffer->company_address, 'after' => $request->input('company_address')];$jobOffer->company_address = $request->input('company_address');
+            $historyData['company_others'] = ['before' => $jobOffer->company_others, 'after' => $request->input('company_others')];$jobOffer->company_others = $request->input('company_others');
+            $historyData['ordering_business'] = ['before' => $jobOffer->ordering_business, 'after' => $request->input('ordering_business')];$jobOffer->ordering_business = $request->input('ordering_business');
+            $historyData['order_details'] = ['before' => $jobOffer->order_details, 'after' => $request->input('order_details')];$jobOffer->order_details = $request->input('order_details');
+            $historyData['counter_measures'] = ['before' => $jobOffer->counter_measures, 'after' => $request->input('counter_measures')];$jobOffer->counter_measures = $request->input('counter_measures');
+            $historyData['invoice_unit_price_1'] = ['before' => $jobOffer->invoice_unit_price_1, 'after' => $request->input('invoice_unit_price_1')];$jobOffer->invoice_unit_price_1 = $request->input('invoice_unit_price_1');
+            $historyData['billing_unit_1'] = ['before' => $jobOffer->billing_unit_1, 'after' => $request->input('billing_unit_1')];$jobOffer->billing_unit_1 = $request->input('billing_unit_1');
+            $historyData['profit_rate_1'] = ['before' => $jobOffer->profit_rate_1, 'after' => $request->input('profit_rate_1')];$jobOffer->profit_rate_1 = $request->input('profit_rate_1');
+            $historyData['billing_information_1'] = ['before' => $jobOffer->billing_information_1, 'after' => $request->input('billing_information_1')];$jobOffer->billing_information_1 = $request->input('billing_information_1');
+            $historyData['invoice_unit_price_2'] = ['before' => $jobOffer->invoice_unit_price_2, 'after' => $request->input('invoice_unit_price_2')];$jobOffer->invoice_unit_price_2 = $request->input('invoice_unit_price_2');
+            $historyData['billing_unit_2'] = ['before' => $jobOffer->billing_unit_2, 'after' => $request->input('billing_unit_2')];$jobOffer->billing_unit_2 = $request->input('billing_unit_2');
+            $historyData['profit_rate_2'] = ['before' => $jobOffer->profit_rate_2, 'after' => $request->input('profit_rate_2')];$jobOffer->profit_rate_2 = $request->input('profit_rate_2');
+            $historyData['billing_information_2'] = ['before' => $jobOffer->billing_information_2, 'after' => $request->input('billing_information_2')];$jobOffer->billing_information_2 = $request->input('billing_information_2');
+            $historyData['invoice_unit_price_3'] = ['before' => $jobOffer->invoice_unit_price_3, 'after' => $request->input('invoice_unit_price_3')];$jobOffer->invoice_unit_price_3 = $request->input('invoice_unit_price_3');
+            $historyData['billing_unit_3'] = ['before' => $jobOffer->billing_unit_3, 'after' => $request->input('billing_unit_3')];$jobOffer->billing_unit_3 = $request->input('billing_unit_3');
+            $historyData['profit_rate_3'] = ['before' => $jobOffer->profit_rate_3, 'after' => $request->input('profit_rate_3')];$jobOffer->profit_rate_3 = $request->input('profit_rate_3');
+            $historyData['billing_information_3'] = ['before' => $jobOffer->billing_information_3, 'after' => $request->input('billing_information_3')];$jobOffer->billing_information_3 = $request->input('billing_information_3');
+            $historyData['employment_insurance'] = ['before' => $jobOffer->employment_insurance, 'after' => $request->input('employment_insurance')];$jobOffer->employment_insurance = $request->input('employment_insurance');
+            $historyData['social_insurance'] = ['before' => $jobOffer->social_insurance, 'after' => $request->input('social_insurance')];$jobOffer->social_insurance = $request->input('social_insurance');
+            $historyData['payment_unit_price_1'] = ['before' => $jobOffer->payment_unit_price_1, 'after' => $request->input('payment_unit_price_1')];$jobOffer->payment_unit_price_1 = $request->input('payment_unit_price_1');
+            $historyData['payment_unit_1'] = ['before' => $jobOffer->payment_unit_1, 'after' => $request->input('payment_unit_1')];$jobOffer->payment_unit_1 = $request->input('payment_unit_1');
+            $historyData['carfare_1'] = ['before' => $jobOffer->carfare_1, 'after' => $request->input('carfare_1')];$jobOffer->carfare_1 = $request->input('carfare_1');
+            $historyData['carfare_payment_1'] = ['before' => $jobOffer->carfare_payment_1, 'after' => $request->input('carfare_payment_1')];$jobOffer->carfare_payment_1 = $request->input('carfare_payment_1');
+            $historyData['carfare_payment_remarks_1'] = ['before' => $jobOffer->carfare_payment_remarks_1, 'after' => $request->input('carfare_payment_remarks_1')];$jobOffer->carfare_payment_remarks_1 = $request->input('carfare_payment_remarks_1');
+            $historyData['employment_insurance_2'] = ['before' => $jobOffer->employment_insurance_2, 'after' => $request->input('employment_insurance_2')];$jobOffer->employment_insurance_2 = $request->input('employment_insurance_2');
+            $historyData['social_insurance_2'] = ['before' => $jobOffer->social_insurance_2, 'after' => $request->input('social_insurance_2')];$jobOffer->social_insurance_2 = $request->input('social_insurance_2');
+            $historyData['payment_unit_price_2'] = ['before' => $jobOffer->payment_unit_price_2, 'after' => $request->input('payment_unit_price_2')];$jobOffer->payment_unit_price_2 = $request->input('payment_unit_price_2');
+            $historyData['payment_unit_2'] = ['before' => $jobOffer->payment_unit_2, 'after' => $request->input('payment_unit_2')];$jobOffer->payment_unit_2 = $request->input('payment_unit_2');
+            $historyData['carfare_2'] = ['before' => $jobOffer->carfare_2, 'after' => $request->input('carfare_2')];$jobOffer->carfare_2 = $request->input('carfare_2');
+            $historyData['carfare_payment_2'] = ['before' => $jobOffer->carfare_payment_2, 'after' => $request->input('carfare_payment_2')];$jobOffer->carfare_payment_2 = $request->input('carfare_payment_2');
+            $historyData['carfare_payment_remarks_2'] = ['before' => $jobOffer->carfare_payment_remarks_2, 'after' => $request->input('carfare_payment_remarks_2')];$jobOffer->carfare_payment_remarks_2 = $request->input('carfare_payment_remarks_2');
+            $historyData['employment_insurance_3'] = ['before' => $jobOffer->employment_insurance_3, 'after' => $request->input('employment_insurance_3')];$jobOffer->employment_insurance_3 = $request->input('employment_insurance_3');
+            $historyData['social_insurance_3'] = ['before' => $jobOffer->social_insurance_3, 'after' => $request->input('social_insurance_3')];$jobOffer->social_insurance_3 = $request->input('social_insurance_3');
+            $historyData['payment_unit_price_3'] = ['before' => $jobOffer->payment_unit_price_3, 'after' => $request->input('payment_unit_price_3')];$jobOffer->payment_unit_price_3 = $request->input('payment_unit_price_3');
+            $historyData['carfare_payment_3'] = ['before' => $jobOffer->carfare_payment_3, 'after' => $request->input('carfare_payment_3')];$jobOffer->carfare_payment_3 = $request->input('carfare_payment_3');
+            $historyData['carfare_3'] = ['before' => $jobOffer->carfare_3, 'after' => $request->input('carfare_3')];$jobOffer->carfare_3 = $request->input('carfare_3');
+            $historyData['carfare_payment_remarks_3'] = ['before' => $jobOffer->carfare_payment_remarks_3, 'after' => $request->input('carfare_payment_remarks_3')];$jobOffer->carfare_payment_remarks_3 = $request->input('carfare_payment_remarks_3');
+            $historyData['scheduled_period'] = ['before' => $jobOffer->scheduled_period, 'after' => $request->input('scheduled_period')];$jobOffer->scheduled_period = $request->input('scheduled_period');
+            $historyData['expected_end_date'] = ['before' => $jobOffer->expected_end_date, 'after' => $expectedEndDate];$jobOffer->expected_end_date = $expectedEndDate;
+            $historyData['period_remarks'] = ['before' => $jobOffer->period_remarks, 'after' => $request->input('period_remarks')];$jobOffer->period_remarks = $request->input('period_remarks');
+            $historyData['holiday'] = ['before' => $jobOffer->holiday, 'after' => json_encode($holiday)];$jobOffer->holiday = json_encode($holiday);
+            $historyData['long_vacation'] = ['before' => $jobOffer->long_vacation, 'after' => $request->input('long_vacation')];$jobOffer->long_vacation = $request->input('long_vacation');
+            $historyData['holiday_remarks'] = ['before' => $jobOffer->holiday_remarks, 'after' => $request->input('holiday_remarks')];$jobOffer->holiday_remarks = $request->input('holiday_remarks');
+            $historyData['working_hours_1'] = ['before' => $jobOffer->working_hours_1, 'after' => $request->input('working_hours_1')];$jobOffer->working_hours_1 = $request->input('working_hours_1');
+            $historyData['actual_working_hours_1'] = ['before' => $jobOffer->actual_working_hours_1, 'after' => $request->input('actual_working_hours_1')];$jobOffer->actual_working_hours_1 = $request->input('actual_working_hours_1');
+            $historyData['break_time_1'] = ['before' => $jobOffer->break_time_1, 'after' => $request->input('break_time_1')];$jobOffer->break_time_1 = $request->input('break_time_1');
+            $historyData['overtime'] = ['before' => $jobOffer->overtime, 'after' => $request->input('overtime')];$jobOffer->overtime = $request->input('overtime');
+            $historyData['working_hours_remarks'] = ['before' => $jobOffer->working_hours_remarks, 'after' => $request->input('working_hours_remarks')];$jobOffer->working_hours_remarks = $request->input('working_hours_remarks');
+            $historyData['working_hours_2'] = ['before' => $jobOffer->working_hours_2, 'after' => $request->input('working_hours_2')];$jobOffer->working_hours_2 = $request->input('working_hours_2');
+            $historyData['actual_working_hours_2'] = ['before' => $jobOffer->actual_working_hours_2, 'after' => $request->input('actual_working_hours_2')];$jobOffer->actual_working_hours_2 = $request->input('actual_working_hours_2');
+            $historyData['break_time_2'] = ['before' => $jobOffer->break_time_2, 'after' => $request->input('break_time_2')];$jobOffer->break_time_2 = $request->input('break_time_2');
+            $historyData['working_hours_3'] = ['before' => $jobOffer->working_hours_3, 'after' => $request->input('working_hours_3')];$jobOffer->working_hours_3 = $request->input('working_hours_3');
+            $historyData['actual_working_hours_3'] = ['before' => $jobOffer->actual_working_hours_3, 'after' => $request->input('actual_working_hours_3')];$jobOffer->actual_working_hours_3 = $request->input('actual_working_hours_3');
+            $historyData['break_time_3'] = ['before' => $jobOffer->break_time_3, 'after' => $request->input('break_time_3')];$jobOffer->break_time_3 = $request->input('break_time_3');
+            $historyData['nearest_station'] = ['before' => $jobOffer->nearest_station, 'after' => $request->input('nearest_station')];$jobOffer->nearest_station = $request->input('nearest_station');
+            $historyData['travel_time_station'] = ['before' => $jobOffer->travel_time_station, 'after' => $request->input('travel_time_station')];$jobOffer->travel_time_station = $request->input('travel_time_station');
+            $historyData['nearest_bus_stop'] = ['before' => $jobOffer->nearest_bus_stop, 'after' => $request->input('nearest_bus_stop')];$jobOffer->nearest_bus_stop = $request->input('nearest_bus_stop');
+            $historyData['travel_time_bus_stop'] = ['before' => $jobOffer->travel_time_bus_stop, 'after' => $request->input('travel_time_bus_stop')];$jobOffer->travel_time_bus_stop = $request->input('travel_time_bus_stop');
+            $historyData['commuting_by_car'] = ['before' => $jobOffer->commuting_by_car, 'after' => $request->input('commuting_by_car')];$jobOffer->commuting_by_car = $request->input('commuting_by_car');
+            $historyData['traffic_commuting_remarks'] = ['before' => $jobOffer->traffic_commuting_remarks, 'after' => $request->input('traffic_commuting_remarks')];$jobOffer->traffic_commuting_remarks = $request->input('traffic_commuting_remarks');
+            $historyData['parking'] = ['before' => $jobOffer->parking, 'after' => $request->input('parking')];$jobOffer->parking = $request->input('parking');
+            $historyData['posting_site'] = ['before' => $jobOffer->posting_site, 'after' => $request->input('posting_site')];$jobOffer->posting_site = $request->input('posting_site');
+            $historyData['qualification'] = ['before' => $jobOffer->qualification, 'after' => $request->input('qualification')];$jobOffer->qualification = $request->input('qualification');
+            $historyData['qualification_content'] = ['before' => $jobOffer->qualification_content, 'after' => $request->input('qualification_content')];$jobOffer->qualification_content = $request->input('qualification_content');
+            $historyData['experience'] = ['before' => $jobOffer->experience, 'after' => $request->input('experience')];$jobOffer->experience = $request->input('experience');
+            $historyData['experience_content'] = ['before' => $jobOffer->experience_content, 'after' => $request->input('experience_content')];$jobOffer->experience_content = $request->input('experience_content');
+            $historyData['sex'] = ['before' => $jobOffer->sex, 'after' => $request->input('sex')];$jobOffer->sex = $request->input('sex');
+            $historyData['age'] = ['before' => $jobOffer->age, 'after' => $request->input('age')];$jobOffer->age = $request->input('age');
+            $historyData['uniform_supply'] = ['before' => $jobOffer->uniform_supply, 'after' => $request->input('uniform_supply')];$jobOffer->uniform_supply = $request->input('uniform_supply');
+            $historyData['supply'] = ['before' => $jobOffer->supply, 'after' => $request->input('supply')];$jobOffer->supply = $request->input('supply');
+            $historyData['clothes'] = ['before' => $jobOffer->clothes, 'after' => $request->input('clothes')];$jobOffer->clothes = $request->input('clothes');
+            $historyData['other_hair_colors'] = ['before' => $jobOffer->other_hair_colors, 'after' => $request->input('other_hair_colors')];$jobOffer->other_hair_colors = $request->input('other_hair_colors');
+            $historyData['self_prepared'] = ['before' => $jobOffer->self_prepared, 'after' => $request->input('self_prepared')];$jobOffer->self_prepared = $request->input('self_prepared');
+            $historyData['remarks_workplace'] = ['before' => $jobOffer->remarks_workplace, 'after' => $request->input('remarks_workplace')];$jobOffer->remarks_workplace = $request->input('remarks_workplace');
+            $historyData['gender_ratio'] = ['before' => $jobOffer->gender_ratio, 'after' => $request->input('gender_ratio')];$jobOffer->gender_ratio = $request->input('gender_ratio');
+            $historyData['age_ratio'] = ['before' => $jobOffer->age_ratio, 'after' => $request->input('age_ratio')];$jobOffer->age_ratio = $request->input('age_ratio');
+            $historyData['after_introduction'] = ['before' => $jobOffer->after_introduction, 'after' => $request->input('after_introduction')];$jobOffer->after_introduction = $request->input('after_introduction');
+            $historyData['timing_of_switching'] = ['before' => $jobOffer->timing_of_switching, 'after' => $request->input('timing_of_switching')];$jobOffer->timing_of_switching = $request->input('timing_of_switching');
+            $historyData['monthly_lower_limit'] = ['before' => $jobOffer->monthly_lower_limit, 'after' => $request->input('monthly_lower_limit')];$jobOffer->monthly_lower_limit = $request->input('monthly_lower_limit');
+            $historyData['monthly_upper_limit'] = ['before' => $jobOffer->monthly_upper_limit, 'after' => $request->input('monthly_upper_limit')];$jobOffer->monthly_upper_limit = $request->input('monthly_upper_limit');
+            $historyData['annual_lower_limit'] = ['before' => $jobOffer->annual_lower_limit, 'after' => $request->input('annual_lower_limit')];$jobOffer->annual_lower_limit = $request->input('annual_lower_limit');
+            $historyData['annual_upper_limit'] = ['before' => $jobOffer->annual_upper_limit, 'after' => $request->input('annual_upper_limit')];$jobOffer->annual_upper_limit = $request->input('annual_upper_limit');
+            $historyData['bonuses_treatment'] = ['before' => $jobOffer->bonuses_treatment, 'after' => $request->input('bonuses_treatment')];$jobOffer->bonuses_treatment = $request->input('bonuses_treatment');
+            $historyData['holidays_vacations'] = ['before' => $jobOffer->holidays_vacations, 'after' => $request->input('holidays_vacations')];$jobOffer->holidays_vacations = $request->input('holidays_vacations');
+            $historyData['introduction_others'] = ['before' => $jobOffer->introduction_others, 'after' => $request->input('introduction_others')];$jobOffer->introduction_others = $request->input('introduction_others');
+            $historyData['status'] = ['before' => $jobOffer->status, 'after' => $request->input('status')];$jobOffer->status = $request->input('status');
+            $historyData['order_date'] = ['before' => $jobOffer->order_date, 'after' => $request->input('order_date')];$jobOffer->order_date = $request->input('order_date');
+            $historyData['number_of_ordering_bases'] = ['before' => $jobOffer->number_of_ordering_bases, 'after' => $request->input('number_of_ordering_bases')];$jobOffer->number_of_ordering_bases = $request->input('number_of_ordering_bases');
+            $historyData['order_number'] = ['before' => $jobOffer->order_number, 'after' => $request->input('order_number')];$jobOffer->order_number  = $request->input('order_number');
+            $historyData['transaction_duration'] = ['before' => $jobOffer->transaction_duration, 'after' => $request->input('transaction_duration')];$jobOffer->transaction_duration = $request->input('transaction_duration');
+            $historyData['expected_sales'] = ['before' => $jobOffer->expected_sales, 'after' => $request->input('expected_sales')];$jobOffer->expected_sales = $request->input('expected_sales');
+            $historyData['profit_rate'] = ['before' => $jobOffer->profit_rate, 'after' => $request->input('profit_rate')];$jobOffer->profit_rate = $request->input('profit_rate');
+            $historyData['special_matters'] = ['before' => $jobOffer->special_matters, 'after' => $request->input('special_matters')];$jobOffer->special_matters = $request->input('special_matters');
+            $historyData['job_withdrawal'] = ['before' => $jobOffer->job_withdrawal, 'after' => $request->input('job_withdrawal')];$jobOffer->job_withdrawal = $request->input('job_withdrawal');
 
             $jobOffer->save();
             $request->session()->flash('SucccessMsg', '保存しました');
+
+            JobOfferHistory::create([
+                'job_offer_id' => $jobOffer->id,
+                'user_id' => Auth::id(),
+                'updated_content' => $historyData,
+            ]);
 
             // 活動記録の登録処理
             if( $request->filled(['date', 'item']) ) { // 活動記録が空の場合はレコードを作成しない
@@ -859,6 +876,20 @@ class JobOfferController extends Controller
         return redirect(route('job_offers.index'));
     }
 
+    public function history($jobOfferId)
+    {
+        $jobOfferHistories = JobOfferHistory::where('job_offer_id', $jobOfferId)->orderBy('created_at', 'desc')->limit(50)->get();
+        $users = User::all()->pluck('name', 'id');
+        $customers = Customer::all()->pluck('customer_name', 'id');
+
+        return view('job_offers.history', [
+            'jobOfferHistories' => $jobOfferHistories,
+            'users' => $users,
+            'customers' => $customers,
+            'jobOfferId' => $jobOfferId,
+        ]);
+    }
+
     public function showDetail($id)
     {
         $jobOffer = JobOffer::find($id);
@@ -887,6 +918,8 @@ class JobOfferController extends Controller
             'differentUserAlert' => $differentUserAlert,
         ]);
     }
+
+
 
 }
 

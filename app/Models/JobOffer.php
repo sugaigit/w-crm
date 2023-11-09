@@ -131,6 +131,11 @@ class JobOffer extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function jobOfferHistories()
+    {
+        return $this->hasMany(jobOfferHistory::class);
+    }
+
     public function activityRecords()
     {
         return $this->hasMany(ActivityRecord::class)->orderBy('date', 'desc');;

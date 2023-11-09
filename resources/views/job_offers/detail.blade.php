@@ -18,7 +18,10 @@
         <input type="hidden" name="draftJobOfferId" value="{{ $jobOffer->id }}">
         @endif
         <a href="{{ route('job_offers.destroy', $jobOffer->id) }}">
-            <button id="delete" class="delete-btn btn btn-danger mb-2" type="button">削除</button>
+            <button id="delete" class="delete-btn btn btn-danger mb-2 me-3" type="button">削除</button>
+        </a>
+        <a href="{{ route('job_offers.history', $jobOffer->id) }}">
+            <button  class="btn btn-dark mb-2" type="button">編集ログ</button>
         </a>
         <div class="card mb-4">
             <div class="card-header">
@@ -566,11 +569,16 @@
                     <tr class="payment-2">
                         <th>支払単位②</th>
                         <td>
-                            @if (is_null(old('payment_unit_2')))
-                            <input  style="pointer-events: none;" tabindex="-1" type="text"class="form-control" name="payment_unit_2" value="{{ isset($jobOffer->payment_unit_2) ? $jobOffer->payment_unit_2 : '' }}">
-                            @else
-                            <input  style="pointer-events: none;" tabindex="-1" type="text"class="form-control" name="payment_unit_2" value="{{ old('payment_unit_2') }}">
-                            @endif
+                            <select style="pointer-events: none;" tabindex="-1" type="text" class="form-control" name="payment_unit_2">
+                                <option value="">支払単位を選んで下さい</option>
+                                @foreach( config('options.salary_term') as $key => $payment_unit_2 )
+                                    @if (is_null(old('payment_unit_2')))
+                                    <option value="{{ $key }}" {{ $key == $jobOffer->payment_unit_2 ? 'selected' : '' }}>{{ $payment_unit_2 }}</option>
+                                    @else
+                                    <option value="{{ $key }}" {{ $key == old('payment_unit_2') ? 'selected' : '' }}>{{ $payment_unit_2 }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
                         </td>
                     </tr>
                     <tr class="payment-2">
@@ -656,14 +664,14 @@
                         <th>支払単位③</th>
                         <td>
                             <select style="pointer-events: none;" tabindex="-1" type="text" class="form-control" name="payment_unit_3">
-                            <option value="">交通費支払単位を選んで下さい</option>
-                            @foreach( config('options.payment_term') as $key => $payment_unit_3 )
-                                @if (is_null(old('payment_unit_3')))
-                                <option value="{{ $key }}" {{ $key == $jobOffer->payment_unit_3 ? 'selected' : '' }}>{{ $payment_unit_3 }}</option>
-                                @else
-                                <option value="{{ $key }}" {{ $key == old('payment_unit_3') ? 'selected' : '' }}>{{ $payment_unit_3 }}</option>
-                                @endif
-                            @endforeach
+                                <option value="">支払単位を選んで下さい</option>
+                                @foreach( config('options.salary_term') as $key => $payment_unit_3 )
+                                    @if (is_null(old('payment_unit_3')))
+                                    <option value="{{ $key }}" {{ $key == $jobOffer->payment_unit_3 ? 'selected' : '' }}>{{ $payment_unit_3 }}</option>
+                                    @else
+                                    <option value="{{ $key }}" {{ $key == old('payment_unit_3') ? 'selected' : '' }}>{{ $payment_unit_3 }}</option>
+                                    @endif
+                                @endforeach
                             </select>
                         </td>
                     </tr>
@@ -747,7 +755,7 @@
                                     @else
                                     <input  style="pointer-events: none;" tabindex="-1" class="form-check-input required" type="checkbox" id="{{ 'holidayInput' . $index }}" name="holiday[]" value="{{ $index }}" @if(in_array($index, old('holiday'))) checked @endif>
                                     @endif
-                                    <label class="form-check-label" for="{{ 'holidayInput' . $index }}">{{ $holiday }}</label>
+                                    <label style="pointer-events: none;" tabindex="-1" class="form-check-label" for="{{ 'holidayInput' . $index }}">{{ $holiday }}</label>
                                 </div>
                             @endforeach
                         </td>
@@ -762,7 +770,7 @@
                                     @else
                                     <input  style="pointer-events: none;" tabindex="-1" class="form-check-input" type="checkbox" id="{{ 'longVacationInput' . $index }}" name="long_vacation[]" value="{{ $index }}" @if(in_array($index, old('long_vacation'))) checked @endif>
                                     @endif
-                                    <label class="form-check-label" for="{{ 'longVacationInput' . $index }}">{{ $longVacation }}</label>
+                                    <label style="pointer-events: none;" tabindex="-1" class="form-check-label" for="{{ 'longVacationInput' . $index }}">{{ $longVacation }}</label>
                                 </div>
                             @endforeach
                         </td>

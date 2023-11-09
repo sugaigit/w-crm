@@ -494,14 +494,14 @@
                         <th>支払単位①<span class="text-danger">*</span></th>
                         <td>
                             <select type="text" class="form-control required" name="payment_unit_1" required>
-                            <option value="">支払単位を選んで下さい</option>
-                            @foreach( config('options.salary_term') as $key => $payment_unit_1 )
-                                @if (is_null(old('payment_unit_1')))
-                                <option value="{{ $key }}" {{ $key == $jobOffer->payment_unit_1 ? 'selected' : '' }}>{{ $payment_unit_1 }}</option>
-                                @else
-                                <option value="{{ $key }}" {{ $key == old('payment_unit_1') ? 'selected' : '' }}>{{ $payment_unit_1 }}</option>
-                                @endif
-                            @endforeach
+                                <option value="">交通費支払単位を選んで下さい</option>
+                                @foreach( config('options.salary_term') as $key => $payment_unit_1 )
+                                    @if (is_null(old('payment_unit_1')))
+                                    <option value="{{ $key }}" {{ $key == $jobOffer->payment_unit_1 ? 'selected' : '' }}>{{ $payment_unit_1 }}</option>
+                                    @else
+                                    <option value="{{ $key }}" {{ $key == old('payment_unit_1') ? 'selected' : '' }}>{{ $payment_unit_1 }}</option>
+                                    @endif
+                                @endforeach
                             </select>
                         </td>
                     </tr>
@@ -583,11 +583,16 @@
                     <tr class="payment-2">
                         <th>支払単位②</th>
                         <td>
-                            @if (is_null(old('payment_unit_2')))
-                            <input type="text"class="form-control" name="payment_unit_2" value="{{ isset($jobOffer->payment_unit_2) ? $jobOffer->payment_unit_2 : '' }}">
-                            @else
-                            <input type="text"class="form-control" name="payment_unit_2" value="{{ old('payment_unit_2') }}">
-                            @endif
+                            <select type="text" class="form-control" name="payment_unit_2">
+                                <option value="">支払単位を選んで下さい</option>
+                                @foreach( config('options.salary_term') as $key => $payment_unit_2 )
+                                    @if (is_null(old('payment_unit_2')))
+                                    <option value="{{ $key }}" {{ $key == $jobOffer->payment_unit_2 ? 'selected' : '' }}>{{ $payment_unit_2 }}</option>
+                                    @else
+                                    <option value="{{ $key }}" {{ $key == old('payment_unit_2') ? 'selected' : '' }}>{{ $payment_unit_2 }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
                         </td>
                     </tr>
                     <tr class="payment-2">
@@ -673,8 +678,8 @@
                         <th>支払単位③</th>
                         <td>
                             <select type="text" class="form-control" name="payment_unit_3">
-                            <option value="">交通費支払単位を選んで下さい</option>
-                            @foreach( config('options.payment_term') as $key => $payment_unit_3 )
+                            <option value="">支払単位を選んで下さい</option>
+                            @foreach( config('options.salary_term') as $key => $payment_unit_3 )
                                 @if (is_null(old('payment_unit_3')))
                                 <option value="{{ $key }}" {{ $key == $jobOffer->payment_unit_3 ? 'selected' : '' }}>{{ $payment_unit_3 }}</option>
                                 @else
@@ -697,11 +702,16 @@
                     <tr class="payment-3">
                         <th>交通費支払単位③</th>
                         <td>
-                            @if (is_null(old('carfare_payment_3')))
-                            <input  type="text" class="form-control" name="carfare_payment_3" value="{{ isset($jobOffer->carfare_payment_3) ? $jobOffer->carfare_payment_3 : '' }}">
-                            @else
-                            <input  type="text" class="form-control" name="carfare_payment_3" value="{{ old('carfare_payment_3') }}">
-                            @endif
+                        <select type="text" class="form-control" name="carfare_payment_3">
+                            <option value="">交通費支払単位を選んで下さい</option>
+                            @foreach( config('options.payment_term') as $key => $carfare_payment_3 )
+                                @if (is_null(old('carfare_payment_3')))
+                                <option value="{{ $key }}" {{ $key == $jobOffer->carfare_payment_3 ? 'selected' : '' }}>{{ $carfare_payment_3 }}</option>
+                                @else
+                                <option value="{{ $key }}" {{ $key == old('carfare_payment_3') ? 'selected' : '' }}>{{ $carfare_payment_3 }}</option>
+                                @endif
+                            @endforeach
+                            </select>
                         </td>
                     </tr>
                     <tr class="payment-3">

@@ -74,8 +74,9 @@ class User extends Authenticatable
         return $this['role_id'] === Role::SUPER_VISOR_ID;
     }
 
-    // public static function enumSupserVisor()
-    // {
-    //     return User::where('role_id', '=', Role::SUPER_VISOR_ID)->get();
-    // }
+    public function jobOfferHistories()
+    {
+        return $this->hasMany(jobOfferHistory::class);
+    }
+
 }
