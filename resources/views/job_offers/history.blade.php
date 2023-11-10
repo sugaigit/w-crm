@@ -142,9 +142,9 @@
     </div>
 
     <div class="d-flex  justify-content-center mt-3">
-        <a href="{{ route('job_offers.index') }}">
+        <a href="{{ route('job_offers.detail', $jobOfferId) }}">
             <button class="btn btn-outline-secondary btn-lg"type="button">
-                求人情報一覧に戻る
+                求人情報詳細に戻る
             </button>
         </a>
     </div>
