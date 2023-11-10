@@ -124,8 +124,8 @@
                             <td>{{ $record['before'] ? config('options')['permission'][intval($record['before'])] : '' }}</td>
                             <td>{{ $record['after'] ? config('options')['permission'][intval($record['after'])] : '' }}</td>
                             @else
-                            <td>{{ array_key_exists($key, config('options')) && !empty($record['before']) ? config('options')[$key][intval($record['before'])] : $record['before'] }}</td>
-                            <td>{{ array_key_exists($key, config('options')) && !empty($record['after']) ? config('options')[$key][intval($record['after'])] : $record['after'] }}</td>
+                            <td style="white-space: pre-wrap;">{{ array_key_exists($key, config('options')) && !empty($record['before']) ? config('options')[$key][intval($record['before'])] : $record['before'] }}</td>
+                            <td style="white-space: pre-wrap;">{{ array_key_exists($key, config('options')) && !empty($record['after']) ? config('options')[$key][intval($record['after'])] : $record['after'] }}</td>
                             @endif
                         </tr>
                         <?php $count++ ?>
