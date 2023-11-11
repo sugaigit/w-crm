@@ -124,8 +124,8 @@
                             <td>{{ $record['before'] ? config('options')['permission'][intval($record['before'])] : '' }}</td>
                             <td>{{ $record['after'] ? config('options')['permission'][intval($record['after'])] : '' }}</td>
                             @else
-                            <td>{{ array_key_exists($key, config('options')) && !empty($record['before']) ? config('options')[$key][intval($record['before'])] : $record['before'] }}</td>
-                            <td>{{ array_key_exists($key, config('options')) && !empty($record['after']) ? config('options')[$key][intval($record['after'])] : $record['after'] }}</td>
+                            <td style="white-space: pre-wrap;">{{ array_key_exists($key, config('options')) && !empty($record['before']) ? config('options')[$key][intval($record['before'])] : $record['before'] }}</td>
+                            <td style="white-space: pre-wrap;">{{ array_key_exists($key, config('options')) && !empty($record['after']) ? config('options')[$key][intval($record['after'])] : $record['after'] }}</td>
                             @endif
                         </tr>
                         <?php $count++ ?>
@@ -142,9 +142,9 @@
     </div>
 
     <div class="d-flex  justify-content-center mt-3">
-        <a href="{{ route('job_offers.index') }}">
+        <a href="{{ route('job_offers.detail', $jobOfferId) }}">
             <button class="btn btn-outline-secondary btn-lg"type="button">
-                求人情報一覧に戻る
+                求人情報詳細に戻る
             </button>
         </a>
     </div>
