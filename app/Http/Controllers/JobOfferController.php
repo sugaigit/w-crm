@@ -470,8 +470,8 @@ class JobOfferController extends Controller
             // todo: いずれ、DBのテーブルを比較して差分で更新された項目を判別するアルゴリズムにリファクタリングする
             $historyData = [];
             $historyData['user_id'] = ['before' => $jobOffer->user_id, 'after' => $request->input('user_id')];$jobOffer->user_id = $request->input('user_id');
-            $historyData['handling_type'] = ['before' => $jobOffer->handling_type, 'after' => $request->input('handling_type')];$jobOffer->type_contract = $request->input('type_contract');
-            $historyData['job_number'] = ['before' => $jobOffer->job_number, 'after' => $request->input('job_number')];$jobOffer->handling_type = $request->input('handling_type');
+            $historyData['handling_type'] = ['before' => $jobOffer->handling_type, 'after' => $request->input('handling_type')];$jobOffer->handling_type = $request->input('handling_type');
+            $historyData['job_number'] = ['before' => $jobOffer->job_number, 'after' => $request->input('job_number')];$jobOffer->job_number = $request->input('job_number');
             $historyData['handling_office'] = ['before' => $jobOffer->handling_office, 'after' => $request->input('handling_office')];$jobOffer->handling_office = $request->input('handling_office');
             $historyData['business_type'] = ['before' => $jobOffer->business_type, 'after' => $request->input('business_type')];$jobOffer->business_type = $request->input('business_type');
             $historyData['customerId'] = ['before' => $jobOffer->customer_id, 'after' => $customerId];$jobOffer->customer_id = $customerId;
