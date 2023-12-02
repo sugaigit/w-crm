@@ -1086,7 +1086,7 @@
                                 <option value="">制服支給の有無を選んで下さい</option>
                                 @foreach( config('options.uniform_supply') as $key => $uniformSupply )
                                     @if (is_null(old('uniform_supply')))
-                                    <option value="{{ $key }}" {{ $key == $jobOffer->uniformSupply ? 'selected' : '' }}>{{ $uniformSupply }}</option>
+                                    <option value="{{ $key }}" {{ $key == $jobOffer->uniform_supply ? 'selected' : '' }}>{{ $uniformSupply }}</option>
                                     @else
                                     <option value="{{ $key }}" {{ $key == old('uniform_supply') ? 'selected' : '' }}>{{ $uniformSupply }}</option>
                                     @endif
