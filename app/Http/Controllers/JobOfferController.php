@@ -539,7 +539,7 @@ class JobOfferController extends Controller
             $historyData['commuting_by_car'] = ['before' => $jobOffer->commuting_by_car, 'after' => $request->input('commuting_by_car')];$jobOffer->commuting_by_car = $request->input('commuting_by_car');
             $historyData['traffic_commuting_remarks'] = ['before' => $jobOffer->traffic_commuting_remarks, 'after' => $request->input('traffic_commuting_remarks')];$jobOffer->traffic_commuting_remarks = $request->input('traffic_commuting_remarks');
             $historyData['parking'] = ['before' => $jobOffer->parking, 'after' => $request->input('parking')];$jobOffer->parking = $request->input('parking');
-            $historyData['posting_site'] = ['before' => $jobOffer->posting_site, 'after' => $request->input('posting_site')];$jobOffer->posting_site = $request->input('posting_site');
+            // $historyData['posting_site'] = ['before' => $jobOffer->posting_site, 'after' => $request->input('posting_site')];$jobOffer->posting_site = $request->input('posting_site');
             $historyData['qualification'] = ['before' => $jobOffer->qualification, 'after' => $request->input('qualification')];$jobOffer->qualification = $request->input('qualification');
             $historyData['qualification_content'] = ['before' => $jobOffer->qualification_content, 'after' => $request->input('qualification_content')];$jobOffer->qualification_content = $request->input('qualification_content');
             $historyData['experience'] = ['before' => $jobOffer->experience, 'after' => $request->input('experience')];$jobOffer->experience = $request->input('experience');
@@ -834,7 +834,7 @@ class JobOfferController extends Controller
                     'parking' => strval(array_search($line[86], config('options.parking'))),
                     'status' => strval(array_search($line[87], config('options.status_edit'))),
                     'job_withdrawal' => strval(array_search($line[88], config('options.job_withdrawal'))),
-                    'posting_site' => strval(array_search($line[89], config('options.posting_site'))),
+                    // 'posting_site' => strval(array_search($line[89], config('options.posting_site'))),
                     'order_date' => Carbon::parse($line[90])->toDateString(),
                     'qualification' => strval(array_search($line[91], config('options.requirement'))),
                     'qualification_content' => $line[92],

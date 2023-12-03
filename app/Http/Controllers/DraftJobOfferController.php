@@ -190,7 +190,7 @@ class DraftJobOfferController extends Controller
         $draftJobOffer->commuting_by_car= $request->input('commuting_by_car');
         $draftJobOffer->traffic_commuting_remarks= $request->input('traffic_commuting_remarks');
         $draftJobOffer->parking= $request->input('parking');
-        $draftJobOffer->posting_site= $request->input('posting_site');
+        // $draftJobOffer->posting_site= $request->input('posting_site');
         $draftJobOffer->qualification= $request->input('qualification');
         $draftJobOffer->qualification_content= $request->input('qualification_content');
         $draftJobOffer->experience= $request->input('experience');
