@@ -227,6 +227,12 @@ $(document).ready(function() {
             return false;
         }
     });
+
+    $('#delete-activity-record').on('click', function () {
+      if(!confirm('本当に削除しますか？')){
+          return false;
+      }
+    });
     
     click(function(){
         if(!confirm('本当に削除しますか？')){

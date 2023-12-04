@@ -1383,6 +1383,7 @@
             <th>日付</th>
             <th>項目</th>
             <th>詳細</th>
+            <th>操作</th>
           </tr>
           @if(isset($activityRecords))
           @foreach($activityRecords as $activityRecord)
@@ -1390,6 +1391,11 @@
               <td>{{ $activityRecord->date }}</td>
               <td>{{ config('options.item')[$activityRecord->item] }}</td>
               <td>{{ $activityRecord->detail }}</td>
+              <td>
+                <a href="{{ route('activity.destroy', ['id' => $activityRecord->id, 'jobOfferId' => $jobOffer->id]) }}">
+                    <button id="delete-activity-record" class="delete-btn btn btn-danger mb-2 me-3" type="button">削除</button>
+                </a>
+              </td>
           </tr>
           @endforeach
           @endif

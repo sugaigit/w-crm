@@ -40,3 +40,4 @@ Route::get('/draft/{id}/detail', [App\Http\Controllers\DraftJobOfferController::
 
 Route::get('/activity/edit/{id}', [App\Http\Controllers\ActivityRecordController::class, 'edit'])->name('activity.edit')->middleware('auth');
 Route::post('/activity/update/{id}', [App\Http\Controllers\ActivityRecordController::class, 'update'])->name('activity.update')->middleware('auth');
+Route::get('/activity/delete/{id}', [App\Http\Controllers\ActivityRecordController::class, 'destroy'])->name('activity.destroy')->middleware('auth');

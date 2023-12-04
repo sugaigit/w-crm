@@ -58,5 +58,15 @@ class ActivityRecordController extends Controller
         ]);
     }
 
+    public function destroy(Request $request, $id)
+    {
+        $activityRecord = ActivityRecord::findOrFail($id);
+        $activityRecord->delete();
+
+        \Session::flash('SucccessMsg', '削除しました');
+
+        return redirect(route('job_offers.detail', $request->jobOfferId));
+    }
+
 }
 
