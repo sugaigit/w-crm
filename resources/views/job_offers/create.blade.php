@@ -807,7 +807,7 @@
                                         </select>
                                     </td>
                                 </tr>
-                                <tr>
+                                {{--<tr>
                                     <th>求人掲載サイト</th>
                                     <td>
                                         <select type="text" class="form-control" name="posting_site">
@@ -817,7 +817,7 @@
                                             @endforeach
                                         </select>
                                     </td>
-                                </tr>
+                                </tr>--}}
                                 <tr>
                                     <th>起算日<span class="text-danger">*</span></th>
                                     <td>

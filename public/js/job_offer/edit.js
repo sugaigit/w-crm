@@ -91,9 +91,9 @@ $(document).ready(function() {
   var openPayment2Vals = $('[name="employment_insurance_2"]').val()
     + $('[name="social_insurance_2"]').val()
     + $('input[name="payment_unit_price_2"]').val()
-    + $('input[name="payment_unit_2"]').val();
-    + $('input[name="carfare_2"]').val();
-    + $('[name="carfare_payment_2"]').val();
+    + $('[name="payment_unit_2"]').val()
+    + $('input[name="carfare_2"]').val()
+    + $('[name="carfare_payment_2"]').val()
     + $('input[name="carfare_payment_remarks_2"]').val();
 
   if (openPayment2Vals.length) {
@@ -226,6 +226,12 @@ $(document).ready(function() {
         if(!confirm('本当に削除しますか？')){
             return false;
         }
+    });
+
+    $('#delete-activity-record').on('click', function () {
+      if(!confirm('本当に削除しますか？')){
+          return false;
+      }
     });
     
     click(function(){

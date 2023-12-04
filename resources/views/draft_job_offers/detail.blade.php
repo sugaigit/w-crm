@@ -895,9 +895,9 @@
                         <th>勤務時間備考</th>
                         <td>
                             @if (is_null(old('working_hours_remarks')))
-                            <input style="pointer-events: none;" tabindex="-1"  type="text" class="form-control" name="working_hours_remarks" value="{{ isset($draftJobOffer->working_hours_remarks) ? $draftJobOffer->working_hours_remarks : '' }}">
+                            <textarea style="pointer-events: none;"  rows="5" class="form-control" name="working_hours_remarks"> {{ isset($jobOffer->working_hours_remarks) ? $jobOffer->working_hours_remarks : '' }}</textarea>
                             @else
-                            <input style="pointer-events: none;" tabindex="-1"  type="text" class="form-control" name="working_hours_remarks" value="{{ old('working_hours_remarks') }}">
+                            <textarea type="textarea" rows="5" class="form-control" name="working_hours_remarks"> {{ old('working_hours_remarks') }}</textarea>
                             @endif
                         </td>
                     </tr>
@@ -1171,7 +1171,7 @@
                             </select>
                         </td>
                     </tr>
-                    <tr>
+                    {{--<tr>
                         <th>求人掲載サイト</th>
                         <td>
                             <select style="pointer-events: none;" tabindex="-1" type="text" class="form-control" name="posting_site">
@@ -1185,7 +1185,7 @@
                             @endforeach
                             </select>
                         </td>
-                    </tr>
+                    </tr>--}}
                     <tr>
                         <th>起算日<span class="text-danger">*</span></th>
                         <td>

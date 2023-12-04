@@ -72,7 +72,7 @@ return [
     'commuting_by_car' => "車通勤（可能）",
     'traffic_commuting_remarks' => "交通通勤備考",
     'parking' => "駐車場",
-    'posting_site' => "求人掲載サイト",
+    // 'posting_site' => "求人掲載サイト",
     'status' => "作成ステータス",
     'job_withdrawal' => "求人取り下げの理由",
     'order_date' => "起算日",

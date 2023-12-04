@@ -83,7 +83,7 @@ class DraftJobOffer extends Model
         'commuting_by_car',
         'traffic_commuting_remarks',
         'parking',
-        'posting_site',
+        // 'posting_site',
         'status',
         'job_withdrawal',
         'order_date',

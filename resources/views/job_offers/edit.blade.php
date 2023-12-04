@@ -918,9 +918,9 @@
                         <th>勤務時間備考</th>
                         <td>
                             @if (is_null(old('working_hours_remarks')))
-                            <textarea type="textarea" rows="1" class="form-control" name="working_hours_remarks"> {{ isset($jobOffer->working_hours_remarks) ? $jobOffer->working_hours_remarks : '' }}</textarea>
+                            <textarea type="textarea" rows="5" class="form-control" name="working_hours_remarks"> {{ isset($jobOffer->working_hours_remarks) ? $jobOffer->working_hours_remarks : '' }}</textarea>
                             @else
-                            <textarea type="textarea" rows="1" class="form-control" name="working_hours_remarks"> {{ old('working_hours_remarks') }}</textarea>
+                            <textarea type="textarea" rows="5" class="form-control" name="working_hours_remarks"> {{ old('working_hours_remarks') }}</textarea>
                             @endif
                         </td>
                     </tr>
@@ -1086,7 +1086,7 @@
                                 <option value="">制服支給の有無を選んで下さい</option>
                                 @foreach( config('options.uniform_supply') as $key => $uniformSupply )
                                     @if (is_null(old('uniform_supply')))
-                                    <option value="{{ $key }}" {{ $key == $jobOffer->uniformSupply ? 'selected' : '' }}>{{ $uniformSupply }}</option>
+                                    <option value="{{ $key }}" {{ $key == $jobOffer->uniform_supply ? 'selected' : '' }}>{{ $uniformSupply }}</option>
                                     @else
                                     <option value="{{ $key }}" {{ $key == old('uniform_supply') ? 'selected' : '' }}>{{ $uniformSupply }}</option>
                                     @endif
@@ -1194,7 +1194,7 @@
                             </select>
                         </td>
                     </tr>
-                    <tr>
+                    {{--<tr>
                         <th>求人掲載サイト</th>
                         <td>
                             <select type="text" class="form-control" name="posting_site">
@@ -1208,7 +1208,7 @@
                             @endforeach
                             </select>
                         </td>
-                    </tr>
+                    </tr>--}}
                     <tr>
                         <th>起算日<span class="text-danger">*</span></th>
                         <td>
@@ -1383,6 +1383,7 @@
             <th>日付</th>
             <th>項目</th>
             <th>詳細</th>
+            <th>操作</th>
           </tr>
           @if(isset($activityRecords))
           @foreach($activityRecords as $activityRecord)
@@ -1390,6 +1391,11 @@
               <td>{{ $activityRecord->date }}</td>
               <td>{{ config('options.item')[$activityRecord->item] }}</td>
               <td>{{ $activityRecord->detail }}</td>
+              <td>
+                <a href="{{ route('activity.destroy', ['id' => $activityRecord->id, 'jobOfferId' => $jobOffer->id]) }}">
+                    <button id="delete-activity-record" class="delete-btn btn btn-danger mb-2 me-3" type="button">削除</button>
+                </a>
+              </td>
           </tr>
           @endforeach
           @endif
