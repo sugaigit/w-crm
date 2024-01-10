@@ -272,7 +272,7 @@ class JobOfferController extends Controller
         }
 
         //Slack通知
-        if (!$isDuplicated || $request->input('send_slack_message')) {
+        if (!$isDuplicated) {
             $path = route('job_offers.detail', ['id' => $newJobOffer->id]);
             $status = config('options.status_edit')[$newJobOffer->status];
             $handlingType = config('options.handling_type')[$newJobOffer->handling_type];
