@@ -48,7 +48,7 @@ $(document).ready(function() {
     openBilling2();
   }
   $('#open_billing_2').click(openBilling2);
-  
+
   $('#close_billing_2').click(function () {
     $('.billing-2').css("display", "none");
     $('#open_billing_2').css("display", "");
@@ -64,7 +64,7 @@ $(document).ready(function() {
     + $('[name="billing_unit_3"]').val()
     + $('input[name="profit_rate_3"]').val()
     + $('input[name="billing_information_3"]').val();
-  
+
   if (openBilling3Vals.length) {
     openBilling3();
   }
@@ -219,6 +219,21 @@ $(document).ready(function() {
             $(this).addClass('bg-danger bg-opacity-25');
         }
     });
+        /******************************************
+     * 人材紹介/紹介予定 採用ご条件の表示切替
+    ******************************************/
+        if ($('.conditions').val().length) {
+            $('.conditions').removeClass('bg-info bg-opacity-25');
+        } else {
+            $('.conditions').addClass('bg-info bg-opacity-25');
+        }
+        $('.conditions').on('change', function () {
+            if ($(this).val().length) {
+                $(this).removeClass('bg-info bg-opacity-25');
+            } else {
+                $(this).addClass('bg-info bg-opacity-25');
+            }
+        });
     /******************************************
      * 削除アラート
      ******************************************/
@@ -233,7 +248,7 @@ $(document).ready(function() {
           return false;
       }
     });
-    
+
     click(function(){
         if(!confirm('本当に削除しますか？')){
             /* キャンセルの時の処理 */
