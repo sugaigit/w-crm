@@ -521,7 +521,7 @@
                                 <tr colspan="10">
                                     <th colspan="1">勤務時間①<span class="text-danger">*</span></th>
                                     <td colspan="4">
-                                        <input  type="text" class="form-contro required" name="working_hours_1" value="{{ old('working_hours_1') }}" placeholder="8:00～17:00" required>
+                                        <input  type="text" class="form-control required" name="working_hours_1" value="{{ old('working_hours_1') }}" placeholder="8:00～17:00" required>
                                     </td>
                                     <th colspan="1">実働時間①<span class="text-danger">*</span></th>
                                     <td colspan="4">

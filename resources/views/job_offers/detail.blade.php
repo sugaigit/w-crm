@@ -28,9 +28,9 @@
                 求人情報詳細
             </div>
 
-            <table class="table">
+            <table class="table" style="width: 100%; table-layout: fixed;">
                 <tbody>
-                    <tr>
+                    <tr colspan="10">
                         <th>営業担当<span class="text-danger">*</span></th>
                         <td>
                             <select style="pointer-events: none;" tabindex="-1" type="text" class="form-control draft-require" name="user_id" required>
