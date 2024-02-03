@@ -138,7 +138,7 @@ class JobOffer extends Model
 
     public function activityRecords()
     {
-        return $this->hasMany(ActivityRecord::class)->orderBy('date', 'desc');;
+        return $this->hasMany(ActivityRecord::class)->orderBy('date', 'desc');
     }
 
     public function getNegotiationPoint()
