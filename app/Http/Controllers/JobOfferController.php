@@ -178,6 +178,7 @@ class JobOfferController extends Controller
         if ($request->has('duplicate')) { // 複製ボタンが押されたときはstoreアクションが走る
             $request['company_name'] = $request['company_name'] . 'のコピー';
             $isDuplicated = true;
+            $request['send_slack_message'] = 'off';
         }
         $request->validate([
             'user_id' => ['required'],
