@@ -243,8 +243,9 @@
                                 </tr>
                                 <tr class="billing-2" colspan="10">
                                     <th colspan="1">請求情報②備考<br>
-                                    <i class="bi bi-dash-circle" id="close_billing_2"></i>
-                                    <i class="bi bi-plus-circle" id="open_billing_3"></i></th>
+                                        <i class="bi bi-dash-circle" id="close_billing_2"></i>
+                                        <i class="bi bi-plus-circle" id="open_billing_3"></i>
+                                    </th>
                                     <td colspan="9">
                                         <input type="text"class="form-control" maxlength="100" name="billing_information_2" value="{{ old('billing_information_2') }}">
                                     </td>
@@ -335,7 +336,7 @@
                                 <tr colspan="10">
                                     <th colspan="1">
                                         支払情報①備考<br>
-                                        <i class="bi bi-plus-circle" id="open_payment_2">
+                                        <i class="bi bi-plus-circle" id="open_payment_2"></i>
                                     </th>
                                     <td colspan="9">
                                         <input  type="text" class="form-control" name="carfare_payment_remarks_1" value="{{ old('carfare_payment_remarks_1') }}">
@@ -393,9 +394,10 @@
                                 </tr>
                                 <tr class="payment-2" colspan="10">
                                     <th colspan="1">
-                                        支払情報②備考<br>
-                                        <i class="bi bi-dash-circle" id="close_payment_2">
-                                        <i class="bi bi-plus-circle" id="open_payment_3">
+                                        支払情報②備考
+                                        <br>
+                                        <i class="bi bi-dash-circle" id="close_payment_2"></i>
+                                        <i class="bi bi-plus-circle" id="open_payment_3"></i>
                                     </th>
                                     <td colspan="9">
                                         <input  type="text" class="form-control" name="carfare_payment_remarks_2" value="{{ old('carfare_payment_remarks_2') }}">
@@ -454,7 +456,7 @@
                                 <tr class="payment-3" colspan="10">
                                     <th colspan="1">
                                         支払情報③備考<br>
-                                        <i class="bi bi-dash-circle" id="close_payment_3">
+                                        <i class="bi bi-dash-circle" id="close_payment_3"></i>
                                     </th>
                                     <td colspan="9">
                                         <input  type="text" class="form-control" name="carfare_payment_remarks_3" value="{{ old('carfare_payment_remarks_3') }}">
@@ -529,7 +531,8 @@
                                     </td>
                                 </tr>
                                 <tr colspan="10">
-                                    <td colspan="5">                                        <br><i class="bi bi-plus-circle" id="open_working_2">
+                                    <td colspan="5">
+                                        <br><i class="bi bi-plus-circle" id="open_working_2"></i>
                                     </td>
                                     <th colspan="1">
                                         休憩時間①<span class="text-danger">*</span>
@@ -550,8 +553,9 @@
                                 </tr>
                                 <tr class="working-2" colspan="10">
                                     <td colspan="5">
-                                        <br><i class="bi bi-dash-circle" id="close_working_2"></i>
-                                        <i class="bi bi-plus-circle" id="open_working_3">
+                                        <br>
+                                        <i class="bi bi-dash-circle" id="close_working_2"></i>
+                                        <i class="bi bi-plus-circle" id="open_working_3"></i>
                                     </td>
                                     <th colspan="1">
                                         休憩時間②
