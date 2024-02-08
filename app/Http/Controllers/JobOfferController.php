@@ -184,7 +184,7 @@ class JobOfferController extends Controller
             'user_id' => ['required'],
             'handling_type' => ['required'],
             'handling_office'=> ['required'],
-            'customer_id'=> ['required'],
+            'customer_id'=> ['required', 'exists:customers,id'],
             'type_contract'=> ['required'],
             'recruitment_number'=> ['required'],
             'company_name'=> ['required'],
