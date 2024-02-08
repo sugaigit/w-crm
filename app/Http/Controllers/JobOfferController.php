@@ -327,7 +327,11 @@ class JobOfferController extends Controller
 		// 	return redirect(route('invalid_job_offers.index'));
         // }
 
-        return redirect(route('job_offers.index'));
+        if ($isDuplicated) {
+            return ['newJobOfferId' => $newJobOffer->id];
+        } else {
+            return redirect(route('job_offers.index'));
+        }
     }
 
     /**
@@ -373,8 +377,9 @@ class JobOfferController extends Controller
     {
         $customerId = Customer::where('customer_name', $request->input('customer_id'))->first()->id;
         if ($request->has('duplicate')) { // 複製ボタンが押されたときはstoreアクションが走る
-            $this->store($request);
-            return redirect(route('job_offers.index'));
+            $result = $this->store($request);
+            $newJobOfferId = $result['newJobOfferId'];
+            return redirect()->route('job_offers.detail', ['id' => $newJobOfferId]);
         } elseif ($request->has('draftJobOfferId')) { // 下書きが登録された場合
             DraftJobOffer::destroy($request->draftJobOfferId);
             return $this->store($request);
