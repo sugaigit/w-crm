@@ -1186,16 +1186,7 @@
                             </select>
                         </td>
                     </tr>--}}
-                    <tr>
-                        <th>起算日<span class="text-danger">*</span></th>
-                        <td>
-                            @if (is_null(old('order_date')))
-                            <input style="pointer-events: none;" tabindex="-1"  type="date" class="form-control required" name="order_date" value="{{ isset($draftJobOffer->order_date) ? $draftJobOffer->order_date : '' }}" >
-                            @else
-                            <input style="pointer-events: none;" tabindex="-1"  type="date" class="form-control required" name="order_date" value="{{ old('order_date') }}" >
-                            @endif
-                        </td>
-                    </tr>
+
                     <tr class="afterRecruit">
                         <th colspan="2"><div class="text-center">人材紹介/紹介予定　採用後条件</div></th>
                     </tr>

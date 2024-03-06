@@ -48,12 +48,6 @@ class JobOfferController extends Controller
         ->when($request->status, function ($query, $status) {
             return $query->whereIn('status', $status);
         })
-        ->when($request->orderDateStart, function ($query, $orderDateStart) {
-            return $query->whereDate('order_date', '>=', $orderDateStart);
-        })
-        ->when($request->orderDateEnd, function ($query, $orderDateEnd) {
-            return $query->whereDate('order_date', '<=', $orderDateEnd);
-        })
         ->when($request->keywords, function ($query, $keywords) {
             $smallSpaceKeywords = mb_convert_kana($keywords, 's');
             $keywords = explode(' ', $smallSpaceKeywords);
@@ -109,12 +103,6 @@ class JobOfferController extends Controller
         })
         ->when($request->status, function ($query, $status) {
             return $query->whereIn('status', $status);
-        })
-        ->when($request->orderDateStart, function ($query, $orderDateStart) {
-            return $query->whereDate('order_date', '>=', $orderDateStart);
-        })
-        ->when($request->orderDateEnd, function ($query, $orderDateEnd) {
-            return $query->whereDate('order_date', '<=', $orderDateEnd);
         })
         ->when($request->keywords, function ($query, $keywords) {
             $smallSpaceKeywords = mb_convert_kana($keywords, 's');
@@ -204,7 +192,6 @@ class JobOfferController extends Controller
             'break_time_1'=> ['required'],
             'overtime'=> ['required'],
             'commuting_by_car'=> ['required'],
-            'order_date'=> ['required'],
             'status'=> ['required'],
             'parking'=> ['required'],
             'number_of_ordering_bases' => ['required'],
@@ -408,7 +395,6 @@ class JobOfferController extends Controller
                 'break_time_1'=> ['required'],
                 'overtime'=> ['required'],
                 'commuting_by_car'=> ['required'],
-                'order_date'=> ['required'],
                 'status'=> ['required'],
                 'parking'=> ['required'],
                 'number_of_ordering_bases' => ['required'],
@@ -570,7 +556,6 @@ class JobOfferController extends Controller
             $historyData['holidays_vacations'] = ['before' => $jobOffer->holidays_vacations, 'after' => $request->input('holidays_vacations')];$jobOffer->holidays_vacations = $request->input('holidays_vacations');
             $historyData['introduction_others'] = ['before' => $jobOffer->introduction_others, 'after' => $request->input('introduction_others')];$jobOffer->introduction_others = $request->input('introduction_others');
             $historyData['status'] = ['before' => $jobOffer->status, 'after' => $request->input('status')];$jobOffer->status = $request->input('status');
-            $historyData['order_date'] = ['before' => $jobOffer->order_date, 'after' => $request->input('order_date')];$jobOffer->order_date = $request->input('order_date');
             $historyData['number_of_ordering_bases'] = ['before' => $jobOffer->number_of_ordering_bases, 'after' => $request->input('number_of_ordering_bases')];$jobOffer->number_of_ordering_bases = $request->input('number_of_ordering_bases');
             $historyData['order_number'] = ['before' => $jobOffer->order_number, 'after' => $request->input('order_number')];$jobOffer->order_number  = $request->input('order_number');
             $historyData['transaction_duration'] = ['before' => $jobOffer->transaction_duration, 'after' => $request->input('transaction_duration')];$jobOffer->transaction_duration = $request->input('transaction_duration');
@@ -841,7 +826,6 @@ class JobOfferController extends Controller
                     'status' => strval(array_search($line[87], config('options.status_edit'))),
                     'job_withdrawal' => strval(array_search($line[88], config('options.job_withdrawal'))),
                     // 'posting_site' => strval(array_search($line[89], config('options.posting_site'))),
-                    'order_date' => Carbon::parse($line[90])->toDateString(),
                     'qualification' => strval(array_search($line[91], config('options.requirement'))),
                     'qualification_content' => $line[92],
                     'experience' => strval(array_search($line[93], config('options.requirement'))),
