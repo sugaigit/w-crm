@@ -784,12 +784,6 @@
                                         </select>
                                     </td>
                                 </tr>--}}
-                                <tr colspan="10">
-                                    <th colspan="1">起算日<span class="text-danger">*</span></th>
-                                    <td colspan="9">
-                                        <input  type="date" class="form-control required" name="order_date" value="{{ old('order_date') }}" required>
-                                    </td>
-                                </tr>
                                 <tr class="afterRecruit" colspan="10" >
                                     <th colspan="2"><div class="text-center bg-info">人材紹介/紹介予定　採用後条件</div></th>
                                 </tr>

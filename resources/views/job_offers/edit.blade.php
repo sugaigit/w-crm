@@ -23,14 +23,14 @@
         @endif
         <div class="card mb-4">
             <div class="card-header">
-                求人情報編集
-            </div>
+                ▼派遣先/紹介先情報
+        </div>
 
-            <table class="table">
+            <table class="table" style="width: 100%; table-layout: fixed;">
                 <tbody>
-                    <tr>
-                        <th>営業担当<span class="text-danger">*</span></th>
-                        <td>
+                    <tr colspan="10">
+                        <th colspan="1">営業担当<span class="text-danger">*</span></th>
+                        <td colspan="4">
                             <select type="text" class="form-control draft-require" name="user_id" required>
                             <option value="">営業担当を選んで下さい</option>
                             @foreach( $users as $user )
@@ -42,25 +42,8 @@
                             @endforeach
                             </select>
                         </td>
-                    </tr>
-                    <tr>
-                        <th>取扱会社種別<span class="text-danger">*</span></th>
-                        <td>
-                        <select type="text" class="form-control required" name="handling_type" required>
-                            <option value="">取扱会社種別を選んで下さい</option>
-                            @foreach( config('options.handling_type') as $key => $handling_type )
-                                @if (is_null(old('handling_type')))
-                                <option value="{{ $key }}" {{ $key == $jobOffer->handling_type ? 'selected' : '' }}>{{ $handling_type }}</option>
-                                @else
-                                <option value="{{ $key }}" {{ $key == old('handling_type') ? 'selected' : '' }}>{{ $handling_type }}</option>
-                                @endif
-                            @endforeach
-                        </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>仕事番号</th>
-                        <td>
+                        <th colspan="1">仕事番号</th>
+                        <td colspan="4">
                             @if (is_null(old('job_number')))
                             <input type="text" class="form-control" name="job_number" value="{{ isset($jobOffer->job_number) ? $jobOffer->job_number : '' }}">
                             @else
@@ -68,9 +51,23 @@
                             @endif
                         </td>
                     </tr>
-                    <tr>
-                        <th>取扱事業所名<span class="text-danger">*</span></th>
-                        <td>
+                    <tr colspan="10">
+                        <th colspan="1">取扱会社種別<span class="text-danger">*</span></th>
+                        <td colspan="4">
+                            <select type="text" class="form-control required" name="handling_type" required>
+                                <option value="">取扱会社種別を選んで下さい</option>
+                                @foreach( config('options.handling_type') as $key => $handling_type )
+                                    @if (is_null(old('handling_type')))
+                                    <option value="{{ $key }}" {{ $key == $jobOffer->handling_type ? 'selected' : '' }}>{{ $handling_type }}</option>
+                                    @else
+                                    <option value="{{ $key }}" {{ $key == old('handling_type') ? 'selected' : '' }}>{{ $handling_type }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </td>
+
+                        <th colspan="1">取扱事業所名<span class="text-danger">*</span></th>
+                        <td colspan="4">
                             <select type="text" class="form-control required" name="handling_office" required>
                             <option value="">取扱事業所名を選んで下さい</option>
                             @foreach( config('options.handling_office') as $key => $handling_office )
@@ -83,9 +80,22 @@
                             </select>
                         </td>
                     </tr>
-                    <tr>
-                        <th>事業種別<span class="text-danger">*</span></th>
-                        <td>
+                    <tr colspan="10">
+                        <th colspan="1">顧客名<span class="text-danger">*</span></th>
+                        <td colspan="4">
+                            <input id="customer_input" class="form-control required" name="customer_id" list="customer_list" placeholder="顧客名を選んで下さい" value="{{ $customerName }}">
+                            <datalist id="customer_list">
+                            @foreach( $customers as $customer )
+                                @if (is_null(old('customer_id')))
+                                <option value="{{ $customer->customer_name }}" {{ $customer->id == $jobOffer->customer_id ? 'selected' : '' }}>
+                                @else
+                                <option value="{{ $customer->customer_name }}" {{ old('customer_id') == $customer->customer_name ? 'selected' : '' }}>
+                                @endif
+                            @endforeach
+                            </datalist>
+                        </td>
+                        <th colspan="1">事業種別<span class="text-danger">*</span></th>
+                        <td colspan="4">
                             <select type="text" class="form-control required" name="business_type" required>
                             <option value="">事業種別を選んで下さい</option>
                             @foreach( config('options.business_type') as $key => $business_type )
@@ -98,39 +108,10 @@
                         </select>
                         </td>
                     </tr>
-                    {{-- <tr>
-                        <th>顧客名<span class="text-danger">*</span></th>
-                        <td>
-                            <select type="text" class="form-control required" name="customer_id" required>
-                            <option value="">顧客を選択もしくは入力してください</option>
-                            @foreach( $customers as $customer )
-                                @if (is_null(old('customer_id')))
-                                <option value="{{ $customer->id }}" {{ $customer->id == $jobOffer->customer_id ? 'selected' : '' }}>{{ $customer->customer_name }}</option>
-                                @else
-                                <option value="{{ $customer->id }}" {{ $customer->id == old('customer_id') ? 'selected' : '' }}>{{ $customer->customer_name }}</option>
-                                @endif
-                            @endforeach
-                            </select>
-                        </td>
-                    </tr> --}}
-                    <tr>
-                        <th>顧客名<span class="text-danger">*</span></th>
-                        <td>
-                            <input id="customer_input" class="form-control required" name="customer_id" list="customer_list" placeholder="顧客名を選んで下さい" value="{{ $customerName }}">
-                            <datalist id="customer_list">
-                            @foreach( $customers as $customer )
-                                @if (is_null(old('customer_id')))
-                                <option value="{{ $customer->customer_name }}" {{ $customer->id == $jobOffer->customer_id ? 'selected' : '' }}>
-                                @else
-                                <option value="{{ $customer->customer_name }}" {{ old('customer_id') == $customer->customer_name ? 'selected' : '' }}>
-                                @endif
-                            @endforeach
-                            </datalist>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>契約形態<span class="text-danger">*</span></th>
-                        <td>
+
+                    <tr colspan="10">
+                        <th colspan="1">契約形態<span class="text-danger">*</span></th>
+                        <td colspan="4">
                             <select type="text" class="form-control required" name="type_contract" required>
                             <option value="">契約形態を選んで下さい</option>
                             @foreach( config('options.type_contract') as $key => $type_contract )
@@ -142,10 +123,9 @@
                             @endforeach
                             </select>
                         </td>
-                    </tr>
-                    <tr>
-                        <th>募集人数<span class="text-danger">*</span></th>
-                        <td>
+
+                        <th colspan="1">募集人数<span class="text-danger">*</span></th>
+                        <td colspan="4">
                             @if (is_null(old('recruitment_number')))
                             <input type="text" class="form-control required" name="recruitment_number" value="{{ isset($jobOffer->recruitment_number) ? $jobOffer->recruitment_number : '' }}" required>
                             @else
@@ -153,9 +133,9 @@
                             @endif
                         </td>
                     </tr>
-                    <tr>
-                        <th>就業先名称<span class="text-danger">*</span></th>
-                        <td>
+                    <tr colspan="10">
+                        <th colspan="1">就業先名称<span class="text-danger">*</span></th>
+                        <td colspan="9">
                             @if (is_null(old('company_name')))
                             <input type="text" class="form-control draft-require" name="company_name" value="{{ isset($jobOffer->company_name) ? $jobOffer->company_name : '' }}" required>
                             @else
@@ -163,9 +143,9 @@
                             @endif
                         </td>
                     </tr>
-                    <tr>
-                        <th>就業先住所<span class="text-danger">*</span></th>
-                        <td>
+                    <tr colspan="10">
+                        <th colspan="1">就業先住所<span class="text-danger">*</span></th>
+                        <td colspan="9">
                             @if (is_null(old('company_address')))
                             <input type="text" class="form-control required" name="company_address" value="{{ isset($jobOffer->company_address) ? $jobOffer->company_address : '' }}" required>
                             @else
@@ -173,9 +153,9 @@
                             @endif
                         </td>
                     </tr>
-                    <tr>
-                        <th>就業先備考</th>
-                        <td>
+                    <tr colspan="10">
+                        <th colspan="1">就業先備考</th>
+                        <td colspan="9">
                             @if (is_null(old('company_others')))
                             <input type="text" maxlength="100" class="form-control" name="company_others" value="{{ isset($jobOffer->company_others) ? $jobOffer->company_others : '' }}">
                             @else
@@ -183,9 +163,9 @@
                             @endif
                         </td>
                     </tr>
-                    <tr>
-                        <th>発注業務<span class="text-danger">*</span></th>
-                        <td>
+                    <tr colspan="10">
+                        <th colspan="1">発注業務<span class="text-danger">*</span></th>
+                        <td colspan="9">
                             @if (is_null(old('ordering_business')))
                             <input type="text" maxlength="100" class="form-control" name="ordering_business" value="{{ isset($jobOffer->ordering_business) ? $jobOffer->ordering_business : '' }}" required>
                             @else
@@ -193,9 +173,9 @@
                             @endif
                         </td>
                     </tr>
-                    <tr>
-                        <th>発注業務詳細<span class="text-danger">*</span></th>
-                        <td>
+                    <tr colspan="10">
+                        <th colspan="1">発注業務詳細<span class="text-danger">*</span></th>
+                        <td colspan="9">
                             @if (is_null(old('order_details')))
                             <textarea rows="15" class="form-control required" name="order_details" required> {{ isset($jobOffer->order_details) ? $jobOffer->order_details : '' }} </textarea>
                             @else
@@ -203,9 +183,9 @@
                             @endif
                         </td>
                     </tr>
-                    <tr>
-                        <th>発注拠点数<span class="text-danger">*</span></th>
-                        <td>
+                    <tr colspan="10">
+                        <th colspan="1">発注拠点数<span class="text-danger">*</span></th>
+                        <td colspan="4">
                             <select type="text" class="form-control required" name="number_of_ordering_bases" required>
                                 <option value="">発注拠点数を選んで下さい</option>
                                 @foreach( config('options.number_of_ordering_bases') as $key => $number_of_ordering_bases )
@@ -217,10 +197,9 @@
                                     @endforeach
                             </select>
                         </td>
-                    </tr>
-                    <tr>
-                        <th>発注人数<span class="text-danger">*</span></th>
-                        <td>
+
+                        <th colspan="1">発注人数<span class="text-danger">*</span></th>
+                        <td colspan="4">
                             <select type="text" class="form-control required" name="order_number" required>
                                 <option value="">発注人数を選んで下さい</option>
                                 @foreach( config('options.order_number') as $key => $order_number )
@@ -233,9 +212,9 @@
                             </select>
                         </td>
                     </tr>
-                    <tr>
-                        <th>取引継続期間<span class="text-danger">*</span></th>
-                        <td>
+                    <tr colspan="10">
+                        <th colspan="1">取引継続期間<span class="text-danger">*</span></th>
+                        <td colspan="4">
                             <select type="text" class="form-control required" name="transaction_duration" required>
                                 <option value="">取引継続期間を選んで下さい</option>
                                 @foreach( config('options.transaction_duration') as $key => $transaction_duration )
@@ -247,10 +226,9 @@
                                 @endforeach
                             </select>
                         </td>
-                    </tr>
-                    <tr>
-                        <th>売上見込額<span class="text-danger">*</span></th>
-                        <td>
+
+                        <th colspan="1">売上見込額<span class="text-danger">*</span></th>
+                        <td colspan="4">
                             <select type="text" class="form-control required" name="expected_sales" required>
                                 <option value="">売上見込額を選んで下さい</option>
                                 @foreach( config('options.expected_sales') as $key => $expected_sales )
@@ -263,9 +241,9 @@
                             </select>
                         </td>
                     </tr>
-                    <tr>
-                        <th>利益率<span class="text-danger">*</span></th>
-                        <td>
+                    <tr colspan="10">
+                        <th colspan="1">利益率<span class="text-danger">*</span></th>
+                        <td colspan="4">
                             <select type="text" class="form-control required" name="profit_rate" required>
                                 <option value="">利益率を選んで下さい</option>
                                 @foreach( config('options.profit_rate') as $key => $profit_rate )
@@ -277,10 +255,9 @@
                                 @endforeach
                             </select>
                         </td>
-                    </tr>
-                    <tr>
-                        <th>特別事項<span class="text-danger">*</span></th>
-                        <td>
+
+                        <th colspan="1">特別事項<span class="text-danger">*</span></th>
+                        <td colspan="4">
                             <select type="text" class="form-control required" name="special_matters" required>
                                 <option value="">特別事項を選んで下さい</option>
                                 @foreach( config('options.special_matters') as $key => $special_matters )
@@ -293,34 +270,23 @@
                             </select>
                         </td>
                     </tr>
-                    <tr>
-                        <th>屋内の受動喫煙対策の内容<span class="text-danger">*</span></th>
-                        <td>
-                            <select type="text" class="form-control required" name="counter_measures" required>
-                                <option value="">屋内の受動喫煙対策を選んで下さい</option>
-                                @foreach( config('options.counter_measures') as $key => $counter_measures )
-                                    @if (is_null(old('counter_measures')))
-                                    <option value="{{ $key }}" {{ $key == $jobOffer->counter_measures ? 'selected' : '' }}>{{ $counter_measures }}</option>
-                                    @else
-                                    <option value="{{ $key }}" {{ $key == old('counter_measures') ? 'selected' : '' }}>{{ $counter_measures }}</option>
-                                    @endif
-                                @endforeach
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>請求単価①<span class="text-danger">*</span></th>
-                        <td>
+                </tbody>
+            </table>
+            <table class="table" style="width: 100%; table-layout: fixed;">
+                <tbody>
+                    <div class="card-header">▼請求情報</div>
+                    <tr colspan="10">
+                        <th colspan="1">請求単価①<span class="text-danger">*</span></th>
+                        <td colspan="4">
                             @if (is_null(old('invoice_unit_price_1')))
                             <input type="text" class="form-control required" name="invoice_unit_price_1" value="{{ isset($jobOffer->invoice_unit_price_1) ? $jobOffer->invoice_unit_price_1 : '' }}" required>
                             @else
                             <input type="text" class="form-control" name="invoice_unit_price_1" value="{{ old('invoice_unit_price_1') }}" required>
                             @endif
                         </td>
-                    </tr>
-                    <tr>
-                        <th>請求単位①<span class="text-danger">*</span></th>
-                        <td>
+
+                        <th colspan="1">請求単位①<span class="text-danger">*</span></th>
+                        <td colspan="4">
                             <select type="text" class="form-control required" name="billing_unit_1" required>
                             <option value="">請求単位を選んで下さい</option>
                             @foreach( config('options.salary_term') as $key => $billing_unit_1 )
@@ -333,9 +299,9 @@
                             </select>
                         </td>
                     </tr>
-                    <tr>
-                        <th>利益率①<span class="text-danger">*</span></th>
-                        <td>
+                    <tr colspan="10">
+                        <th colspan="1">利益率①<span class="text-danger">*</span></th>
+                        <td colspan="4">
                             @if (is_null(old('profit_rate_1')))
                             <input type="text" class="form-control required" name="profit_rate_1" value="{{ isset($jobOffer->profit_rate_1) ? $jobOffer->profit_rate_1 : '' }}" required>
                             @else
@@ -343,9 +309,9 @@
                             @endif
                         </td>
                     </tr>
-                    <tr>
-                        <th>請求情報①備考<br><i class="bi bi-plus-circle" id="open_billing_2"></i></th>
-                        <td>
+                    <tr colspan="10">
+                        <th colspan="1">請求情報①備考<br><i class="bi bi-plus-circle" id="open_billing_2"></i></th>
+                        <td colspan="9">
                             @if (is_null(old('billing_information_1')))
                             <input type="text"class="form-control" maxlength="100" name="billing_information_1" value="{{ isset($jobOffer->billing_information_1) ? $jobOffer->billing_information_1 : '' }}">
                             @else
@@ -353,19 +319,18 @@
                             @endif
                         </td>
                     </tr>
-                    <tr class="billing-2">
-                        <th>請求単価②</th>
-                        <td>
+                    <tr class="billing-2" colspan="10">
+                        <th colspan="1">請求単価②</th>
+                        <td colspan="4">
                             @if (is_null(old('invoice_unit_price_2')))
                             <input type="text" class="form-control" name="invoice_unit_price_2" value="{{ isset($jobOffer->invoice_unit_price_2) ? $jobOffer->invoice_unit_price_2 : '' }}">
                             @else
                             <input type="text" class="form-control" name="invoice_unit_price_2" value="{{ old('invoice_unit_price_2') }}">
                             @endif
                         </td>
-                    </tr>
-                    <tr class="billing-2">
-                        <th>請求単位②</th>
-                        <td>
+
+                        <th colspan="1">請求単位②</th>
+                        <td colspan="4">
                             <select type="text" class="form-control" name="billing_unit_2">
                             <option value="">請求単位を選んで下さい</option>
                             @foreach( config('options.salary_term') as $key => $billing_unit_2 )
@@ -378,9 +343,9 @@
                             </select>
                         </td>
                     </tr>
-                    <tr class="billing-2">
-                        <th>利益率②</th>
-                        <td>
+                    <tr class="billing-2" colspan="10">
+                        <th colspan="1">利益率②</th>
+                        <td colspan="4">
                             @if (is_null(old('profit_rate_2')))
                             <input type="text" class="form-control" name="profit_rate_2" value="{{ isset($jobOffer->profit_rate_2) ? $jobOffer->profit_rate_2 : '' }}">
                             @else
@@ -388,13 +353,13 @@
                             @endif
                         </td>
                     </tr>
-                    <tr class="billing-2">
-                        <th>
+                    <tr class="billing-2" colspan="10">
+                        <th colspan="1">
                             請求情報②備考<br>
                             <i class="bi bi-dash-circle" id="close_billing_2"></i>
                             <i class="bi bi-plus-circle" id="open_billing_3"></i>
                         </th>
-                        <td>
+                        <td colspan="9">
                             @if (is_null(old('billing_information_2')))
                             <input type="text"class="form-control" maxlength="100" name="billing_information_2" value="{{ isset($jobOffer->billing_information_2) ? $jobOffer->billing_information_2 : '' }}">
                             @else
@@ -402,19 +367,18 @@
                             @endif
                         </td>
                     </tr>
-                    <tr class="billing-3">
-                        <th>請求単価③</th>
-                        <td>
+                    <tr class="billing-3" colspan="10">
+                        <th colspan="1">請求単価③</th>
+                        <td colspan="4">
                             @if (is_null(old('invoice_unit_price_3')))
                             <input type="text" class="form-control" name="invoice_unit_price_3" value="{{ isset($jobOffer->invoice_unit_price_3) ? $jobOffer->invoice_unit_price_3 : '' }}">
                             @else
                             <input type="text" class="form-control" name="invoice_unit_price_3" value="{{ old('invoice_unit_price_3') }}">
                             @endif
                         </td>
-                    </tr>
-                    <tr class="billing-3">
-                        <th>請求単位③</th>
-                        <td>
+
+                        <th colspan="1">請求単位③</th>
+                        <td colspan="4">
                             <select type="text" class="form-control" name="billing_unit_3">
                             <option value="">請求単位を選んで下さい</option>
                             @foreach( config('options.salary_term') as $key => $billing_unit_3 )
@@ -427,9 +391,9 @@
                             </select>
                         </td>
                     </tr>
-                    <tr class="billing-3">
-                        <th>利益率③</th>
-                        <td>
+                    <tr class="billing-3" colspan="10">
+                        <th colspan="1">利益率③</th>
+                        <td colspan="4">
                             @if (is_null(old('profit_rate_3')))
                             <input type="text" class="form-control" name="profit_rate_3" value="{{ isset($jobOffer->profit_rate_3) ? $jobOffer->profit_rate_3 : '' }}">
                             @else
@@ -437,12 +401,12 @@
                             @endif
                         </td>
                     </tr>
-                    <tr class="billing-3">
-                        <th>
+                    <tr class="billing-3" colspan="10">
+                        <th colspan="1">
                             請求情報③備考<br>
                             <i class="bi bi-dash-circle" id="close_billing_3"></i>
                         </th>
-                        <td>
+                        <td colspan="9">
                             @if (is_null(old('billing_information_3')))
                             <input type="text"class="form-control" maxlength="100" name="billing_information_3" value="{{ isset($jobOffer->billing_information_3) ? $jobOffer->billing_information_3 : '' }}">
                             @else
@@ -450,9 +414,14 @@
                             @endif
                         </td>
                     </tr>
-                    <tr>
-                    <th>雇用保険加入<span class="text-danger">*</span></th>
-                        <td>
+                </tbody>
+            </table>
+            <table class="table" style="width: 100%; table-layout: fixed;">
+                <tbody>
+                    <div class="card-header">▼支払情報</div>
+                    <tr colspan="10">
+                        <th colspan="1">雇用保険加入<span class="text-danger">*</span></th>
+                        <td colspan="4">
                             <select type="text" class="form-control required" name="employment_insurance" required>
                             <option value="">雇用保険の有無を選んで下さい</option>
                             @foreach( config('options.existence') as $key => $employment_insurance )
@@ -464,10 +433,9 @@
                             @endforeach
                             </select>
                         </td>
-                    </tr>
-                    <tr>
-                        <th>社会保険加入<span class="text-danger">*</span></th>
-                        <td>
+
+                        <th colspan="1">社会保険加入<span class="text-danger">*</span></th>
+                        <td colspan="4">
                             <select type="text" class="form-control required" name="social_insurance" required>
                             <option value="">社会保険の有無を選んで下さい</option>
                             @foreach( config('options.existence') as $key => $social_insurance )
@@ -480,19 +448,18 @@
                             </select>
                         </td>
                     </tr>
-                    <tr>
-                        <th>支払単価①<span class="text-danger">*</span></th>
-                        <td>
+                    <tr colspan="10">
+                        <th colspan="1">支払単価①<span class="text-danger">*</span></th>
+                        <td colspan="4">
                             @if (is_null(old('payment_unit_price_1')))
                             <input type="text" class="form-control required" name="payment_unit_price_1" value="{{ isset($jobOffer->payment_unit_price_1) ? $jobOffer->payment_unit_price_1 : '' }}" required>
                             @else
                             <input type="text" class="form-control" name="payment_unit_price_1" value="{{ old('payment_unit_price_1') }}" required>
                             @endif
                         </td>
-                    </tr>
-                    <tr>
-                        <th>支払単位①<span class="text-danger">*</span></th>
-                        <td>
+
+                        <th colspan="1">支払単位①<span class="text-danger">*</span></th>
+                        <td colspan="4">
                             <select type="text" class="form-control required" name="payment_unit_1" required>
                                 <option value="">交通費支払単位を選んで下さい</option>
                                 @foreach( config('options.salary_term') as $key => $payment_unit_1 )
@@ -505,19 +472,18 @@
                             </select>
                         </td>
                     </tr>
-                    <tr>
-                        <th>交通費①</th>
-                        <td>
+                    <tr colspan="10">
+                        <th colspan="1">交通費①</th>
+                        <td colspan="4">
                             @if (is_null(old('carfare_1')))
                             <input  type="text" class="form-control" name="carfare_1" value="{{ isset($jobOffer->carfare_1) ? $jobOffer->carfare_1 : '' }}">
                             @else
                             <input  type="text" class="form-control" name="carfare_1" value="{{ old('carfare_1') }}">
                             @endif
                         </td>
-                    </tr>
-                    <tr>
-                        <th>交通費支払単位①</th>
-                        <td>
+
+                        <th colspan="1">交通費支払単位①</th>
+                        <td colspan="4">
                             <select type="text" class="form-control" name="carfare_payment_1">
                             <option value="">交通費支払単位を選んで下さい</option>
                             @foreach( config('options.payment_term') as $key => $carfare_payment_1 )
@@ -530,9 +496,9 @@
                             </select>
                         </td>
                     </tr>
-                    <tr>
-                        <th>支払情報①備考<br><i class="bi bi-plus-circle" id="open_payment_2"></i></th>
-                        <td>
+                    <tr colspan="10">
+                        <th colspan="1">支払情報①備考<br><i class="bi bi-plus-circle" id="open_payment_2"></i></th>
+                        <td colspan="9">
                             @if (is_null(old('carfare_payment_remarks_1')))
                             <input  type="text" class="form-control" name="carfare_payment_remarks_1" value="{{ isset($jobOffer->carfare_payment_remarks_1) ? $jobOffer->carfare_payment_remarks_1 : '' }}">
                             @else
@@ -540,9 +506,9 @@
                             @endif
                         </td>
                     </tr>
-                    <tr class="payment-2">
-                        <th>雇用保険加入②</th>
-                        <td>
+                    <tr class="payment-2" colspan="10">
+                        <th colspan="1">雇用保険加入②</th>
+                        <td colspan="4">
                             <select type="text" class="form-control" name="employment_insurance_2">
                             <option value="">雇用保険の有無を選んで下さい</option>
                             @foreach( config('options.existence') as $key => $employment_insurance_2 )
@@ -554,10 +520,9 @@
                             @endforeach
                             </select>
                         </td>
-                    </tr>
-                    <tr class="payment-2">
-                        <th>社会保険加入②</th>
-                        <td>
+
+                        <th colspan="1">社会保険加入②</th>
+                        <td colspan="4">
                             <select type="text" class="form-control" name="social_insurance_2">
                             <option value="">社会保険の有無を選んで下さい</option>
                             @foreach( config('options.existence') as $key => $social_insurance_2 )
@@ -570,19 +535,18 @@
                             </select>
                         </td>
                     </tr>
-                    <tr class="payment-2">
-                        <th>支払単価②</th>
-                        <td>
+                    <tr class="payment-2" colspan="10">
+                        <th colspan="1">支払単価②</th>
+                        <td colspan="4">
                             @if (is_null(old('payment_unit_price_2')))
                             <input  type="text" class="form-control" name="payment_unit_price_2" value="{{ isset($jobOffer->payment_unit_price_2) ? $jobOffer->payment_unit_price_2 : '' }}">
                             @else
                             <input  type="text" class="form-control" name="payment_unit_price_2" value="{{ old('payment_unit_price_2') }}">
                             @endif
                         </td>
-                    </tr>
-                    <tr class="payment-2">
-                        <th>支払単位②</th>
-                        <td>
+
+                        <th colspan="1">支払単位②</th>
+                        <td colspan="4">
                             <select type="text" class="form-control" name="payment_unit_2">
                                 <option value="">支払単位を選んで下さい</option>
                                 @foreach( config('options.salary_term') as $key => $payment_unit_2 )
@@ -595,19 +559,18 @@
                             </select>
                         </td>
                     </tr>
-                    <tr class="payment-2">
-                        <th>交通費②</th>
-                        <td>
+                    <tr class="payment-2" colspan="10">
+                        <th colspan="1">交通費②</th>
+                        <td colspan="4">
                             @if (is_null(old('carfare_2')))
                             <input  type="text" class="form-control" name="carfare_2" value="{{ isset($jobOffer->carfare_2) ? $jobOffer->carfare_2 : '' }}">
                             @else
                             <input  type="text" class="form-control" name="carfare_2" value="{{ old('carfare_2') }}">
                             @endif
                         </td>
-                    </tr>
-                    <tr class="payment-2">
-                        <th>交通費支払単位②</th>
-                        <td>
+
+                        <th colspan="1">交通費支払単位②</th>
+                        <td colspan="4">
                             <select type="text" class="form-control" name="carfare_payment_2">
                             <option value="">交通費支払単位を選んで下さい</option>
                             @foreach( config('options.payment_term') as $key => $carfare_payment_2 )
@@ -620,13 +583,13 @@
                             </select>
                         </td>
                     </tr>
-                    <tr class="payment-2">
-                        <th>
+                    <tr class="payment-2" colspan="10">
+                        <th colspan="1">
                             支払情報②備考<br>
                             <i class="bi bi-dash-circle" id="close_payment_2"></i>
                             <i class="bi bi-plus-circle" id="open_payment_3"></i>
                         </th>
-                        <td>
+                        <td colspan="9">
                             @if (is_null(old('carfare_payment_remarks_2')))
                             <input  type="text" class="form-control" name="carfare_payment_remarks_2" value="{{ isset($jobOffer->carfare_payment_remarks_2) ? $jobOffer->carfare_payment_remarks_2 : '' }}">
                             @else
@@ -634,9 +597,9 @@
                             @endif
                         </td>
                     </tr>
-                    <tr class="payment-3">
-                        <th>雇用保険加入③</th>
-                        <td>
+                    <tr class="payment-3" colspan="10">
+                        <th colspan="1">雇用保険加入③</th>
+                        <td colspan="4">
                             <select type="text" class="form-control" name="employment_insurance_3" >
                             <option value="">雇用保険の有無を選んで下さい</option>
                             @foreach( config('options.existence') as $key => $employment_insurance_3 )
@@ -648,10 +611,9 @@
                             @endforeach
                             </select>
                         </td>
-                    </tr>
-                    <tr class="payment-3">
-                        <th>社会保険加入③</th>
-                        <td>
+
+                        <th colspan="1">社会保険加入③</th>
+                        <td colspan="4">
                             <select type="text" class="form-control" name="social_insurance_3">
                             <option value="">社会保険の有無を選んで下さい</option>
                             @foreach( config('options.existence') as $key => $social_insurance_3 )
@@ -664,19 +626,18 @@
                             </select>
                         </td>
                     </tr>
-                    <tr class="payment-3">
-                        <th>支払単価③</th>
-                        <td>
+                    <tr class="payment-3" colspan="10">
+                        <th colspan="1">支払単価③</th>
+                        <td colspan="4">
                             @if (is_null(old('payment_unit_price_3')))
                             <input  type="text" class="form-control" name="payment_unit_price_3" value="{{ isset($jobOffer->payment_unit_price_3) ? $jobOffer->payment_unit_price_3 : '' }}">
                             @else
                             <input  type="text" class="form-control" name="payment_unit_price_3" value="{{ old('payment_unit_price_3') }}">
                             @endif
                         </td>
-                    </tr>
-                    <tr class="payment-3">
-                        <th>支払単位③</th>
-                        <td>
+
+                        <th colspan="1">支払単位③</th>
+                        <td colspan="4">
                             <select type="text" class="form-control" name="payment_unit_3">
                             <option value="">支払単位を選んで下さい</option>
                             @foreach( config('options.salary_term') as $key => $payment_unit_3 )
@@ -689,19 +650,18 @@
                             </select>
                         </td>
                     </tr>
-                    <tr class="payment-3">
-                        <th>交通費③</th>
-                        <td>
+                    <tr class="payment-3" colspan="10">
+                        <th colspan="1">交通費③</th>
+                        <td colspan="4">
                             @if (is_null(old('carfare_3')))
                             <input  type="text" class="form-control" name="carfare_3" value="{{ isset($jobOffer->carfare_3) ? $jobOffer->carfare_3 : '' }}">
                             @else
                             <input  type="text" class="form-control" name="carfare_3" value="{{ old('carfare_3') }}">
                             @endif
                         </td>
-                    </tr>
-                    <tr class="payment-3">
-                        <th>交通費支払単位③</th>
-                        <td>
+
+                        <th colspan="1">交通費支払単位③</th>
+                        <td colspan="4">
                         <select type="text" class="form-control" name="carfare_payment_3">
                             <option value="">交通費支払単位を選んで下さい</option>
                             @foreach( config('options.payment_term') as $key => $carfare_payment_3 )
@@ -714,12 +674,12 @@
                             </select>
                         </td>
                     </tr>
-                    <tr class="payment-3">
-                        <th>
+                    <tr class="payment-3" colspan="10">
+                        <th colspan="1">
                             支払情報③備考<br>
                             <i class="bi bi-dash-circle" id="close_payment_3"></i>
                         </th>
-                        <td>
+                        <td colspan="9">
                             @if (is_null(old('carfare_payment_remarks_3')))
                             <input  type="text" class="form-control" name="carfare_payment_remarks_3" value="{{ isset($jobOffer->carfare_payment_remarks_3) ? $jobOffer->carfare_payment_remarks_3 : '' }}">
                             @else
@@ -727,9 +687,14 @@
                             @endif
                         </td>
                     </tr>
-                    <tr>
-                        <th>予定期間</th>
-                        <td>
+                </tbody>
+            </table>
+            <table class="table" style="width: 100%; table-layout: fixed;">
+                <tbody>
+                    <div class="card-header">▼就業期間</div>
+                    <tr colspan="10">
+                        <th colspan="1">予定期間</th>
+                        <td colspan="4">
                             <select type="text" class="form-control" name="scheduled_period">
                                 <option value="">予定期間を選んで下さい</option>
                                 @if (is_null(old('scheduled_period')))
@@ -743,10 +708,9 @@
                                 @endif
                             </select>
                         </td>
-                    </tr>
-                    <tr>
-                        <th>終了予定日</th>
-                        <td>
+
+                        <th colspan="1">終了予定日</th>
+                        <td colspan="4">
                             @if (is_null(old('expected_end_date')))
                             <input  type="date" class="form-control" name="expected_end_date" value="{{ isset($jobOffer->expected_end_date) ? $jobOffer->expected_end_date : '' }}">
                             @else
@@ -754,9 +718,9 @@
                             @endif
                         </td>
                     </tr>
-                    <tr>
-                        <th>期間備考</th>
-                        <td>
+                    <tr colspan="10">
+                        <th colspan="1">期間備考</th>
+                        <td colspan="9">
                             @if (is_null(old('period_remarks')))
                             <input  type="text" class="form-control" name="period_remarks" value="{{ isset($jobOffer->period_remarks) ? $jobOffer->period_remarks : '' }}">
                             @else
@@ -764,9 +728,14 @@
                             @endif
                         </td>
                     </tr>
-                    <tr>
-                        <th>休日<span class="text-danger">*</span></th>
-                        <td>
+                </tbody>
+            </table>
+            <table class="table" style="width: 100%; table-layout: fixed;">
+                <tbody>
+                    <div class="card-header">▼休日・休暇</div>
+                    <tr colspan="10">
+                        <th colspan="1">休日<span class="text-danger">*</span></th>
+                        <td colspan="9">
                             @foreach(config('options.holiday') as $index => $holiday)
                                 <div class="form-check form-check-inline">
                                     @if (is_null(old('holiday')))
@@ -779,9 +748,9 @@
                             @endforeach
                         </td>
                     </tr>
-                    <tr>
-                        <th>長期休暇</th>
-                        <td>
+                    <tr colspan="10">
+                        <th colspan="1">長期休暇</th>
+                        <td colspan="9">
                             @foreach(config('options.long_vacation') as $index => $longVacation)
                                 <div class="form-check form-check-inline">
                                     @if (is_null(old('long_vacation')))
@@ -794,9 +763,9 @@
                             @endforeach
                         </td>
                     </tr>
-                    <tr>
-                        <th>休日備考</th>
-                        <td>
+                    <tr colspan="10">
+                        <th colspan="1">休日備考</th>
+                        <td colspan="9">
                             @if (is_null(old('holiday_remarks')))
                             <textarea type="textarea" rows="1" class="form-control" name="holiday_remarks"> {{ isset($jobOffer->holiday_remarks) ? $jobOffer->holiday_remarks : '' }}</textarea>
                             @else
@@ -804,32 +773,38 @@
                             @endif
                         </td>
                     </tr>
-                    <tr>
-                        <th>勤務時間①<span class="text-danger">*</span></th>
-                        <td>
+                </tbody>
+            </table>
+            <table class="table" style="width: 100%; table-layout: fixed;">
+                <tbody>
+                    <div class="card-header">▼就業時間</div>
+                    <tr colspan="10">
+                        <th colspan="1">勤務時間①<span class="text-danger">*</span></th>
+                        <td colspan="4">
                             @if (is_null(old('working_hours_1')))
                             <input type="text" class="form-control required" name="working_hours_1" value="{{ isset($jobOffer->working_hours_1) ? $jobOffer->working_hours_1 : '' }}" required>
                             @else
                             <input type="text" class="form-control required" name="working_hours_1" value="{{ old('working_hours_1') }}" required>
                             @endif
                         </td>
-                    </tr>
-                    <tr>
-                        <th>実働時間①<span class="text-danger">*</span></th>
-                        <td>
+
+                        <th colspan="1">実働時間①<span class="text-danger">*</span></th>
+                        <td colspan="4">
                             @if (is_null(old('actual_working_hours_1')))
                             <input type="text" class="form-control required" name="actual_working_hours_1" value="{{ isset($jobOffer->actual_working_hours_1) ? $jobOffer->actual_working_hours_1 : '' }}" required>
                             @else
                             <input type="text" class="form-control required" name="actual_working_hours_1" value="{{ old('actual_working_hours_1') }}" required>
                             @endif
                         </td>
-                        </tr>
-                    <tr>
-                        <th>
-                            休憩時間①<span class="text-danger">*</span>
+                    </tr>
+                    <tr colspan="10">
+                        <td colspan="5">
                             <br><i class="bi bi-plus-circle" id="open_working_2"></i>
+                        </td>
+                        <th colspan="1">
+                            休憩時間①<span class="text-danger">*</span>
                         </th>
-                        <td>
+                        <td colspan="4">
                             @if (is_null(old('break_time_1')))
                             <input type="text" class="form-control required" name="break_time_1" value="{{ isset($jobOffer->break_time_1) ? $jobOffer->break_time_1 : '' }}" required>
                             @else
@@ -837,19 +812,18 @@
                             @endif
                         </td>
                     </tr>
-                    <tr class="working-2">
-                        <th>勤務時間②</th>
-                        <td>
+                    <tr class="working-2" colspan="10">
+                        <th colspan="1">勤務時間②</th>
+                        <td colspan="4">
                             @if (is_null(old('working_hours_2')))
                             <input type="text" class="form-control" name="working_hours_2" value="{{ isset($jobOffer->working_hours_2) ? $jobOffer->working_hours_2 : '' }}">
                             @else
                             <input type="text" class="form-control" name="working_hours_2" value="{{ old('working_hours_2') }}">
                             @endif
                         </td>
-                    </tr>
-                    <tr class="working-2">
-                        <th>実働時間②</th>
-                        <td>
+
+                        <th colspan="1">実働時間②</th>
+                        <td colspan="4">
                             @if (is_null(old('working_hours_2')))
                             <input type="text" class="form-control" name="actual_working_hours_2" value="{{ isset($jobOffer->actual_working_hours_2) ? $jobOffer->actual_working_hours_2 : '' }}">
                             @else
@@ -857,13 +831,16 @@
                             @endif
                         </td>
                     </tr>
-                    <tr class="working-2">
-                        <th>
-                            休憩時間②<br>
+                    <tr class="working-2" colspan="10">
+                        <td colspan="5">
+                            <br>
                             <i class="bi bi-dash-circle" id="close_working_2"></i>
                             <i class="bi bi-plus-circle" id="open_working_3"></i>
+                        </td>
+                        <th colspan="1">
+                            休憩時間②
                         </th>
-                        <td>
+                        <td colspan="4">
                             @if (is_null(old('break_time_2')))
                             <input type="text" class="form-control" name="break_time_2" value="{{ isset($jobOffer->break_time_2) ? $jobOffer->break_time_2 : '' }}">
                             @else
@@ -871,19 +848,18 @@
                             @endif
                         </td>
                     </tr>
-                    <tr class="working-3">
-                        <th>勤務時間③</th>
-                        <td>
+                    <tr class="working-3" colspan="10">
+                        <th colspan="1">勤務時間③</th>
+                        <td colspan="4">
                             @if (is_null(old('working_hours_3')))
                             <input type="text" class="form-control" name="working_hours_3" value="{{ isset($jobOffer->working_hours_3) ? $jobOffer->working_hours_3 : '' }}">
                             @else
                             <input type="text" class="form-control" name="working_hours_3" value="{{ old('working_hours_3') }}">
                             @endif
                         </td>
-                    </tr>
-                    <tr class="working-3">
-                        <th>実働時間③</th>
-                        <td>
+
+                        <th colspan="1">実働時間③</th>
+                        <td colspan="4">
                             @if (is_null(old('actual_working_hours_3')))
                             <input type="text" class="form-control" name="actual_working_hours_3" value="{{ isset($jobOffer->actual_working_hours_3) ? $jobOffer->actual_working_hours_3 : '' }}">
                             @else
@@ -891,12 +867,15 @@
                             @endif
                         </td>
                     </tr>
-                    <tr class="working-3">
-                        <th>
-                            休憩時間③<br>
+                    <tr class="working-3" colspan="10">
+                        <td colspan="5">
+                            <br>
                             <i class="bi bi-dash-circle" id="close_working_3"></i>
+                        </td>
+                        <th colspan="1">
+                            休憩時間③
                         </th>
-                        <td>
+                        <td colspan="4">
                             @if (is_null(old('break_time_3')))
                             <input type="text" class="form-control" name="break_time_3" value="{{ isset($jobOffer->break_time_3) ? $jobOffer->break_time_3 : '' }}">
                             @else
@@ -904,9 +883,9 @@
                             @endif
                         </td>
                     </tr>
-                    <tr>
-                        <th>残業(時間/月)<span class="text-danger">*</span></th>
-                        <td>
+                    <tr colspan="10">
+                        <th colspan="1">残業(時間/月)<span class="text-danger">*</span></th>
+                        <td colspan="4">
                             @if (is_null(old('overtime')))
                             <input  type="text" class="form-control required" name="overtime" value="{{ isset($jobOffer->overtime) ? $jobOffer->overtime : '' }}" required>
                             @else
@@ -914,9 +893,9 @@
                             @endif
                         </td>
                     </tr>
-                    <tr>
-                        <th>勤務時間備考</th>
-                        <td>
+                    <tr colspan="10">
+                        <th colspan="1">勤務時間備考</th>
+                        <td colspan="9">
                             @if (is_null(old('working_hours_remarks')))
                             <textarea type="textarea" rows="5" class="form-control" name="working_hours_remarks"> {{ isset($jobOffer->working_hours_remarks) ? $jobOffer->working_hours_remarks : '' }}</textarea>
                             @else
@@ -924,19 +903,23 @@
                             @endif
                         </td>
                     </tr>
-                    <tr>
-                        <th>最寄り駅</th>
-                        <td>
+                </tbody>
+            </table>
+            <table class="table" style="width: 100%; table-layout: fixed;">
+                <tbody>
+                    <div class="card-header">▼通勤・交通</div>
+                    <tr colspan="10">
+                        <th colspan="1">最寄り駅</th>
+                        <td colspan="4">
                             @if (is_null(old('nearest_station')))
                             <input  type="text" class="form-control" name="nearest_station" value="{{ isset($jobOffer->nearest_station) ? $jobOffer->nearest_station : '' }}">
                             @else
                             <input  type="text" class="form-control" name="nearest_station" value="{{ old('nearest_station') }}">
                             @endif
                         </td>
-                    </tr>
-                    <tr>
-                        <th>駅からの所要時間</th>
-                        <td>
+
+                        <th colspan="1">駅からの所要時間</th>
+                        <td colspan="4">
                             @if (is_null(old('travel_time_station')))
                             <input  type="text" class="form-control" name="travel_time_station" value="{{ isset($jobOffer->travel_time_station) ? $jobOffer->travel_time_station : '' }}">
                             @else
@@ -944,19 +927,18 @@
                             @endif
                         </td>
                     </tr>
-                    <tr>
-                        <th>最寄りバス停</th>
-                        <td>
+                    <tr colspan="10">
+                        <th colspan="1">最寄りバス停</th>
+                        <td colspan="4">
                             @if (is_null(old('nearest_bus_stop')))
                             <input type="text" class="form-control" name="nearest_bus_stop" value="{{ isset($jobOffer->nearest_bus_stop) ? $jobOffer->nearest_bus_stop : '' }}">
                             @else
                             <input type="text" class="form-control" name="nearest_bus_stop" value="{{ old('nearest_bus_stop') }}">
                             @endif
                         </td>
-                    </tr>
-                    <tr>
-                        <th>バス停からの所要時間</th>
-                        <td>
+
+                        <th colspan="1">バス停からの所要時間</th>
+                        <td colspan="4">
                             @if (is_null(old('travel_time_bus_stop')))
                             <input  type="text" class="form-control" name="travel_time_bus_stop" value="{{ isset($jobOffer->travel_time_bus_stop) ? $jobOffer->travel_time_bus_stop : '' }}">
                             @else
@@ -964,9 +946,9 @@
                             @endif
                         </td>
                     </tr>
-                    <tr>
-                        <th>車通勤（可能）<span class="text-danger">*</span></th>
-                        <td>
+                    <tr colspan="10">
+                        <th colspan="1">車通勤<span class="text-danger">*</span></th>
+                        <td colspan="4">
                             <select type="text" class="form-control required" name="commuting_by_car" required>
                             <option value="">車通勤の可否を選んで下さい</option>
                             @foreach( config('options.permission') as $key => $commuting_by_car )
@@ -978,20 +960,9 @@
                             @endforeach
                             </select>
                         </td>
-                    </tr>
-                    <tr>
-                        <th>交通通勤備考</th>
-                        <td>
-                            @if (is_null(old('traffic_commuting_remarks')))
-                            <input  type="text" class="form-control" name="traffic_commuting_remarks" value="{{ isset($jobOffer->traffic_commuting_remarks) ? $jobOffer->traffic_commuting_remarks : '' }}">
-                            @else
-                            <input  type="text" class="form-control" name="traffic_commuting_remarks" value="{{ old('traffic_commuting_remarks') }}">
-                            @endif
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>駐車場<span class="text-danger">*</span></th>
-                        <td>
+
+                        <th colspan="1">駐車場<span class="text-danger">*</span></th>
+                        <td colspan="4">
                             <select type="text" class="form-control required" name="parking" required>
                             <option value="">駐車場の有無を選んで下さい</option>
                             @foreach( config('options.parking') as $key => $parking )
@@ -1004,9 +975,24 @@
                             </select>
                         </td>
                     </tr>
-                    <tr>
-                        <th>資格要件</th>
-                        <td>
+                    <tr colspan="10">
+                        <th colspan="1">交通通勤備考</th>
+                        <td colspan="9">
+                            @if (is_null(old('traffic_commuting_remarks')))
+                            <input  type="text" class="form-control" name="traffic_commuting_remarks" value="{{ isset($jobOffer->traffic_commuting_remarks) ? $jobOffer->traffic_commuting_remarks : '' }}">
+                            @else
+                            <input  type="text" class="form-control" name="traffic_commuting_remarks" value="{{ old('traffic_commuting_remarks') }}">
+                            @endif
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table" style="width: 100%; table-layout: fixed;">
+                <tbody>
+                    <div class="card-header">▼求める人材</div>
+                    <tr colspan="10">
+                        <th colspan="1">資格要件</th>
+                        <td colspan="4">
                             <select type="text" class="form-control" name="qualification">
                                 <option value="">資格要件を選んで下さい</option>
                                 @foreach( config('options.requirement') as $key => $qualification )
@@ -1019,9 +1005,9 @@
                             </select>
                         </td>
                     </tr>
-                    <tr>
-                        <th>資格名</th>
-                        <td>
+                    <tr colspan="10">
+                        <th colspan="1">資格名</th>
+                        <td colspan="9">
                             @if (is_null(old('qualification_content')))
                             <input  type="text" class="form-control" name="qualification_content" value="{{ isset( $jobOffer->qualification_content) ? $jobOffer->qualification_content : '' }}">
                             @else
@@ -1029,9 +1015,9 @@
                             @endif
                         </td>
                     </tr>
-                    <tr>
-                        <th>経験要件</th>
-                        <td>
+                    <tr colspan="10">
+                        <th colspan="1">経験要件</th>
+                        <td colspan="4">
                             <select type="text" class="form-control" name="experience">
                                 <option value="">経験要件を選んで下さい</option>
                                 @foreach( config('options.requirement') as $key => $experience )
@@ -1044,9 +1030,9 @@
                             </select>
                         </td>
                     </tr>
-                    <tr>
-                        <th>経験内容</th>
-                        <td>
+                    <tr colspan="10">
+                        <th colspan="1">経験内容</th>
+                        <td colspan="9">
                             @if (is_null(old('experience_content')))
                             <input  type="text" class="form-control" name="experience_content" value="{{ isset( $jobOffer->experience_content) ? $jobOffer->experience_content : '' }}">
                             @else
@@ -1054,9 +1040,9 @@
                             @endif
                         </td>
                     </tr>
-                    <tr>
-                        <th>性別要件</th>
-                        <td>
+                    <tr colspan="10">
+                        <th colspan="1">性別要件</th>
+                        <td colspan="4">
                             <select type="text" class="form-control" name="sex">
                                 <option value="">性別要件を選んで下さい</option>
                                 @foreach( config('options.sex') as $key => $sex )
@@ -1068,10 +1054,9 @@
                                 @endforeach
                             </select>
                         </td>
-                    </tr>
-                    <tr>
-                        <th>年齢要件</th>
-                        <td>
+
+                        <th colspan="1">年齢要件</th>
+                        <td colspan="4">
                             @if (is_null(old('age')))
                             <input  type="text" class="form-control" name="age" value="{{ isset( $jobOffer->age) ? $jobOffer->age : '' }}" placeholder="（例）20代から40代">
                             @else
@@ -1079,9 +1064,29 @@
                             @endif
                         </td>
                     </tr>
-                    <tr>
-                        <th>制服支給の有無</th>
-                        <td>
+                </tbody>
+            </table>
+            <table class="table" style="width: 100%; table-layout: fixed;">
+                <tbody>
+                    <div class="card-header">▼職場環境、他</div>
+                    <tr colspan="10">
+                        <th colspan="1">屋内の受動喫煙対策の内容<span class="text-danger">*</span></th>
+                        <td colspan="4">
+                            <select type="text" class="form-control required" name="counter_measures" required>
+                                <option value="">屋内の受動喫煙対策を選んで下さい</option>
+                                @foreach( config('options.counter_measures') as $key => $counter_measures )
+                                    @if (is_null(old('counter_measures')))
+                                    <option value="{{ $key }}" {{ $key == $jobOffer->counter_measures ? 'selected' : '' }}>{{ $counter_measures }}</option>
+                                    @else
+                                    <option value="{{ $key }}" {{ $key == old('counter_measures') ? 'selected' : '' }}>{{ $counter_measures }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </td>
+                    </tr>
+                    <tr colspan="10">
+                        <th colspan="1">制服支給の有無</th>
+                        <td colspan="4">
                             <select type="text" class="form-control" name="uniform_supply">
                                 <option value="">制服支給の有無を選んで下さい</option>
                                 @foreach( config('options.uniform_supply') as $key => $uniformSupply )
@@ -1093,10 +1098,9 @@
                                 @endforeach
                             </select>
                         </td>
-                    </tr>
-                    <tr>
-                        <th>支給物</th>
-                        <td>
+
+                        <th colspan="1">支給物</th>
+                        <td colspan="4">
                             @if (is_null(old('supply')))
                             <input  type="text" class="form-control" name="supply" value="{{ isset( $jobOffer->supply) ? $jobOffer->supply : '' }}">
                             @else
@@ -1104,29 +1108,18 @@
                             @endif
                         </td>
                     </tr>
-                    <tr>
-                        <th>自身で準備するもの</th>
-                        <td>
-                            @if (is_null(old('self_prepared')))
-                            <input  type="text" class="form-control" name="self_prepared" value="{{ isset( $jobOffer->self_prepared) ? $jobOffer->self_prepared : '' }}">
-                            @else
-                            <input  type="text" class="form-control" name="self_prepared" value="{{ old('self_prepared') }}">
-                            @endif
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>服装</th>
-                        <td>
+                    <tr colspan="10">
+                        <th colspan="1">服装</th>
+                        <td colspan="4">
                             @if (is_null(old('clothes')))
                             <input  type="text" class="form-control" name="clothes" value="{{ isset( $jobOffer->clothes) ? $jobOffer->clothes : '' }}">
                             @else
                             <input  type="text" class="form-control" name="clothes" value="{{ old('clothes') }}">
                             @endif
                         </td>
-                    </tr>
-                    <tr>
-                        <th>その他髪色</th>
-                        <td>
+
+                        <th colspan="1">その他髪色</th>
+                        <td colspan="4">
                             @if (is_null(old('other_hair_colors')))
                             <input  type="text" class="form-control" name="other_hair_colors" value="{{ isset( $jobOffer->other_hair_colors) ? $jobOffer->other_hair_colors : '' }}">
                             @else
@@ -1134,9 +1127,19 @@
                             @endif
                         </td>
                     </tr>
-                    <tr>
-                        <th>職場の雰囲気・備考</th>
-                        <td>
+                    <tr colspan="10">
+                        <th colspan="1">自身で準備するもの</th>
+                        <td colspan="9">
+                            @if (is_null(old('self_prepared')))
+                            <input  type="text" class="form-control" name="self_prepared" value="{{ isset( $jobOffer->self_prepared) ? $jobOffer->self_prepared : '' }}">
+                            @else
+                            <input  type="text" class="form-control" name="self_prepared" value="{{ old('self_prepared') }}">
+                            @endif
+                        </td>
+                    </tr>
+                    <tr colspan="10">
+                        <th colspan="1">職場の雰囲気・備考</th>
+                        <td colspan="9">
                             @if (is_null(old('remarks_workplace')))
                             <textarea type="textarea" rows="10" class="form-control" name="remarks_workplace">{{ isset( $jobOffer->remarks_workplace) ? $jobOffer->remarks_workplace : '' }}</textarea>
                             @else
@@ -1144,9 +1147,9 @@
                             @endif
                         </td>
                     </tr>
-                    <tr>
-                        <th>男女比</th>
-                        <td>
+                    <tr colspan="10">
+                        <th colspan="1">男女比</th>
+                        <td colspan="9">
                             @if (is_null(old('gender_ratio')))
                             <input  type="text" class="form-control" name="gender_ratio" value="{{ isset( $jobOffer->gender_ratio) ? $jobOffer->gender_ratio : '' }}" placeholder="6対4">
                             @else
@@ -1154,9 +1157,9 @@
                             @endif
                         </td>
                     </tr>
-                    <tr>
-                        <th>年齢比率</th>
-                        <td>
+                    <tr colspan="10">
+                        <th colspan="1">年齢比率</th>
+                        <td colspan="9">
                             @if (is_null(old('age_ratio')))
                             <input  type="text" class="form-control" name="age_ratio" value="{{ isset( $jobOffer->age_ratio) ? $jobOffer->age_ratio : '' }}" placeholder="20代 20%, 30代 50%, その他 30%">
                             @else
@@ -1164,9 +1167,106 @@
                             @endif
                         </td>
                     </tr>
-                    <tr>
-                        <th>作成ステータス<span class="text-danger">*</span></th>
-                        <td>
+                    <tr class="afterRecruit" colspan="10">
+                        <th colspan="2"><div class="text-center">人材紹介/紹介予定　採用後条件</div></th>
+                    </tr>
+                    <tr class="afterRecruit" colspan="10">
+                        <th colspan="1">紹介後</th>
+                        <td colspan="4">
+                            @if (is_null(old('after_introduction')))
+                            <input  type="text" class="form-control" name="after_introduction" value="{{ isset($jobOffer->after_introduction) ? $jobOffer->after_introduction : '' }}">
+                            @else
+                            <input  type="text" class="form-control" name="after_introduction" value="{{ old('after_introduction') }}">
+                            @endif
+                        </td>
+
+                        <th colspan="1">直接雇用切替時期</th>
+                        <td colspan="4">
+                            @if (is_null(old('timing_of_switching')))
+                            <input  type="text" class="form-control" name="timing_of_switching" value="{{ isset($jobOffer->timing_of_switching) ? $jobOffer->timing_of_switching : '' }}">
+                            @else
+                            <input  type="text" class="form-control" name="timing_of_switching" value="{{ old('timing_of_switching') }}">
+                            @endif
+                        </td>
+                    </tr>
+                    <tr class="afterRecruit" colspan="10">
+                        <th colspan="1">月収例（下限）</th>
+                        <td colspan="9">
+                            @if (is_null(old('monthly_lower_limit')))
+                            <input  type="text" class="form-control" name="monthly_lower_limit" value="{{ isset($jobOffer->monthly_lower_limit) ? $jobOffer->monthly_lower_limit : '' }}">
+                            @else
+                            <input  type="text" class="form-control" name="monthly_lower_limit" value="{{ old('monthly_lower_limit') }}">
+                            @endif
+                        </td>
+                    </tr>
+                    <tr class="afterRecruit" colspan="10">
+                        <th colspan="1">月収例（上限）</th>
+                        <td colspan="9">
+                            @if (is_null(old('monthly_upper_limit')))
+                            <input  type="text" class="form-control" name="monthly_upper_limit" value="{{ isset($jobOffer->monthly_upper_limit) ? $jobOffer->monthly_upper_limit : '' }}">
+                            @else
+                            <input  type="text" class="form-control" name="monthly_upper_limit" value="{{ old('monthly_upper_limit') }}">
+                            @endif
+                        </td>
+                    </tr>
+                    <tr class="afterRecruit" colspan="10">
+                        <th colspan="1">年収例（下限）</th>
+                        <td colspan="9">
+                            @if (is_null(old('annual_lower_limit')))
+                            <input  type="text" class="form-control" name="annual_lower_limit" value="{{ isset($jobOffer->annual_lower_limit) ? $jobOffer->annual_lower_limit : '' }}">
+                            @else
+                            <input  type="text" class="form-control" name="annual_lower_limit" value="{{ old('annual_lower_limit') }}">
+                            @endif
+                        </td>
+                    </tr>
+                    <tr class="afterRecruit" colspan="10">
+                        <th colspan="1">年収例（上限）</th>
+                        <td colspan="9">
+                            @if (is_null(old('annual_upper_limit')))
+                            <input  type="text" class="form-control" name="annual_upper_limit" value="{{ isset($jobOffer->annual_upper_limit) ? $jobOffer->annual_upper_limit : '' }}">
+                            @else
+                            <input  type="text" class="form-control" name="annual_upper_limit" value="{{ old('annual_upper_limit') }}">
+                            @endif
+                        </td>
+                    </tr>
+                    <tr class="afterRecruit" colspan="10">
+                        <th colspan="1">賞与等・待遇</th>
+                        <td colspan="9">
+                            @if (is_null(old('bonuses_treatment')))
+                            <textarea tabindex="-1"  type="text" class="form-control" name="bonuses_treatment" rows=5>{{ isset($jobOffer->bonuses_treatment) ? $jobOffer->bonuses_treatment : '' }}</textarea>
+                            @else
+                            <textarea tabindex="-1"  type="text" class="form-control" name="bonuses_treatment" rows=5>{{ old('bonuses_treatment') }}</textarea>
+                            @endif
+                        </td>
+                    </tr>
+                    <tr class="afterRecruit" colspan="10">
+                        <th colspan="1">休日・休暇</th>
+                        <td colspan="9">
+                            @if (is_null(old('holidays_vacations')))
+                            <textarea tabindex="-1"  type="text" class="form-control" name="holidays_vacations" rows=5>{{ isset($jobOffer->holidays_vacations) ? $jobOffer->holidays_vacations : '' }}</textarea>
+                            @else
+                            <textarea tabindex="-1"  type="text" class="form-control" name="holidays_vacations" rows=5>{{ old('holidays_vacations') }}</textarea>
+                            @endif
+                        </td>
+                    </tr>
+                    <tr class="afterRecruit" colspan="10">
+                        <th colspan="1">その他</th>
+                        <td colspan="9">
+                            @if (is_null(old('introduction_others')))
+                            <textarea tabindex="-1"  type="text" class="form-control" name="introduction_others" rows=5>{{ isset($jobOffer->introduction_others) ? $jobOffer->introduction_others : '' }}</textarea>
+                            @else
+                            <textarea tabindex="-1"  type="text" class="form-control" name="introduction_others" rows=5>{{ old('introduction_others') }}</textarea>
+                            @endif
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table" style="width: 100%; table-layout: fixed;">
+                <tbody>
+                    <div class="card-header">求人情報新規登録</div>
+                    <tr colspan="10">
+                        <th colspan="1">作成ステータス<span class="text-danger">*</span></th>
+                        <td colspan="4">
                             <select id="statusInput" class="form-control required" name="status" required>
                             <option value="">作成ステータスを選んで下さい</option>
                             @foreach( config('options.status_edit') as $key => $status )
@@ -1178,139 +1278,21 @@
                             @endforeach
                             </select>
                         </td>
-                    </tr>
-                    <tr class="after-closed">
-                        <th>求人取り下げの理由</th>
-                        <td>
-                            <select type="text" class="form-control" name="job_withdrawal">
-                                <option value="">求人取り下げの理由を選んで下さい</option>
-                                @foreach( config('options.job_withdrawal') as $key => $job_withdrawal )
-                                    @if (is_null(old('status')))
-                                        <option value="{{ $key }}" {{ $key == $jobOffer->job_withdrawal ? 'selected' : '' }}>{{ $job_withdrawal }}</option>
-                                    @else
-                                        <option value="{{ $key }}" {{ $key == old('job_withdrawal') ? 'selected' : '' }}>{{ $job_withdrawal }}</option>
-                                    @endif
-                                @endforeach
-                            </select>
-                        </td>
-                    </tr>
-                    {{--<tr>
-                        <th>求人掲載サイト</th>
-                        <td>
-                            <select type="text" class="form-control" name="posting_site">
-                            <option value="">求人掲載サイトを選んで下さい</option>
-                            @foreach( config('options.posting_site') as $key => $posting_site )
-                                @if (is_null(old('posting_site')))
-                                <option value="{{ $key }}" {{ $key == $jobOffer->posting_site ? 'selected' : '' }}>{{ $posting_site }}</option>
-                                @else
-                                <option value="{{ $key }}" {{ $key == old('posting_site') ? 'selected' : '' }}>{{ $posting_site }}</option>
-                                @endif
-                            @endforeach
-                            </select>
-                        </td>
-                    </tr>--}}
-                    <tr>
-                        <th>起算日<span class="text-danger">*</span></th>
-                        <td>
-                            @if (is_null(old('order_date')))
-                            <input  type="date" class="form-control required" name="order_date" value="{{ isset($jobOffer->order_date) ? $jobOffer->order_date : '' }}" required>
-                            @else
-                            <input  type="date" class="form-control" name="order_date" value="{{ old('order_date') }}" required>
-                            @endif
-                        </td>
-                    </tr>
-                    <tr class="afterRecruit">
-                        <th colspan="2"><div class="text-center">人材紹介/紹介予定　採用後条件</div></th>
-                    </tr>
-                    <tr class="afterRecruit">
-                        <th>紹介後</th>
-                        <td>
-                            @if (is_null(old('after_introduction')))
-                            <input  type="text" class="form-control" name="after_introduction" value="{{ isset($jobOffer->after_introduction) ? $jobOffer->after_introduction : '' }}">
-                            @else
-                            <input  type="text" class="form-control" name="after_introduction" value="{{ old('after_introduction') }}">
-                            @endif
-                        </td>
-                    </tr>
-                    <tr class="afterRecruit">
-                        <th>直接雇用切替時期</th>
-                        <td>
-                            @if (is_null(old('timing_of_switching')))
-                            <input  type="text" class="form-control" name="timing_of_switching" value="{{ isset($jobOffer->timing_of_switching) ? $jobOffer->timing_of_switching : '' }}">
-                            @else
-                            <input  type="text" class="form-control" name="timing_of_switching" value="{{ old('timing_of_switching') }}">
-                            @endif
-                        </td>
-                    </tr>
-                    <tr class="afterRecruit">
-                        <th>月収例（下限）</th>
-                        <td>
-                            @if (is_null(old('monthly_lower_limit')))
-                            <input  type="text" class="form-control" name="monthly_lower_limit" value="{{ isset($jobOffer->monthly_lower_limit) ? $jobOffer->monthly_lower_limit : '' }}">
-                            @else
-                            <input  type="text" class="form-control" name="monthly_lower_limit" value="{{ old('monthly_lower_limit') }}">
-                            @endif
-                        </td>
-                    </tr>
-                    <tr class="afterRecruit">
-                        <th>月収例（上限）</th>
-                        <td>
-                            @if (is_null(old('monthly_upper_limit')))
-                            <input  type="text" class="form-control" name="monthly_upper_limit" value="{{ isset($jobOffer->monthly_upper_limit) ? $jobOffer->monthly_upper_limit : '' }}">
-                            @else
-                            <input  type="text" class="form-control" name="monthly_upper_limit" value="{{ old('monthly_upper_limit') }}">
-                            @endif
-                        </td>
-                    </tr>
-                    <tr class="afterRecruit">
-                        <th>年収例（下限）</th>
-                        <td>
-                            @if (is_null(old('annual_lower_limit')))
-                            <input  type="text" class="form-control" name="annual_lower_limit" value="{{ isset($jobOffer->annual_lower_limit) ? $jobOffer->annual_lower_limit : '' }}">
-                            @else
-                            <input  type="text" class="form-control" name="annual_lower_limit" value="{{ old('annual_lower_limit') }}">
-                            @endif
-                        </td>
-                    </tr>
-                    <tr class="afterRecruit">
-                        <th>年収例（上限）</th>
-                        <td>
-                            @if (is_null(old('annual_upper_limit')))
-                            <input  type="text" class="form-control" name="annual_upper_limit" value="{{ isset($jobOffer->annual_upper_limit) ? $jobOffer->annual_upper_limit : '' }}">
-                            @else
-                            <input  type="text" class="form-control" name="annual_upper_limit" value="{{ old('annual_upper_limit') }}">
-                            @endif
-                        </td>
-                    </tr>
-                    <tr class="afterRecruit">
-                        <th>賞与等・待遇</th>
-                        <td>
-                            @if (is_null(old('bonuses_treatment')))
-                            <textarea tabindex="-1"  type="text" class="form-control" name="bonuses_treatment" rows=5>{{ isset($jobOffer->bonuses_treatment) ? $jobOffer->bonuses_treatment : '' }}</textarea>
-                            @else
-                            <textarea tabindex="-1"  type="text" class="form-control" name="bonuses_treatment" rows=5>{{ old('bonuses_treatment') }}</textarea>
-                            @endif
-                        </td>
-                    </tr>
-                    <tr class="afterRecruit">
-                        <th>休日・休暇</th>
-                        <td>
-                            @if (is_null(old('holidays_vacations')))
-                            <textarea tabindex="-1"  type="text" class="form-control" name="holidays_vacations" rows=5>{{ isset($jobOffer->holidays_vacations) ? $jobOffer->holidays_vacations : '' }}</textarea>
-                            @else
-                            <textarea tabindex="-1"  type="text" class="form-control" name="holidays_vacations" rows=5>{{ old('holidays_vacations') }}</textarea>
-                            @endif
-                        </td>
-                    </tr>
-                    <tr class="afterRecruit">
-                        <th>その他</th>
-                        <td>
-                            @if (is_null(old('introduction_others')))
-                            <textarea tabindex="-1"  type="text" class="form-control" name="introduction_others" rows=5>{{ isset($jobOffer->introduction_others) ? $jobOffer->introduction_others : '' }}</textarea>
-                            @else
-                            <textarea tabindex="-1"  type="text" class="form-control" name="introduction_others" rows=5>{{ old('introduction_others') }}</textarea>
-                            @endif
-                        </td>
+                        <tr class="after-closed">
+                            <th colspan="1">求人取り下げの理由</th>
+                            <td  colspan="4">
+                                <select type="text" class="form-control" name="job_withdrawal">
+                                    <option value="">求人取り下げの理由を選んで下さい</option>
+                                    @foreach( config('options.job_withdrawal') as $key => $job_withdrawal )
+                                        @if (is_null(old('status')))
+                                            <option value="{{ $key }}" {{ $key == $jobOffer->job_withdrawal ? 'selected' : '' }}>{{ $job_withdrawal }}</option>
+                                        @else
+                                            <option value="{{ $key }}" {{ $key == old('job_withdrawal') ? 'selected' : '' }}>{{ $job_withdrawal }}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </td>
+                        </tr>
                     </tr>
                 </tbody>
             </table>
