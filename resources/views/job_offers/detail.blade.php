@@ -23,7 +23,6 @@
         <a href="{{ route('job_offers.history', $jobOffer->id) }}">
             <button  class="btn btn-dark mb-2" type="button">編集ログ</button>
         </a>
-        <h1>求人情報詳細</h1>
         <div class="card mb-4">
             <div class="card-header">▼派遣先/紹介先情報</div>
             <table class="table" style="width: 100%; table-layout: fixed;">

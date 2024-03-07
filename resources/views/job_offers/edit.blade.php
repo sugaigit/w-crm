@@ -23,8 +23,8 @@
         @endif
         <div class="card mb-4">
             <div class="card-header">
-                求人情報編集
-            </div>
+                ▼派遣先/紹介先情報
+        </div>
 
             <table class="table" style="width: 100%; table-layout: fixed;">
                 <tbody>
