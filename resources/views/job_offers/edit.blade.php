@@ -659,7 +659,7 @@
                             <input  type="text" class="form-control" name="carfare_3" value="{{ old('carfare_3') }}">
                             @endif
                         </td>
- 
+
                         <th colspan="1">交通費支払単位③</th>
                         <td colspan="4">
                         <select type="text" class="form-control" name="carfare_payment_3">
@@ -1179,7 +1179,7 @@
                             <input  type="text" class="form-control" name="after_introduction" value="{{ old('after_introduction') }}">
                             @endif
                         </td>
- 
+
                         <th colspan="1">直接雇用切替時期</th>
                         <td colspan="4">
                             @if (is_null(old('timing_of_switching')))
