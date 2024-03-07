@@ -1080,7 +1080,7 @@
                                     @endforeach
                                 </select>
                             </td>
- 
+
                             <th colspan="1">支給物</th>
                             <td colspan="4">
                                 @if (is_null(old('supply')))
