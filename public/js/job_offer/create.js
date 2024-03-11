@@ -165,6 +165,35 @@ $(document).ready(function() {
             $(this).addClass('bg-danger bg-opacity-25');
         }
     });
+
+    // select2への対応
+    if ($('#customerId').val().length) {
+      $('.select2').select2({
+        language: "ja",
+        theme: "bootstrap-5"
+      });
+    } else {
+      $('#customerId').select2({
+        language: "ja",
+        theme: "bootstrap-5",
+        containerCssClass: "bg-danger bg-opacity-25"
+      });
+    }
+    $('#customerId').on('change', function () {
+      if ($(this).val().length) {
+        $('.select2').select2({
+          language: "ja",
+          theme: "bootstrap-5"
+        });
+      } else {
+        $('.select2').select2({
+          language: "ja",
+          theme: "bootstrap-5",
+          containerCssClass: "bg-danger bg-opacity-25"
+        });
+      }
+    });
+
     /******************************************
      * 人材紹介/紹介予定 採用ご条件の表示切替
     ******************************************/
@@ -209,5 +238,30 @@ $(document).ready(function() {
    ******************************************/
    $('#draft_create_btn').on('click', function () {
     $('[required]').removeAttr('required');
+  });
+
+  /******************************************
+   * 顧客名のセレクト要素に検索機能を付与して日本語化
+   ******************************************/
+  $('.select2').select2({
+    language: "ja",
+    theme: "bootstrap-5",
+    containerCssClass: "bg-danger bg-opacity-25"
+    // placeholder: $( this ).data( 'placeholder' ),
+    // dropdownCssClass: 'form-control',
+    // width: "100%",
+    // padding: "0.375rem 0.75rem",
+    // font-size: "0.9rem",
+    // font-weight: 400,
+    // line-height: 1.6,
+    // color: "#212529",
+    // background-color: "#f8fafc",
+    // background-clip: "padding-box",
+    // border: "1px solid #ced4da",
+    // -webkit-appearance: "none",
+    // -moz-appearance: "none",
+    // appearance: "none",
+    // border-radius: "0.25rem",
+    // transition: border-color "0.15s"
   });
 });

@@ -24,7 +24,7 @@
         <div class="card mb-4">
             <div class="card-header">
                 ▼派遣先/紹介先情報
-        </div>
+            </div>
 
             <table class="table" style="width: 100%; table-layout: fixed;">
                 <tbody>
@@ -83,16 +83,16 @@
                     <tr colspan="10">
                         <th colspan="1">顧客名<span class="text-danger">*</span></th>
                         <td colspan="4">
-                            <input id="customer_input" class="form-control required" name="customer_id" list="customer_list" placeholder="顧客名を選んで下さい" value="{{ $customerName }}">
-                            <datalist id="customer_list">
-                            @foreach( $customers as $customer )
-                                @if (is_null(old('customer_id')))
-                                <option value="{{ $customer->customer_name }}" {{ $customer->id == $jobOffer->customer_id ? 'selected' : '' }}>
-                                @else
-                                <option value="{{ $customer->customer_name }}" {{ old('customer_id') == $customer->customer_name ? 'selected' : '' }}>
-                                @endif
-                            @endforeach
-                            </datalist>
+                            <select id="customerId" class="select2 form-select required" name="customer_id" required>
+                                <option value="">顧客を選択もしくは入力してください</option>
+                                @foreach( $customers as $customer )
+                                    @if (is_null(old('customer_id')))
+                                    <option value="{{ $customer->id }}" {{ $customer->id == $jobOffer->customer_id ? 'selected' : '' }}>{{ $customer->customer_name }}</option>
+                                    @else
+                                    <option value="{{ $customer->id }}" {{ old('customer_id') == $customer->customer_name ? 'selected' : '' }}>{{ $customer->customer_name }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
                         </td>
                         <th colspan="1">事業種別<span class="text-danger">*</span></th>
                         <td colspan="4">
