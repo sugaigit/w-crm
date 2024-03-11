@@ -63,12 +63,12 @@
                                 <tr colspan="10">
                                     <th colspan="1">顧客名<span class="text-danger">*</span></th>
                                     <td colspan="4">
-                                        <input id="customer_input" class="form-control required" name="customer_id" list="customer_list" placeholder="顧客を選択もしくは入力してください">
-                                        <datalist id="customer_list">
-                                        @foreach( $customers as $customer )
-                                            <option value="{{ $customer->customer_name }}" {{ old('customer_id') == $customer->id ? 'selected' : '' }}>
-                                        @endforeach
-                                        </datalist>
+                                        <select id="customerId" class="select2 form-select required" name="customer_id" required>
+                                            <option value="">顧客を選択もしくは入力してください</option>
+                                            @foreach( $customers as $customer )
+                                            <option value="{{ $customer->id }}">{{ $customer->customer_name }}</option>
+                                            @endforeach
+                                        </select>
                                     </td>
                                     <th colspan="1">事業種別<span class="text-danger">*</span></th>
                                     <td colspan="4">
@@ -878,6 +878,7 @@
         </div>
     </div>
 </div>
+
 @endsection
 
 @section('js')
