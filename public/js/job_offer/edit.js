@@ -27,6 +27,14 @@ $(document).ready(function() {
     $('.after-closed').css("display", "none");
   }
 
+    /******************************************
+   * 顧客名のセレクト要素に検索機能を付与して日本語化
+   ******************************************/
+    $('#select-field').select2({
+      language: "ja",
+      dropdownCssClass: 'form-control'
+    });
+
 
   /******************************************
   * 請求単価②等の表示・非表示切り替え
@@ -219,28 +227,57 @@ $(document).ready(function() {
             $(this).addClass('bg-danger bg-opacity-25');
         }
     });
-        /******************************************
+
+    // select2への対応
+    if ($('#customerId').val().length) {
+      $('.select2').select2({
+        language: "ja",
+        theme: "bootstrap-5"
+      });
+    } else {
+      $('#customerId').select2({
+        language: "ja",
+        theme: "bootstrap-5",
+        containerCssClass: "bg-danger bg-opacity-25"
+      });
+    }
+    $('#customerId').on('change', function () {
+      if ($(this).val().length) {
+        $('.select2').select2({
+          language: "ja",
+          theme: "bootstrap-5"
+        });
+      } else {
+        $('.select2').select2({
+          language: "ja",
+          theme: "bootstrap-5",
+          containerCssClass: "bg-danger bg-opacity-25"
+        });
+      }
+    });
+    /******************************************
      * 人材紹介/紹介予定 採用ご条件の表示切替
     ******************************************/
-        if ($('.conditions').val().length) {
-            $('.conditions').removeClass('bg-info bg-opacity-25');
+    if ($('.conditions').val().length) {
+        $('.conditions').removeClass('bg-info bg-opacity-25');
+    } else {
+        $('.conditions').addClass('bg-info bg-opacity-25');
+    }
+    $('.conditions').on('change', function () {
+        if ($(this).val().length) {
+            $(this).removeClass('bg-info bg-opacity-25');
         } else {
-            $('.conditions').addClass('bg-info bg-opacity-25');
+            $(this).addClass('bg-info bg-opacity-25');
         }
-        $('.conditions').on('change', function () {
-            if ($(this).val().length) {
-                $(this).removeClass('bg-info bg-opacity-25');
-            } else {
-                $(this).addClass('bg-info bg-opacity-25');
-            }
-        });
+    });
+
     /******************************************
      * 削除アラート
      ******************************************/
     $('#delete').on('click', function () {
-        if(!confirm('本当に削除しますか？')){
-            return false;
-        }
+      if(!confirm('本当に削除しますか？')){
+          return false;
+      }
     });
 
     $('#delete-activity-record').on('click', function () {
@@ -250,10 +287,10 @@ $(document).ready(function() {
     });
 
     click(function(){
-        if(!confirm('本当に削除しますか？')){
-            /* キャンセルの時の処理 */
-            return false;
-        }
+      if(!confirm('本当に削除しますか？')){
+          /* キャンセルの時の処理 */
+          return false;
+      }
     });
 
 });

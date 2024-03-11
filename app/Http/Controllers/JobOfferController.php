@@ -203,14 +203,12 @@ class JobOfferController extends Controller
         ]);
 
         $saveData = $request->all();
-        $customerId = Customer::where('customer_name', $saveData['customer_id'])->first()->id;
-        $saveData['customer_id'] = $customerId;
         $saveData['holiday'] = json_encode($saveData['holiday']);
         if (isset($saveData['long_vacation'])) {
             $saveData['long_vacation'] = json_encode($saveData['long_vacation']);
         }
 		// 企業ランク
-        $customer = Customer::find($customerId);
+        $customer = Customer::find($saveData['customer_id']);
 		$customerRankPoint = $customer->getCustomerRankPoint();
 		// 商談ランク
 		$numberOfOrderingBasesPoint = config('points.numberOfOrderingBases')[intval($request->input('number_of_ordering_bases'))];
@@ -362,7 +360,7 @@ class JobOfferController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $customerId = Customer::where('customer_name', $request->input('customer_id'))->first()->id;
+        $customerId = $request->input('customer_id');
         if ($request->has('duplicate')) { // 複製ボタンが押されたときはstoreアクションが走る
             $result = $this->store($request);
             $newJobOfferId = $result['newJobOfferId'];
