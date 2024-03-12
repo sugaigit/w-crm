@@ -55,10 +55,6 @@ class DraftJobOfferController extends Controller
         if ($request->input('long_vacation')) {
             $saveData['long_vacation'] = json_encode($saveData['long_vacation']);
         }
-        if ($request->input('customer_id')) {
-            $customerId = Customer::where('customer_name', $saveData['customer_id'])->first()->id;
-            $saveData['customer_id'] = $customerId;
-        }
 
 
         DraftJobOffer::create($saveData);
@@ -115,17 +111,12 @@ class DraftJobOfferController extends Controller
         // 求人情報の更新処理
         $draftJobOffer = DraftJobOffer::find($id);
 
-        $customerId = '';
-        if (!empty($request->customer_id)) {
-            $customerId = Customer::where('customer_name', $request->input('customer_id'))->first()->id;
-        }
-
         $draftJobOffer->user_id= $request->input('user_id');
         $draftJobOffer->handling_type= $request->input('handling_type');
         $draftJobOffer->job_number= $request->input('job_number');
         $draftJobOffer->handling_office= $request->input('handling_office');
         $draftJobOffer->business_type= $request->input('business_type');
-        $draftJobOffer->customer_id= $customerId;
+        $draftJobOffer->customer_id= $request->input('customer_id');
         $draftJobOffer->type_contract= $request->input('type_contract');
         $draftJobOffer->recruitment_number= $request->input('recruitment_number');
         $draftJobOffer->company_name= $request->input('company_name');
