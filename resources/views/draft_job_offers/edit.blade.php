@@ -93,34 +93,19 @@
                         </select>
                         </td>
                     </tr>
-                    {{-- <tr>
-                        <th>顧客<span class="text-danger">*</span></th>
-                        <td>
-                            <select type="text" class="form-control required" name="customer_id" >
-                            <option value="">顧客を選択もしくは入力してください</option>
-                            @foreach( $customers as $customer )
-                                @if (is_null(old('customer_id')))
-                                <option value="{{ $customer->id }}" {{ $customer->id == $jobOffer->customer_id ? 'selected' : '' }}>{{ $customer->customer_name }}</option>
-                                @else
-                                <option value="{{ $customer->id }}" {{ $customer->id == old('customer_id') ? 'selected' : '' }}>{{ $customer->customer_name }}</option>
-                                @endif
-                            @endforeach
-                            </select>
-                        </td>
-                    </tr> --}}
                     <tr>
                         <th>顧客名<span class="text-danger">*</span></th>
                         <td>
-                            <input id="customer_input" class="form-control required" name="customer_id" list="customer_list" placeholder="顧客名を選んで下さい" value={{ $customerName }}>
-                            <datalist id="customer_list">
+                            <select id="customerId" class="select2 form-select required" name="customer_id" required>
+                                <option value="">顧客を選択もしくは入力してください</option>
                                 @foreach( $customers as $customer )
                                     @if (is_null(old('customer_id')))
-                                    <option value="{{ $customer->customer_name }}" {{$customer->id == $jobOffer->customer_id ? 'selected' : '' }}>
+                                    <option value="{{ $customer->id }}" {{ $customer->id == $jobOffer->customer_id ? 'selected' : '' }}>{{ $customer->customer_name }}</option>
                                     @else
-                                    <option value="{{ $customer->customer_name }}" {{ old('customer_id') == $customer->customer_name ? 'selected' : '' }}>
+                                    <option value="{{ $customer->id }}" {{ old('customer_id') == $customer->customer_name ? 'selected' : '' }}>{{ $customer->customer_name }}</option>
                                     @endif
                                 @endforeach
-                            </datalist>
+                            </select>
                         </td>
                     </tr>
                     <tr>
