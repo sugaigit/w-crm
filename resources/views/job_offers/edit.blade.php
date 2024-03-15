@@ -31,7 +31,7 @@
                     <tr colspan="10">
                         <th colspan="1">営業担当<span class="text-danger">*</span></th>
                         <td colspan="4">
-                            <select type="text" class="form-control draft-require" name="user_id" required>
+                            <select type="text" class="select form-select draft-require" name="user_id" required>
                             <option value="">営業担当を選んで下さい</option>
                             @foreach( $users as $user )
                                 @if (is_null(old('user_id')))
@@ -54,7 +54,7 @@
                     <tr colspan="10">
                         <th colspan="1">取扱会社種別<span class="text-danger">*</span></th>
                         <td colspan="4">
-                            <select type="text" class="form-control required" name="handling_type" required>
+                            <select type="text" class="select form-select  required" name="handling_type" required>
                                 <option value="">取扱会社種別を選んで下さい</option>
                                 @foreach( config('options.handling_type') as $key => $handling_type )
                                     @if (is_null(old('handling_type')))
@@ -68,7 +68,7 @@
 
                         <th colspan="1">取扱事業所名<span class="text-danger">*</span></th>
                         <td colspan="4">
-                            <select type="text" class="form-control required" name="handling_office" required>
+                            <select type="text" class="select form-select  required" name="handling_office" required>
                             <option value="">取扱事業所名を選んで下さい</option>
                             @foreach( config('options.handling_office') as $key => $handling_office )
                                 @if (is_null(old('handling_office')))
@@ -96,7 +96,7 @@
                         </td>
                         <th colspan="1">事業種別<span class="text-danger">*</span></th>
                         <td colspan="4">
-                            <select type="text" class="form-control required" name="business_type" required>
+                            <select type="text" class="select form-select  required" name="business_type" required>
                             <option value="">事業種別を選んで下さい</option>
                             @foreach( config('options.business_type') as $key => $business_type )
                                 @if (is_null(old('business_type')))
@@ -112,7 +112,7 @@
                     <tr colspan="10">
                         <th colspan="1">契約形態<span class="text-danger">*</span></th>
                         <td colspan="4">
-                            <select type="text" class="form-control required" name="type_contract" required>
+                            <select type="text" class="select form-select required" name="type_contract" required>
                             <option value="">契約形態を選んで下さい</option>
                             @foreach( config('options.type_contract') as $key => $type_contract )
                                 @if (is_null(old('type_contract')))
@@ -186,7 +186,7 @@
                     <tr colspan="10">
                         <th colspan="1">発注拠点数<span class="text-danger">*</span></th>
                         <td colspan="4">
-                            <select type="text" class="form-control required" name="number_of_ordering_bases" required>
+                            <select type="text" class="select form-select required" name="number_of_ordering_bases" required>
                                 <option value="">発注拠点数を選んで下さい</option>
                                 @foreach( config('options.number_of_ordering_bases') as $key => $number_of_ordering_bases )
                                 @if (is_null(old('number_of_ordering_bases')))
@@ -200,7 +200,7 @@
 
                         <th colspan="1">発注人数<span class="text-danger">*</span></th>
                         <td colspan="4">
-                            <select type="text" class="form-control required" name="order_number" required>
+                            <select type="text" class="select form-select required" name="order_number" required>
                                 <option value="">発注人数を選んで下さい</option>
                                 @foreach( config('options.order_number') as $key => $order_number )
                                 @if (is_null(old('order_number')))
@@ -215,7 +215,7 @@
                     <tr colspan="10">
                         <th colspan="1">取引継続期間<span class="text-danger">*</span></th>
                         <td colspan="4">
-                            <select type="text" class="form-control required" name="transaction_duration" required>
+                            <select type="text" class="select form-select required" name="transaction_duration" required>
                                 <option value="">取引継続期間を選んで下さい</option>
                                 @foreach( config('options.transaction_duration') as $key => $transaction_duration )
                                 @if (is_null(old('transaction_duration')))
@@ -229,7 +229,7 @@
 
                         <th colspan="1">売上見込額<span class="text-danger">*</span></th>
                         <td colspan="4">
-                            <select type="text" class="form-control required" name="expected_sales" required>
+                            <select type="text" class="select form-select required" name="expected_sales" required>
                                 <option value="">売上見込額を選んで下さい</option>
                                 @foreach( config('options.expected_sales') as $key => $expected_sales )
                                 @if (is_null(old('expected_sales')))
@@ -244,7 +244,7 @@
                     <tr colspan="10">
                         <th colspan="1">利益率<span class="text-danger">*</span></th>
                         <td colspan="4">
-                            <select type="text" class="form-control required" name="profit_rate" required>
+                            <select type="text" class="select form-select required" name="profit_rate" required>
                                 <option value="">利益率を選んで下さい</option>
                                 @foreach( config('options.profit_rate') as $key => $profit_rate )
                                 @if (is_null(old('profit_rate')))
@@ -258,7 +258,7 @@
 
                         <th colspan="1">特別事項<span class="text-danger">*</span></th>
                         <td colspan="4">
-                            <select type="text" class="form-control required" name="special_matters" required>
+                            <select type="text" class="select form-select required" name="special_matters" required>
                                 <option value="">特別事項を選んで下さい</option>
                                 @foreach( config('options.special_matters') as $key => $special_matters )
                                 @if (is_null(old('special_matters')))
@@ -287,7 +287,7 @@
 
                         <th colspan="1">請求単位①<span class="text-danger">*</span></th>
                         <td colspan="4">
-                            <select type="text" class="form-control required" name="billing_unit_1" required>
+                            <select type="text" class="select form-select required" name="billing_unit_1" required>
                             <option value="">請求単位を選んで下さい</option>
                             @foreach( config('options.salary_term') as $key => $billing_unit_1 )
                                 @if (is_null(old('billing_unit_1')))
@@ -331,7 +331,7 @@
 
                         <th colspan="1">請求単位②</th>
                         <td colspan="4">
-                            <select type="text" class="form-control" name="billing_unit_2">
+                            <select type="text" class="select form-select" name="billing_unit_2">
                             <option value="">請求単位を選んで下さい</option>
                             @foreach( config('options.salary_term') as $key => $billing_unit_2 )
                                 @if (is_null(old('billing_unit_2')))
@@ -379,7 +379,7 @@
 
                         <th colspan="1">請求単位③</th>
                         <td colspan="4">
-                            <select type="text" class="form-control" name="billing_unit_3">
+                            <select type="text" class="select form-select" name="billing_unit_3">
                             <option value="">請求単位を選んで下さい</option>
                             @foreach( config('options.salary_term') as $key => $billing_unit_3 )
                                 @if (is_null(old('billing_unit_3')))
@@ -422,7 +422,7 @@
                     <tr colspan="10">
                         <th colspan="1">雇用保険加入<span class="text-danger">*</span></th>
                         <td colspan="4">
-                            <select type="text" class="form-control required" name="employment_insurance" required>
+                            <select type="text" class="select form-select required" name="employment_insurance" required>
                             <option value="">雇用保険の有無を選んで下さい</option>
                             @foreach( config('options.existence') as $key => $employment_insurance )
                                 @if (is_null(old('billing_information_3')))
@@ -436,7 +436,7 @@
 
                         <th colspan="1">社会保険加入<span class="text-danger">*</span></th>
                         <td colspan="4">
-                            <select type="text" class="form-control required" name="social_insurance" required>
+                            <select type="text" class="select form-select required" name="social_insurance" required>
                             <option value="">社会保険の有無を選んで下さい</option>
                             @foreach( config('options.existence') as $key => $social_insurance )
                                 @if (is_null(old('social_insurance')))
@@ -460,7 +460,7 @@
 
                         <th colspan="1">支払単位①<span class="text-danger">*</span></th>
                         <td colspan="4">
-                            <select type="text" class="form-control required" name="payment_unit_1" required>
+                            <select type="text" class="select form-select required" name="payment_unit_1" required>
                                 <option value="">交通費支払単位を選んで下さい</option>
                                 @foreach( config('options.salary_term') as $key => $payment_unit_1 )
                                     @if (is_null(old('payment_unit_1')))
@@ -484,7 +484,7 @@
 
                         <th colspan="1">交通費支払単位①</th>
                         <td colspan="4">
-                            <select type="text" class="form-control" name="carfare_payment_1">
+                            <select type="text" class="select form-select" name="carfare_payment_1">
                             <option value="">交通費支払単位を選んで下さい</option>
                             @foreach( config('options.payment_term') as $key => $carfare_payment_1 )
                                 @if (is_null(old('carfare_payment_1')))
@@ -509,7 +509,7 @@
                     <tr class="payment-2" colspan="10">
                         <th colspan="1">雇用保険加入②</th>
                         <td colspan="4">
-                            <select type="text" class="form-control" name="employment_insurance_2">
+                            <select type="text" class="select form-select" name="employment_insurance_2">
                             <option value="">雇用保険の有無を選んで下さい</option>
                             @foreach( config('options.existence') as $key => $employment_insurance_2 )
                                 @if (is_null(old('employment_insurance_2')))
@@ -523,7 +523,7 @@
 
                         <th colspan="1">社会保険加入②</th>
                         <td colspan="4">
-                            <select type="text" class="form-control" name="social_insurance_2">
+                            <select type="text" class="select form-select" name="social_insurance_2">
                             <option value="">社会保険の有無を選んで下さい</option>
                             @foreach( config('options.existence') as $key => $social_insurance_2 )
                                 @if (is_null(old('social_insurance_2')))
@@ -547,7 +547,7 @@
 
                         <th colspan="1">支払単位②</th>
                         <td colspan="4">
-                            <select type="text" class="form-control" name="payment_unit_2">
+                            <select type="text" class="select form-select" name="payment_unit_2">
                                 <option value="">支払単位を選んで下さい</option>
                                 @foreach( config('options.salary_term') as $key => $payment_unit_2 )
                                     @if (is_null(old('payment_unit_2')))
@@ -571,7 +571,7 @@
 
                         <th colspan="1">交通費支払単位②</th>
                         <td colspan="4">
-                            <select type="text" class="form-control" name="carfare_payment_2">
+                            <select type="text" class="select form-select" name="carfare_payment_2">
                             <option value="">交通費支払単位を選んで下さい</option>
                             @foreach( config('options.payment_term') as $key => $carfare_payment_2 )
                                 @if (is_null(old('carfare_payment_2')))
@@ -600,7 +600,7 @@
                     <tr class="payment-3" colspan="10">
                         <th colspan="1">雇用保険加入③</th>
                         <td colspan="4">
-                            <select type="text" class="form-control" name="employment_insurance_3" >
+                            <select type="text" class="select form-select" name="employment_insurance_3" >
                             <option value="">雇用保険の有無を選んで下さい</option>
                             @foreach( config('options.existence') as $key => $employment_insurance_3 )
                                 @if (is_null(old('employment_insurance_3')))
@@ -614,7 +614,7 @@
 
                         <th colspan="1">社会保険加入③</th>
                         <td colspan="4">
-                            <select type="text" class="form-control" name="social_insurance_3">
+                            <select type="text" class="select form-select" name="social_insurance_3">
                             <option value="">社会保険の有無を選んで下さい</option>
                             @foreach( config('options.existence') as $key => $social_insurance_3 )
                                 @if (is_null(old('social_insurance_3')))
@@ -638,7 +638,7 @@
 
                         <th colspan="1">支払単位③</th>
                         <td colspan="4">
-                            <select type="text" class="form-control" name="payment_unit_3">
+                            <select type="text" class="select form-select" name="payment_unit_3">
                             <option value="">支払単位を選んで下さい</option>
                             @foreach( config('options.salary_term') as $key => $payment_unit_3 )
                                 @if (is_null(old('payment_unit_3')))
@@ -662,7 +662,7 @@
 
                         <th colspan="1">交通費支払単位③</th>
                         <td colspan="4">
-                        <select type="text" class="form-control" name="carfare_payment_3">
+                        <select type="text" class="select form-select" name="carfare_payment_3">
                             <option value="">交通費支払単位を選んで下さい</option>
                             @foreach( config('options.payment_term') as $key => $carfare_payment_3 )
                                 @if (is_null(old('carfare_payment_3')))
@@ -695,7 +695,7 @@
                     <tr colspan="10">
                         <th colspan="1">予定期間</th>
                         <td colspan="4">
-                            <select type="text" class="form-control" name="scheduled_period">
+                            <select type="text" class="select form-select" name="scheduled_period">
                                 <option value="">予定期間を選んで下さい</option>
                                 @if (is_null(old('scheduled_period')))
                                     @foreach( config('options.scheduled_period') as $key => $scheduled_period )
@@ -949,7 +949,7 @@
                     <tr colspan="10">
                         <th colspan="1">車通勤<span class="text-danger">*</span></th>
                         <td colspan="4">
-                            <select type="text" class="form-control required" name="commuting_by_car" required>
+                            <select type="text" class="select form-select required" name="commuting_by_car" required>
                             <option value="">車通勤の可否を選んで下さい</option>
                             @foreach( config('options.permission') as $key => $commuting_by_car )
                                 @if (is_null(old('commuting_by_car')))
@@ -963,7 +963,7 @@
 
                         <th colspan="1">駐車場<span class="text-danger">*</span></th>
                         <td colspan="4">
-                            <select type="text" class="form-control required" name="parking" required>
+                            <select type="text" class="select form-select required" name="parking" required>
                             <option value="">駐車場の有無を選んで下さい</option>
                             @foreach( config('options.parking') as $key => $parking )
                                 @if (is_null(old('parking')))
@@ -993,7 +993,7 @@
                     <tr colspan="10">
                         <th colspan="1">資格要件</th>
                         <td colspan="4">
-                            <select type="text" class="form-control" name="qualification">
+                            <select type="text" class="select form-select" name="qualification">
                                 <option value="">資格要件を選んで下さい</option>
                                 @foreach( config('options.requirement') as $key => $qualification )
                                     @if (is_null(old('qualification')))
@@ -1018,7 +1018,7 @@
                     <tr colspan="10">
                         <th colspan="1">経験要件</th>
                         <td colspan="4">
-                            <select type="text" class="form-control" name="experience">
+                            <select type="text" class="select form-select" name="experience">
                                 <option value="">経験要件を選んで下さい</option>
                                 @foreach( config('options.requirement') as $key => $experience )
                                     @if (is_null(old('experience')))
@@ -1043,7 +1043,7 @@
                     <tr colspan="10">
                         <th colspan="1">性別要件</th>
                         <td colspan="4">
-                            <select type="text" class="form-control" name="sex">
+                            <select type="text" class="select form-select" name="sex">
                                 <option value="">性別要件を選んで下さい</option>
                                 @foreach( config('options.sex') as $key => $sex )
                                     @if (is_null(old('sex')))
@@ -1072,7 +1072,7 @@
                     <tr colspan="10">
                         <th colspan="1">屋内の受動喫煙対策の内容<span class="text-danger">*</span></th>
                         <td colspan="4">
-                            <select type="text" class="form-control required" name="counter_measures" required>
+                            <select type="text" class="select form-select required" name="counter_measures" required>
                                 <option value="">屋内の受動喫煙対策を選んで下さい</option>
                                 @foreach( config('options.counter_measures') as $key => $counter_measures )
                                     @if (is_null(old('counter_measures')))
@@ -1087,7 +1087,7 @@
                     <tr colspan="10">
                         <th colspan="1">制服支給の有無</th>
                         <td colspan="4">
-                            <select type="text" class="form-control" name="uniform_supply">
+                            <select type="text" class="select form-select" name="uniform_supply">
                                 <option value="">制服支給の有無を選んで下さい</option>
                                 @foreach( config('options.uniform_supply') as $key => $uniformSupply )
                                     @if (is_null(old('uniform_supply')))
@@ -1267,7 +1267,7 @@
                     <tr colspan="10">
                         <th colspan="1">作成ステータス<span class="text-danger">*</span></th>
                         <td colspan="4">
-                            <select id="statusInput" class="form-control required" name="status" required>
+                            <select id="statusInput" class="select form-select required" name="status" required>
                             <option value="">作成ステータスを選んで下さい</option>
                             @foreach( config('options.status_edit') as $key => $status )
                                 @if (is_null(old('status')))
@@ -1281,7 +1281,7 @@
                         <tr class="after-closed">
                             <th colspan="1">求人取り下げの理由</th>
                             <td  colspan="4">
-                                <select type="text" class="form-control" name="job_withdrawal">
+                                <select type="text" class="select form-select" name="job_withdrawal">
                                     <option value="">求人取り下げの理由を選んで下さい</option>
                                     @foreach( config('options.job_withdrawal') as $key => $job_withdrawal )
                                         @if (is_null(old('status')))
@@ -1308,7 +1308,7 @@
                 <tr>
                     <th>項目</th>
                     <td>
-                    <select type="text" class="form-control" name="item">
+                    <select type="text" class="select form-select" name="item">
                         <option value="">項目を選んで下さい</option>
                         @foreach( config('options.item') as $key => $item )
                         <option value="{{ $key }}">{{ $item }}</option>
