@@ -16,7 +16,7 @@
                         <tr>
                             <th>営業担当<span class="text-danger">*</span></th>
                             <td>
-                                <select type="text" class="form-control required" name="user_id" required>
+                                <select type="text" class="select form-select required" name="user_id" required>
                                     <option value="">営業担当を選んで下さい</option>
                                     @foreach( $users as $user )
                                         <option value="{{ $user->id }}" {{ $user->id == $customer->user->id ? 'selected' : '' }}> {{ $user->name }}</option>
@@ -27,7 +27,7 @@
                         <tr>
                             <th>取扱会社種別<span class="text-danger">*</span></th>
                             <td>
-                                <select type="text" class="form-control required" name="handling_type" required>
+                                <select type="text" class="select form-select required" name="handling_type" required>
                                     <option value="">取扱会社種別を選んで下さい</option>
                                     @foreach( config('options.handling_type') as $key => $handling_type )
                                     <option value="{{ $key }}" {{ $key == $customer->handling_type ? 'selected' : '' }}>{{ $handling_type }}</option>
@@ -38,7 +38,7 @@
                         <tr>
                             <th>取扱事業所名<span class="text-danger">*</span></th>
                             <td>
-                                <select type="text" class="form-control required" name="handling_office" required>
+                                <select type="text" class="select form-select required" name="handling_office" required>
                                     <option value="">取扱事業所名を選んで下さい</option>
                                     @foreach( config('options.handling_office') as $key => $handling_office )
                                     <option value="{{ $key }}" {{ $key == $customer->handling_office ? 'selected' : '' }}>{{ $handling_office }}</option>
@@ -49,7 +49,7 @@
                         <tr>
                             <th>法人形態<span class="text-danger">*</span></th>
                             <td>
-                                <select type="text" class="form-control required" name="corporate_type" required>
+                                <select type="text" class="select form-select required" name="corporate_type" required>
                                     <option value="">法人形態を選んで下さい</option>
                                     @foreach( config('options.corporate_type') as $key => $corporate_type )
                                     <option value="{{ $key }}" {{ $key == $customer->corporate_type ? 'selected' : '' }}>{{ $corporate_type }}</option>
@@ -72,7 +72,7 @@
                         <tr>
                             <th>業種<span class="text-danger">*</span></th>
                             <td>
-                                <select type="text" class="form-control required" name="industry" required>
+                                <select type="text" class="select form-select required" name="industry" required>
                                     <option value="">業種を選んで下さい</option>
                                     @foreach( config('options.industry') as $key => $industry )
                                     <option value="{{ $key }}" {{ $key == $customer->industry ? 'selected' : '' }}>{{ $industry }}</option>
@@ -83,7 +83,7 @@
                         <tr>
                             <th>会社規模<span class="text-danger">*</span></th>
                             <td>
-                                <select type="text" class="form-control " name="company_size" >
+                                <select type="text" class="select form-select" name="company_size" >
                                     <option value="">会社規模を選んで下さい</option>
                                     @foreach( config('options.company_size') as $key => $company_size )
                                     <option value="{{ $key }}" {{ $key == $customer->company_size ? 'selected' : '' }}>{{ $company_size }}</option>
@@ -94,7 +94,7 @@
                         <tr>
                             <th>事業展開地域<span class="text-danger">*</span></th>
                             <td>
-                                <select type="text" class="form-control " name="business_development_area" >
+                                <select type="text" class="select form-select" name="business_development_area" >
                                     <option value="">事業展開地域を選んで下さい</option>
                                     @foreach( config('options.business_development_area') as $key => $business_development_area )
                                     <option value="{{ $key }}" {{ $key == $customer->business_development_area ? 'selected' : '' }}>{{ $business_development_area }}</option>
@@ -105,7 +105,7 @@
                         <tr>
                             <th>取引拡大可能性<span class="text-danger">*</span></th>
                             <td>
-                                <select type="text" class="form-control" name="business_expansion_potential" >
+                                <select type="text" class="select form-select" name="business_expansion_potential" >
                                     <option value="">取引拡大可能性を選んで下さい</option>
                                     @foreach( config('options.business_expansion_potential') as $key => $business_expansion_potential )
                                     <option value="{{ $key }}" {{ $key == $customer->business_expansion_potential ? 'selected' : '' }}>{{ $business_expansion_potential }}</option>
@@ -116,7 +116,7 @@
                         <tr>
                             <th>社歴<span class="text-danger">*</span></th>
                             <td>
-                                <select type="text" class="form-control" name="company_history" >
+                                <select type="text" class="select form-select" name="company_history" >
                                     <option value="">社歴を選んで下さい</option>
                                     @foreach( config('options.company_history') as $key => $company_history )
                                     <option value="{{ $key }}" {{ $key == $customer->company_history ? 'selected' : '' }}>{{ $company_history }}</option>
@@ -127,7 +127,7 @@
                         <tr>
                             <th>信頼性<span class="text-danger">*</span></th>
                             <td>
-                                <select type="text" class="form-control" name="reliability" >
+                                <select type="text" class="select form-select" name="reliability" >
                                     <option value="">信頼性を選んで下さい</option>
                                     @foreach( config('options.reliability') as $key => $reliability )
                                     <option value="{{ $key }}" {{ $key == $customer->reliability ? 'selected' : '' }}>{{ $reliability }}</option>
