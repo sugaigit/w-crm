@@ -247,21 +247,15 @@ $(document).ready(function() {
     language: "ja",
     theme: "bootstrap-5",
     containerCssClass: "bg-danger bg-opacity-25"
-    // placeholder: $( this ).data( 'placeholder' ),
-    // dropdownCssClass: 'form-control',
-    // width: "100%",
-    // padding: "0.375rem 0.75rem",
-    // font-size: "0.9rem",
-    // font-weight: 400,
-    // line-height: 1.6,
-    // color: "#212529",
-    // background-color: "#f8fafc",
-    // background-clip: "padding-box",
-    // border: "1px solid #ced4da",
-    // -webkit-appearance: "none",
-    // -moz-appearance: "none",
-    // appearance: "none",
-    // border-radius: "0.25rem",
-    // transition: border-color "0.15s"
   });
+
+  /******************************************
+   * 人材紹介/紹介予定の場合、請求情報と支払い情報を非表示にする
+  ******************************************/
+  $('select[name="type_contract"]').on('change', function () {
+    let isJinzaiShokai = $(this).val() == 3;
+    $('.only-not-introduced').css("display", isJinzaiShokai ? "none" : "");
+    $('input[name="invoice_unit_price_1"], select[name="billing_unit_1"], input[name="profit_rate_1"], select[name="employment_insurance"], select[name="social_insurance"], input[name="payment_unit_price_1"], select[name="payment_unit_1"]').prop("required", !isJinzaiShokai);
+  }).trigger('change'); // 初期化時にもトリガーする
+  
 });
