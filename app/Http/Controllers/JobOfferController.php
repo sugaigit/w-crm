@@ -168,7 +168,7 @@ class JobOfferController extends Controller
             $isDuplicated = true;
             $request['send_slack_message'] = 'off';
         }
-        $request->validate([
+        $validationRules = [
             'user_id' => ['required'],
             'handling_type' => ['required'],
             'handling_office'=> ['required'],
@@ -199,8 +199,21 @@ class JobOfferController extends Controller
             'transaction_duration' => ['required'],
             'expected_sales' => ['required'],
             'profit_rate' => ['required'],
-            'special_matters' => ['required'],
-        ]);
+            'special_matters' => ['required']
+        ];
+        // 契約形態が人材紹介の場合
+        if ($request->input('type_contract') == 3) {
+            // 請求情報の必須を外す
+            unset($validationRules['invoice_unit_price_1']);
+            unset($validationRules['billing_unit_1']);
+            unset($validationRules['profit_rate_1']);
+            // 支払い情報の必須を外す
+            unset($validationRules['employment_insurance']);
+            unset($validationRules['social_insurance']);
+            unset($validationRules['payment_unit_price_1']);
+            unset($validationRules['payment_unit_1']);
+        }
+        $request->validate($validationRules);
 
         $saveData = $request->all();
         $saveData['holiday'] = json_encode($saveData['holiday']);
@@ -369,11 +382,11 @@ class JobOfferController extends Controller
             DraftJobOffer::destroy($request->draftJobOfferId);
             return $this->store($request);
         } else {
-            $request->validate([
+            $validationRules = [
                 'user_id' => ['required'],
                 'handling_type' => ['required'],
                 'handling_office'=> ['required'],
-                'customer_id'=> ['required'],
+                'customer_id'=> ['required', 'exists:customers,id'],
                 'type_contract'=> ['required'],
                 'recruitment_number'=> ['required'],
                 'company_name'=> ['required'],
@@ -400,8 +413,21 @@ class JobOfferController extends Controller
                 'transaction_duration' => ['required'],
                 'expected_sales' => ['required'],
                 'profit_rate' => ['required'],
-                'special_matters' => ['required'],
-            ]);
+                'special_matters' => ['required']
+            ];
+            // 契約形態が人材紹介の場合
+            if ($request->input('type_contract') == 3) {
+                // 請求情報の必須を外す
+                unset($validationRules['invoice_unit_price_1']);
+                unset($validationRules['billing_unit_1']);
+                unset($validationRules['profit_rate_1']);
+                // 支払い情報の必須を外す
+                unset($validationRules['employment_insurance']);
+                unset($validationRules['social_insurance']);
+                unset($validationRules['payment_unit_price_1']);
+                unset($validationRules['payment_unit_1']);
+            }
+            $request->validate($validationRules);
 
             // 求人情報の更新処理
             $jobOffer = JobOffer::find($request->jobOfferId);
