@@ -105,7 +105,7 @@
                     <tr colspan="10">
                         <th colspan="1">契約形態<span class="text-danger">*</span></th>
                         <td colspan="4">
-                            <select style="pointer-events: none;" tabindex="-1" type="text" class="form-control required" name="type_contract" required>
+                            <select style="pointer-events: none;" tabindex="-1" class="form-control required" name="type_contract" required>
                             <option value="">契約形態を選んで下さい</option>
                             @foreach( config('options.type_contract') as $key => $type_contract )
                                 @if (is_null(old('type_contract')))
@@ -261,9 +261,9 @@
                     </tr>
                 </tbody>
             </table>
-            <table class="table" style="width: 100%; table-layout: fixed;">
+            <table class="table only-not-introduced" style="width: 100%; table-layout: fixed;">
                 <tbody>
-                    <div class="card-header">▼請求情報</div>
+                    <div class="card-header only-not-introduced">▼請求情報</div>
                         <tr colspan="10">
                             <th colspan="1">請求単価①<span class="text-danger">*</span></th>
                             <td colspan="4">
@@ -402,9 +402,9 @@
                         </tr>
                     </tbody>
                 </table>
-                <table class="table" style="width: 100%; table-layout: fixed;">
+                <table class="table only-not-introduced" style="width: 100%; table-layout: fixed;">
                     <tbody>
-                        <div class="card-header">▼支払情報</div>
+                        <div class="card-header only-not-introduced">▼支払情報</div>
                         <tr colspan="10">
                             <th colspan="1">雇用保険加入<span class="text-danger">*</span></th>
                             <td colspan="4">
