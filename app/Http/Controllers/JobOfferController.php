@@ -202,7 +202,7 @@ class JobOfferController extends Controller
             'special_matters' => ['required']
         ];
         // 契約形態が人材紹介の場合
-        if ($request->input('type_contract') == 3) {
+        if ($request->input('type_contract') == 3 || 5 ) {
             // 請求情報の必須を外す
             unset($validationRules['invoice_unit_price_1']);
             unset($validationRules['billing_unit_1']);
@@ -416,7 +416,7 @@ class JobOfferController extends Controller
                 'special_matters' => ['required']
             ];
             // 契約形態が人材紹介の場合
-            if ($request->input('type_contract') == 3) {
+            if ($request->input('type_contract') == 3 || 5) {
                 // 請求情報の必須を外す
                 unset($validationRules['invoice_unit_price_1']);
                 unset($validationRules['billing_unit_1']);
