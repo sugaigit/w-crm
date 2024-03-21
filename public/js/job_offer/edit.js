@@ -3,7 +3,7 @@ $(document).ready(function() {
    * 人材紹介/紹介予定の場合、請求情報と支払い情報を非表示にする
   ******************************************/
   $('select[name="type_contract"]').on('change', function () {
-    let isJinzaiShokai = $(this).val() == 3;
+    let isJinzaiShokai = $(this).val() == 3 || $(this).val() == 5;
     console.log(isJinzaiShokai);
     $('.only-not-introduced').css("display", isJinzaiShokai ? "none" : "");
     $('input[name="invoice_unit_price_1"], select[name="billing_unit_1"], input[name="profit_rate_1"], select[name="employment_insurance"], select[name="social_insurance"], input[name="payment_unit_price_1"], select[name="payment_unit_1"]').prop("required", !isJinzaiShokai);
