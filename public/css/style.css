@@ -48,23 +48,16 @@ a.btn_02:hover {
 	background: #fff;
 }
 
-/* #select2-inputCustomerId-container{
-	width: "100%";
-	padding: 0.375rem 0.75rem;
-	font-size: 0.9rem;
-	font-weight: 400;
-	line-height: 1.6;
-	color: #212529;
-	background-color: #f8fafc;
-	background-clip: padding-box;
-	border: 1px solid #ced4da;
-	-webkit-appearance: none;
-	-moz-appearance: none;
-	appearance: none;
-	border-radius: 0.25rem;
-	transition: border-color 0.15s;
-} */
+select.form-select, .select2-container--bootstrap-5 .select2-selection--single {
+  font-family: 'Material Icons', sans-serif;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23000000' stroke='%23000000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right center;
+  padding-right: 1.5em; /* アイコンの右側に余白を追加 */
+}
 
-/* .select2-selection--single{
-	display: none;
-} */
+select.form-select,
+.select2-container--bootstrap-5.select2-container--open.select2-container--below .select2-selection,
+.select2-container--bootstrap-5 .select2-selection--single {
+	padding-left: 10px;
+}
