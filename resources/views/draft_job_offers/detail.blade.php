@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('css')
+    <link href="{{ asset('css/table.css') }}" rel="stylesheet">
+@endsection
 @section('content')
 @if ($differentUserAlert)
     <div class="alert alert-danger d-flex justify-content-center">
