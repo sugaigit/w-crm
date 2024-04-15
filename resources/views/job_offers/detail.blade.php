@@ -1,6 +1,8 @@
 @extends('layouts.app')
+@section('css')
+    <link href="{{ asset('css/table.css') }}" rel="stylesheet">
+@endsection
 @section('content')
-
 <div class="container">
   <div class="col-md-12">
     <form action="{{ route('job_offers.update', $jobOffer->id) }}" method="POST">
