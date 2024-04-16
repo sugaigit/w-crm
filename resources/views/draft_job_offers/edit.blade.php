@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('css')
+    <link href="{{ asset('css/table.css') }}" rel="stylesheet">
+@endsection
 @section('content')
 @if ($differentUserAlert)
     <div class="alert alert-danger d-flex justify-content-center">
@@ -78,7 +81,7 @@
                     <tr colspan="10">
                         <th colspan="1">顧客名<span class="text-danger">*</span></th>
                         <td colspan="4">
-                            <select id="customerId" class="select2 form-select required" name="customer_id" required>
+                            <select id="customerId" class="select form-select required" name="customer_id" required>
                                 <option value="">顧客を選択もしくは入力してください</option>
                                 @foreach( $customers as $customer )
                                     @if (is_null(old('customer_id')))

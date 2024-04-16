@@ -48,16 +48,15 @@ a.btn_02:hover {
 	background: #fff;
 }
 
-select.form-select, .select2-container--bootstrap-5 .select2-selection--single {
-  font-family: 'Material Icons', sans-serif;
+select.form-select {
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23000000' stroke='%23000000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
-  background-repeat: no-repeat;
-  background-position: right center;
-  padding-right: 1.5em; /* アイコンの右側に余白を追加 */
+	font-size: 12px;
 }
 
-select.form-select,
-.select2-container--bootstrap-5.select2-container--open.select2-container--below .select2-selection,
-.select2-container--bootstrap-5 .select2-selection--single {
-	padding-left: 10px;
-}
+/* .table th, .table td {
+	font-size: 12px;
+} */
+/* .select2-container .select2-selection--single .select2-selection__rendered,
+.select2-container .select2-selection--multiple .select2-selection__rendered {
+    font-size: 12px;
+} */
