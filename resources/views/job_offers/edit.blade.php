@@ -982,9 +982,9 @@
                         <th colspan="1">交通通勤備考</th>
                         <td colspan="9">
                             @if (is_null(old('traffic_commuting_remarks')))
-                            <input  type="text" class="form-control" name="traffic_commuting_remarks" value="{{ isset($jobOffer->traffic_commuting_remarks) ? $jobOffer->traffic_commuting_remarks : '' }}">
+                            <textarea type="textarea" rows="5" class="form-control" name="traffic_commuting_remarks"> {{ isset($jobOffer->traffic_commuting_remarks) ? $jobOffer->traffic_commuting_remarks : '' }}</textarea>
                             @else
-                            <input  type="text" class="form-control" name="traffic_commuting_remarks" value="{{ old('traffic_commuting_remarks') }}">
+                            <textarea type="textarea" rows="5" class="form-control" name="traffic_commuting_remarks"> {{ old('traffic_commuting_remarks') }}</textarea>
                             @endif
                         </td>
                     </tr>
