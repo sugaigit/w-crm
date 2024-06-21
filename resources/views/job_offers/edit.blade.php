@@ -20,7 +20,7 @@
         <input class="btn btn-secondary mb-2 me-3" type="button" value="印刷" onclick="window.print();" />
         @if(!$isDraftJobOffer)
         {{-- <input class="btn btn-success mb-2" type="submit" value="複製" onclick="duplicate()" /> --}}
-        <input class="btn btn-success mb-2 me-3" type="submit" name="duplicate" value="複製">
+        <input class="btn btn-success mb-2 me-3" type="button" name="duplicate" value="複製">
         @else
         <input type="hidden" name="draftJobOfferId" value="{{ $jobOffer->id }}">
         @endif
