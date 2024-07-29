@@ -11,6 +11,9 @@
 <div class="container">
   <div class="col-md-12">
     <form action="{{ route('job_offers.update', $jobOffer->id) }}" method="POST">
+        <div class="d-flex justify-content-center mt-4 mb-1">
+            <button hidden type="submit" onclick="submit()"></button>
+        </div>
         @if (!$jobOffer->is_duplicated)
             {{-- @method('PUT') --}}
         @endif
@@ -20,7 +23,7 @@
         <input class="btn btn-secondary mb-2 me-3" type="button" value="印刷" onclick="window.print();" />
         @if(!$isDraftJobOffer)
         {{-- <input class="btn btn-success mb-2" type="submit" value="複製" onclick="duplicate()" /> --}}
-        <input class="btn btn-success mb-2 me-3" type="button" name="duplicate" value="複製">
+        <input class="btn btn-success mb-2 me-3" type="submit" name="duplicate" id="duplicate" value="複製">
         @else
         <input type="hidden" name="draftJobOfferId" value="{{ $jobOffer->id }}">
         @endif
