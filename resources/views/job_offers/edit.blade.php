@@ -26,7 +26,7 @@
         <input class="btn btn-success mb-2 me-3" type="submit" name="duplicate" id="duplicate" value="複製">
         @else
         <input type="hidden" name="draftJobOfferId" value="{{ $jobOffer->id }}">
-        @endifs
+        @endif
         <div class="card mb-4">
             <div class="card-header">
                 ▼派遣先/紹介先情報
