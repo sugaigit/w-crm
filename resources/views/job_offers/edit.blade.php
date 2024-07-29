@@ -3,6 +3,17 @@
     <link href="{{ asset('css/table.css') }}" rel="stylesheet">
 @endsection
 @section('content')
+<script>
+    $(function(){
+        $("input").on("keydown", function(e) {
+            if ((e.which && e.which === 13) || (e.keyCode && e.keyCode === 13)) {
+                return false;
+            } else {
+                return true;
+            }
+        });
+    });
+</script>
 @if ($differentUserAlert)
     <div class="alert alert-danger d-flex justify-content-center">
         {{ session('AlertMsg') }}
@@ -11,6 +22,9 @@
 <div class="container">
   <div class="col-md-12">
     <form action="{{ route('job_offers.update', $jobOffer->id) }}" method="POST">
+        <div class="d-flex justify-content-center mt-4 mb-1">
+            <button hidden type="submit" onclick="submit()"></button>
+        </div>
         @if (!$jobOffer->is_duplicated)
             {{-- @method('PUT') --}}
         @endif
@@ -20,7 +34,7 @@
         <input class="btn btn-secondary mb-2 me-3" type="button" value="印刷" onclick="window.print();" />
         @if(!$isDraftJobOffer)
         {{-- <input class="btn btn-success mb-2" type="submit" value="複製" onclick="duplicate()" /> --}}
-        <input class="btn btn-success mb-2 me-3" type="button" name="duplicate" value="複製">
+        <input class="btn btn-success mb-2 me-3" type="submit" name="duplicate" id="duplicate" value="複製">
         @else
         <input type="hidden" name="draftJobOfferId" value="{{ $jobOffer->id }}">
         @endif
@@ -1329,7 +1343,7 @@
             @endif
 
             <div class="d-flex justify-content-center mt-4 mb-1">
-                <button class="btn btn-primary" type="submit">登録</button>
+                <button class="btn btn-primary" type="submit" onclick="submit()">登録</button>
             </div>
             <div class="align-self-center mb-3">
                 <input type="checkbox" id="send_slack_message" name="send_slack_message" checked>
