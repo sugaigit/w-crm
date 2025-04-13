@@ -43,7 +43,7 @@ class JobOfferController extends Controller
             return $query->where('company_name', 'like' , "%{$companyName}%");
         })
         ->when($request->jobNumber, function ($query, $jobNumber) {
-            return $query->where('job_number', $jobNumber);
+            return $query->where('job_number', 'like',  "%{$jobNumber}%");
         })
         ->when($request->status, function ($query, $status) {
             return $query->whereIn('status', $status);
