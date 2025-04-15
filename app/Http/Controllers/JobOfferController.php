@@ -65,7 +65,6 @@ class JobOfferController extends Controller
                         ->orWhere('company_address', 'LIKE', "%{$keyword}%")
                         ->orWhere('ordering_business', 'LIKE', "%{$keyword}%")
                         ->orWhere('order_details', 'LIKE', "%{$keyword}%")
-                        ->orWhere('scheduled_period', 'LIKE', "%{$keyword}%")
                         ->orWhere('holiday', 'LIKE', "%{$keyword}%")
                         ->orWhere('long_vacation', 'LIKE', "%{$keyword}%")
                         ->orWhere('scheduled_period', 'LIKE', "%{$keyword}%");
@@ -121,7 +120,6 @@ class JobOfferController extends Controller
                         ->orWhere('company_address', 'LIKE', "%{$keyword}%")
                         ->orWhere('ordering_business', 'LIKE', "%{$keyword}%")
                         ->orWhere('order_details', 'LIKE', "%{$keyword}%")
-                        ->orWhere('scheduled_period', 'LIKE', "%{$keyword}%")
                         ->orWhere('holiday', 'LIKE', "%{$keyword}%")
                         ->orWhere('long_vacation', 'LIKE', "%{$keyword}%")
                         ->orWhere('scheduled_period', 'LIKE', "%{$keyword}%");
@@ -277,6 +275,7 @@ class JobOfferController extends Controller
             $handlingType = config('options.handling_type')[$newJobOffer->handling_type];
             $handlingOffice = config('options.handling_office')[$newJobOffer->handling_office];
             $typeContract = config('options.type_contract')[$newJobOffer->type_contract];
+            $scheduledPeriod = config('options.scheduled_period')[$request->input('scheduled_period')];
 
             $client = new Client();
 
@@ -288,7 +287,7 @@ class JobOfferController extends Controller
 営業担当：{$newJobOffer->user->name}
 就業先名称と発注業務：{$request->input('company_name')}/{$request->input('ordering_business')}
 募集人数：{$request->input('recruitment_number')}人
-予定期間：{$request->input('scheduled_period')}
+予定期間：{$scheduledPeriod}
 契約形態：{$typeContract}
 求人ランク：{$rank}（{$jobOfferRankPoint}点)
 詳細：{$path}
@@ -302,7 +301,7 @@ class JobOfferController extends Controller
 お仕事番号：{$request->input('job_number')}
 就業先名称と発注業務：{$request->input('company_name')}/{$request->input('ordering_business')}
 募集人数：{$request->input('recruitment_number')}人
-予定期間：{$request->input('scheduled_period')}
+予定期間：{$scheduledPeriod}
 求人ランク：{$rank}（{$jobOfferRankPoint}点)
 詳細：{$path}
                 ";
@@ -616,6 +615,8 @@ class JobOfferController extends Controller
                 $handlingOffice = config('options.handling_office')[$request->input('handling_office')];
                 $typeContract = config('options.type_contract')[$request->input('type_contract')];
                 $jobwithDrawal = $request->input('job_withdrawal') ? config('options.job_withdrawal')[$request->input('job_withdrawal')] : "未記入";
+                $scheduledPeriod = config('options.scheduled_period')[$request->input('scheduled_period')];
+
                 $client = new Client();
 
                 if($status == '新規作成'){
@@ -626,7 +627,7 @@ class JobOfferController extends Controller
 営業担当：{$jobOffer->user->name}
 就業先名称と発注業務：{$request->input('company_name')}/{$request->input('ordering_business')}
 募集人数：{$request->input('recruitment_number')}人
-予定期間：{$request->input('scheduled_period')}
+予定期間：{$scheduledPeriod}
 契約形態：{$typeContract}
 求人ランク：{$rank}（{$jobOfferRankPoint}点)
 詳細：{$path}
@@ -640,7 +641,7 @@ class JobOfferController extends Controller
 お仕事番号：{$request->input('job_number')}
 就業先名称と発注業務：{$request->input('company_name')}/{$request->input('ordering_business')}
 募集人数：{$request->input('recruitment_number')}人
-予定期間：{$request->input('scheduled_period')}
+予定期間：{$scheduledPeriod}
 契約形態：{$typeContract}
 求人ランク：{$rank}（{$jobOfferRankPoint}点)
 詳細：{$path}
