@@ -11,7 +11,6 @@ $(document).ready(function() {
   ******************************************/
   $('select[name="type_contract"]').on('change', function () {
     let isJinzaiShokai = $(this).val() == 3 || $(this).val() == 5;
-    console.log(isJinzaiShokai);
     $('.only-not-introduced').css("display", isJinzaiShokai ? "none" : "");
     $('input[name="invoice_unit_price_1"], select[name="billing_unit_1"], input[name="profit_rate_1"], select[name="employment_insurance"], select[name="social_insurance"], input[name="payment_unit_price_1"], select[name="payment_unit_1"]').prop("required", !isJinzaiShokai);
   }).trigger('change'); // 初期化時にもトリガーする
@@ -47,7 +46,7 @@ $(document).ready(function() {
     /******************************************
    * 顧客名のセレクト要素に検索機能を付与して日本語化
    ******************************************/
-    $('#select-field').select2({
+    $('#customerId').select2({
       language: "ja",
       dropdownCssClass: 'form-control'
     });
@@ -274,22 +273,6 @@ $(document).ready(function() {
   });
 
   /******************************************
-   * 人材紹介/紹介予定 採用ご条件の表示切替
-  ******************************************/
-  if ($('.conditions').val().length) {
-      $('.conditions').removeClass('bg-info bg-opacity-25');
-  } else {
-      $('.conditions').addClass('bg-info bg-opacity-25');
-  }
-  $('.conditions').on('change', function () {
-      if ($(this).val().length) {
-          $(this).removeClass('bg-info bg-opacity-25');
-      } else {
-          $(this).addClass('bg-info bg-opacity-25');
-      }
-  });
-
-  /******************************************
    * 削除アラート
    ******************************************/
   $('#delete').on('click', function () {
@@ -303,13 +286,5 @@ $(document).ready(function() {
         return false;
     }
   });
-
-  click(function(){
-    if(!confirm('本当に削除しますか？')){
-        /* キャンセルの時の処理 */
-        return false;
-    }
-  });
-
 
 });
