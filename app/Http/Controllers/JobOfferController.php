@@ -275,7 +275,7 @@ class JobOfferController extends Controller
             $handlingType = config('options.handling_type')[$newJobOffer->handling_type];
             $handlingOffice = config('options.handling_office')[$newJobOffer->handling_office];
             $typeContract = config('options.type_contract')[$newJobOffer->type_contract];
-            $scheduledPeriod = config('options.scheduled_period')[$request->input('scheduled_period')];
+            $scheduledPeriod = $request->input('scheduled_period') ? config('options.scheduled_period')[$request->input('scheduled_period')] : "未記入";
 
             $client = new Client();
 
@@ -615,7 +615,7 @@ class JobOfferController extends Controller
                 $handlingOffice = config('options.handling_office')[$request->input('handling_office')];
                 $typeContract = config('options.type_contract')[$request->input('type_contract')];
                 $jobwithDrawal = $request->input('job_withdrawal') ? config('options.job_withdrawal')[$request->input('job_withdrawal')] : "未記入";
-                $scheduledPeriod = config('options.scheduled_period')[$request->input('scheduled_period')];
+                $scheduledPeriod = $request->input('scheduled_period') ? config('options.scheduled_period')[$request->input('scheduled_period')] : "未記入";
 
                 $client = new Client();
 
